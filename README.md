@@ -29,9 +29,17 @@ You only need to add instructions for the OS you are using.
 ## Style Guide
 We will be PEP8 Style Guide for Python. You can find the style guide here: https://www.python.org/dev/peps/pep-0008/
 This can be done by using a command run using autopep8. You can install autopep8 using pip.
-''' pip install autopep8 '''
+
+```` 
+pip install autopep8 
+````
+
 Then you can run the command:
-''' autopep8 --in-place --aggressive --aggressive <filename> '''
+
+```` 
+autopep8 --in-place --aggressive --aggressive <filename> 
+````
+
 ** Full guide below
 
 ## Setup
@@ -77,7 +85,7 @@ Explain how to run the automated tests.
 Your names and emails
 
 # AutoPep8
-'''
+````
 usage: autopep8 [-h] [--version] [-v] [-d] [-i] [--global-config filename]
                 [--ignore-local-config] [-r] [-j n] [-p n] [-a]
                 [--experimental] [--exclude globs] [--list-fixes]
@@ -131,4 +139,4 @@ optional arguments:
                         return value, 0 is no differences, 1 is error exit.
                         return 2 when add this option. 2 is exists
                         differences.
-'''
+````
