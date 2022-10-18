@@ -57,14 +57,21 @@ database for running your webapp locally.
 Specify the commands for a developer to run the app from the cloned repo.
 
 # Deployment
+Code will be built using the following command utilizing PyInstaller to make a single file executable app
 
-Webapps need a deployment section that explains how to get it deployed on the 
-Internet. These should be detailed enough so anyone can re-deploy if needed
-. Note that you **do not put passwords in git**. 
+Navigate to source code directory
+````
+cd <path to source code> 
+````
+````
+pyinstaller --onefile --windowed --icon=icon.ico --name=DuckInSpace main.py 
+````
 
-Mobile apps will also sometimes need some instructions on how to build a
-"release" version, maybe how to sign it, and how to run that binary in an
-emulator or in a physical phone.
+To install PyInstaller use the following command:
+````
+pip install pyinstaller
+````
+
 
 # Testing
 
@@ -85,7 +92,12 @@ Explain how to run the automated tests.
 
 # Authors
 
-Your names and emails
+Bradley Grose (bgrose@email.sc.edu) (@bgrose) <br>
+David Keen (ddkeen@email.sc.edu) (@ddkeen) <br>
+Colin Anderson (colinsa@email.sc.edu) (@cSwiggitySwooty) <br>
+Owen Bond (obond@email.sc.edu) (@OTBond) <br>
+Xzavian Slaughter (xzavian@email.sc.edu) (@xslau) <br>
+
 
 # AutoPep8
 ````
