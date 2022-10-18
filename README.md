@@ -1,8 +1,18 @@
 
-# Project Name
+# Ducks in Space
 
-This first paragraph should be a short description of the app. You can add links
-to your wiki pages that have more detailed descriptions.
+Ducks in Space is a desktop application featuring an arcade style video game with modern design features. The game will have high replay value by providing an enjoyable and quick gameplay expereince that is unique each time. 
+
+## Wiki Pages
+[Team Organization](https://github.com/SCCapstone/RubberDuck/wiki/Team-Organization) <br>
+[Project Description](https://github.com/SCCapstone/RubberDuck/wiki/Project-Description)
+[Persona 1 - Timmy Fields](https://github.com/SCCapstone/RubberDuck/wiki/Persona-1---Timmy-Fields) <br>
+[Persona 2 - Janet Booth](https://github.com/SCCapstone/RubberDuck/wiki/Persona-2---Janet-Booth) <br>
+[Persona 3 - Jay (Fish) Carter](https://github.com/SCCapstone/RubberDuck/wiki/Persona-3-Jay-%22Fish%22-Carter) <br>
+[User Stories](https://github.com/SCCapstone/RubberDuck/wiki/User-Stories) <br>
+[Design](https://github.com/SCCapstone/RubberDuck/wiki/Design)<br>
+[Requirements](https://github.com/SCCapstone/RubberDuck/wiki/Requirements)<br>
+[Architecture](https://github.com/SCCapstone/RubberDuck/wiki/Architecture)
 
 Your audience for the Readme.md are other developers who are joining your team.
 Specifically, the file should contain detailed instructions that any developer
