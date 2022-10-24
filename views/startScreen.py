@@ -1,7 +1,7 @@
 import pygame
 import viewInterface
 
-image = pygame.image.load("baseBG.jpeg")
+image = pygame.image.load("../assets/backgrounds/main.jpg")
 class startScreen():
 
     def __init__(self, image):
