@@ -11,7 +11,7 @@ class startScreen():
     def getImage():
 
         return image
-'
+    
     def setImage(xImage):
 
         image = xImage
