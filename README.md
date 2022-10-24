@@ -14,6 +14,11 @@ Ducks in Space is a desktop application featuring an arcade style video game wit
 [Requirements](https://github.com/SCCapstone/RubberDuck/wiki/Requirements)<br>
 [Architecture](https://github.com/SCCapstone/RubberDuck/wiki/Architecture)
 
+## Ethical, Legal, and Security Considerations
+[Ethical Issues](https://github.com/SCCapstone/RubberDuck/wiki/Ethical-Issues) <br>
+[Legal Issues](https://github.com/SCCapstone/RubberDuck/wiki/Legal-Issues) <br>
+[Security Issues](https://github.com/SCCapstone/RubberDuck/wiki/Security-Issues) <br>
+
 ## External Requirements
 
 Using Python 3.6.5, Pygame 1.9.3, and Pyinstaller 3.3.1
