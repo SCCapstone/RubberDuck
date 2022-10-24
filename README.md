@@ -16,18 +16,28 @@ Ducks in Space is a desktop application featuring an arcade style video game wit
 
 ## External Requirements
 
-List all the stuff the reader will need to install in order to get you app to 
-run in their laptop. For example:
+Using Python 3.6.5, Pygame 1.9.3, and Pyinstaller 3.3.1
+Install Python 3.6.5 from https://www.python.org/downloads/release/python-365/ <br>
+Install Pygame using
+```
+pip install pygame
+```
+Install Pyinstaller using
+```
+pip install pyinstaller
+```
 
-In order to build this project you first have to install:
+Other Packages used (most likely already installed with Python 3.6.5):
 
-* [Node.js](https://nodejs.org/en/)
-* [MongoDB](https://www.mongodb.com/)
+* os `pip install os`
+* sys `pip install sys`
+* random `pip install random`
+* math `pip install math`
+* time `pip install time`
+* pygame_menu `pip install pygame_menu`
+* datetime `pip install datetime`
+* json `pip install json`
 
-If possible, list the actual commands you used to install these, so the reader
-can just cut-n-paste the commands and get everything setup.
-
-You only need to add instructions for the OS you are using.
 
 ## Style Guide
 We will be PEP8 Style Guide for Python. You can find the style guide here: https://www.python.org/dev/peps/pep-0008/
@@ -45,16 +55,13 @@ autopep8 --in-place --aggressive --aggressive <filename>
 
 ** Full guide below
 
-## Setup
-
-Here you list all the one-time things the developer needs to do after cloning
-your repo. Sometimes there is no need for this section, but some apps require
-some first-time configuration from the developer, for example: setting up a
-database for running your webapp locally.
-
 ## Running
 
-Specify the commands for a developer to run the app from the cloned repo.
+To run the code without deploying, from a termianl simply run:
+
+````
+python3 main.py
+````
 
 # Deployment
 Code will be built using the following command utilizing PyInstaller to make a single file executable app
@@ -75,6 +82,8 @@ pip install pyinstaller
 
 # Testing
 
+***TO BE DONE LATER***
+
 In 492 you will write automated tests. When you do you will need to add a 
 section that explains how to run them.
 
@@ -84,9 +93,13 @@ The behavioral tests are in `/test/casper/`.
 
 ## Testing Technology
 
+***TO BE DONE LATER***
+
 In some cases you need to install test runners, etc. Explain how.
 
 ## Running Tests
+
+***TO BE DONE LATER***
 
 Explain how to run the automated tests.
 
