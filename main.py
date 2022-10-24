@@ -9,6 +9,7 @@ pygame.display.update()
 def main():
     # Keep the game open until the user closes it
     while True:
+        pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
