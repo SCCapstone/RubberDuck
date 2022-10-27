@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 pygame = "*"
 pygame-menu = "*"
+autopep8 = "*"
 
 [dev-packages]
 

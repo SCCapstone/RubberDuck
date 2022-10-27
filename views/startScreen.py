@@ -2,6 +2,8 @@ import pygame
 import viewInterface
 
 image = pygame.image.load("../assets/backgrounds/main.jpg")
+
+
 class startScreen():
 
     def __init__(self, image):
@@ -11,12 +13,11 @@ class startScreen():
     def getImage():
 
         return image
-    
+
     def setImage(xImage):
 
         image = xImage
 
-    def showScreen(): 
+    def showScreen():
 
         pygame.display.update()
-

@@ -1,5 +1,6 @@
 import pygame
 
+
 class View():
 
     def __init__(self, image):
@@ -14,7 +15,6 @@ class View():
 
         image = xImage
 
-    def showScreen(): 
+    def showScreen():
 
         pygame.display.update()
-
