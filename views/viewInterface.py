@@ -9,7 +9,7 @@ class View():
     def getImage():
 
         return image
-'
+
     def setImage(xImage):
 
         image = xImage
