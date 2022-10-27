@@ -52,11 +52,18 @@ This can be done by using a command run using autopep8. You can install autopep8
 pip install autopep8 
 ````
 
-Then you can run the command:
+Then you can run the command for individual files:
 
 ```` 
 autopep8 --in-place --aggressive --aggressive <filename> 
 ````
+
+To run autopep8 on all files in a directory, you can use the following command to run batch script:
+
+````
+format.cmd
+````
+
 
 ** Full guide below
 
