@@ -5,7 +5,7 @@ Ducks in Space is a desktop application featuring an arcade style video game wit
 
 ## Wiki Pages
 [Team Organization](https://github.com/SCCapstone/RubberDuck/wiki/Team-Organization) <br>
-[Project Description](https://github.com/SCCapstone/RubberDuck/wiki/Project-Description)
+[Project Description](https://github.com/SCCapstone/RubberDuck/wiki/Project-Description)  <br>
 [Persona 1 - Timmy Fields](https://github.com/SCCapstone/RubberDuck/wiki/Persona-1---Timmy-Fields) <br>
 [Persona 2 - Janet Booth](https://github.com/SCCapstone/RubberDuck/wiki/Persona-2---Janet-Booth) <br>
 [Persona 3 - Jay (Fish) Carter](https://github.com/SCCapstone/RubberDuck/wiki/Persona-3-Jay-%22Fish%22-Carter) <br>
