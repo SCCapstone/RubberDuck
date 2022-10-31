@@ -76,7 +76,13 @@ python3 main.py
 ````
 
 # Deployment
-Code will be built using the following command utilizing PyInstaller to make a single file executable app
+Using `build.cmd` you can build and clean up your directories from terminal
+
+```
+build.cmd
+```
+
+To not run full procefure Code will be built using the following command utilizing PyInstaller to make a single file executable app
 
 Navigate to source code directory
 ````
