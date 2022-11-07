@@ -33,6 +33,7 @@ def main():
         #print where user clicks
         if event.type == pygame.MOUSEBUTTONDOWN:
             print(event.pos)
+            
 
 
 if __name__ == "__main__":
