@@ -29,11 +29,10 @@ def main():
                     sys.exit()
 
         homeScreen.startScreen()
-        
-        #print where user clicks
+
+        # print where user clicks
         if event.type == pygame.MOUSEBUTTONDOWN:
             print(event.pos)
-            
 
 
 if __name__ == "__main__":
