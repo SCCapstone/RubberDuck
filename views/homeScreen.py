@@ -37,19 +37,19 @@ def startScreen():
         
         fontMenu = pygame.font.Font(os.path.join("assets", "fonts", "Ethnocentric.ttf"), 40)
         
-        if pygame.mouse.get_pos()[0] > 390 and pygame.mouse.get_pos()[0] < 590 and pygame.mouse.get_pos()[1] > 650 and pygame.mouse.get_pos()[1] < 700:
+        if pygame.mouse.get_pos()[0] > 390 and pygame.mouse.get_pos()[0] < 765 and pygame.mouse.get_pos()[1] > 650 and pygame.mouse.get_pos()[1] < 700:
             START_Text_Img = fontMenu.render("START GAME", True, values.COLOR_Yellow)
         else:
             START_Text_Img = fontMenu.render("START GAME", True, values.COLOR_Pink)
         screen.blit(START_Text_Img, (390, 650))
         
-        if pygame.mouse.get_pos()[0] > 390 and pygame.mouse.get_pos()[0] < 590 and pygame.mouse.get_pos()[1] > 750 and pygame.mouse.get_pos()[1] < 800:
+        if pygame.mouse.get_pos()[0] > 390 and pygame.mouse.get_pos()[0] < 775 and pygame.mouse.get_pos()[1] > 750 and pygame.mouse.get_pos()[1] < 800:
             HS_Text_image = fontMenu.render("HIGH SCORES", True, values.COLOR_Yellow)
         else:
             HS_Text_image = fontMenu.render("HIGH SCORES", True, values.COLOR_Pink)
         screen.blit(HS_Text_image, (390, 750))
         
-        if  pygame.mouse.get_pos()[0] > 820 and pygame.mouse.get_pos()[0] < 1090 and pygame.mouse.get_pos()[1] > 650 and pygame.mouse.get_pos()[1] < 700:
+        if  pygame.mouse.get_pos()[0] > 820 and pygame.mouse.get_pos()[0] < 1145 and pygame.mouse.get_pos()[1] > 650 and pygame.mouse.get_pos()[1] < 700:
             Cust_font_image = fontMenu.render("CUSTOMIZE", True, values.COLOR_Yellow)
         else:
             Cust_font_image = fontMenu.render("CUSTOMIZE", True, values.COLOR_Pink)
