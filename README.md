@@ -5,7 +5,7 @@ Ducks in Space is a desktop application featuring an arcade style video game wit
 
 ## Wiki Pages
 [Team Organization](https://github.com/SCCapstone/RubberDuck/wiki/Team-Organization) <br>
-[Project Description](https://github.com/SCCapstone/RubberDuck/wiki/Project-Description)
+[Project Description](https://github.com/SCCapstone/RubberDuck/wiki/Project-Description)  <br>
 [Persona 1 - Timmy Fields](https://github.com/SCCapstone/RubberDuck/wiki/Persona-1---Timmy-Fields) <br>
 [Persona 2 - Janet Booth](https://github.com/SCCapstone/RubberDuck/wiki/Persona-2---Janet-Booth) <br>
 [Persona 3 - Jay (Fish) Carter](https://github.com/SCCapstone/RubberDuck/wiki/Persona-3-Jay-%22Fish%22-Carter) <br>
@@ -14,20 +14,35 @@ Ducks in Space is a desktop application featuring an arcade style video game wit
 [Requirements](https://github.com/SCCapstone/RubberDuck/wiki/Requirements)<br>
 [Architecture](https://github.com/SCCapstone/RubberDuck/wiki/Architecture)
 
+## Ethical, Legal, and Security Considerations
+[Ethical Issues](https://github.com/SCCapstone/RubberDuck/wiki/Ethical-Issues) <br>
+[Legal Issues](https://github.com/SCCapstone/RubberDuck/wiki/Legal-Issues) <br>
+[Security Issues](https://github.com/SCCapstone/RubberDuck/wiki/Security-Issues) <br>
+
 ## External Requirements
 
-List all the stuff the reader will need to install in order to get you app to 
-run in their laptop. For example:
+Using Python 3.6.5, Pygame 1.9.3, and Pyinstaller 3.3.1
+Install Python 3.6.5 from https://www.python.org/downloads/release/python-365/ <br>
+Install Pygame using
+```
+pip install pygame
+```
+Install Pyinstaller using
+```
+pip install pyinstaller
+```
 
-In order to build this project you first have to install:
+Other Packages used (most likely already installed with Python 3.6.5):
 
-* [Node.js](https://nodejs.org/en/)
-* [MongoDB](https://www.mongodb.com/)
+* os `pip install os`
+* sys `pip install sys`
+* random `pip install random`
+* math `pip install math`
+* time `pip install time`
+* pygame_menu `pip install pygame_menu`
+* datetime `pip install datetime`
+* json `pip install json`
 
-If possible, list the actual commands you used to install these, so the reader
-can just cut-n-paste the commands and get everything setup.
-
-You only need to add instructions for the OS you are using.
 
 ## Style Guide
 We will be PEP8 Style Guide for Python. You can find the style guide here: https://www.python.org/dev/peps/pep-0008/
@@ -37,36 +52,55 @@ This can be done by using a command run using autopep8. You can install autopep8
 pip install autopep8 
 ````
 
-Then you can run the command:
+Then you can run the command for individual files:
 
 ```` 
 autopep8 --in-place --aggressive --aggressive <filename> 
 ````
 
+To run autopep8 on all files in a directory, you can use the following command to run batch script:
+
+````
+format.cmd
+````
+
+
 ** Full guide below
-
-## Setup
-
-Here you list all the one-time things the developer needs to do after cloning
-your repo. Sometimes there is no need for this section, but some apps require
-some first-time configuration from the developer, for example: setting up a
-database for running your webapp locally.
 
 ## Running
 
-Specify the commands for a developer to run the app from the cloned repo.
+To run the code without deploying, from a termianl simply run:
+
+````
+python3 main.py
+````
 
 # Deployment
+Using `build.cmd` you can build and clean up your directories from terminal
 
-Webapps need a deployment section that explains how to get it deployed on the 
-Internet. These should be detailed enough so anyone can re-deploy if needed
-. Note that you **do not put passwords in git**. 
+```
+build.cmd
+```
 
-Mobile apps will also sometimes need some instructions on how to build a
-"release" version, maybe how to sign it, and how to run that binary in an
-emulator or in a physical phone.
+To not run full procefure Code will be built using the following command utilizing PyInstaller to make a single file executable app
+
+Navigate to source code directory
+````
+cd <path to source code> 
+````
+````
+pyinstaller --onefile --windowed --icon=icon.ico --name=DuckInSpace main.py 
+````
+
+To install PyInstaller use the following command:
+````
+pip install pyinstaller
+````
+
 
 # Testing
+
+***TO BE DONE LATER***
 
 In 492 you will write automated tests. When you do you will need to add a 
 section that explains how to run them.
@@ -77,15 +111,24 @@ The behavioral tests are in `/test/casper/`.
 
 ## Testing Technology
 
+***TO BE DONE LATER***
+
 In some cases you need to install test runners, etc. Explain how.
 
 ## Running Tests
+
+***TO BE DONE LATER***
 
 Explain how to run the automated tests.
 
 # Authors
 
-Your names and emails
+Bradley Grose (bgrose@email.sc.edu) (@bgrose) <br>
+David Keen (ddkeen@email.sc.edu) (@ddkeen) <br>
+Colin Anderson (colinsa@email.sc.edu) (@cSwiggitySwooty) <br>
+Owen Bond (obond@email.sc.edu) (@OTBond) <br>
+Xzavian Slaughter (xzavian@email.sc.edu) (@xslau) <br>
+
 
 # AutoPep8
 ````
