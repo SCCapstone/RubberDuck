@@ -1,11 +1,11 @@
-import importlib
 import pygame
 import os
 from pygame.locals import *
 from assets import values
+import menuStructure as menuS
 
 
-def startScreen():
+def homeScreen():
     # Set the background to main.jpg
     background = pygame.image.load(
         os.path.join(
@@ -79,6 +79,46 @@ def startScreen():
         Set_font_image = fontMenu.render("SETTINGS", True, values.COLOR_Pink)
     screen.blit(Set_font_image, (820, 750))
 
+    if pygame.mouse.get_pos()[0] > 1340 and pygame.mouse.get_pos()[
+            0] < 1590 and pygame.mouse.get_pos()[1] > 800 and pygame.mouse.get_pos()[1] < 850:
+        Quit_font_image = fontMenu.render("QUIT", True, values.COLOR_Yellow)
+    else:
+        Quit_font_image = fontMenu.render("QUIT", True, values.COLOR_White)
+    screen.blit(Quit_font_image, (1340, 800))
+
+    ChickHandler()
+
     # Update the screen
     pygame.display.flip()
     pygame.display.update()
+
+
+def ChickHandler():
+
+    if pygame.mouse.get_pressed()[0]:
+
+        # if mouse is over stat, change color to white
+        if pygame.mouse.get_pos()[0] > 10 and pygame.mouse.get_pos()[
+                0] < 160 and pygame.mouse.get_pos()[1] > 60 and pygame.mouse.get_pos()[1] < 90:
+            print("STATS")
+
+        if pygame.mouse.get_pos()[0] > 390 and pygame.mouse.get_pos()[
+                0] < 765 and pygame.mouse.get_pos()[1] > 650 and pygame.mouse.get_pos()[1] < 700:
+            print("START GAME")
+
+        if pygame.mouse.get_pos()[0] > 390 and pygame.mouse.get_pos()[
+                0] < 775 and pygame.mouse.get_pos()[1] > 750 and pygame.mouse.get_pos()[1] < 800:
+            print("HIGH SCORES")
+
+        if pygame.mouse.get_pos()[0] > 820 and pygame.mouse.get_pos()[
+                0] < 1145 and pygame.mouse.get_pos()[1] > 650 and pygame.mouse.get_pos()[1] < 700:
+            print("CUSTOMIZE")
+
+        if pygame.mouse.get_pos()[0] > 820 and pygame.mouse.get_pos()[
+                0] < 1090 and pygame.mouse.get_pos()[1] > 750 and pygame.mouse.get_pos()[1] < 800:
+            print("SETTINGS")
+
+        if pygame.mouse.get_pos()[0] > 1340 and pygame.mouse.get_pos()[
+                0] < 1590 and pygame.mouse.get_pos()[1] > 800 and pygame.mouse.get_pos()[1] < 850:
+            print("QUIT")
+            menuS.setGameMenu(menuS.Menu.QUIT)

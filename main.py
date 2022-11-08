@@ -4,6 +4,7 @@ import sys
 import os
 from pygame.locals import *
 
+import menuStructure as menuS
 from assets import values
 from views import homeScreen
 
@@ -13,6 +14,8 @@ pygame.init()
 pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Duck In Space")
 pygame.display.update()
+
+menuS.setGameMenu(menuS.Menu.HOME)
 
 
 def main():
@@ -28,11 +31,21 @@ def main():
                     pygame.quit()
                     sys.exit()
 
-        homeScreen.startScreen()
-
-        # print where user clicks
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            print(event.pos)
+        if menuS.getGameMenu() == menuS.Menu.HOME:
+            homeScreen.homeScreen()
+        elif menuS.getGameMenu() == menuS.Menu.STAT:
+            pass
+        elif menuS.getGameMenu() == menuS.Menu.GAME:
+            pass
+        elif menuS.getGameMenu() == menuS.Menu.CUSTOMIZE:
+            pass
+        elif menuS.getGameMenu() == menuS.Menu.HIGH_SCORE:
+            pass
+        elif menuS.getGameMenu() == menuS.Menu.SETTING:
+            pass
+        elif menuS.getGameMenu() == menuS.Menu.QUIT:
+            pygame.quit()
+            sys.exit()
 
 
 if __name__ == "__main__":
