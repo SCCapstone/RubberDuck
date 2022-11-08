@@ -16,6 +16,9 @@ pygame.display.set_caption("Duck In Space")
 pygame.display.update()
 
 menuS.setGameMenu(menuS.Menu.HOME)
+values.setScreenSize(
+    pygame.display.get_surface().get_size()[0],
+    pygame.display.get_surface().get_size()[1])
 
 
 def main():
