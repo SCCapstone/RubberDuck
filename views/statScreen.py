@@ -10,6 +10,10 @@ def StartLoad():
     statsIO.loadStats()
 
 
+def saveStats():
+    statsIO.saveStats()
+
+
 def statScreen():
     # Set the background to main.jpg
     background = pygame.image.load(
