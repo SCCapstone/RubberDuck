@@ -43,7 +43,6 @@ def main():
                     pygame.quit()
                     sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                noises.playSound("quack")
                 x, y = pygame.mouse.get_pos()
                 # print(x/pygame.display.get_surface().get_size()[0], y/pygame.display.get_surface().get_size()[1])
 
@@ -52,7 +51,7 @@ def main():
         elif menuS.getGameMenu() == menuS.Menu.STAT:
             statScreen.statScreen()
         elif menuS.getGameMenu() == menuS.Menu.GAME:
-            pass
+            noises.playMusic("gameplay")
         elif menuS.getGameMenu() == menuS.Menu.CUSTOMIZE:
             pass
         elif menuS.getGameMenu() == menuS.Menu.HIGH_SCORE:
