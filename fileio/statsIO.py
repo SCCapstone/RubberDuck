@@ -1,28 +1,41 @@
 import json
 
-distanceTravelled = 0
-totalGamesPlayed = 1
-totalGameTime = 234
-enemyDefeated = 3
-spaceshipKills = 4
-meteroidKills = 5432
-allTimeCurrency = 6
-averageGameTime = 7
-averagePoints = 82
+global distanceTravelled
+global totalGamesPlayed
+global totalGameTime
+global enemyDefeated
+global spaceshipKills
+global meteroidKills
+global allTimeCurrency
+global averageGameTime
+global averagePoints
+
 
 def loadStats():
-    with open("fileio\stats.json", "r") as f:
-        data = json.load(f)
-        distanceTravelled = data["distanceTravelled"]
-        totalGamesPlayed = data["totalGamesPlayed"]
-        totalGameTime = data["totalGameTime"]
-        enemyDefeated = data["enemyDefeated"]
-        spaceshipKills = data["spaceshipKills"]
-        meteroidKills = data["meteroidKills"]
-        allTimeCurrency = data["allTimeCurrency"]
-        averageGameTime = data["averageGameTime"]
-        averagePoints = data["averagePoints"]
-        
+    global distanceTravelled
+    global totalGamesPlayed
+    global totalGameTime
+    global enemyDefeated
+    global spaceshipKills
+    global meteroidKills
+    global allTimeCurrency
+    global averageGameTime
+    global averagePoints
+    global averagePoints
+
+    data = json.load(open("fileio\\stats.json"))
+
+    distanceTravelled = data["distanceTravelled"]
+    totalGamesPlayed = data["totalGamesPlayed"]
+    totalGameTime = data["totalGameTime"]
+    enemyDefeated = data["enemyDefeated"]
+    spaceshipKills = data["spaceshipKills"]
+    meteroidKills = data["meteroidKills"]
+    allTimeCurrency = data["allTimeCurrency"]
+    averageGameTime = data["averageGameTime"]
+    averagePoints = data["averagePoints"]
+
+
 def saveStats():
     data = {
         "distanceTravelled": distanceTravelled,
@@ -34,7 +47,6 @@ def saveStats():
         "allTimeCurrency": allTimeCurrency,
         "averageGameTime": averageGameTime,
         "averagePoints": averagePoints
-        }
-    with open("fileio\stats.json", "w") as f:
+    }
+    with open("fileio\\stats.json", "w") as f:
         json.dump(data, f, indent=4)
-        
