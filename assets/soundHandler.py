@@ -11,17 +11,20 @@ musicBook = {
     "gameplay": "assets/music/gameplay.ogg"
 }
 
+
 class SFXHandler:
     def __init__(self):
         pygame.mixer.init()
         self.currentSong = "NA"
 
-    # Takes in a sound (see dictionary above) and plays a corresponding sound file
+    # Takes in a sound (see dictionary above) and plays a corresponding sound
+    # file
     def playSound(self, sound):
         if sound in soundBook:
             pygame.mixer.Sound.play(pygame.mixer.Sound(soundBook[sound]))
 
-    # Takes in a string (see dictionary above) and plays a corresponding music file
+    # Takes in a string (see dictionary above) and plays a corresponding music
+    # file
     def playMusic(self, music):
         if music in musicBook and self.currentSong != music:
             if self.currentSong == "NA":
