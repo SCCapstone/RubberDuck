@@ -6,6 +6,7 @@ from pygame.locals import *
 
 import menuStructure as menuS
 from assets import values
+from assets import soundHandler
 from views import homeScreen
 from views import gameOverScreen
 from views import statScreen
@@ -19,7 +20,11 @@ pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Ducks In Space")
 pygame.display.update()
 
+# Initialize the mixer
+noises = soundHandler.SFXHandler()
+
 statScreen.StartLoad()
+
 
 menuS.setGameMenu(menuS.Menu.HOME)
 values.setScreenSize(
@@ -29,6 +34,7 @@ values.setScreenSize(
 
 def main():
     # Keep the game open until the user closes it
+    noises.playMusic("menus")
     while True:
         pygame.display.flip()
         for event in pygame.event.get():
@@ -48,7 +54,7 @@ def main():
         elif menuS.getGameMenu() == menuS.Menu.STAT:
             statScreen.statScreen()
         elif menuS.getGameMenu() == menuS.Menu.GAME:
-            pass
+            noises.playMusic("gameplay")
         elif menuS.getGameMenu() == menuS.Menu.CUSTOMIZE:
             pass
         elif menuS.getGameMenu() == menuS.Menu.HIGH_SCORE:
