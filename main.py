@@ -16,7 +16,7 @@ from views import settingScreen
 pygame.init()
 # Make game full screen
 pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-pygame.display.set_caption("Duck In Space")
+pygame.display.set_caption("Ducks In Space")
 pygame.display.update()
 
 menuS.setGameMenu(menuS.Menu.HOME)
