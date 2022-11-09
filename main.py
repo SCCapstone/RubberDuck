@@ -45,7 +45,7 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 noises.playSound("quack")
                 x, y = pygame.mouse.get_pos()
-                print(x/pygame.display.get_surface().get_size()[0], y/pygame.display.get_surface().get_size()[1])
+                # print(x/pygame.display.get_surface().get_size()[0], y/pygame.display.get_surface().get_size()[1])
 
         if menuS.getGameMenu() == menuS.Menu.HOME:
             homeScreen.homeScreen()

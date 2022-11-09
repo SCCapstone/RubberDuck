@@ -7,7 +7,8 @@ soundBook = {
 
 # Dictionary of all music tracks
 musicBook = {
-    "menus": "assets/music/song.ogg"
+    "menus": "assets/music/menus.ogg",
+    "gameplay": "assets/music/gameplay.ogg"
 }
 
 class SFXHandler:
