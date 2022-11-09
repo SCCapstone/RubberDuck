@@ -50,9 +50,9 @@ def main():
              #       y / pygame.display.get_surface().get_size()[1])
 
         if menuS.getGameMenu() == menuS.Menu.HOME:
-            homeScreen.homeScreen()
+            homeScreen.homeScreen(noises)
         elif menuS.getGameMenu() == menuS.Menu.STAT:
-            statScreen.statScreen()
+            statScreen.statScreen(noises)
         elif menuS.getGameMenu() == menuS.Menu.GAME:
             noises.playMusic("gameplay")
         elif menuS.getGameMenu() == menuS.Menu.CUSTOMIZE:

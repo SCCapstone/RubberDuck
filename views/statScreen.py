@@ -14,7 +14,7 @@ def saveStats():
     statsIO.saveStats()
 
 
-def statScreen():
+def statScreen(noises):
     # Set the background to main.jpg
     background = pygame.image.load(
         os.path.join(
@@ -304,12 +304,15 @@ def statScreen():
                 if shareCords[0] < pygame.mouse.get_pos(
                 )[0] < shareCords[0] + widthButton and shareCords[1] < pygame.mouse.get_pos()[1] < shareCords[1] + 50:
                     # share stats
+                    noises.playSound("quack")
                     pass
                 elif homeCords[0] < pygame.mouse.get_pos()[0] < homeCords[0] + widthButton and homeCords[1] < pygame.mouse.get_pos()[1] < homeCords[1] + 50:
-                    # go to home screen
+                    # go to home screeni
+                    noises.playSound("quack")
                     menuS.setGameMenu(menuS.Menu.HOME)
                 elif quitCoords[0] < pygame.mouse.get_pos()[0] < quitCoords[0] + widthButton and quitCoords[1] < pygame.mouse.get_pos()[1] < quitCoords[1] + 50:
                     # quit game
+                    noises.playSound("quack")
                     menuS.setGameMenu(menuS.Menu.QUIT)
         elif event.type == pygame.QUIT:
             menuS.setGameMenu(menuS.Menu.QUIT)

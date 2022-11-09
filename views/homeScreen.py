@@ -5,7 +5,7 @@ from assets import values
 import menuStructure as menuS
 
 
-def homeScreen():
+def homeScreen(noises):
     # Set the background to main.jpg
     background = pygame.image.load(
         os.path.join(
@@ -89,38 +89,44 @@ def homeScreen():
         (values.screenX * .872,
          values.screenY * .925))
 
-    ChickHandler()
+    ChickHandler(noises)
 
     # Update the screen
     pygame.display.flip()
     pygame.display.update()
 
 
-def ChickHandler():
+def ChickHandler(noises):
 
     if pygame.mouse.get_pressed()[0]:
 
         # if mouse is over stat, change color to white
         if pygame.mouse.get_pos()[0] > values.screenX * .004 and pygame.mouse.get_pos()[0] < values.screenX * .097 and pygame.mouse.get_pos()[
                 1] > values.screenY * .044 and pygame.mouse.get_pos()[1] < values.screenY * .074:
+            noises.playSound("quack")
             menuS.setGameMenu(menuS.Menu.STAT)
 
         if pygame.mouse.get_pos()[0] > values.screenX * .253 and pygame.mouse.get_pos()[0] < values.screenX * .498 and pygame.mouse.get_pos()[
                 1] > values.screenY * .761 and pygame.mouse.get_pos()[1] < values.screenY * .797:
+            noises.playSound("quack")
             menuS.setGameMenu(menuS.Menu.GAME)
 
         if pygame.mouse.get_pos()[0] > values.screenX * .253 and pygame.mouse.get_pos()[0] < values.screenX * .498 and pygame.mouse.get_pos()[
                 1] > values.screenY * .875 and pygame.mouse.get_pos()[1] < values.screenY * .913:
+            noises.playSound("quack")
             menuS.setGameMenu(menuS.Menu.HIGH_SCORE)
 
         if pygame.mouse.get_pos()[0] > values.screenX * .532 and pygame.mouse.get_pos()[0] < values.screenX * .743 and pygame.mouse.get_pos()[
                 1] > values.screenY * .761 and pygame.mouse.get_pos()[1] < values.screenY * .80:
+            noises.playSound("quack")
             menuS.setGameMenu(menuS.Menu.CUSTOMIZE)
 
         if pygame.mouse.get_pos()[0] > values.screenX * .532 and pygame.mouse.get_pos()[0] < values.screenX * .707 and pygame.mouse.get_pos()[
                 1] > values.screenY * .868 and pygame.mouse.get_pos()[1] < values.screenY * .925:
+            noises.playSound("quack")
             menuS.setGameMenu(menuS.Menu.SETTING)
 
         if pygame.mouse.get_pos()[0] > values.screenX * .872 and pygame.mouse.get_pos()[0] < values.screenX * .9539 and pygame.mouse.get_pos()[
                 1] > values.screenY * .925 and pygame.mouse.get_pos()[1] < values.screenY * .983:
+            noises.playSound("quack")
             menuS.setGameMenu(menuS.Menu.QUIT)
