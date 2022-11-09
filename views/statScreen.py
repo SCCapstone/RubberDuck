@@ -215,36 +215,97 @@ def statScreen():
     # Make cordinates for 3 inline buttons
     widthButton = (right - left - 40) / 3
     shareCords = (left + 10, screen.get_height() / 16 * 13.5)
-    homeCords = (10 + shareCords[0] + widthButton, screen.get_height() / 16 * 13.5)
-    quitCoords = (10 + homeCords[0] + widthButton, screen.get_height() / 16 * 13.5)
-    
+    homeCords = (
+        10 +
+        shareCords[0] +
+        widthButton,
+        screen.get_height() /
+        16 *
+        13.5)
+    quitCoords = (
+        10 +
+        homeCords[0] +
+        widthButton,
+        screen.get_height() /
+        16 *
+        13.5)
+
     # Draw Rects for buttons
-    pygame.draw.rect(screen, values.COLOR_Purple, (shareCords[0], shareCords[1], widthButton, 50))
-    pygame.draw.rect(screen, values.COLOR_Purple, (homeCords[0], homeCords[1], widthButton, 50))
-    pygame.draw.rect(screen, values.COLOR_Purple, (quitCoords[0], quitCoords[1], widthButton, 50))
-    
+    pygame.draw.rect(
+        screen,
+        values.COLOR_Purple,
+        (shareCords[0],
+         shareCords[1],
+         widthButton,
+         50))
+    pygame.draw.rect(
+        screen,
+        values.COLOR_Purple,
+        (homeCords[0],
+         homeCords[1],
+         widthButton,
+         50))
+    pygame.draw.rect(
+        screen,
+        values.COLOR_Purple,
+        (quitCoords[0],
+         quitCoords[1],
+         widthButton,
+         50))
+
     # Add text to center of buttons
     share_text_image = subtitleFont.render("Share", True, values.COLOR_Pink)
     home_text_image = subtitleFont.render("Home", True, values.COLOR_Pink)
     quit_text_image = subtitleFont.render("Quit", True, values.COLOR_Pink)
-    
-    screen.blit(share_text_image, (shareCords[0] + widthButton / 2 - share_text_image.get_width() / 2, shareCords[1] + 25 - share_text_image.get_height() / 2))
-    screen.blit(home_text_image, (homeCords[0] + widthButton / 2 - home_text_image.get_width() / 2, homeCords[1] + 25 - home_text_image.get_height() / 2))
-    screen.blit(quit_text_image, (quitCoords[0] + widthButton / 2 - quit_text_image.get_width() / 2, quitCoords[1] + 25 - quit_text_image.get_height() / 2))
-    
-    #check for mouse click
+
+    screen.blit(
+        share_text_image,
+        (shareCords[0] +
+         widthButton /
+         2 -
+         share_text_image.get_width() /
+         2,
+         shareCords[1] +
+         25 -
+         share_text_image.get_height() /
+         2))
+    screen.blit(
+        home_text_image,
+        (homeCords[0] +
+         widthButton /
+         2 -
+         home_text_image.get_width() /
+         2,
+         homeCords[1] +
+         25 -
+         home_text_image.get_height() /
+         2))
+    screen.blit(
+        quit_text_image,
+        (quitCoords[0] +
+         widthButton /
+         2 -
+         quit_text_image.get_width() /
+         2,
+         quitCoords[1] +
+         25 -
+         quit_text_image.get_height() /
+         2))
+
+    # check for mouse click
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
-                #check if mouse is in rect
-                if shareCords[0] < pygame.mouse.get_pos()[0] < shareCords[0] + widthButton and shareCords[1] < pygame.mouse.get_pos()[1] < shareCords[1] + 50:
-                    #share stats
+                # check if mouse is in rect
+                if shareCords[0] < pygame.mouse.get_pos(
+                )[0] < shareCords[0] + widthButton and shareCords[1] < pygame.mouse.get_pos()[1] < shareCords[1] + 50:
+                    # share stats
                     pass
                 elif homeCords[0] < pygame.mouse.get_pos()[0] < homeCords[0] + widthButton and homeCords[1] < pygame.mouse.get_pos()[1] < homeCords[1] + 50:
-                    #go to home screen
+                    # go to home screen
                     menuS.setGameMenu(menuS.Menu.HOME)
                 elif quitCoords[0] < pygame.mouse.get_pos()[0] < quitCoords[0] + widthButton and quitCoords[1] < pygame.mouse.get_pos()[1] < quitCoords[1] + 50:
-                    #quit game
+                    # quit game
                     menuS.setGameMenu(menuS.Menu.QUIT)
         elif event.type == pygame.QUIT:
             menuS.setGameMenu(menuS.Menu.QUIT)
