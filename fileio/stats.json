@@ -1,0 +1,11 @@
+{
+    "distanceTravelled": 0,
+    "totalGames": 0,
+    "totalGameTime": 0,
+    "enemyDefeated": 0,
+    "spaceshipsDestroyed": 0,
+    "meteriodsDestroyed": 0,
+    "allTimeCurrency": 0,
+    "avgGameTime": 0,
+    "avgGamePoints": 0
+}

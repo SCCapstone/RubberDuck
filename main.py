@@ -7,6 +7,10 @@ from pygame.locals import *
 import menuStructure as menuS
 from assets import values
 from views import homeScreen
+from views import gameOverScreen
+from views import statScreen
+from views import gameScreen
+from views import settingScreen
 
 
 pygame.init()
@@ -33,11 +37,14 @@ def main():
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                print(x/pygame.display.get_surface().get_size()[0], y/pygame.display.get_surface().get_size()[1])
 
         if menuS.getGameMenu() == menuS.Menu.HOME:
             homeScreen.homeScreen()
         elif menuS.getGameMenu() == menuS.Menu.STAT:
-            pass
+            statScreen.statScreen()
         elif menuS.getGameMenu() == menuS.Menu.GAME:
             pass
         elif menuS.getGameMenu() == menuS.Menu.CUSTOMIZE:
