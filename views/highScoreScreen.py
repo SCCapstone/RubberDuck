@@ -1,21 +1,23 @@
+#Imports
 import pygame
-import json
 from assets import values
 import menuStructure as menuS
 import os
+
 #from fileio import highScoreIO
 
 
+# TODO - Add a way to load the high scores
 def StartLoad():
-    # TODO
     pass
 
 
+# TODO - Add a way to save the high scores
 def saveStats():
-    # TODO
     pass
 
 
+# Runs the high score screen
 def highScoreScreen(noises):
     # Set the background to main.jpg
     background = pygame.image.load(
@@ -45,6 +47,7 @@ def highScoreScreen(noises):
                                                    2))
     screen.blit(title_text_image, title_rect)
 
+    # Set up font for subtitle
     subtitleFont = pygame.font.Font(
         os.path.join("assets", "fonts", "Ethnocentric.ttf"),
         int(values.screenX * .017))

@@ -1,21 +1,24 @@
+#Imports
 import pygame
-import json
 from assets import values
 import menuStructure as menuS
 import os
+
 #from fileio import settingIO
 
 
+# TODO - Add a way to load the settings
 def StartLoad():
-    # TODO
     pass
 
 
+# TODO - Add a way to save the settings
 def saveStats():
     # TODO
     pass
 
 
+# Runs the settings screen
 def settingScreen(noises):
     # Set the background to main.jpg
     background = pygame.image.load(
@@ -57,6 +60,7 @@ def settingScreen(noises):
     exportCords = (left + ((right - left) / 2) + 10,
                    screen.get_height() / 16 * 12)
 
+    # Draw the buttons
     pygame.draw.rect(screen, values.COLOR_Purple,
                      (importCords[0], importCords[1], widthButton, 50), 0)
     pygame.draw.rect(screen, values.COLOR_Purple,
@@ -68,6 +72,7 @@ def settingScreen(noises):
     #screen.blit(import_settings_text_image, (importCords[0], importCords[1]))
     #screen.blit(export_settings_text_image, (exportCords[0], exportCords[1]))
 
+    # Make cords for 3 inline buttons
     homeCords = (left + 10, screen.get_height() / 16 * 13.5)
     defaultCords = (10 + homeCords[0] + widthButton,
                     screen.get_height() / 16 * 13.5)
@@ -88,6 +93,7 @@ def settingScreen(noises):
     home_text_image = subtitleFont.render("Home", True, values.COLOR_Pink)
     quit_text_image = subtitleFont.render("Quit", True, values.COLOR_Pink)
 
+    # Add text to screen
     screen.blit(
         home_text_image,
         (homeCords[0] + widthButton / 2 - home_text_image.get_width() / 2,
