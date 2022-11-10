@@ -35,10 +35,12 @@ def homeScreen(noises):
         STAT_image = font.render("STATS", True, values.COLOR_Pink)
     screen.blit(STAT_image, (values.screenX * .0065, values.screenY * .044))
 
+    # Font for the buttons on main
     fontMenu = pygame.font.Font(
         os.path.join("assets", "fonts", "Ethnocentric.ttf"),
         int(values.screenX * .026))
 
+    # if mouse is over game, change color to white
     if pygame.mouse.get_pos(
     )[0] > values.screenX * .253 and pygame.mouse.get_pos(
     )[0] < values.screenX * .498 and pygame.mouse.get_pos(
@@ -50,6 +52,7 @@ def homeScreen(noises):
         START_Text_Img = fontMenu.render("START GAME", True, values.COLOR_Pink)
     screen.blit(START_Text_Img, (values.screenX * .2539, values.screenY * .75))
 
+    # if mouse is over high score, change color to white
     if pygame.mouse.get_pos(
     )[0] > values.screenX * .253 and pygame.mouse.get_pos(
     )[0] < values.screenX * .498 and pygame.mouse.get_pos(
@@ -61,6 +64,7 @@ def homeScreen(noises):
         HS_Text_image = fontMenu.render("HIGH SCORES", True, values.COLOR_Pink)
     screen.blit(HS_Text_image, (values.screenX * .2539, values.screenY * .868))
 
+    # if mouse is over customize, change color to white
     if pygame.mouse.get_pos(
     )[0] > values.screenX * .532 and pygame.mouse.get_pos(
     )[0] < values.screenX * .743 and pygame.mouse.get_pos(
@@ -72,6 +76,7 @@ def homeScreen(noises):
         Cust_font_image = fontMenu.render("CUSTOMIZE", True, values.COLOR_Pink)
     screen.blit(Cust_font_image, (values.screenX * .533, values.screenY * .75))
 
+    # if mouse is over setting, change color to white
     if pygame.mouse.get_pos(
     )[0] > values.screenX * .532 and pygame.mouse.get_pos(
     )[0] < values.screenX * .707 and pygame.mouse.get_pos(
@@ -82,6 +87,7 @@ def homeScreen(noises):
         Set_font_image = fontMenu.render("SETTINGS", True, values.COLOR_Pink)
     screen.blit(Set_font_image, (values.screenX * .533, values.screenY * .868))
 
+    # if mouse is over quit, change color to white
     if pygame.mouse.get_pos(
     )[0] > values.screenX * .872 and pygame.mouse.get_pos(
     )[0] < values.screenX * .9539 and pygame.mouse.get_pos(
@@ -93,6 +99,7 @@ def homeScreen(noises):
     screen.blit(Quit_font_image,
                 (values.screenX * .872, values.screenY * .925))
 
+    #Check if click is on a button
     ChickHandler(noises)
 
     # Update the screen
@@ -104,7 +111,7 @@ def ChickHandler(noises):
 
     if pygame.mouse.get_pressed()[0]:
 
-        # if mouse is over stat, change color to white
+        # if mouse click is on stat game button
         if pygame.mouse.get_pos(
         )[0] > values.screenX * .004 and pygame.mouse.get_pos(
         )[0] < values.screenX * .097 and pygame.mouse.get_pos(
@@ -113,6 +120,7 @@ def ChickHandler(noises):
             noises.playSound("quack")
             menuS.setGameMenu(menuS.Menu.STAT)
 
+        # if mouse click is on start game button
         if pygame.mouse.get_pos(
         )[0] > values.screenX * .253 and pygame.mouse.get_pos(
         )[0] < values.screenX * .498 and pygame.mouse.get_pos(
@@ -121,6 +129,7 @@ def ChickHandler(noises):
             noises.playSound("quack")
             menuS.setGameMenu(menuS.Menu.GAME)
 
+        # if mouse click is on high score button
         if pygame.mouse.get_pos(
         )[0] > values.screenX * .253 and pygame.mouse.get_pos(
         )[0] < values.screenX * .498 and pygame.mouse.get_pos(
@@ -129,6 +138,7 @@ def ChickHandler(noises):
             noises.playSound("quack")
             menuS.setGameMenu(menuS.Menu.HIGH_SCORE)
 
+        # if mouse click is on customize button
         if pygame.mouse.get_pos(
         )[0] > values.screenX * .532 and pygame.mouse.get_pos(
         )[0] < values.screenX * .743 and pygame.mouse.get_pos(
@@ -137,6 +147,7 @@ def ChickHandler(noises):
             noises.playSound("quack")
             menuS.setGameMenu(menuS.Menu.CUSTOMIZE)
 
+        # if mouse click is on setting button
         if pygame.mouse.get_pos(
         )[0] > values.screenX * .532 and pygame.mouse.get_pos(
         )[0] < values.screenX * .707 and pygame.mouse.get_pos(
@@ -145,6 +156,7 @@ def ChickHandler(noises):
             noises.playSound("quack")
             menuS.setGameMenu(menuS.Menu.SETTING)
 
+        # if mouse click is on quit button
         if pygame.mouse.get_pos(
         )[0] > values.screenX * .872 and pygame.mouse.get_pos(
         )[0] < values.screenX * .9539 and pygame.mouse.get_pos(

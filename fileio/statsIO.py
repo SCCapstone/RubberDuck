@@ -1,5 +1,7 @@
+# Imports
 import json
 
+# Global Variables
 global distanceTravelled
 global totalGamesPlayed
 global totalGameTime
@@ -11,6 +13,7 @@ global averageGameTime
 global averagePoints
 
 
+# When the game is started, load the stats from the file
 def loadStats():
     global distanceTravelled
     global totalGamesPlayed
@@ -36,6 +39,7 @@ def loadStats():
     averagePoints = data["averagePoints"]
 
 
+# When the game is closed, save the stats to the file
 def saveStats():
     data = {
         "distanceTravelled": distanceTravelled,
