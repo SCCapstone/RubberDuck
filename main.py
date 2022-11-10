@@ -12,6 +12,7 @@ from views import gameOverScreen
 from views import statScreen
 from views import gameScreen
 from views import settingScreen
+from views import highScoreScreen
 
 
 pygame.init()
@@ -58,9 +59,9 @@ def main():
         elif menuS.getGameMenu() == menuS.Menu.CUSTOMIZE:
             pass
         elif menuS.getGameMenu() == menuS.Menu.HIGH_SCORE:
-            pass
+            highScoreScreen.highScoreScreen(noises)
         elif menuS.getGameMenu() == menuS.Menu.SETTING:
-            pass
+            settingScreen.settingScreen(noises)
         elif menuS.getGameMenu() == menuS.Menu.QUIT:
             statScreen.saveStats()
             pygame.quit()
