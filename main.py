@@ -14,7 +14,6 @@ from views import gameScreen
 from views import settingScreen
 from views import highScoreScreen
 
-
 pygame.init()
 # Make game full screen
 pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
@@ -26,11 +25,9 @@ noises = soundHandler.SFXHandler()
 
 statScreen.StartLoad()
 
-
 menuS.setGameMenu(menuS.Menu.HOME)
-values.setScreenSize(
-    pygame.display.get_surface().get_size()[0],
-    pygame.display.get_surface().get_size()[1])
+values.setScreenSize(pygame.display.get_surface().get_size()[0],
+                     pygame.display.get_surface().get_size()[1])
 
 
 def main():
@@ -46,9 +43,9 @@ def main():
                     menuS.setGameMenu(menuS.Menu.QUIT)
             # if event.type == pygame.MOUSEBUTTONDOWN:
             #    x, y = pygame.mouse.get_pos()
-             #   print(
-             #       x / pygame.display.get_surface().get_size()[0],
-             #       y / pygame.display.get_surface().get_size()[1])
+            #   print(
+            #       x / pygame.display.get_surface().get_size()[0],
+            #       y / pygame.display.get_surface().get_size()[1])
 
         if menuS.getGameMenu() == menuS.Menu.HOME:
             homeScreen.homeScreen(noises)

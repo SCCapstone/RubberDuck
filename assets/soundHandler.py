@@ -1,9 +1,7 @@
 import pygame
 
 # Dictionary of all sounds
-soundBook = {
-    "quack": "assets/sfx/quack.ogg"
-}
+soundBook = {"quack": "assets/sfx/quack.ogg"}
 
 # Dictionary of all music tracks
 musicBook = {
@@ -13,6 +11,7 @@ musicBook = {
 
 
 class SFXHandler:
+
     def __init__(self):
         pygame.mixer.init()
         self.currentSong = "NA"
