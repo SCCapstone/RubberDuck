@@ -12,8 +12,8 @@ COLOR_White = (255, 255, 255)
 
 # Fonts
 FONT_Ethnocentric = os.path.join("assets", "fonts", "Ethnocentric.ttf")
-FONT_EthnocentricItalic = os.path.join(
-    "assets", "fonts", "EthnocentricItalic.ttf")
+FONT_EthnocentricItalic = os.path.join("assets", "fonts",
+                                       "EthnocentricItalic.ttf")
 
 screenX = 0
 screenY = 0

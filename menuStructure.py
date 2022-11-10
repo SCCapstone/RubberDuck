@@ -1,5 +1,7 @@
 from enum import Enum
 
+# Menu of different screens
+
 
 class Menu(Enum):
     HOME = 1
@@ -12,11 +14,19 @@ class Menu(Enum):
 
 
 global Game_Menu
+"""
+Sets Menu to passed in value
+"""
 
 
 def setGameMenu(menu):
     global Game_Menu
     Game_Menu = menu
+
+
+"""
+Gets current menu
+"""
 
 
 def getGameMenu():
