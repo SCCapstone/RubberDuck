@@ -9,6 +9,9 @@ musicBook = {
     "gameplay": "assets/music/gameplay.ogg"
 }
 
+# TODO:
+# Add checks to see if game sounds/music is on or off
+# Add volume slider backend
 
 class SFXHandler:
 
