@@ -18,11 +18,23 @@ class SFXHandler:
     def __init__(self):
         pygame.mixer.init()
         self.currentSong = "NA"
+        self.soundVolume = 1.0
+        self.musicVolume(100)
+
+    def soundVolume(self, newVol):
+        # Set volume
+        self.soundVolume = newVol / 100.0
+
+    def musicVolume(self, newVol):
+        # Set music volume
+        pygame.mixer.music.set_volume(newVol / 100.0)
 
     # Takes in a sound (see dictionary above) and plays a corresponding sound
     # file
     def playSound(self, sound):
         if sound in soundBook:
+            playedSound = pygame.mixer.Sound(soundBook[sound])
+            playedSound.set_volume(self.soundVolume)
             pygame.mixer.Sound.play(pygame.mixer.Sound(soundBook[sound]))
 
     # Takes in a string (see dictionary above) and plays a corresponding music
