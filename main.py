@@ -13,6 +13,7 @@ from views import statScreen
 from views import gameScreen
 from views import settingScreen
 from views import highScoreScreen
+from fileio import settingIO
 
 pygame.init()
 # Make game full screen
@@ -24,6 +25,7 @@ pygame.display.update()
 noises = soundHandler.SFXHandler()
 
 statScreen.StartLoad()
+settingIO.loadSetting()
 
 menuS.setGameMenu(menuS.Menu.HOME)
 values.setScreenSize(pygame.display.get_surface().get_size()[0],
@@ -39,7 +41,7 @@ def main():
             if event.type == pygame.QUIT:
                 menuS.setGameMenu(menuS.Menu.QUIT)
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
+                if event.key == pygame.K_DELETE:
                     menuS.setGameMenu(menuS.Menu.QUIT)
             # if event.type == pygame.MOUSEBUTTONDOWN:
             #    x, y = pygame.mouse.get_pos()
@@ -61,6 +63,7 @@ def main():
             settingScreen.settingScreen(noises)
         elif menuS.getGameMenu() == menuS.Menu.QUIT:
             statScreen.saveStats()
+            settingIO.saveSetting()
             pygame.quit()
             sys.exit()
 

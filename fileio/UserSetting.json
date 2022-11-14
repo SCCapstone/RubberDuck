@@ -1,0 +1,15 @@
+{
+    "Player_Name": "Player",
+    "Volume": 100,
+    "Music": true,
+    "Sound_Effect": true,
+    "Difficulty": "Bath Time",
+    "Keymap_Left": 97,
+    "Keymap_Right": 100,
+    "Keymap_Up": 119,
+    "Keymap_Down": 115,
+    "Keymap_Primary_Fire": 1073742049,
+    "Keymap_Secondary_Fire": 1073742053,
+    "Keymap_Dash": 32,
+    "Keymap_Pause": 27
+}
