@@ -14,6 +14,7 @@ from views import gameScreen
 from views import settingScreen
 from views import highScoreScreen
 from fileio import settingIO
+from fileio import highScoreIO
 
 pygame.init()
 # Make game full screen
@@ -26,6 +27,7 @@ noises = soundHandler.SFXHandler()
 
 statScreen.StartLoad()
 settingIO.loadSetting()
+highScoreIO.loadHighScore()
 
 menuS.setGameMenu(menuS.Menu.HOME)
 values.setScreenSize(pygame.display.get_surface().get_size()[0],
