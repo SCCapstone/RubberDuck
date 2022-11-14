@@ -49,7 +49,7 @@ We will be PEP8 Style Guide for Python. You can find the style guide here: https
 This can be done by using a command run using yapf. You can install autopep8 using pip.
 
 ```` 
-pip installyapf
+pip install yapf
 ````
 
 Then you can run the command for individual files:
