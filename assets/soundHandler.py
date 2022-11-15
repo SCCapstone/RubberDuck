@@ -13,6 +13,7 @@ musicBook = {
 # Add checks to see if game sounds/music is on or off
 # Add volume slider backend
 
+
 class SFXHandler:
 
     def __init__(self):
