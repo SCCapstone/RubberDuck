@@ -148,7 +148,6 @@ def highScoreScreen(noises):
                         )[1] < playAgainCords[1] + 50:
                     # share stats
                     noises.playSound("quack")
-                    pass
                 elif homeCords[0] < pygame.mouse.get_pos(
                 )[0] < homeCords[0] + widthButton and homeCords[
                         1] < pygame.mouse.get_pos()[1] < homeCords[1] + 50:

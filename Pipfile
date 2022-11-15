@@ -4,10 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pygame = "*"
-pygame-menu = "*"
+pyinstaller = "*"
 autopep8 = "*"
+pygame = "*"
+pylint = "*"
+tk = "*"
+easygui = "*"
 yapf = "*"
+autoflake = "*"
+pytest-shutil = "*"
 
 [dev-packages]
 
