@@ -68,18 +68,27 @@ def highScoreScreen(noises):
     else:
         for i in highScoreIO.getHighScore():
         # Positon an Name on Left
-            left_hs_text_image = subtitleFont.render(str(i[0]) + "\t" + i[1], True,
+            left_hs_text_image = subtitleFont.render(str(i[0]), True,
                                                      values.COLOR_Purple)
+            left_2_hs_text_image = subtitleFont.render((i[1]), True,
+                                                       values.COLOR_Purple)
             center_hs_text_image = subtitleFont.render(str(i[2]), True,
                                                        values.COLOR_Purple)
             right_hs_text_image = subtitleFont.render(i[3], True,
                                                       values.COLOR_Purple)
+            
+            widthOfLeft = left_hs_text_image.get_width() / 2
+            widthOfLeftHalf2 = left_2_hs_text_image.get_width() / 2
+            widthOfRightHalf = right_hs_text_image.get_width() /2
+            
             #Position to left of box
-            left_hs_rect = left_hs_text_image.get_rect( center=(screen.get_width() / 4, screen.get_height() / 16 * (4 + counter)))
+            left_hs_rect = left_hs_text_image.get_rect( center=(left + 10 + widthOfLeft , screen.get_height() / 16 * (4 + counter)))
+            left_hs_rect_2 = left_2_hs_text_image.get_rect( center=(left + 50 + widthOfLeftHalf2, screen.get_height() / 16 * (4 + counter)))
             center_hs_rect = center_hs_text_image.get_rect( center=(screen.get_width() / 2, screen.get_height() / 16 * (4 + counter)))
-            right_hs_rect = right_hs_text_image.get_rect( center=(screen.get_width() / 4 * 3, screen.get_height() / 16 * (4 + counter)))
+            right_hs_rect = right_hs_text_image.get_rect( center=(right - 10 - widthOfRightHalf, screen.get_height() / 16 * (4 + counter)))
         
             screen.blit(left_hs_text_image, left_hs_rect)
+            screen.blit(left_2_hs_text_image, left_hs_rect_2)
             screen.blit(center_hs_text_image, center_hs_rect)
             screen.blit(right_hs_text_image, right_hs_rect)
             counter += 1
