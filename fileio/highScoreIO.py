@@ -6,7 +6,7 @@ global high_score_board
 # Fotmat (Number Player_Name, Score, Date)
 
 
-def loadHighScore():
+def load_high_scores():
     global high_score_board
     if not os.path.exists("fileio\\HighScore.json"):
         high_score_board = []
@@ -14,17 +14,17 @@ def loadHighScore():
         high_score_board = json.load(open("fileio\\HighScore.json"))
 
 
-def saveHighScore():
+def save_high_scores():
     with open("fileio\\highScore.json", "w") as f:
         json.dump(high_score_board, f, indent=4)
 
 
-def printHighScore():
+def print_high_scores():
     if len(high_score_board) == 0:
         print("No High Score")
     for i in high_score_board:
         print(i)
 
 
-def getHighScore():
+def get_high_scores():
     return high_score_board

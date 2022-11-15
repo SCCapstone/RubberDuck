@@ -5,15 +5,15 @@ import os
 from fileio import statsIO
 
 
-def StartLoad():
-    statsIO.loadStats()
+def start_load():
+    statsIO.load_stats()
 
 
-def saveStats():
-    statsIO.saveStats()
+def save_stats():
+    statsIO.save_stats()
 
 
-def statScreen(noises):
+def start_screen(noises):
     # Set the background to main.jpg
     background = pygame.image.load(
         os.path.join("assets", "backgrounds", "tertiary.jpg"))
@@ -179,7 +179,7 @@ def statScreen(noises):
     # check for mouse click
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
-            menuS.doubleClickPreventer()
+            menuS.double_click_preventer()
             if event.button == 1:
                 # check if mouse is in rect
                 if shareCords[0] < pygame.mouse.get_pos(
@@ -192,15 +192,15 @@ def statScreen(noises):
                         1] < pygame.mouse.get_pos()[1] < homeCords[1] + 50:
                     # go to home screeni
                     noises.playSound("quack")
-                    menuS.setGameMenu(menuS.Menu.HOME)
+                    menuS.set_game_menu(menuS.menu.HOME)
                 elif quitCoords[0] < pygame.mouse.get_pos(
                 )[0] < quitCoords[0] + widthButton and quitCoords[
                         1] < pygame.mouse.get_pos()[1] < quitCoords[1] + 50:
                     # quit game
                     noises.playSound("quack")
-                    menuS.setGameMenu(menuS.Menu.QUIT)
+                    menuS.set_game_menu(menuS.menu.QUIT)
         elif event.type == pygame.QUIT:
-            menuS.setGameMenu(menuS.Menu.QUIT)
+            menuS.set_game_menu(menuS.menu.QUIT)
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                menuS.setGameMenu(menuS.Menu.QUIT)
+                menuS.set_game_menu(menuS.menu.QUIT)

@@ -17,9 +17,10 @@ FONT_EthnocentricItalic = os.path.join("assets", "fonts",
 screenX = 0
 screenY = 0
 
+SETTING_PATH = "fileio\\UserSetting.json"
 
 # Set Screen Size
-def setScreenSize(x, y):
+def set_screen_size(x, y):
     global screenX, screenY
     screenX = x
     screenY = y

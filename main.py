@@ -1,7 +1,7 @@
+"""Class that runs menu and start up"""
 # Create Pygame ins
-import pygame
 import sys
-
+import pygame
 import menuStructure as menuS
 from assets import values
 from assets import soundHandler
@@ -21,47 +21,48 @@ pygame.display.update()
 # Initialize the mixer
 noises = soundHandler.SFXHandler()
 
-statScreen.StartLoad()
-settingIO.loadSetting("fileio\\UserSetting.json")
-highScoreIO.loadHighScore()
+statScreen.start_load()
+settingIO.load_settings(values.SETTING_PATH)
+highScoreIO.load_high_scores()
 
-menuS.setGameMenu(menuS.Menu.HOME)
-values.setScreenSize(pygame.display.get_surface().get_size()[0],
+menuS.set_game_menu(menuS.menu.HOME)
+values.set_screen_size(pygame.display.get_surface().get_size()[0],
                      pygame.display.get_surface().get_size()[1])
 
 
+"""Runs the loop for various menu control functions"""
 def main():
     # Keep the game open until the user closes it
-    noises.playMusic("menus")
+    noises.play_music("menus")
     while True:
         pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                menuS.setGameMenu(menuS.Menu.QUIT)
+                menuS.set_game_menu(menuS.menu.QUIT)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DELETE:
-                    menuS.setGameMenu(menuS.Menu.QUIT)
+                    menuS.set_game_menu(menuS.menu.QUIT)
             # if event.type == pygame.MOUSEBUTTONDOWN:
             #    x, y = pygame.mouse.get_pos()
             #   print(
             #       x / pygame.display.get_surface().get_size()[0],
             #       y / pygame.display.get_surface().get_size()[1])
 
-        if menuS.getGameMenu() == menuS.Menu.HOME:
-            homeScreen.homeScreen(noises)
-        elif menuS.getGameMenu() == menuS.Menu.STAT:
-            statScreen.statScreen(noises)
-        elif menuS.getGameMenu() == menuS.Menu.GAME:
-            noises.playMusic("gameplay")
-        elif menuS.getGameMenu() == menuS.Menu.CUSTOMIZE:
+        if menuS.get_game_menu() == menuS.menu.HOME:
+            homeScreen.home_screen(noises)
+        elif menuS.get_game_menu() == menuS.menu.STAT:
+            statScreen.start_screen(noises)
+        elif menuS.get_game_menu() == menuS.menu.GAME:
+            noises.play_music("gameplay")
+        elif menuS.get_game_menu() == menuS.menu.CUSTOMIZE:
             pass
-        elif menuS.getGameMenu() == menuS.Menu.HIGH_SCORE:
-            highScoreScreen.highScoreScreen(noises)
-        elif menuS.getGameMenu() == menuS.Menu.SETTING:
-            settingScreen.settingScreen(noises)
-        elif menuS.getGameMenu() == menuS.Menu.QUIT:
-            statScreen.saveStats()
-            settingIO.saveSetting()
+        elif menuS.get_game_menu() == menuS.menu.HIGH_SCORE:
+            highScoreScreen.high_score_screen(noises)
+        elif menuS.get_game_menu() == menuS.menu.SETTING:
+            settingScreen.settings_screen(noises)
+        elif menuS.get_game_menu() == menuS.menu.QUIT:
+            statScreen.save_stats()
+            settingIO.save_settings()
             pygame.quit()
             sys.exit()
 

@@ -9,18 +9,18 @@ from fileio import settingIO
 
 
 # TODO - Add a way to load the settings
-def StartLoad():
+def start_load():
     pass
 
 
 # TODO - Add a way to save the settings
-def saveStats():
+def save_stats():
     # TODO
     pass
 
 
 # Runs the settings screen
-def settingScreen(noises):
+def settings_screen(noises):
     # Set the background to main.jpg
     background = pygame.image.load(
         os.path.join("assets", "backgrounds", "tertiary.jpg"))
@@ -119,7 +119,7 @@ def settingScreen(noises):
     # check for mouse click
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
-            menuS.doubleClickPreventer()
+            menuS.double_click_preventer()
             if event.button == 1:
                 # check if mouse is in rect
                 if homeCords[0] < pygame.mouse.get_pos(
@@ -127,7 +127,7 @@ def settingScreen(noises):
                         1] < pygame.mouse.get_pos()[1] < homeCords[1] + 50:
                     # share stats
                     noises.playSound("quack")
-                    menuS.setGameMenu(menuS.Menu.HOME)
+                    menuS.set_game_menu(menuS.menu.HOME)
                 elif defaultCords[0] < pygame.mouse.get_pos(
                 )[0] < defaultCords[0] + widthButton and defaultCords[
                         1] < pygame.mouse.get_pos()[1] < defaultCords[1] + 50:
@@ -138,17 +138,17 @@ def settingScreen(noises):
                         1] < pygame.mouse.get_pos()[1] < quitCoords[1] + 50:
                     # quit game
                     noises.playSound("quack")
-                    menuS.setGameMenu(menuS.Menu.QUIT)
+                    menuS.set_game_menu(menuS.menu.QUIT)
                 elif importCords[0] < pygame.mouse.get_pos(
                 )[0] < importCords[0] + widthButton and importCords[
                         1] < pygame.mouse.get_pos()[1] < importCords[1] + 50:
-                    settingIO.importSettings()
+                    settingIO.import_settings()
                 elif exportCords[0] < pygame.mouse.get_pos(
                 )[0] < exportCords[0] + widthButton and exportCords[
                         1] < pygame.mouse.get_pos()[1] < exportCords[1] + 50:
-                    settingIO.exportSettings()
+                    settingIO.export_settings()
         elif event.type == pygame.QUIT:
-            menuS.setGameMenu(menuS.Menu.QUIT)
+            menuS.set_game_menu(menuS.menu.QUIT)
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                menuS.setGameMenu(menuS.Menu.QUIT)
+                menuS.set_game_menu(menuS.menu.QUIT)

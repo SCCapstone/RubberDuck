@@ -9,17 +9,17 @@ from fileio import highScoreIO
 
 
 # TODO - Add a way to load the high scores
-def StartLoad():
+def start_load():
     pass
 
 
 # TODO - Add a way to save the high scores
-def saveStats():
+def save_stats():
     pass
 
 
 # Runs the high score screen
-def highScoreScreen(noises):
+def high_score_screen(noises):
     # Set the background to main.jpg
     background = pygame.image.load(
         os.path.join("assets", "backgrounds", "tertiary.jpg"))
@@ -59,14 +59,14 @@ def highScoreScreen(noises):
     screen.blit(subtitle_text_image, subtitle_rect)
 
     counter = 0
-    if len(highScoreIO.getHighScore()) == 0:
+    if len(highScoreIO.get_high_scores()) == 0:
         hs_text_image = subtitleFont.render("No High Scores", True,
                                             values.COLOR_Purple)
         hs_rect = hs_text_image.get_rect(center=(screen.get_width() / 2,
                                                  screen.get_height() / 16 * 4))
         screen.blit(hs_text_image, hs_rect)
     else:
-        for i in highScoreIO.getHighScore():
+        for i in highScoreIO.get_high_scores():
             # Positon an Name on Left
             left_hs_text_image = subtitleFont.render(str(i[0]), True,
                                                      values.COLOR_Purple)
@@ -139,7 +139,7 @@ def highScoreScreen(noises):
     # check for mouse click
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
-            menuS.doubleClickPreventer()
+            menuS.double_click_preventer()
             if event.button == 1:
                 # check if mouse is in rect
                 if playAgainCords[0] < pygame.mouse.get_pos(
@@ -153,15 +153,15 @@ def highScoreScreen(noises):
                         1] < pygame.mouse.get_pos()[1] < homeCords[1] + 50:
                     # go to home screeni
                     noises.playSound("quack")
-                    menuS.setGameMenu(menuS.Menu.HOME)
+                    menuS.set_game_menu(menuS.menu.HOME)
                 elif quitCoords[0] < pygame.mouse.get_pos(
                 )[0] < quitCoords[0] + widthButton and quitCoords[
                         1] < pygame.mouse.get_pos()[1] < quitCoords[1] + 50:
                     # quit game
                     noises.playSound("quack")
-                    menuS.setGameMenu(menuS.Menu.QUIT)
+                    menuS.set_game_menu(menuS.menu.QUIT)
         elif event.type == pygame.QUIT:
-            menuS.setGameMenu(menuS.Menu.QUIT)
+            menuS.set_game_menu(menuS.menu.QUIT)
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                menuS.setGameMenu(menuS.Menu.QUIT)
+                menuS.set_game_menu(menuS.menu.QUIT)

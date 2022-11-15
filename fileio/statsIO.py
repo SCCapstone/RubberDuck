@@ -14,7 +14,7 @@ global averagePoints
 
 
 # When the game is started, load the stats from the file
-def loadStats():
+def load_stats():
     global distanceTravelled
     global totalGamesPlayed
     global totalGameTime
@@ -40,7 +40,7 @@ def loadStats():
 
 
 # When the game is closed, save the stats to the file
-def saveStats():
+def save_stats():
     data = {
         "distanceTravelled": distanceTravelled,
         "totalGamesPlayed": totalGamesPlayed,

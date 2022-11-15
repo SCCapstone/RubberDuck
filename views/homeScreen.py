@@ -4,7 +4,7 @@ from assets import values
 import menuStructure as menuS
 
 
-def homeScreen(noises):
+def home_screen(noises):
     # Set the background to main.jpg
     background = pygame.image.load(
         os.path.join("assets", "backgrounds", "main.jpg"))
@@ -99,17 +99,17 @@ def homeScreen(noises):
                 (values.screenX * .872, values.screenY * .925))
 
     #Check if click is on a button
-    ChickHandler(noises)
+    click_handler(noises)
 
     # Update the screen
     pygame.display.flip()
     pygame.display.update()
 
 
-def ChickHandler(noises):
+def click_handler(noises):
 
     if pygame.mouse.get_pressed()[0]:
-        menuS.doubleClickPreventer()
+        menuS.double_click_preventer()
         # if mouse click is on stat game button
         if pygame.mouse.get_pos(
         )[0] > values.screenX * .004 and pygame.mouse.get_pos(
@@ -117,7 +117,7 @@ def ChickHandler(noises):
         )[1] > values.screenY * .044 and pygame.mouse.get_pos(
         )[1] < values.screenY * .074:
             noises.playSound("quack")
-            menuS.setGameMenu(menuS.Menu.STAT)
+            menuS.set_game_menu(menuS.menu.STAT)
 
         # if mouse click is on start game button
         if pygame.mouse.get_pos(
@@ -126,7 +126,7 @@ def ChickHandler(noises):
         )[1] > values.screenY * .761 and pygame.mouse.get_pos(
         )[1] < values.screenY * .797:
             noises.playSound("quack")
-            menuS.setGameMenu(menuS.Menu.GAME)
+            menuS.set_game_menu(menuS.menu.GAME)
 
         # if mouse click is on high score button
         if pygame.mouse.get_pos(
@@ -135,7 +135,7 @@ def ChickHandler(noises):
         )[1] > values.screenY * .875 and pygame.mouse.get_pos(
         )[1] < values.screenY * .913:
             noises.playSound("quack")
-            menuS.setGameMenu(menuS.Menu.HIGH_SCORE)
+            menuS.set_game_menu(menuS.menu.HIGH_SCORE)
 
         # if mouse click is on customize button
         if pygame.mouse.get_pos(
@@ -144,7 +144,7 @@ def ChickHandler(noises):
         )[1] > values.screenY * .761 and pygame.mouse.get_pos(
         )[1] < values.screenY * .80:
             noises.playSound("quack")
-            menuS.setGameMenu(menuS.Menu.CUSTOMIZE)
+            menuS.set_game_menu(menuS.menu.CUSTOMIZE)
 
         # if mouse click is on setting button
         if pygame.mouse.get_pos(
@@ -153,7 +153,7 @@ def ChickHandler(noises):
         )[1] > values.screenY * .868 and pygame.mouse.get_pos(
         )[1] < values.screenY * .925:
             noises.playSound("quack")
-            menuS.setGameMenu(menuS.Menu.SETTING)
+            menuS.set_game_menu(menuS.menu.SETTING)
 
         # if mouse click is on quit button
         if pygame.mouse.get_pos(
@@ -162,4 +162,4 @@ def ChickHandler(noises):
         )[1] > values.screenY * .925 and pygame.mouse.get_pos(
         )[1] < values.screenY * .983:
             noises.playSound("quack")
-            menuS.setGameMenu(menuS.Menu.QUIT)
+            menuS.set_game_menu(menuS.menu.QUIT)

@@ -19,7 +19,7 @@ global Keymap_Dash
 global Keymap_Pause
 
 
-def loadSetting(path):
+def load_settings(path):
     global Player_Name
     global Volume
     global Music
@@ -51,12 +51,12 @@ def loadSetting(path):
         Keymap_Dash = data["Keymap_Dash"]
         Keymap_Pause = data["Keymap_Pause"]
     except:
-        loadDefaultSetting()
+        load_default_settings()
         pygame.display.set_caption(
             "Setting File Not Found, Default Setting Loaded")
 
 
-def saveSetting():
+def save_settings():
     data = {
         "Player_Name": Player_Name,
         "Volume": Volume,
@@ -194,7 +194,7 @@ def getKeymapPause():
     return Keymap_Pause
 
 
-def loadDefaultSetting():
+def load_default_settings():
     global Player_Name
     global Volume
     global Music
@@ -224,7 +224,7 @@ def loadDefaultSetting():
     Keymap_Pause = pygame.K_ESCAPE
 
 
-def importSettings():
+def import_settings():
     #fn = askopenfilename()
     fn = "fileio\\UserSetting.json"
     print("user chose", fn)
@@ -232,11 +232,11 @@ def importSettings():
     if fn[-5:] != ".json":
         pygame.display.set_caption("Invalid File")
     else:
-        loadSetting(fn)
+        load_settings(fn)
 
 
-def exportSettings():
-    saveSetting()
+def export_settings():
+    save_settings()
 
     #make copy of UserSetting.json and move it to desktop
     #get document path
