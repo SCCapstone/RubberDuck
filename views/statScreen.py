@@ -1,5 +1,4 @@
 import pygame
-import json
 from assets import values
 import menuStructure as menuS
 import os
@@ -188,7 +187,6 @@ def statScreen(noises):
                         1] < pygame.mouse.get_pos()[1] < shareCords[1] + 50:
                     # share stats
                     noises.playSound("quack")
-                    pass
                 elif homeCords[0] < pygame.mouse.get_pos(
                 )[0] < homeCords[0] + widthButton and homeCords[
                         1] < pygame.mouse.get_pos()[1] < homeCords[1] + 50:

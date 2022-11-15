@@ -1,16 +1,12 @@
 # Create Pygame ins
 import pygame
 import sys
-import os
-from pygame.locals import *
 
 import menuStructure as menuS
 from assets import values
 from assets import soundHandler
 from views import homeScreen
-from views import gameOverScreen
 from views import statScreen
-from views import gameScreen
 from views import settingScreen
 from views import highScoreScreen
 from fileio import settingIO
@@ -26,7 +22,7 @@ pygame.display.update()
 noises = soundHandler.SFXHandler()
 
 statScreen.StartLoad()
-settingIO.loadSetting()
+settingIO.loadSetting("fileio\\UserSetting.json")
 highScoreIO.loadHighScore()
 
 menuS.setGameMenu(menuS.Menu.HOME)

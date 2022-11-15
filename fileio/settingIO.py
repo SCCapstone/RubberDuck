@@ -1,6 +1,8 @@
 import json
-from enum import Enum
 import pygame
+import shutil
+import os
+import easygui
 
 global Player_Name
 global Volume
@@ -17,7 +19,7 @@ global Keymap_Dash
 global Keymap_Pause
 
 
-def loadSetting():
+def loadSetting(path):
     global Player_Name
     global Volume
     global Music
@@ -32,21 +34,26 @@ def loadSetting():
     global Keymap_Dash
     global Keymap_Pause
 
-    data = json.load(open("fileio\\UserSetting.json"))
+    try:
+        data = json.load(open(path))
 
-    Player_Name = data["Player_Name"]
-    Volume = data["Volume"]
-    Music = data["Music"]
-    Sound_Effect = data["Sound_Effect"]
-    Difficulty = data["Difficulty"]
-    Keymap_Left = data["Keymap_Left"]
-    Keymap_Right = data["Keymap_Right"]
-    Keymap_Up = data["Keymap_Up"]
-    Keymap_Down = data["Keymap_Down"]
-    Keymap_Primary_Fire = data["Keymap_Primary_Fire"]
-    Keymap_Secondary_Fire = data["Keymap_Secondary_Fire"]
-    Keymap_Dash = data["Keymap_Dash"]
-    Keymap_Pause = data["Keymap_Pause"]
+        Player_Name = data["Player_Name"]
+        Volume = data["Volume"]
+        Music = data["Music"]
+        Sound_Effect = data["Sound_Effect"]
+        Difficulty = data["Difficulty"]
+        Keymap_Left = data["Keymap_Left"]
+        Keymap_Right = data["Keymap_Right"]
+        Keymap_Up = data["Keymap_Up"]
+        Keymap_Down = data["Keymap_Down"]
+        Keymap_Primary_Fire = data["Keymap_Primary_Fire"]
+        Keymap_Secondary_Fire = data["Keymap_Secondary_Fire"]
+        Keymap_Dash = data["Keymap_Dash"]
+        Keymap_Pause = data["Keymap_Pause"]
+    except:
+        loadDefaultSetting()
+        pygame.display.set_caption(
+            "Setting File Not Found, Default Setting Loaded")
 
 
 def saveSetting():
@@ -215,3 +222,29 @@ def loadDefaultSetting():
     Keymap_Secondary_Fire = pygame.K_RSHIFT
     Keymap_Dash = pygame.K_SPACE
     Keymap_Pause = pygame.K_ESCAPE
+
+
+def importSettings():
+    #fn = askopenfilename()
+    fn = "fileio\\UserSetting.json"
+    print("user chose", fn)
+    #check if file is valid setting file
+    if fn[-5:] != ".json":
+        pygame.display.set_caption("Invalid File")
+    else:
+        loadSetting(fn)
+
+
+def exportSettings():
+    saveSetting()
+
+    #make copy of UserSetting.json and move it to desktop
+    #get document path
+    path = os.path.expanduser("~/Documents")
+    path = path + "\\UserSetting.json"
+    shutil.copy("fileio\\UserSetting.json", path)
+
+    #display banner message
+    easygui.msgbox(
+        "UserSetting.json has been exported to your Documents folder",
+        "Export Successful")

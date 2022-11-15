@@ -1,6 +1,5 @@
 import pygame
 import os
-from pygame.locals import *
 from assets import values
 import menuStructure as menuS
 

@@ -3,6 +3,7 @@ import pygame
 from assets import values
 import menuStructure as menuS
 import os
+from fileio import settingIO
 
 #from fileio import settingIO
 
@@ -66,11 +67,19 @@ def settingScreen(noises):
     pygame.draw.rect(screen, values.COLOR_Purple,
                      (exportCords[0], exportCords[1], widthButton, 50), 0)
 
-    #import_settings_text_image = subtitleFont.render("Import Settings", True, values.COLOR_Pink)
-    #export_settings_text_image = subtitleFont.render("Export Settings", True, values.COLOR_Pink)
+    import_settings_text_image = subtitleFont.render("Import", True,
+                                                     values.COLOR_Pink)
+    export_settings_text_image = subtitleFont.render("Export", True,
+                                                     values.COLOR_Pink)
 
-    #screen.blit(import_settings_text_image, (importCords[0], importCords[1]))
-    #screen.blit(export_settings_text_image, (exportCords[0], exportCords[1]))
+    # Draw the text on the buttons in the center
+    import_settings_rect = import_settings_text_image.get_rect(
+        center=(importCords[0] + widthButton / 2, importCords[1] + 25))
+    export_settings_rect = export_settings_text_image.get_rect(
+        center=(exportCords[0] + widthButton / 2, exportCords[1] + 25))
+
+    screen.blit(import_settings_text_image, import_settings_rect)
+    screen.blit(export_settings_text_image, export_settings_rect)
 
     # Make cords for 3 inline buttons
     homeCords = (left + 10, screen.get_height() / 16 * 13.5)
@@ -124,13 +133,20 @@ def settingScreen(noises):
                         1] < pygame.mouse.get_pos()[1] < defaultCords[1] + 50:
                     # go to home screeni
                     noises.playSound("quack")
-                    pass
                 elif quitCoords[0] < pygame.mouse.get_pos(
                 )[0] < quitCoords[0] + widthButton and quitCoords[
                         1] < pygame.mouse.get_pos()[1] < quitCoords[1] + 50:
                     # quit game
                     noises.playSound("quack")
                     menuS.setGameMenu(menuS.Menu.QUIT)
+                elif importCords[0] < pygame.mouse.get_pos(
+                )[0] < importCords[0] + widthButton and importCords[
+                        1] < pygame.mouse.get_pos()[1] < importCords[1] + 50:
+                    settingIO.importSettings()
+                elif exportCords[0] < pygame.mouse.get_pos(
+                )[0] < exportCords[0] + widthButton and exportCords[
+                        1] < pygame.mouse.get_pos()[1] < exportCords[1] + 50:
+                    settingIO.exportSettings()
         elif event.type == pygame.QUIT:
             menuS.setGameMenu(menuS.Menu.QUIT)
         elif event.type == pygame.KEYDOWN:
