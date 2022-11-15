@@ -110,7 +110,7 @@ def homeScreen(noises):
 def ChickHandler(noises):
 
     if pygame.mouse.get_pressed()[0]:
-
+        menuS.doubleClickPreventer()
         # if mouse click is on stat game button
         if pygame.mouse.get_pos(
         )[0] > values.screenX * .004 and pygame.mouse.get_pos(

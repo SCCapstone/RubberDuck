@@ -1,4 +1,5 @@
 from enum import Enum
+import time
 
 
 # Set the menu structure
@@ -25,3 +26,8 @@ def setGameMenu(menu):
 def getGameMenu():
     global Game_Menu
     return Game_Menu
+
+
+# make method to prevent double click
+def doubleClickPreventer():
+    time.sleep(.1)

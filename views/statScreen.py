@@ -180,6 +180,7 @@ def statScreen(noises):
     # check for mouse click
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
+            menuS.doubleClickPreventer()
             if event.button == 1:
                 # check if mouse is in rect
                 if shareCords[0] < pygame.mouse.get_pos(
