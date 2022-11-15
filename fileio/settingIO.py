@@ -16,7 +16,7 @@ global Keymap_Secondary_Fire
 global Keymap_Dash
 global Keymap_Pause
 
-    
+
 def loadSetting():
     global Player_Name
     global Volume
@@ -31,9 +31,9 @@ def loadSetting():
     global Keymap_Secondary_Fire
     global Keymap_Dash
     global Keymap_Pause
-    
+
     data = json.load(open("fileio\\UserSetting.json"))
-    
+
     Player_Name = data["Player_Name"]
     Volume = data["Volume"]
     Music = data["Music"]
@@ -47,7 +47,8 @@ def loadSetting():
     Keymap_Secondary_Fire = data["Keymap_Secondary_Fire"]
     Keymap_Dash = data["Keymap_Dash"]
     Keymap_Pause = data["Keymap_Pause"]
-    
+
+
 def saveSetting():
     data = {
         "Player_Name": Player_Name,
@@ -64,97 +65,123 @@ def saveSetting():
         "Keymap_Dash": Keymap_Dash,
         "Keymap_Pause": Keymap_Pause
     }
-    
+
     with open("fileio\\UserSetting.json", "w") as f:
         json.dump(data, f, indent=4)
-        
+
+
 def setPlayerName(name):
     global Player_Name
     Player_Name = name
-    
+
+
 def setVolume(volume):
     global Volume
     Volume = volume
 
+
 def setMusic(music):
     global Music
     Music = music
-    
+
+
 def setSoundEffect(soundEffect):
     global Sound_Effect
     Sound_Effect = soundEffect
+
 
 def setDifficulty(difficulty):
     global Difficulty
     Difficulty = difficulty
 
+
 def setKeymapLeft(keymapLeft):
     global Keymap_Left
     Keymap_Left = keymapLeft
-    
+
+
 def setKeymapRight(keymapRight):
     global Keymap_Right
     Keymap_Right = keymapRight
+
 
 def setKeymapUp(keymapUp):
     global Keymap_Up
     Keymap_Up = keymapUp
 
+
 def setKeymapDown(keymapDown):
     global Keymap_Down
     Keymap_Down = keymapDown
+
 
 def setKeymapPrimaryFire(keymapPrimaryFire):
     global Keymap_Primary_Fire
     Keymap_Primary_Fire = keymapPrimaryFire
 
+
 def setKeymapSecondaryFire(keymapSecondaryFire):
     global Keymap_Secondary_Fire
     Keymap_Secondary_Fire = keymapSecondaryFire
+
 
 def setKeymapDash(keymapDash):
     global Keymap_Dash
     Keymap_Dash = keymapDash
 
+
 def setKeymapPause(keymapPause):
     global Keymap_Pause
     Keymap_Pause = keymapPause
 
+
 def getPlayerName():
     return Player_Name
+
 
 def getVolume():
     return Volume
 
+
 def getMusic():
     return Music
+
 
 def getSoundEffect():
     return Sound_Effect
 
+
 def getDifficulty():
     return Difficulty
+
 
 def getKeymapLeft():
     return Keymap_Left
 
+
 def getKeymapRight():
     return Keymap_Right
+
 
 def getKeymapUp():
     return Keymap_Up
 
+
 def getKeymapDown():
     return Keymap_Down
+
 
 def getKeymapPrimaryFire():
     return Keymap_Primary_Fire
 
+
 def getKeymapSecondaryFire():
     return Keymap_Secondary_Fire
 
+
 def getKeymapDash():
     return Keymap_Dash
+
 
 def getKeymapPause():
     return Keymap_Pause
@@ -174,7 +201,7 @@ def loadDefaultSetting():
     global Keymap_Secondary_Fire
     global Keymap_Dash
     global Keymap_Pause
-    
+
     Player_Name = "Player"
     Volume = 100
     Music = True

@@ -3,6 +3,7 @@ import pygame
 from assets import values
 import menuStructure as menuS
 import os
+from fileio import highScoreIO
 
 #from fileio import highScoreIO
 
@@ -56,6 +57,49 @@ def highScoreScreen(noises):
     subtitle_rect = subtitle_text_image.get_rect(
         center=(screen.get_width() / 2, screen.get_height() / 16 * 3))
     screen.blit(subtitle_text_image, subtitle_rect)
+
+    counter = 0
+    if len(highScoreIO.getHighScore()) == 0:
+        hs_text_image = subtitleFont.render("No High Scores", True,
+                                            values.COLOR_Purple)
+        hs_rect = hs_text_image.get_rect(center=(screen.get_width() / 2,
+                                                 screen.get_height() / 16 * 4))
+        screen.blit(hs_text_image, hs_rect)
+    else:
+        for i in highScoreIO.getHighScore():
+            # Positon an Name on Left
+            left_hs_text_image = subtitleFont.render(str(i[0]), True,
+                                                     values.COLOR_Purple)
+            left_2_hs_text_image = subtitleFont.render((i[1]), True,
+                                                       values.COLOR_Purple)
+            center_hs_text_image = subtitleFont.render(str(i[2]), True,
+                                                       values.COLOR_Purple)
+            right_hs_text_image = subtitleFont.render(i[3], True,
+                                                      values.COLOR_Purple)
+
+            widthOfLeft = left_hs_text_image.get_width() / 2
+            widthOfLeftHalf2 = left_2_hs_text_image.get_width() / 2
+            widthOfRightHalf = right_hs_text_image.get_width() / 2
+
+            #Position to left of box
+            left_hs_rect = left_hs_text_image.get_rect(
+                center=(left + 10 + widthOfLeft,
+                        screen.get_height() / 16 * (4 + counter)))
+            left_hs_rect_2 = left_2_hs_text_image.get_rect(
+                center=(left + 50 + widthOfLeftHalf2,
+                        screen.get_height() / 16 * (4 + counter)))
+            center_hs_rect = center_hs_text_image.get_rect(
+                center=(screen.get_width() / 2,
+                        screen.get_height() / 16 * (4 + counter)))
+            right_hs_rect = right_hs_text_image.get_rect(
+                center=(right - 10 - widthOfRightHalf,
+                        screen.get_height() / 16 * (4 + counter)))
+
+            screen.blit(left_hs_text_image, left_hs_rect)
+            screen.blit(left_2_hs_text_image, left_hs_rect_2)
+            screen.blit(center_hs_text_image, center_hs_rect)
+            screen.blit(right_hs_text_image, right_hs_rect)
+            counter += 1
 
     # Make cordinates for 3 inline buttons
     widthButton = (right - left - 40) / 3
