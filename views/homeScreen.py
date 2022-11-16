@@ -19,8 +19,9 @@ def home_screen(noises):
     font = pygame.font.Font(
         os.path.join("assets", "fonts", "Ethnocentric.ttf"),
         int(values.screenX * .019))
-    SR_text_image = font.render("Session Runtime: 0:00", True,
-                                values.COLOR_White)
+    SR_text_image = font.render(
+        "Session Runtime: " + str(values.sessionRunTime()), True,
+        values.COLOR_White)
     screen.blit(SR_text_image, (values.screenX * .0065, values.screenY * .011))
 
     # if mouse is over stat, change color to white

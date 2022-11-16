@@ -1,4 +1,7 @@
 import os
+import time
+
+global startTime
 
 # Colors
 COLOR_Purple = (46, 41, 78)
@@ -19,8 +22,21 @@ screenY = 0
 
 SETTING_PATH = "fileio\\UserSetting.json"
 
+
 # Set Screen Size
 def set_screen_size(x, y):
     global screenX, screenY
     screenX = x
     screenY = y
+
+
+def sessionRunTime():
+    """Returns the time the session has been running in seconds in HH:MM"""
+    global startTime
+    return time.strftime("%H:%M", time.gmtime(time.time() - startTime))
+
+
+def setStartTime():
+    """Sets the start time of the session in HH:MM"""
+    global startTime
+    startTime = time.time()

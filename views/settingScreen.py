@@ -142,10 +142,12 @@ def settings_screen(noises):
                 elif importCords[0] < pygame.mouse.get_pos(
                 )[0] < importCords[0] + widthButton and importCords[
                         1] < pygame.mouse.get_pos()[1] < importCords[1] + 50:
+                    noises.playSound("quack")
                     settingIO.import_settings()
                 elif exportCords[0] < pygame.mouse.get_pos(
                 )[0] < exportCords[0] + widthButton and exportCords[
                         1] < pygame.mouse.get_pos()[1] < exportCords[1] + 50:
+                    noises.playSound("quack")
                     settingIO.export_settings()
         elif event.type == pygame.QUIT:
             menuS.set_game_menu(menuS.menu.QUIT)

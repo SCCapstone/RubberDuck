@@ -24,16 +24,17 @@ noises = soundHandler.SFXHandler()
 statScreen.start_load()
 settingIO.load_settings(values.SETTING_PATH)
 highScoreIO.load_high_scores()
+values.setStartTime()
 
 menuS.set_game_menu(menuS.menu.HOME)
 values.set_screen_size(pygame.display.get_surface().get_size()[0],
-                     pygame.display.get_surface().get_size()[1])
-
-
+                       pygame.display.get_surface().get_size()[1])
 """Runs the loop for various menu control functions"""
+
+
 def main():
     # Keep the game open until the user closes it
-    noises.play_music("menus")
+    noises.playMusic("menus")
     while True:
         pygame.display.flip()
         for event in pygame.event.get():
@@ -53,7 +54,7 @@ def main():
         elif menuS.get_game_menu() == menuS.menu.STAT:
             statScreen.start_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.GAME:
-            noises.play_music("gameplay")
+            noises.playSound("gameplay")
         elif menuS.get_game_menu() == menuS.menu.CUSTOMIZE:
             pass
         elif menuS.get_game_menu() == menuS.menu.HIGH_SCORE:

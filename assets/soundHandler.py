@@ -32,7 +32,7 @@ class SFXHandler:
 
     # Takes in a sound (see dictionary above) and plays a corresponding sound
     # file
-    def play_sound(self, sound):
+    def playSound(self, sound):
         if sound in soundBook:
             playedSound = pygame.mixer.Sound(soundBook[sound])
             playedSound.set_volume(self.sound_volume)
@@ -40,7 +40,7 @@ class SFXHandler:
 
     # Takes in a string (see dictionary above) and plays a corresponding music
     # file
-    def play_music(self, music):
+    def playMusic(self, music):
         if music in musicBook and self.currentSong != music:
             if self.currentSong == "NA":
                 pygame.mixer.music.load(musicBook[music])
