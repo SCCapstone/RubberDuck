@@ -9,12 +9,12 @@ from fileio import settingIO
 
 
 # TODO - Add a way to load the settings
-def start_load():
+def load_settings():
     pass
 
 
 # TODO - Add a way to save the settings
-def save_stats():
+def save_settings():
     # TODO
     pass
 
@@ -50,16 +50,28 @@ def settings_screen(noises):
 
     subtitleFont = pygame.font.Font(
         os.path.join("assets", "fonts", "Ethnocentric.ttf"),
-        int(values.screenX * .017))
+        int(values.screenX * .019))
+
+    # Coordinates for back button
+    homeCords = (values.screenX * .0065, values.screenY * .011)
+    if pygame.mouse.get_pos(
+    )[0] > values.screenX * .0065 and pygame.mouse.get_pos(
+    )[0] < values.screenX * .09 and pygame.mouse.get_pos(
+    )[1] > values.screenY * .011 and pygame.mouse.get_pos(
+    )[1] < values.screenY * .05:
+        SR_text_image = subtitleFont.render("HOME", True, values.COLOR_Yellow)
+    else:
+        SR_text_image = subtitleFont.render("HOME", True, values.COLOR_Pink)
+    screen.blit(SR_text_image, (homeCords[0], homeCords[1]))
 
     # Make cordinates for 3 inline buttons
     widthButton = (right - left - 40) / 3
 
     # Add 2 cenered buttons
     importCords = (left + ((right - left) / 2) - widthButton - 10,
-                   screen.get_height() / 16 * 12)
+                   screen.get_height() / 16 * 13.5)
     exportCords = (left + ((right - left) / 2) + 10,
-                   screen.get_height() / 16 * 12)
+                   screen.get_height() / 16 * 13.5)
 
     # Draw the buttons
     pygame.draw.rect(screen, values.COLOR_Purple,
@@ -82,39 +94,22 @@ def settings_screen(noises):
     screen.blit(export_settings_text_image, export_settings_rect)
 
     # Make cords for 3 inline buttons
-    homeCords = (left + 10, screen.get_height() / 16 * 13.5)
-    defaultCords = (10 + homeCords[0] + widthButton,
-                    screen.get_height() / 16 * 13.5)
-    quitCoords = (10 + defaultCords[0] + widthButton,
-                  screen.get_height() / 16 * 13.5)
+    defaultCords = (left + 10 + widthButton,
+                    screen.get_height() / 16 * 12)
 
     # Draw Rects for buttons
     pygame.draw.rect(screen, values.COLOR_Purple,
-                     (homeCords[0], homeCords[1], widthButton, 50))
-    pygame.draw.rect(screen, values.COLOR_Purple,
                      (defaultCords[0], defaultCords[1], widthButton, 50))
-    pygame.draw.rect(screen, values.COLOR_Purple,
-                     (quitCoords[0], quitCoords[1], widthButton, 50))
 
     # Add text to center of buttons
     default_text_image = subtitleFont.render("Default", True,
                                              values.COLOR_Pink)
-    home_text_image = subtitleFont.render("Home", True, values.COLOR_Pink)
-    quit_text_image = subtitleFont.render("Quit", True, values.COLOR_Pink)
 
     # Add text to screen
-    screen.blit(
-        home_text_image,
-        (homeCords[0] + widthButton / 2 - home_text_image.get_width() / 2,
-         homeCords[1] + 25 - home_text_image.get_height() / 2))
     screen.blit(default_text_image,
                 (defaultCords[0] + widthButton / 2 -
                  default_text_image.get_width() / 2,
                  defaultCords[1] + 25 - default_text_image.get_height() / 2))
-    screen.blit(
-        quit_text_image,
-        (quitCoords[0] + widthButton / 2 - quit_text_image.get_width() / 2,
-         quitCoords[1] + 25 - quit_text_image.get_height() / 2))
 
     # check for mouse click
     for event in pygame.event.get():
@@ -133,12 +128,6 @@ def settings_screen(noises):
                         1] < pygame.mouse.get_pos()[1] < defaultCords[1] + 50:
                     # go to home screeni
                     noises.playSound("quack")
-                elif quitCoords[0] < pygame.mouse.get_pos(
-                )[0] < quitCoords[0] + widthButton and quitCoords[
-                        1] < pygame.mouse.get_pos()[1] < quitCoords[1] + 50:
-                    # quit game
-                    noises.playSound("quack")
-                    menuS.set_game_menu(menuS.menu.QUIT)
                 elif importCords[0] < pygame.mouse.get_pos(
                 )[0] < importCords[0] + widthButton and importCords[
                         1] < pygame.mouse.get_pos()[1] < importCords[1] + 50:
