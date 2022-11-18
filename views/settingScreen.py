@@ -56,35 +56,76 @@ def settings_screen(noises):
     widthButton = (right - left - 40) / 3
 
     # Player Name Section
-    player_name_image = subtitleFont.render("Player Name", True, values.COLOR_Purple)
+    player_name_image = subtitleFont.render("Player Name:", True, values.COLOR_Purple)
     playerCords = (left + 10, screen.get_height() / 16 * 3)
-    screen.blit(player_name_image, (playerCords[0], playerCords[1]))
+    screen.blit(player_name_image, playerCords)
 
     # Master Volume Slider
-    master_volume_image = subtitleFont.render("Master Volume", True, values.COLOR_Purple)
+    master_volume_image = subtitleFont.render("Master Volume:", True, values.COLOR_Purple)
     masterVolCords = (left + 10, screen.get_height() / 16 * 4)
-    screen.blit(master_volume_image, (masterVolCords[0], masterVolCords[1]))
+    screen.blit(master_volume_image, masterVolCords)
 
     # Music Volume Slider
-    music_volume_image = subtitleFont.render("Music Volume", True, values.COLOR_Purple)
+    music_volume_image = subtitleFont.render("Music Volume:", True, values.COLOR_Purple)
     musicVolCords = (left + 50, screen.get_height() / 16 * 5)
-    screen.blit(music_volume_image, (musicVolCords[0], musicVolCords[1]))
+    screen.blit(music_volume_image, musicVolCords)
     
     # SFX Volume Slider
-    sfx_volume_image = subtitleFont.render("SFX Volume", True, values.COLOR_Purple)
+    sfx_volume_image = subtitleFont.render("SFX Volume:", True, values.COLOR_Purple)
     sfxVolCords = (left + 50, screen.get_height() / 16 * 6)
-    screen.blit(sfx_volume_image, (sfxVolCords[0], sfxVolCords[1]))
+    screen.blit(sfx_volume_image, sfxVolCords)
 
     # Difficulty Selector Heading
-    difficulty_image = subtitleFont.render("Difficulty", True, values.COLOR_Purple)
+    difficulty_image = subtitleFont.render("Difficulty:", True, values.COLOR_Purple)
     difficultyCords = (left + 10, screen.get_height() / 16 * 7)
-    screen.blit(difficulty_image, (difficultyCords[0], difficultyCords[1]))
+    screen.blit(difficulty_image, difficultyCords)
 
+    # TODO - Add special coloring for current difficulty (new color or just yellow?)
     # Difficulty Settings
-    difficulty_settings_image = subtitleFont.render("Easy / Medium / Hard", True, values.COLOR_Purple)
-    difficultySettingCords = (left + 30 + widthButton, screen.get_height() / 16 * 7)
-    screen.blit(difficulty_settings_image, (difficultySettingCords[0], difficultySettingCords[1]))
-    # TODO - Detect highlighting for button choice
+    # Easy setting
+    easydifficultySettingCords = (left + 30 + widthButton, screen.get_height() / 16 * 7)
+    # Highlighting Easy
+    if pygame.mouse.get_pos(
+    )[0] > easydifficultySettingCords[0] and pygame.mouse.get_pos(
+    )[0] < easydifficultySettingCords[0] + 120 and pygame.mouse.get_pos(
+    )[1] > easydifficultySettingCords[1] and pygame.mouse.get_pos(
+    )[1] < easydifficultySettingCords[1] + 30:
+        easy_difficulty_settings_image = subtitleFont.render("Easy", True, values.COLOR_Yellow)
+    else:
+        easy_difficulty_settings_image = subtitleFont.render("Easy", True, values.COLOR_Purple)
+    screen.blit(easy_difficulty_settings_image, easydifficultySettingCords)
+    # Slash after Easy
+    slash_one_image = subtitleFont.render("/", True, values.COLOR_Purple)
+    slashOneCords = (easydifficultySettingCords[0] + 120, screen.get_height() / 16 * 7)
+    screen.blit(slash_one_image, slashOneCords)
+    # Medium setting
+    mediumdifficultySettingCords = (slashOneCords[0] + 20, screen.get_height() / 16 * 7)
+    # Highlighting Medium
+    if pygame.mouse.get_pos(
+    )[0] > mediumdifficultySettingCords[0] and pygame.mouse.get_pos(
+    )[0] < mediumdifficultySettingCords[0] + 165 and pygame.mouse.get_pos(
+    )[1] > mediumdifficultySettingCords[1] and pygame.mouse.get_pos(
+    )[1] < mediumdifficultySettingCords[1] + 30:
+        medium_difficulty_settings_image = subtitleFont.render("Medium", True, values.COLOR_Yellow)
+    else:
+        medium_difficulty_settings_image = subtitleFont.render("Medium", True, values.COLOR_Purple)
+    screen.blit(medium_difficulty_settings_image, mediumdifficultySettingCords)
+    # Slash after Medium
+    slash_two_image = subtitleFont.render("/", True, values.COLOR_Purple)
+    slashTwoCords = (mediumdifficultySettingCords[0] + 165, screen.get_height() / 16 * 7)
+    screen.blit(slash_two_image, slashTwoCords)
+    # Hard setting
+    harddifficultySettingCords = (slashTwoCords[0] + 20, screen.get_height() / 16 * 7)
+    # Highlighting Hard
+    if pygame.mouse.get_pos(
+    )[0] > harddifficultySettingCords[0] and pygame.mouse.get_pos(
+    )[0] < harddifficultySettingCords[0] + 120 and pygame.mouse.get_pos(
+    )[1] > harddifficultySettingCords[1] and pygame.mouse.get_pos(
+    )[1] < harddifficultySettingCords[1] + 30:
+        hard_difficulty_settings_image = subtitleFont.render("Hard", True, values.COLOR_Yellow)
+    else:
+        hard_difficulty_settings_image = subtitleFont.render("Hard", True, values.COLOR_Purple)
+    screen.blit(hard_difficulty_settings_image, harddifficultySettingCords)
 
     # Coordinates for back button
     homeCords = (values.screenX * .0065, values.screenY * .011)
@@ -98,7 +139,7 @@ def settings_screen(noises):
         SR_text_image = subtitleFont.render("HOME", True, values.COLOR_Pink)
     screen.blit(SR_text_image, (homeCords[0], homeCords[1]))
 
-    # Add 2 cenered buttons
+    # Add 2 centered buttons
     importCords = (left + ((right - left) / 2) - widthButton - 10,
                    screen.get_height() / 16 * 13.5)
     exportCords = (left + ((right - left) / 2) + 10,
@@ -142,6 +183,7 @@ def settings_screen(noises):
                  default_text_image.get_width() / 2,
                  defaultCords[1] + 25 - default_text_image.get_height() / 2))
 
+    # TODO - Add difficulty checks
     # check for mouse click
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
