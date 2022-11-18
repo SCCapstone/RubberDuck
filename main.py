@@ -35,6 +35,7 @@ values.set_screen_size(pygame.display.get_surface().get_size()[0],
 def main():
     # Keep the game open until the user closes it
     noises.playMusic("menus")
+    ran = False
     while True:
         pygame.display.flip()
         for event in pygame.event.get():
@@ -54,7 +55,9 @@ def main():
         elif menuS.get_game_menu() == menuS.menu.STAT:
             statScreen.start_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.GAME:
-            noises.playSound("gameplay")
+            if not ran:
+                noises.playMusic("gameplay")
+            ran = True
         elif menuS.get_game_menu() == menuS.menu.CUSTOMIZE:
             pass
         elif menuS.get_game_menu() == menuS.menu.HIGH_SCORE:
