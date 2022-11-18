@@ -52,6 +52,40 @@ def settings_screen(noises):
         os.path.join("assets", "fonts", "Ethnocentric.ttf"),
         int(values.screenX * .019))
 
+    # Make cordinates for 3 inline buttons
+    widthButton = (right - left - 40) / 3
+
+    # Player Name Section
+    player_name_image = subtitleFont.render("Player Name", True, values.COLOR_Purple)
+    playerCords = (left + 10, screen.get_height() / 16 * 3)
+    screen.blit(player_name_image, (playerCords[0], playerCords[1]))
+
+    # Master Volume Slider
+    master_volume_image = subtitleFont.render("Master Volume", True, values.COLOR_Purple)
+    masterVolCords = (left + 10, screen.get_height() / 16 * 4)
+    screen.blit(master_volume_image, (masterVolCords[0], masterVolCords[1]))
+
+    # Music Volume Slider
+    music_volume_image = subtitleFont.render("Music Volume", True, values.COLOR_Purple)
+    musicVolCords = (left + 50, screen.get_height() / 16 * 5)
+    screen.blit(music_volume_image, (musicVolCords[0], musicVolCords[1]))
+    
+    # SFX Volume Slider
+    sfx_volume_image = subtitleFont.render("SFX Volume", True, values.COLOR_Purple)
+    sfxVolCords = (left + 50, screen.get_height() / 16 * 6)
+    screen.blit(sfx_volume_image, (sfxVolCords[0], sfxVolCords[1]))
+
+    # Difficulty Selector Heading
+    difficulty_image = subtitleFont.render("Difficulty", True, values.COLOR_Purple)
+    difficultyCords = (left + 10, screen.get_height() / 16 * 7)
+    screen.blit(difficulty_image, (difficultyCords[0], difficultyCords[1]))
+
+    # Difficulty Settings
+    difficulty_settings_image = subtitleFont.render("Easy / Medium / Hard", True, values.COLOR_Purple)
+    difficultySettingCords = (left + 30 + widthButton, screen.get_height() / 16 * 7)
+    screen.blit(difficulty_settings_image, (difficultySettingCords[0], difficultySettingCords[1]))
+    # TODO - Detect highlighting for button choice
+
     # Coordinates for back button
     homeCords = (values.screenX * .0065, values.screenY * .011)
     if pygame.mouse.get_pos(
@@ -63,9 +97,6 @@ def settings_screen(noises):
     else:
         SR_text_image = subtitleFont.render("HOME", True, values.COLOR_Pink)
     screen.blit(SR_text_image, (homeCords[0], homeCords[1]))
-
-    # Make cordinates for 3 inline buttons
-    widthButton = (right - left - 40) / 3
 
     # Add 2 cenered buttons
     importCords = (left + ((right - left) / 2) - widthButton - 10,
@@ -94,7 +125,7 @@ def settings_screen(noises):
     screen.blit(export_settings_text_image, export_settings_rect)
 
     # Make cords for 3 inline buttons
-    defaultCords = (left + 10 + widthButton,
+    defaultCords = (left + 20 + widthButton,
                     screen.get_height() / 16 * 12)
 
     # Draw Rects for buttons
