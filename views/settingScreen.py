@@ -130,13 +130,13 @@ def settings_screen(noises):
     # Coordinates for back button
     homeCords = (values.screenX * .0065, values.screenY * .011)
     if pygame.mouse.get_pos(
-    )[0] > values.screenX * .0065 and pygame.mouse.get_pos(
-    )[0] < values.screenX * .09 and pygame.mouse.get_pos(
-    )[1] > values.screenY * .011 and pygame.mouse.get_pos(
-    )[1] < values.screenY * .05:
-        SR_text_image = subtitleFont.render("HOME", True, values.COLOR_Yellow)
+    )[0] > homeCords[0] and pygame.mouse.get_pos(
+    )[0] < values.screenX * .122 and pygame.mouse.get_pos(
+    )[1] > homeCords[1] and pygame.mouse.get_pos(
+    )[1] < values.screenY * .06:
+        SR_text_image = titleFont.render("HOME", True, values.COLOR_Yellow)
     else:
-        SR_text_image = subtitleFont.render("HOME", True, values.COLOR_Pink)
+        SR_text_image = titleFont.render("HOME", True, values.COLOR_Pink)
     screen.blit(SR_text_image, (homeCords[0], homeCords[1]))
 
     # Add 2 centered buttons
