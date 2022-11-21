@@ -23,12 +23,20 @@ class SFXHandler:
         self.music_volume(100)
 
     def sound_volume(self, newVol):
-        # Set volume
-        self.sound_volume = newVol / 100.0
+        # Make sure it is a valid volume
+        if newVol >= 0 and newVol <= 100:
+            # Set volume
+            self.sound_volume = newVol / 100.0
+            return True
+        return False
 
     def music_volume(self, newVol):
-        # Set music volume
-        pygame.mixer.music.set_volume(newVol / 100.0)
+        # Make sure it is a valid volume
+        if newVol >= 0 and newVol <= 100:
+            # Set music volume
+            pygame.mixer.music.set_volume(newVol / 100.0)
+            return True
+        return False
 
     # Takes in a sound (see dictionary above) and plays a corresponding sound
     # file
@@ -37,6 +45,8 @@ class SFXHandler:
             playedSound = pygame.mixer.Sound(soundBook[sound])
             playedSound.set_volume(self.sound_volume)
             pygame.mixer.Sound.play(pygame.mixer.Sound(soundBook[sound]))
+            return True
+        return False
 
     # Takes in a string (see dictionary above) and plays a corresponding music
     # file
@@ -45,10 +55,12 @@ class SFXHandler:
             if self.currentSong == "NA":
                 pygame.mixer.music.load(musicBook[music])
                 pygame.mixer.music.play()
-                return
+                return True
             # Load the new song and unload the previous one to save memory
             pygame.mixer.music.load(musicBook[music])
-            pygame.mixer.music.unload(musicBook[self.currentSong])
+            pygae.mixer.music.unload(musicBook[self.currentSong])
             # Play the loaded music track (-1 loops forever)
             pygame.mixer.music.play(-1)
             self.currentSong = music
+            return True
+        return False
