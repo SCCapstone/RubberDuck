@@ -13,6 +13,7 @@ easygui = "*"
 yapf = "*"
 autoflake = "*"
 pytest-shutil = "*"
+pygame-widgets = "*"
 
 [dev-packages]
 

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e55bdc6c650702457af5933bb0a6fe575a2612909597da6bf0eab2270ff14639"
+            "sha256": "1d24b1b927bfc167be03f9919f40a903dc481c8b305747a326a733cab80b9fe2"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -99,7 +99,7 @@
             "hashes": [
                 "sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d"
             ],
-            "markers": "python_version >= '2.6' and python_version not in '3.0, 3.1, 3.2'",
+            "markers": "python_version >= '2.6' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==0.18.2"
         },
         "iniconfig": {
@@ -114,7 +114,7 @@
                 "sha256:6f62d78e2f89b4500b080fe3a81690850cd254227f27f75c3a0c491a1f351ba7",
                 "sha256:e8443a5e7a020e9d7f97f1d7d9cd17c88bcb3bc7e218bf9cf5095fe550be2951"
             ],
-            "markers": "python_full_version >= '3.6.1' and python_version < '4.0'",
+            "markers": "python_version < '4.0' and python_full_version >= '3.6.1'",
             "version": "==5.10.1"
         },
         "lazy-object-proxy": {
@@ -293,6 +293,14 @@
             "index": "pypi",
             "version": "==2.1.3.dev8"
         },
+        "pygame-widgets": {
+            "hashes": [
+                "sha256:247c8e8afdb0f128f657609fc63807ab1161d8def705d2902f1bb3e95a5921ab",
+                "sha256:a80ffc1459fe2d904e31436318e167f14df74a029ff26bfc1e06c074ca7781bc"
+            ],
+            "index": "pypi",
+            "version": "==1.1.0"
+        },
         "pyinstaller": {
             "hashes": [
                 "sha256:04ecf805bde2ef25b8e3642410871e6747c22fa7254107f155b8cd179c2a13b6",
@@ -373,7 +381,7 @@
                 "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926",
                 "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==1.16.0"
         },
         "termcolor": {
