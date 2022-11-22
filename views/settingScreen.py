@@ -71,13 +71,13 @@ def settings_screen(noises):
     # curved rectangle for volume slider inline with text
     pygame.draw.rect(screen, values.COLOR_Purple,
                      (left + 30 + master_volume_image.get_width(),
-                      screen.get_height() / 16 * 3.95 + 20, masterValRange, 5),
+                      screen.get_height() / 16 * 3.95 + 20, masterValRange, 10),
                      0)
     # volume slider
     pygame.draw.rect(screen, values.COLOR_Red,
                      (left + 30 + master_volume_image.get_width(),
                       screen.get_height() / 16 * 3.95 + 20,
-                      masterValRange * settingIO.Master_Volume / 100, 5), 0)
+                      masterValRange * settingIO.Master_Volume / 100, 10), 0)
 
     # Music Volume Slider
     music_volume_image = subtitleFont.render("Music Volume:", True,
@@ -88,12 +88,12 @@ def settings_screen(noises):
     musicValRange = right - left - 80 - music_volume_image.get_width()
     pygame.draw.rect(screen, values.COLOR_Purple,
                      (left + 70 + music_volume_image.get_width(),
-                      screen.get_height() / 16 * 4.95 + 20, musicValRange, 5),
+                      screen.get_height() / 16 * 4.95 + 20, musicValRange, 10),
                      0)
     pygame.draw.rect(screen, values.COLOR_Red,
                      (left + 70 + music_volume_image.get_width(),
                       screen.get_height() / 16 * 4.95 + 20,
-                      musicValRange * settingIO.Music_Volume / 100, 5), 0)
+                      musicValRange * settingIO.Music_Volume / 100, 10), 0)
 
     # SFX Volume Slider
     sfx_volume_image = subtitleFont.render("SFX Volume:", True,
@@ -105,11 +105,11 @@ def settings_screen(noises):
     sfxValRange = right - left - 80 - sfx_volume_image.get_width()
     pygame.draw.rect(screen, values.COLOR_Purple,
                      (left + 70 + sfx_volume_image.get_width(),
-                      screen.get_height() / 16 * 5.95 + 20, sfxValRange, 5), 0)
+                      screen.get_height() / 16 * 5.95 + 20, sfxValRange, 10), 0)
     pygame.draw.rect(screen, values.COLOR_Red,
                      (left + 70 + sfx_volume_image.get_width(),
                         screen.get_height() / 16 * 5.95 + 20,
-                        sfxValRange * settingIO.SFX_Volume / 100, 5), 0)
+                        sfxValRange * settingIO.SFX_Volume / 100, 10), 0)
 
     # Difficulty Selector Heading
     difficulty_image = subtitleFont.render("Difficulty:", True,
@@ -256,6 +256,29 @@ def settings_screen(noises):
                         1] < pygame.mouse.get_pos()[1] < exportCords[1] + 50:
                     noises.playSound("quack")
                     settingIO.export_settings()
+                    
+                # Box = left + 70 + sfx_volume_image.get_width(), screen.get_height() / 16 * 5.95 + 20, sfxValRange, 10
+                elif left + 30 + master_volume_image.get_width() < pygame.mouse.get_pos(
+                )[0] < left + 30 + master_volume_image.get_width() + masterValRange and screen.get_height(
+                ) / 16 * 3.95 + 20 < pygame.mouse.get_pos()[1] < screen.get_height(
+                ) / 16 * 3.95 + 30:
+                    noises.playSound("quack")
+                    # TODO - Add volume change
+                elif left + 70 + music_volume_image.get_width() < pygame.mouse.get_pos(
+                )[0] < left + 70 + music_volume_image.get_width() + musicValRange and screen.get_height(
+                ) / 16 * 4.95 + 20 < pygame.mouse.get_pos()[1] < screen.get_height(
+                ) / 16 * 4.95 + 30:
+                    noises.playSound("quack")
+                    # TODO - Add volume change
+                elif left + 70 + sfx_volume_image.get_width() < pygame.mouse.get_pos(
+                )[0] < left + 70 + sfx_volume_image.get_width() + sfxValRange and screen.get_height(
+                ) / 16 * 5.95 + 20 < pygame.mouse.get_pos()[1] < screen.get_height(
+                ) / 16 * 5.95 + 30:
+                    noises.playSound("quack")
+                    # TODO - Add volume change
+
+
+
                 
         elif event.type == pygame.QUIT:
             menuS.set_game_menu(menuS.menu.QUIT)
