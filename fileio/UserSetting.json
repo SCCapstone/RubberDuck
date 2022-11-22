@@ -1,8 +1,8 @@
 {
     "Player_Name": "Player",
-    "Volume": 100,
-    "Music": true,
-    "Sound_Effect": true,
+    "Master_Volume": 75,
+    "Music_Volume": 55,
+    "SFX_Volume": 35,
     "Difficulty": "Bath Time",
     "Keymap_Left": 97,
     "Keymap_Right": 100,
