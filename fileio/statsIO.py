@@ -26,7 +26,7 @@ def load_stats():
     global averagePoints
     global averagePoints
 
-    data = json.load(open("fileio\\stats.json"))
+    data = json.load(open("fileio//stats.json"))
 
     distanceTravelled = data["distanceTravelled"]
     totalGamesPlayed = data["totalGamesPlayed"]
