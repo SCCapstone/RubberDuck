@@ -151,7 +151,7 @@ def settings_screen(noises):
             "Medium", True, values.COLOR_Red)
     elif pygame.mouse.get_pos(
     )[0] > mediumdifficultySettingCords[0] and pygame.mouse.get_pos(
-    )[0] < mediumdifficultySettingCords[0] + 165 and pygame.mouse.get_pos(
+    )[0] < mediumdifficultySettingCords[0] + 180 and pygame.mouse.get_pos(
     )[1] > mediumdifficultySettingCords[1] and pygame.mouse.get_pos(
     )[1] < mediumdifficultySettingCords[1] + 30:
         medium_difficulty_settings_image = subtitleFont.render(
@@ -162,7 +162,7 @@ def settings_screen(noises):
     screen.blit(medium_difficulty_settings_image, mediumdifficultySettingCords)
     # Slash after Medium
     slash_two_image = subtitleFont.render("/", True, values.COLOR_Purple)
-    slashTwoCords = (mediumdifficultySettingCords[0] + 165,
+    slashTwoCords = (mediumdifficultySettingCords[0] + 180,
                      screen.get_height() / 16 * 7)
     screen.blit(slash_two_image, slashTwoCords)
     # Hard setting
@@ -271,7 +271,7 @@ def settings_screen(noises):
                     noises.playSound("quack")
                     settingIO.Difficulty = "Easy"
                 elif mediumdifficultySettingCords[0] < pygame.mouse.get_pos(
-                )[0] < mediumdifficultySettingCords[0] + 120 and mediumdifficultySettingCords[
+                )[0] < mediumdifficultySettingCords[0] + 180 and mediumdifficultySettingCords[
                         1] < pygame.mouse.get_pos()[1] < mediumdifficultySettingCords[1] + 30:
                     noises.playSound("quack")
                     settingIO.Difficulty = "Medium"
