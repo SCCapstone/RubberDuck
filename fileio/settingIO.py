@@ -3,6 +3,9 @@ import pygame
 import shutil
 import os
 import easygui
+import tkinter
+from tkinter.filedialog import askopenfilename
+from assets import values
 
 global Player_Name, Master_Volume, Music_Volume
 global SFX_Volume, Difficulty
@@ -177,15 +180,17 @@ def load_default_settings():
 
 
 def import_settings():
-    #fn = askopenfilename()
-    fn = "fileio\\UserSetting.json"
-    print("user chose", fn)
-    #check if file is valid setting file
-    if fn[-5:] != ".json":
-        pygame.display.set_caption("Invalid File")
-    else:
-        load_settings(fn)
-
+    root = tkinter.Tk()
+    root.withdraw()
+    # Freeze pygame window
+    pygame.display.set_mode(values.SCREEN_SIZE)
+    filename = askopenfilename()
+    root.update()
+    if (filename != ""):
+        try:
+            load_settings(filename)
+        except:
+            easygui.msgbox("Invalid File", "Error")
 
 def export_settings():
     save_settings()
@@ -200,3 +205,4 @@ def export_settings():
     easygui.msgbox(
         "UserSetting.json has been exported to your Documents folder",
         "Export Successful")
+    

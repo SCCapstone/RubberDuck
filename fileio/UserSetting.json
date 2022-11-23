@@ -1,8 +1,8 @@
 {
     "Player_Name": "Player",
-    "Master_Volume": 100,
-    "Music_Volume": 100,
-    "SFX_Volume": 100,
+    "Master_Volume": 60.0,
+    "Music_Volume": 75.0,
+    "SFX_Volume": 65.0,
     "Difficulty": "Easy",
     "Keymap_Left": 97,
     "Keymap_Right": 100,
