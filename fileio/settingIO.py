@@ -4,43 +4,26 @@ import shutil
 import os
 import easygui
 
-global Player_Name
-global Volume
-global Music
-global Sound_Effect
-global Difficulty
-global Keymap_Left
-global Keymap_Right
-global Keymap_Up
-global Keymap_Down
-global Keymap_Primary_Fire
-global Keymap_Secondary_Fire
-global Keymap_Dash
-global Keymap_Pause
+global Player_Name, Master_Volume, Music_Volume
+global SFX_Volume, Difficulty
+global Keymap_Left, Keymap_Right, Keymap_Up
+global Keymap_Down, Keymap_Primary_Fire
+global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
 
 
 def load_settings(path):
-    global Player_Name
-    global Volume
-    global Music
-    global Sound_Effect
-    global Difficulty
-    global Keymap_Left
-    global Keymap_Right
-    global Keymap_Up
-    global Keymap_Down
-    global Keymap_Primary_Fire
-    global Keymap_Secondary_Fire
-    global Keymap_Dash
-    global Keymap_Pause
-
+    global Player_Name, Master_Volume, Music_Volume
+    global SFX_Volume, Difficulty
+    global Keymap_Left, Keymap_Right, Keymap_Up
+    global Keymap_Down, Keymap_Primary_Fire
+    global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
     try:
         data = json.load(open(path))
 
         Player_Name = data["Player_Name"]
-        Volume = data["Volume"]
-        Music = data["Music"]
-        Sound_Effect = data["Sound_Effect"]
+        Master_Volume = data["Master_Volume"]
+        Music_Volume = data["Music_Volume"]
+        SFX_Volume = data["SFX_Volume"]
         Difficulty = data["Difficulty"]
         Keymap_Left = data["Keymap_Left"]
         Keymap_Right = data["Keymap_Right"]
@@ -57,11 +40,16 @@ def load_settings(path):
 
 
 def save_settings():
+    global Player_Name, Master_Volume, Music_Volume
+    global SFX_Volume, Difficulty
+    global Keymap_Left, Keymap_Right, Keymap_Up
+    global Keymap_Down, Keymap_Primary_Fire
+    global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
     data = {
         "Player_Name": Player_Name,
-        "Volume": Volume,
-        "Music": Music,
-        "Sound_Effect": Sound_Effect,
+        "Master_Volume": Master_Volume,
+        "Music_Volume": Music_Volume,
+        "SFX_Volume": SFX_Volume,
         "Difficulty": Difficulty,
         "Keymap_Left": Keymap_Left,
         "Keymap_Right": Keymap_Right,
@@ -79,22 +67,6 @@ def save_settings():
 
 def setPlayerName(name):
     global Player_Name
-    Player_Name = name
-
-
-def setVolume(volume):
-    global Volume
-    Volume = volume
-
-
-def setMusic(music):
-    global Music
-    Music = music
-
-
-def setSoundEffect(soundEffect):
-    global Sound_Effect
-    Sound_Effect = soundEffect
 
 
 def setDifficulty(difficulty):
@@ -145,19 +117,6 @@ def setKeymapPause(keymapPause):
 def getPlayerName():
     return Player_Name
 
-
-def getVolume():
-    return Volume
-
-
-def getMusic():
-    return Music
-
-
-def getSoundEffect():
-    return Sound_Effect
-
-
 def getDifficulty():
     return Difficulty
 
@@ -195,25 +154,17 @@ def getKeymapPause():
 
 
 def load_default_settings():
-    global Player_Name
-    global Volume
-    global Music
-    global Sound_Effect
-    global Difficulty
-    global Keymap_Left
-    global Keymap_Right
-    global Keymap_Up
-    global Keymap_Down
-    global Keymap_Primary_Fire
-    global Keymap_Secondary_Fire
-    global Keymap_Dash
-    global Keymap_Pause
+    global Player_Name, Master_Volume, Music_Volume
+    global SFX_Volume, Difficulty
+    global Keymap_Left, Keymap_Right, Keymap_Up
+    global Keymap_Down, Keymap_Primary_Fire
+    global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
 
     Player_Name = "Player"
-    Volume = 100
-    Music = True
-    Sound_Effect = True
-    Difficulty = "Bath Time"
+    Master_Volume = 100
+    Music_Volume = 100
+    SFX_Volume = 100
+    Difficulty = "Easy"
     Keymap_Left = pygame.K_a
     Keymap_Right = pygame.K_d
     Keymap_Up = pygame.K_w
@@ -222,6 +173,7 @@ def load_default_settings():
     Keymap_Secondary_Fire = pygame.K_RSHIFT
     Keymap_Dash = pygame.K_SPACE
     Keymap_Pause = pygame.K_ESCAPE
+    
 
 
 def import_settings():

@@ -1,9 +1,9 @@
 {
     "Player_Name": "Player",
-    "Volume": 100,
-    "Music": true,
-    "Sound_Effect": true,
-    "Difficulty": "Bath Time",
+    "Master_Volume": 100,
+    "Music_Volume": 100,
+    "SFX_Volume": 100,
+    "Difficulty": "Easy",
     "Keymap_Left": 97,
     "Keymap_Right": 100,
     "Keymap_Up": 119,

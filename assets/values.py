@@ -40,3 +40,6 @@ def setStartTime():
     """Sets the start time of the session in HH:MM"""
     global startTime
     startTime = time.time()
+
+
+masterVolume = .75
