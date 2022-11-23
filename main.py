@@ -9,6 +9,8 @@ from views import homeScreen
 from views import statScreen
 from views import settingScreen
 from views import highScoreScreen
+from views import customizeScreen
+
 from fileio import settingIO
 from fileio import highScoreIO
 
@@ -59,7 +61,7 @@ def main():
                 noises.playMusic("gameplay")
             ran = True
         elif menuS.get_game_menu() == menuS.menu.CUSTOMIZE:
-            pass
+            customizeScreen.customize_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.HIGH_SCORE:
             highScoreScreen.high_score_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.SETTING:
