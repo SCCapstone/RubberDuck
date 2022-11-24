@@ -3,7 +3,7 @@ import pygame
 import os
 
 
-def start_screen():
+def start_screen(noises):
     # Set the background to secondaryScreen (need to work on what will be on
     # Gameover Screen)
     background = pygame.image.load(

@@ -87,7 +87,7 @@ def home_screen(noises):
         Set_font_image = fontMenu.render("SETTINGS", True, values.COLOR_Pink)
     screen.blit(Set_font_image, (values.screenX * .533, values.screenY * .868))
 
-    # if mouse is over quit, change color to white
+    # if mouse is over quit, change color to yellow
     if pygame.mouse.get_pos(
     )[0] > values.screenX * .872 and pygame.mouse.get_pos(
     )[0] < values.screenX * .9539 and pygame.mouse.get_pos(
@@ -98,6 +98,17 @@ def home_screen(noises):
         Quit_font_image = fontMenu.render("QUIT", True, values.COLOR_White)
     screen.blit(Quit_font_image,
                 (values.screenX * .872, values.screenY * .925))
+
+    # temporary if mouse is over gameOver, change color to yellow
+    if pygame.mouse.get_pos(
+    )[0] > values.screenX * .750 and pygame.mouse.get_pos(
+    )[0] < values.screenX * .9539 and pygame.mouse.get_pos(
+    )[1] > values.screenY * .05 and pygame.mouse.get_pos(
+    )[1] < values.screenY * .10:
+        GO_image = fontMenu.render("GAME OVER", True, values.COLOR_Yellow)
+    else:
+        GO_image = fontMenu.render("GAME OVER", True, values.COLOR_White)
+    screen.blit(GO_image, (values.screenX * .750, values.screenY * .05))
 
     #Check if click is on a button
     click_handler(noises)
@@ -164,3 +175,12 @@ def click_handler(noises):
         )[1] < values.screenY * .983:
             noises.playSound("quack")
             menuS.set_game_menu(menuS.menu.QUIT)
+
+        # temporary for working if mouse click is on game over button)
+        if pygame.mouse.get_pos(
+        )[0] > values.screenX * .750 and pygame.mouse.get_pos(
+        )[0] < values.screenX * .9539 and pygame.mouse.get_pos(
+        )[1] > values.screenY * .05 and pygame.mouse.get_pos(
+        )[1] < values.screenY * .100:
+            noises.playSound("quack")
+            menuS.set_game_menu(menuS.menu.GAMEOVER)

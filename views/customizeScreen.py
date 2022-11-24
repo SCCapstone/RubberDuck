@@ -74,8 +74,7 @@ def customize_screen(noises):
 
     #TODO array of skins to purchase /equip at the bottom of the screen
 
-    #TODO 4 boxes to change screen to purchase base skins, hats, trails, and backgrounds
-    
+    #4 boxes to change screen to purchase base skins, hats, trails, and backgrounds
     xCord = 50
     yCord = 200
     width = 275

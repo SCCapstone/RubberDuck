@@ -10,6 +10,7 @@ from views import statScreen
 from views import settingScreen
 from views import highScoreScreen
 from views import customizeScreen
+from views import gameOverScreen
 
 from fileio import settingIO
 from fileio import highScoreIO
@@ -66,6 +67,8 @@ def main():
             highScoreScreen.high_score_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.SETTING:
             settingScreen.settings_screen(noises)
+        elif menuS.get_game_menu() == menuS.menu.GAMEOVER:
+            gameOverScreen.start_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.QUIT:
             statScreen.save_stats()
             settingIO.save_settings()
