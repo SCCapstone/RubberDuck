@@ -30,6 +30,11 @@ def customize_screen(noises):
         os.path.join("assets", "fonts", "Ethnocentric.ttf"),
         int(values.screenX * .03))
 
+    # font size for what to customize
+    smallFont = pygame.font.Font(
+        os.path.join("assets", "fonts", "Ethnocentric.ttf"),
+        int(values.screenX * .015))    
+
     #Customize title
     customize_text_image = titleFont.render("Customize", True, values.COLOR_Yellow)
     customizeCords = customize_text_image.get_rect(center=(screen.get_width() / 2,
@@ -44,18 +49,24 @@ def customize_screen(noises):
     coinsCords = (left + 200, screen.get_height() / 16 * 3)
     screen.blit(coins_text_image, coinsCords)
 
+    #coins asset next to available coins
+    coins = pygame.image.load("assets/sprites/Coin.png")
+    screen .blit(coins, (coinsCords[0] + 220, coinsCords[1]))
+
     #TODO add coin asset plus amount of coins available
 
     #load duck base skins
+    silhouetteDuck = pygame.image.load("assets/sprites/silhouetteDuck.png")
     baseDuck = pygame.image.load("assets/sprites/baseDuck.png")
     swagDuck = pygame.image.load("assets/sprites/swagDuck.png")
 
     #scale base skins for preview
     bigBaseDuck = pygame.transform.scale(baseDuck, (500,500))
     bigSwagDuck = pygame.transform.scale(swagDuck, (500,500))
+    bigSilhouetteDuck = pygame.transform.scale(silhouetteDuck, (500,500))
 
     #TODO Preview of Duck in Current State
-    screen.blit(bigBaseDuck, (screen.get_width() / 3, screen.get_height() / 4))
+    screen.blit(bigSilhouetteDuck, (screen.get_width() / 3, screen.get_height() / 4))
 
     #TODO Purchase / Equip Skin
 
@@ -64,6 +75,58 @@ def customize_screen(noises):
     #TODO array of skins to purchase /equip at the bottom of the screen
 
     #TODO 4 boxes to change screen to purchase base skins, hats, trails, and backgrounds
+    
+    xCord = 50
+    yCord = 200
+    width = 275
+    height = 100
+    separation = 50
+    
+    #Base Skins Box
+    pygame.draw.rect(screen, values.COLOR_Pink,
+                     (xCord,yCord ,width,height ),0)
+    
+    if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
+    )[0] < xCord+width and pygame.mouse.get_pos(
+    )[1] > yCord and pygame.mouse.get_pos()[1] < yCord+height:
+        BS_text_image = smallFont.render("Base Skins", True, values.COLOR_Yellow)
+    else:
+        BS_text_image = smallFont.render("Base Skins", True, values.COLOR_Purple)
+    screen.blit(BS_text_image, (xCord + 30, yCord +35))
+
+    #Hats Box
+    pygame.draw.rect(screen, values.COLOR_Pink,
+                     (xCord,yCord + ((height + separation)*1) ,width,height ),0) 
+    if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
+    )[0] < xCord+width and pygame.mouse.get_pos(
+    )[1] > (yCord + (height + separation)*1)  and pygame.mouse.get_pos()[1] < (yCord+height+ (height + separation)*1):
+        Hats_text_image = smallFont.render("Hats", True, values.COLOR_Yellow)
+    else:
+        Hats_text_image = smallFont.render("Hats", True, values.COLOR_Purple)
+    screen.blit(Hats_text_image, (xCord + 90, yCord +35 +(height + separation)*1))
+
+    #Trails Box
+    pygame.draw.rect(screen, values.COLOR_Pink,
+                     (xCord,yCord + ((height + separation)*2),width,height ),0)  
+    if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
+    )[0] < xCord+width and pygame.mouse.get_pos(
+    )[1] > (yCord + (height + separation)*2)  and pygame.mouse.get_pos()[1] < (yCord+height+ (height + separation)*2):
+        Trails_text_image = smallFont.render("Trails", True, values.COLOR_Yellow)
+    else:
+        Trails_text_image = smallFont.render("Trails", True, values.COLOR_Purple)
+    screen.blit(Trails_text_image, (xCord + 70, yCord +35 +(height + separation)*2))
+
+    #Backgrounds Box
+    pygame.draw.rect(screen, values.COLOR_Pink,
+                     (xCord,yCord + ((height + separation)*3) ,width,height ),0)        
+    if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
+    )[0] < xCord+width and pygame.mouse.get_pos(
+    )[1] > (yCord + (height + separation)*3)  and pygame.mouse.get_pos()[1] < (yCord+height+ (height + separation)*3):
+        Backgrounds_text_image = smallFont.render("Backgrounds", True, values.COLOR_Yellow)
+    else:
+        Backgrounds_text_image = smallFont.render("Backgrounds", True, values.COLOR_Purple)
+    screen.blit(Backgrounds_text_image, (xCord +5, yCord +35 +(height + separation)*3))                           
+
 
 
     # Coordinates Home button
@@ -90,6 +153,23 @@ def customize_screen(noises):
                     # return to home screen
                     noises.playSound("quack")
                     menuS.set_game_menu(menuS.menu.HOME)
+                elif xCord < pygame.mouse.get_pos(
+                )[0] < xCord + width and yCord < pygame.mouse.get_pos()[1] < yCord+height:
+                    noises.playSound("quack")
+                    #TODO make text red or highlight box, then switch screen to customize different asset
+                elif xCord < pygame.mouse.get_pos(
+                )[0] < xCord + width and yCord + (height + separation)*1 < pygame.mouse.get_pos()[1] < yCord+height + (height + separation)*1:
+                    noises.playSound("quack")
+                    #TODO make text red or highlight box, then switch screen to customize different asset
+                elif xCord < pygame.mouse.get_pos(
+                )[0] < xCord + width and yCord + (height + separation)*2 < pygame.mouse.get_pos()[1] < yCord+height + (height + separation)*2:
+                    noises.playSound("quack")
+                    #TODO make text red or highlight box, then switch screen to customize different asset
+                elif xCord < pygame.mouse.get_pos(
+                )[0] < xCord + width and yCord + (height + separation)*3< pygame.mouse.get_pos()[1] < yCord+height + (height + separation)*3:
+                    noises.playSound("quack")
+                    #TODO make text red or highlight box, then switch screen to customize different asset
+                    
 
 
 
