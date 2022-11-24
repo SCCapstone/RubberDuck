@@ -4,6 +4,7 @@ from assets import values
 import menuStructure as menuS
 import os
 from fileio import settingIO
+from assets import soundHandler
 
 #from fileio import settingIO
 
@@ -295,6 +296,7 @@ def settings_screen(noises):
                     noises.playSound("quack")
                     newPercent = roundPercent((pygame.mouse.get_pos()[0] - (left + 70 + music_volume_image.get_width())) / musicValRange * 100)
                     settingIO.Music_Volume = newPercent
+                    noises.music_volume(settingIO.Music_Volume)
                 elif left + 70 + sfx_volume_image.get_width() < pygame.mouse.get_pos(
                 )[0] < left + 70 + sfx_volume_image.get_width() + sfxValRange and screen.get_height(
                 ) / 16 * 5.95 + 20 < pygame.mouse.get_pos()[1] < screen.get_height(

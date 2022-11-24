@@ -37,6 +37,7 @@ values.set_screen_size(pygame.display.get_surface().get_size()[0],
 def main():
     # Keep the game open until the user closes it
     noises.playMusic("menus")
+    noises.music_volume(settingIO.Music_Volume)
     ran = False
     while True:
         pygame.display.flip()
