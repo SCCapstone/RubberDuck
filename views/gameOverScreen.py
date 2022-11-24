@@ -47,7 +47,8 @@ def start_screen(noises):
         Replay_text_image = subtitleFont.render("Replay Level", True, values.COLOR_Yellow)
     else:
         Replay_text_image = subtitleFont.render("Replay Level", True, values.COLOR_Purple)
-    screen.blit(Replay_text_image, (screen.get_width() / 3 + 50, screen.get_height() / 16 *4))
+    ReplayCords = Replay_text_image.get_rect(center=(screen.get_width() / 2, screen.get_height() / 16 * 4))
+    screen.blit(Replay_text_image, ReplayCords)
 
     #New Game
     if pygame.mouse.get_pos()[0] > screen.get_width()/3 +100 and pygame.mouse.get_pos(
@@ -56,7 +57,8 @@ def start_screen(noises):
         NewGame_text_image = subtitleFont.render("New Game", True, values.COLOR_Yellow)
     else:
         NewGame_text_image = subtitleFont.render("New Game", True, values.COLOR_Purple)
-    screen.blit(NewGame_text_image, (screen.get_width() / 3 +100, screen.get_height() / 16 *6))
+    NewGameCords = NewGame_text_image.get_rect(center=(screen.get_width() / 2, screen.get_height() / 16 * 6))
+    screen.blit(NewGame_text_image, NewGameCords)
 
     #Share High Score
     if pygame.mouse.get_pos()[0] > screen.get_width()/3 - 50 and pygame.mouse.get_pos(
@@ -65,7 +67,8 @@ def start_screen(noises):
         high_text_image = subtitleFont.render("Share High Score", True, values.COLOR_Yellow)
     else:
         high_text_image = subtitleFont.render("Share High Score", True, values.COLOR_Purple)
-    screen.blit(high_text_image, (screen.get_width() / 3 -50, screen.get_height() / 16 *8))
+    shareHighCords = high_text_image.get_rect(center=(screen.get_width() / 2, screen.get_height() / 16 * 8))
+    screen.blit(high_text_image, shareHighCords)
 
     #Share Recording
     if pygame.mouse.get_pos()[0] > screen.get_width()/3 -30 and pygame.mouse.get_pos(
@@ -74,7 +77,8 @@ def start_screen(noises):
         recording_text_image = subtitleFont.render("Share Recording", True, values.COLOR_Yellow)
     else:
         recording_text_image = subtitleFont.render("Share Recording", True, values.COLOR_Purple)
-    screen.blit(recording_text_image, (screen.get_width() / 3 -30 , screen.get_height() / 16 *10))
+    shareRecordingCords = recording_text_image.get_rect(center=(screen.get_width() / 2, screen.get_height() / 16 * 10))
+    screen.blit(recording_text_image, shareRecordingCords)
 
 
     # Coordinates Home button
