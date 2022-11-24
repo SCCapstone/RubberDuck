@@ -1,3 +1,5 @@
+"""summary: FileIo handler for settings
+"""
 import json
 import pygame
 import shutil
@@ -15,6 +17,14 @@ global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
 
 
 def load_settings(path):
+    """summary: Loads the settings from the file
+
+    Args:
+        path (string): path to the file
+    
+    Throws:
+        IOError: if the file does not exist, will load default settings
+    """
     global Player_Name, Master_Volume, Music_Volume
     global SFX_Volume, Difficulty
     global Keymap_Left, Keymap_Right, Keymap_Up
@@ -43,6 +53,9 @@ def load_settings(path):
 
 
 def save_settings():
+    """summary: Saves the settings to the file
+    """
+
     global Player_Name, Master_Volume, Music_Volume
     global SFX_Volume, Difficulty
     global Keymap_Left, Keymap_Right, Keymap_Up
@@ -68,96 +81,9 @@ def save_settings():
         json.dump(data, f, indent=4)
 
 
-def setPlayerName(name):
-    global Player_Name
-
-
-def setDifficulty(difficulty):
-    global Difficulty
-    Difficulty = difficulty
-
-
-def setKeymapLeft(keymapLeft):
-    global Keymap_Left
-    Keymap_Left = keymapLeft
-
-
-def setKeymapRight(keymapRight):
-    global Keymap_Right
-    Keymap_Right = keymapRight
-
-
-def setKeymapUp(keymapUp):
-    global Keymap_Up
-    Keymap_Up = keymapUp
-
-
-def setKeymapDown(keymapDown):
-    global Keymap_Down
-    Keymap_Down = keymapDown
-
-
-def setKeymapPrimaryFire(keymapPrimaryFire):
-    global Keymap_Primary_Fire
-    Keymap_Primary_Fire = keymapPrimaryFire
-
-
-def setKeymapSecondaryFire(keymapSecondaryFire):
-    global Keymap_Secondary_Fire
-    Keymap_Secondary_Fire = keymapSecondaryFire
-
-
-def setKeymapDash(keymapDash):
-    global Keymap_Dash
-    Keymap_Dash = keymapDash
-
-
-def setKeymapPause(keymapPause):
-    global Keymap_Pause
-    Keymap_Pause = keymapPause
-
-
-def getPlayerName():
-    return Player_Name
-
-
-def getDifficulty():
-    return Difficulty
-
-
-def getKeymapLeft():
-    return Keymap_Left
-
-
-def getKeymapRight():
-    return Keymap_Right
-
-
-def getKeymapUp():
-    return Keymap_Up
-
-
-def getKeymapDown():
-    return Keymap_Down
-
-
-def getKeymapPrimaryFire():
-    return Keymap_Primary_Fire
-
-
-def getKeymapSecondaryFire():
-    return Keymap_Secondary_Fire
-
-
-def getKeymapDash():
-    return Keymap_Dash
-
-
-def getKeymapPause():
-    return Keymap_Pause
-
-
 def load_default_settings():
+    """summary: Loads the default settings
+    """
     global Player_Name, Master_Volume, Music_Volume
     global SFX_Volume, Difficulty
     global Keymap_Left, Keymap_Right, Keymap_Up
@@ -180,6 +106,8 @@ def load_default_settings():
 
 
 def import_settings():
+    """summary: Imports the settings from the file and asks the user to select the file
+    """
     root = tkinter.Tk()
     root.withdraw()
     # Freeze pygame window
@@ -194,6 +122,8 @@ def import_settings():
 
 
 def export_settings():
+    """_summary_: Exports the settings to the file and asks the user to select the file
+    """
     save_settings()
 
     #make copy of UserSetting.json and move it to desktop

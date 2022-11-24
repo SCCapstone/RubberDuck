@@ -1,31 +1,21 @@
-# Imports
+"""summary: FileIo handler for stats
+"""
 import json
 import os
 
 # Global Variables
-global distanceTravelled
-global totalGamesPlayed
-global totalGameTime
-global enemyDefeated
-global spaceshipKills
-global meteroidKills
-global allTimeCurrency
-global averageGameTime
-global averagePoints
+global distanceTravelled, totalGamesPlayed, totalGameTime
+global enemyDefeated, spaceshipKills, meteroidKills
+global allTimeCurrency, averageGameTime, averagePoints
 
 
 # When the game is started, load the stats from the file
 def load_stats():
-    global distanceTravelled
-    global totalGamesPlayed
-    global totalGameTime
-    global enemyDefeated
-    global spaceshipKills
-    global meteroidKills
-    global allTimeCurrency
-    global averageGameTime
-    global averagePoints
-    global averagePoints
+    """summary: Loads the stats from the file
+    """
+    global distanceTravelled, totalGamesPlayed, totalGameTime
+    global enemyDefeated, spaceshipKills, meteroidKills
+    global allTimeCurrency, averageGameTime, averagePoints
 
     if (os.path.exists("stats.json")):
         with open("stats.json") as f:
@@ -52,8 +42,9 @@ def load_stats():
         save_stats()
 
 
-# When the game is closed, save the stats to the file
 def save_stats():
+    """summary: Saves the stats to the file
+    """
     data = {
         "distanceTravelled": distanceTravelled,
         "totalGamesPlayed": totalGamesPlayed,
