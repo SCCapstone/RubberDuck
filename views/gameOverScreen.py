@@ -58,7 +58,9 @@ def start_screen(noises):
         Replay_text_image = subtitleFont.render("Replay Level", True, values.COLOR_Yellow)
     else:
         Replay_text_image = subtitleFont.render("Replay Level", True, values.COLOR_Purple)
-    screen.blit(Replay_text_image, (xCord + 75, yCord + 20))
+
+    ReplayCords = Replay_text_image.get_rect(center=(screen.get_width() / 2, screen.get_height() / 16 * 4))
+    screen.blit(Replay_text_image, ReplayCords)
 
     #New Game Box
     pygame.draw.rect(screen, values.COLOR_Pink,
@@ -70,7 +72,8 @@ def start_screen(noises):
         NewGame_text_image = subtitleFont.render("New Game", True, values.COLOR_Yellow)
     else:
         NewGame_text_image = subtitleFont.render("New Game", True, values.COLOR_Purple)
-    screen.blit(NewGame_text_image, (xCord + 160, yCord +25 +(height + separation)*1 ))
+    NewGameCords = NewGame_text_image.get_rect(center=(screen.get_width() / 2, screen.get_height() / 16 * 6))
+    screen.blit(NewGame_text_image, NewGameCords)
 
     #Share High Score box
     pygame.draw.rect(screen, values.COLOR_Pink,
@@ -82,7 +85,9 @@ def start_screen(noises):
         high_text_image = subtitleFont.render("Share High Score", True, values.COLOR_Yellow)
     else:
         high_text_image = subtitleFont.render("Share High Score", True, values.COLOR_Purple)
-    screen.blit(high_text_image, (xCord , yCord +20 +(height + separation)*2)) 
+
+    shareHighCords = high_text_image.get_rect(center=(screen.get_width() / 2, screen.get_height() / 16 * 8))
+    screen.blit(high_text_image, shareHighCords)
 
     #Share Recording Box
     pygame.draw.rect(screen, values.COLOR_Pink,
@@ -94,7 +99,8 @@ def start_screen(noises):
         recording_text_image = subtitleFont.render("Share Recording", True, values.COLOR_Yellow)
     else:
         recording_text_image = subtitleFont.render("Share Recording", True, values.COLOR_Purple)
-    screen.blit(recording_text_image, (xCord + 10, yCord +20 +(height + separation)*3 ))
+    shareRecordingCords = recording_text_image.get_rect(center=(screen.get_width() / 2, screen.get_height() / 16 * 10))
+    screen.blit(recording_text_image, shareRecordingCords)
 
     #Show Score
     Score_text = titleFont.render("Score", True, values.COLOR_White)
