@@ -1,4 +1,5 @@
-#Imports
+""" summary: Class to run Settings Screen
+"""
 import pygame
 from assets import values
 import menuStructure as menuS
@@ -8,49 +9,14 @@ from fileio import settingIO
 #from fileio import settingIO
 
 
-# TODO - Add a way to load the settings
-def load_settings():
-    pass
-
-
-# TODO - Add a way to save the settings
-def save_settings():
-    # TODO
-    pass
-
-
-# Runs the settings screen
 def settings_screen(noises):
-    # Set the background to main.jpg
-    background = pygame.image.load(
-        os.path.join("assets", "backgrounds", "tertiary.jpg"))
-    screen = pygame.display.get_surface()
-    # scale the background to the screen size
-    background = pygame.transform.scale(
-        background, (screen.get_width(), screen.get_height()))
-    screen.blit(background, (0, 0))
+    """summay: running method for screen (loop)
 
-    # Draw Big Box tall and normal width
-    left = screen.get_width() / 4
-    right = screen.get_width() / 4 * 3
-    botLeft = screen.get_height() / 16
-    topRight = screen.get_height() / 16 * 15
-    pygame.draw.rect(screen, values.COLOR_Pink,
-                     (left, botLeft, right - left, topRight - botLeft), 0)
+    Args:
+        noises (SFXHandler): sounds handler for screen
+    """
 
-    # Title at top of box centered
-    titleFont = pygame.font.Font(
-        os.path.join("assets", "fonts", "Ethnocentric.ttf"),
-        int(values.screenX * .03))
-    title_text_image = titleFont.render("Settings", True, values.COLOR_Purple)
-    title_rect = title_text_image.get_rect(center=(screen.get_width() / 2,
-                                                   screen.get_height() / 16 *
-                                                   2))
-    screen.blit(title_text_image, title_rect)
-
-    subtitleFont = pygame.font.Font(
-        os.path.join("assets", "fonts", "Ethnocentric.ttf"),
-        int(values.screenX * .019))
+    screen, left, right, subtitleFont, titleFont = draw_background()
 
     # Make cordinates for 3 inline buttons
     widthButton = (right - left - 40) / 3
@@ -242,84 +208,51 @@ def settings_screen(noises):
         if event.type == pygame.MOUSEBUTTONDOWN:
             menuS.double_click_preventer()
             if event.button == 1:
+
                 # check if mouse is in rect
-                if homeCords[0] < pygame.mouse.get_pos(
-                )[0] < homeCords[0] + widthButton and homeCords[
-                        1] < pygame.mouse.get_pos()[1] < homeCords[1] + 50:
+                if checkCords(homeCords, widthButton):
                     # share stats
                     noises.playSound("quack")
                     menuS.set_game_menu(menuS.menu.HOME)
-                elif defaultCords[0] < pygame.mouse.get_pos(
-                )[0] < defaultCords[0] + widthButton and defaultCords[
-                        1] < pygame.mouse.get_pos()[1] < defaultCords[1] + 50:
-                    # go to home screeni
+                elif checkCords(defaultCords, widthButton):
                     noises.playSound("quack")
                     settingIO.load_default_settings()
-                elif importCords[0] < pygame.mouse.get_pos(
-                )[0] < importCords[0] + widthButton and importCords[
-                        1] < pygame.mouse.get_pos()[1] < importCords[1] + 50:
+                elif checkCords(importCords, widthButton):
                     noises.playSound("quack")
                     settingIO.import_settings()
-                elif exportCords[0] < pygame.mouse.get_pos(
-                )[0] < exportCords[0] + widthButton and exportCords[
-                        1] < pygame.mouse.get_pos()[1] < exportCords[1] + 50:
+                elif checkCords(exportCords, widthButton):
                     noises.playSound("quack")
                     settingIO.export_settings()
-                elif easydifficultySettingCords[0] < pygame.mouse.get_pos(
-                )[0] < easydifficultySettingCords[
-                        0] + 120 and easydifficultySettingCords[
-                            1] < pygame.mouse.get_pos(
-                            )[1] < easydifficultySettingCords[1] + 30:
+                elif checkDifCords(easydifficultySettingCords, 120):
                     noises.playSound("quack")
                     settingIO.Difficulty = "Easy"
-                elif mediumdifficultySettingCords[0] < pygame.mouse.get_pos(
-                )[0] < mediumdifficultySettingCords[
-                        0] + 180 and mediumdifficultySettingCords[
-                            1] < pygame.mouse.get_pos(
-                            )[1] < mediumdifficultySettingCords[1] + 30:
+                elif checkDifCords(mediumdifficultySettingCords, 180):
                     noises.playSound("quack")
                     settingIO.Difficulty = "Medium"
-                elif harddifficultySettingCords[0] < pygame.mouse.get_pos(
-                )[0] < harddifficultySettingCords[
-                        0] + 120 and harddifficultySettingCords[
-                            1] < pygame.mouse.get_pos(
-                            )[1] < harddifficultySettingCords[1] + 30:
+                elif checkDifCords(harddifficultySettingCords, 120):
                     noises.playSound("quack")
                     settingIO.Difficulty = "Hard"
-                elif left + 30 + master_volume_image.get_width(
-                ) < pygame.mouse.get_pos(
-                )[0] < left + 30 + master_volume_image.get_width(
-                ) + masterValRange and screen.get_height(
-                ) / 16 * 3.95 + 20 < pygame.mouse.get_pos(
-                )[1] < screen.get_height() / 16 * 3.95 + 30:
+                elif checkSliderCords(left, 30, master_volume_image, screen,
+                                      masterValRange, 3.95):
                     noises.playSound("quack")
-                    newPercent = roundPercent(
+                    newPercent = round_Percent(
                         (pygame.mouse.get_pos()[0] -
                          (left + 30 + master_volume_image.get_width())) /
                         masterValRange * 100)
                     settingIO.Master_Volume = newPercent
-                    # TODO - Add volume change
-                elif left + 70 + music_volume_image.get_width(
-                ) < pygame.mouse.get_pos(
-                )[0] < left + 70 + music_volume_image.get_width(
-                ) + musicValRange and screen.get_height(
-                ) / 16 * 4.95 + 20 < pygame.mouse.get_pos(
-                )[1] < screen.get_height() / 16 * 4.95 + 30:
+                elif checkSliderCords(left, 70, music_volume_image, screen,
+                                      musicValRange, 4.95):
                     noises.playSound("quack")
-                    newPercent = roundPercent(
+                    newPercent = round_Percent(
                         (pygame.mouse.get_pos()[0] -
                          (left + 70 + music_volume_image.get_width())) /
                         musicValRange * 100)
                     settingIO.Music_Volume = newPercent
                     noises.music_volume(settingIO.Music_Volume)
-                elif left + 70 + sfx_volume_image.get_width(
-                ) < pygame.mouse.get_pos(
-                )[0] < left + 70 + sfx_volume_image.get_width(
-                ) + sfxValRange and screen.get_height(
-                ) / 16 * 5.95 + 20 < pygame.mouse.get_pos(
-                )[1] < screen.get_height() / 16 * 5.95 + 30:
+                elif checkSliderCords(left, 70, sfx_volume_image, screen,
+                                      sfxValRange, 5.95):
                     noises.playSound("quack")
-                    newPercent = roundPercent(
+                    newPercent = round_Percent(
                         (pygame.mouse.get_pos()[0] -
                          (left + 70 + sfx_volume_image.get_width())) /
                         sfxValRange * 100)
@@ -332,8 +265,99 @@ def settings_screen(noises):
                 menuS.set_game_menu(menuS.menu.QUIT)
 
 
-def roundPercent(percent):
+def round_Percent(percent):
+    """Round percent to nearest 5 up if above 50, down if below 50
+
+    Args:
+        percent (float): raw percent
+
+    Returns:
+        int: rounded percent to nearest 5
+    """
     if percent < 50:
         return percent - (percent % 5)
     else:
         return percent + (5 - percent % 5)
+
+
+def draw_background():
+    """summary: draw background image
+    """
+    background = pygame.image.load(
+        os.path.join("assets", "backgrounds", "tertiary.jpg"))
+    screen = pygame.display.get_surface()
+    # scale the background to the screen size
+    background = pygame.transform.scale(
+        background, (screen.get_width(), screen.get_height()))
+    screen.blit(background, (0, 0))
+
+    # Draw Big Box tall and normal width
+    left = screen.get_width() / 4
+    right = screen.get_width() / 4 * 3
+    botLeft = screen.get_height() / 16
+    topRight = screen.get_height() / 16 * 15
+    pygame.draw.rect(screen, values.COLOR_Pink,
+                     (left, botLeft, right - left, topRight - botLeft), 0)
+
+    # Title at top of box centered
+    titleFont = pygame.font.Font(
+        os.path.join("assets", "fonts", "Ethnocentric.ttf"),
+        int(values.screenX * .03))
+    title_text_image = titleFont.render("Settings", True, values.COLOR_Purple)
+    title_rect = title_text_image.get_rect(center=(screen.get_width() / 2,
+                                                   screen.get_height() / 16 *
+                                                   2))
+    screen.blit(title_text_image, title_rect)
+
+    subtitleFont = pygame.font.Font(
+        os.path.join("assets", "fonts", "Ethnocentric.ttf"),
+        int(values.screenX * .019))
+    return screen, left, right, subtitleFont, titleFont
+
+
+def checkCords(cords, width):
+    """summary: Checks if cordinated were clicke
+
+    Args:
+        cords (tuple[float,float]): cordinates of button being checked
+        width (float): width of a button
+
+    Returns:
+        boolean: true if clicked, false if not
+    """
+    return cords[0] < pygame.mouse.get_pos()[0] < cords[0] + width and cords[
+        1] < pygame.mouse.get_pos()[1] < cords[1] + 50
+
+
+def checkDifCords(cords, factor):
+    """summary: Checks if cordinated were clicke
+
+    Args:
+        cords (tuple[float,float]): cordinates of button being checked
+        factor (float): width of a button
+
+    Returns:
+        boolean: true if clicked, false if not
+    """
+    return cords[0] < pygame.mouse.get_pos()[0] < cords[0] + factor and cords[
+        1] < pygame.mouse.get_pos()[1] < cords[1] + 30
+
+
+def checkSliderCords(left, factor, image, screen, range, height):
+    """summary: Checks if slider was clicked
+
+    Args:
+        left (float): left side of slider
+        factor (float): factor of slider
+        image (pygame.image): image of slider
+        screen (pygame.display): screen
+        range (float): range of slider
+        height (float): height of slider
+
+    Returns:
+        boolean: true if clicked, false if not
+    """
+    return left + factor + image.get_width() < pygame.mouse.get_pos(
+    )[0] < left + factor + image.get_width() + range and screen.get_height(
+    ) / 16 * height + 20 < pygame.mouse.get_pos(
+    )[1] < screen.get_height() / 16 * height + 30
