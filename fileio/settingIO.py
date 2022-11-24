@@ -120,6 +120,7 @@ def setKeymapPause(keymapPause):
 def getPlayerName():
     return Player_Name
 
+
 def getDifficulty():
     return Difficulty
 
@@ -176,7 +177,6 @@ def load_default_settings():
     Keymap_Secondary_Fire = pygame.K_RSHIFT
     Keymap_Dash = pygame.K_SPACE
     Keymap_Pause = pygame.K_ESCAPE
-    
 
 
 def import_settings():
@@ -192,6 +192,7 @@ def import_settings():
         except:
             easygui.msgbox("Invalid File", "Error")
 
+
 def export_settings():
     save_settings()
 
@@ -205,4 +206,3 @@ def export_settings():
     easygui.msgbox(
         "UserSetting.json has been exported to your Documents folder",
         "Export Successful")
-    

@@ -1,5 +1,6 @@
 # Imports
 import json
+import os
 
 # Global Variables
 global distanceTravelled
@@ -26,17 +27,29 @@ def load_stats():
     global averagePoints
     global averagePoints
 
-    data = json.load(open("fileio//stats.json"))
-
-    distanceTravelled = data["distanceTravelled"]
-    totalGamesPlayed = data["totalGamesPlayed"]
-    totalGameTime = data["totalGameTime"]
-    enemyDefeated = data["enemyDefeated"]
-    spaceshipKills = data["spaceshipKills"]
-    meteroidKills = data["meteroidKills"]
-    allTimeCurrency = data["allTimeCurrency"]
-    averageGameTime = data["averageGameTime"]
-    averagePoints = data["averagePoints"]
+    if (os.path.exists("stats.json")):
+        with open("stats.json") as f:
+            data = json.load(f)
+            distanceTravelled = data["distanceTravelled"]
+            totalGamesPlayed = data["totalGamesPlayed"]
+            totalGameTime = data["totalGameTime"]
+            enemyDefeated = data["enemyDefeated"]
+            spaceshipKills = data["spaceshipKills"]
+            meteroidKills = data["meteroidKills"]
+            allTimeCurrency = data["allTimeCurrency"]
+            averageGameTime = data["averageGameTime"]
+            averagePoints = data["averagePoints"]
+    else:
+        distanceTravelled = 0
+        totalGamesPlayed = 0
+        totalGameTime = 0
+        enemyDefeated = 0
+        spaceshipKills = 0
+        meteroidKills = 0
+        allTimeCurrency = 0
+        averageGameTime = 0
+        averagePoints = 0
+        save_stats()
 
 
 # When the game is closed, save the stats to the file

@@ -4,7 +4,6 @@ from assets import values
 import menuStructure as menuS
 import os
 from fileio import settingIO
-from assets import soundHandler
 
 #from fileio import settingIO
 
@@ -70,10 +69,10 @@ def settings_screen(noises):
 
     masterValRange = right - left - 40 - master_volume_image.get_width()
     # curved rectangle for volume slider inline with text
-    pygame.draw.rect(screen, values.COLOR_Purple,
-                     (left + 30 + master_volume_image.get_width(),
-                      screen.get_height() / 16 * 3.95 + 20, masterValRange, 10),
-                     0)
+    pygame.draw.rect(
+        screen, values.COLOR_Purple,
+        (left + 30 + master_volume_image.get_width(),
+         screen.get_height() / 16 * 3.95 + 20, masterValRange, 10), 0)
     # volume slider
     pygame.draw.rect(screen, values.COLOR_Red,
                      (left + 30 + master_volume_image.get_width(),
@@ -102,15 +101,15 @@ def settings_screen(noises):
     sfxVolCords = (left + 50, screen.get_height() / 16 * 6)
     screen.blit(sfx_volume_image, sfxVolCords)
 
-    
     sfxValRange = right - left - 80 - sfx_volume_image.get_width()
     pygame.draw.rect(screen, values.COLOR_Purple,
                      (left + 70 + sfx_volume_image.get_width(),
-                      screen.get_height() / 16 * 5.95 + 20, sfxValRange, 10), 0)
+                      screen.get_height() / 16 * 5.95 + 20, sfxValRange, 10),
+                     0)
     pygame.draw.rect(screen, values.COLOR_Red,
                      (left + 70 + sfx_volume_image.get_width(),
-                        screen.get_height() / 16 * 5.95 + 20,
-                        sfxValRange * settingIO.SFX_Volume / 100, 10), 0)
+                      screen.get_height() / 16 * 5.95 + 20,
+                      sfxValRange * settingIO.SFX_Volume / 100, 10), 0)
 
     # Difficulty Selector Heading
     difficulty_image = subtitleFont.render("Difficulty:", True,
@@ -267,53 +266,71 @@ def settings_screen(noises):
                     noises.playSound("quack")
                     settingIO.export_settings()
                 elif easydifficultySettingCords[0] < pygame.mouse.get_pos(
-                )[0] < easydifficultySettingCords[0] + 120 and easydifficultySettingCords[
-                        1] < pygame.mouse.get_pos()[1] < easydifficultySettingCords[1] + 30:
+                )[0] < easydifficultySettingCords[
+                        0] + 120 and easydifficultySettingCords[
+                            1] < pygame.mouse.get_pos(
+                            )[1] < easydifficultySettingCords[1] + 30:
                     noises.playSound("quack")
                     settingIO.Difficulty = "Easy"
                 elif mediumdifficultySettingCords[0] < pygame.mouse.get_pos(
-                )[0] < mediumdifficultySettingCords[0] + 180 and mediumdifficultySettingCords[
-                        1] < pygame.mouse.get_pos()[1] < mediumdifficultySettingCords[1] + 30:
+                )[0] < mediumdifficultySettingCords[
+                        0] + 180 and mediumdifficultySettingCords[
+                            1] < pygame.mouse.get_pos(
+                            )[1] < mediumdifficultySettingCords[1] + 30:
                     noises.playSound("quack")
                     settingIO.Difficulty = "Medium"
                 elif harddifficultySettingCords[0] < pygame.mouse.get_pos(
-                )[0] < harddifficultySettingCords[0] + 120 and harddifficultySettingCords[
-                        1] < pygame.mouse.get_pos()[1] < harddifficultySettingCords[1] + 30:
+                )[0] < harddifficultySettingCords[
+                        0] + 120 and harddifficultySettingCords[
+                            1] < pygame.mouse.get_pos(
+                            )[1] < harddifficultySettingCords[1] + 30:
                     noises.playSound("quack")
                     settingIO.Difficulty = "Hard"
-                elif left + 30 + master_volume_image.get_width() < pygame.mouse.get_pos(
-                )[0] < left + 30 + master_volume_image.get_width() + masterValRange and screen.get_height(
-                ) / 16 * 3.95 + 20 < pygame.mouse.get_pos()[1] < screen.get_height(
-                ) / 16 * 3.95 + 30:
+                elif left + 30 + master_volume_image.get_width(
+                ) < pygame.mouse.get_pos(
+                )[0] < left + 30 + master_volume_image.get_width(
+                ) + masterValRange and screen.get_height(
+                ) / 16 * 3.95 + 20 < pygame.mouse.get_pos(
+                )[1] < screen.get_height() / 16 * 3.95 + 30:
                     noises.playSound("quack")
-                    newPercent = roundPercent((pygame.mouse.get_pos()[0] - (left + 30 + master_volume_image.get_width())) / masterValRange * 100)
+                    newPercent = roundPercent(
+                        (pygame.mouse.get_pos()[0] -
+                         (left + 30 + master_volume_image.get_width())) /
+                        masterValRange * 100)
                     settingIO.Master_Volume = newPercent
                     # TODO - Add volume change
-                elif left + 70 + music_volume_image.get_width() < pygame.mouse.get_pos(
-                )[0] < left + 70 + music_volume_image.get_width() + musicValRange and screen.get_height(
-                ) / 16 * 4.95 + 20 < pygame.mouse.get_pos()[1] < screen.get_height(
-                ) / 16 * 4.95 + 30:
+                elif left + 70 + music_volume_image.get_width(
+                ) < pygame.mouse.get_pos(
+                )[0] < left + 70 + music_volume_image.get_width(
+                ) + musicValRange and screen.get_height(
+                ) / 16 * 4.95 + 20 < pygame.mouse.get_pos(
+                )[1] < screen.get_height() / 16 * 4.95 + 30:
                     noises.playSound("quack")
-                    newPercent = roundPercent((pygame.mouse.get_pos()[0] - (left + 70 + music_volume_image.get_width())) / musicValRange * 100)
+                    newPercent = roundPercent(
+                        (pygame.mouse.get_pos()[0] -
+                         (left + 70 + music_volume_image.get_width())) /
+                        musicValRange * 100)
                     settingIO.Music_Volume = newPercent
                     noises.music_volume(settingIO.Music_Volume)
-                elif left + 70 + sfx_volume_image.get_width() < pygame.mouse.get_pos(
-                )[0] < left + 70 + sfx_volume_image.get_width() + sfxValRange and screen.get_height(
-                ) / 16 * 5.95 + 20 < pygame.mouse.get_pos()[1] < screen.get_height(
-                ) / 16 * 5.95 + 30:
+                elif left + 70 + sfx_volume_image.get_width(
+                ) < pygame.mouse.get_pos(
+                )[0] < left + 70 + sfx_volume_image.get_width(
+                ) + sfxValRange and screen.get_height(
+                ) / 16 * 5.95 + 20 < pygame.mouse.get_pos(
+                )[1] < screen.get_height() / 16 * 5.95 + 30:
                     noises.playSound("quack")
-                    newPercent = roundPercent((pygame.mouse.get_pos()[0] - (left + 70 + sfx_volume_image.get_width())) / sfxValRange * 100)
+                    newPercent = roundPercent(
+                        (pygame.mouse.get_pos()[0] -
+                         (left + 70 + sfx_volume_image.get_width())) /
+                        sfxValRange * 100)
                     settingIO.SFX_Volume = newPercent
-               
 
-
-
-                
         elif event.type == pygame.QUIT:
             menuS.set_game_menu(menuS.menu.QUIT)
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 menuS.set_game_menu(menuS.menu.QUIT)
+
 
 def roundPercent(percent):
     if percent < 50:
