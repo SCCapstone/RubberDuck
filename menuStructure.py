@@ -11,6 +11,7 @@ class menu(Enum):
     HIGH_SCORE = 5
     SETTING = 6
     QUIT = 7
+    GAMEOVER = 8
 
 
 global Game_Menu
