@@ -47,15 +47,17 @@ def customize_screen(noises):
     #TODO add coin asset plus amount of coins available
 
     #load duck base skins
+    silhouetteDuck = pygame.image.load("assets/sprites/silhouetteDuck.png")
     baseDuck = pygame.image.load("assets/sprites/baseDuck.png")
     swagDuck = pygame.image.load("assets/sprites/swagDuck.png")
 
     #scale base skins for preview
     bigBaseDuck = pygame.transform.scale(baseDuck, (500,500))
     bigSwagDuck = pygame.transform.scale(swagDuck, (500,500))
+    bigSilhouetteDuck = pygame.transform.scale(silhouetteDuck, (500,500))
 
     #TODO Preview of Duck in Current State
-    screen.blit(bigBaseDuck, (screen.get_width() / 3, screen.get_height() / 4))
+    screen.blit(bigSilhouetteDuck, (screen.get_width() / 3, screen.get_height() / 4))
 
     #TODO Purchase / Equip Skin
 
