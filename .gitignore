@@ -174,3 +174,4 @@ cython_debug/
 fileio/HighScore.json
 fileio/UserSetting.json
 .gitignore
+views/settingScreen.py
