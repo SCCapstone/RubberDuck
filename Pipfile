@@ -4,11 +4,21 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pygame = "*"
-pygame-menu = "*"
+pyinstaller = "*"
 autopep8 = "*"
+pygame = "*"
+pylint = "*"
+tk = "*"
+easygui = "*"
+yapf = "*"
+autoflake = "*"
+pytest-shutil = "*"
+pygame-widgets = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.9"
+python_version = "3.11"
+
+[pipenv]
+allow_prereleases = true

@@ -1,7 +1,9 @@
 from enum import Enum
+import time
 
 
-class Menu(Enum):
+# Set the menu structure
+class menu(Enum):
     HOME = 1
     STAT = 2
     GAME = 3
@@ -14,11 +16,18 @@ class Menu(Enum):
 global Game_Menu
 
 
-def setGameMenu(menu):
+# Set the menu structure
+def set_game_menu(menu):
     global Game_Menu
     Game_Menu = menu
 
 
-def getGameMenu():
+# Get the menu structure
+def get_game_menu():
     global Game_Menu
     return Game_Menu
+
+
+# make method to prevent double click
+def double_click_preventer():
+    time.sleep(.1)

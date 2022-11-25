@@ -1,11 +1,11 @@
 {
     "distanceTravelled": 0,
-    "totalGames": 0,
-    "totalGameTime": 0,
-    "enemyDefeated": 0,
-    "spaceshipsDestroyed": 0,
-    "meteriodsDestroyed": 0,
-    "allTimeCurrency": 0,
-    "avgGameTime": 0,
-    "avgGamePoints": 0
+    "totalGamesPlayed": 1,
+    "totalGameTime": 234,
+    "enemyDefeated": 3,
+    "spaceshipKills": 4,
+    "meteroidKills": 5432,
+    "allTimeCurrency": 6,
+    "averageGameTime": 7,
+    "averagePoints": 82
 }

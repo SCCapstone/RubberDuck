@@ -10,6 +10,10 @@ __pycache__/
 # C extensions
 *.so
 
+# Local Files of highscore.json
+HighScore.json
+UserSetting.json
+
 # Distribution / packaging
 .Python
 build/
@@ -167,3 +171,6 @@ cython_debug/
 #.idea/
 
 # End of https://www.toptal.com/developers/gitignore/api/python
+fileio/HighScore.json
+fileio/UserSetting.json
+.gitignore

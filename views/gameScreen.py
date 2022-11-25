@@ -1,16 +1,38 @@
 import pygame
 import random
-GRID_SIZE = 64
+from assets import values
+import menuStructure as menuS
 
-def loadImage(filePath, scale=False):
+GRID_SIZE = 64
+FPS = 30
+
+
+def loadImage(filePath, scale):
     img = pygame.image.load(filePath)
     if scale:
         img = pygame.transform.scale(img,(GRID_SIZE, GRID_SIZE))
     return img
 
 
+
 #Image loading
-BLOCK_IMG = ""
+BLOCK_IMG = loadImage(os.path.join("assets","sprites","Wall_block.png"),scale=True)
+DUCK_IMG = loadImage(os.path.join("assets","sprites","BaseDuck.png"),scale=True)
+SWAG_DUCK = loadImage(os.path.join("assets","sprites","SwagDuck.png"),scale=True)
+COIN_IMG = loadImage(os.path.join("assets","sprites","Coin.png"),scale=True)
+DAMAGE_BUFF = loadImage(os.path.join("assets","sprites","Damage_Buff.png"),scale=True)
+DUCK_IMG2 = loadImage(os.path.join("assets","sprites","DuckFrame2.png"),scale=True)
+ENEMY_LASER = loadImage(os.path.join("assets","sprites","Laser_Proj.png"),scale=False)
+ENEMY_IMG = loadImage(os.path.join("assets","sprites","Enemy_Sprite.png"),scale=True)
+ROCKET_IMG = loadImage(os.path.join("assets","sprites","Rocket.png"),scale=True)
+HEALTH_IMG = loadImage(os.path.join("assets","sprites","Health_Symbol.png"),scale=True)
+EXIT_IMG = loadImage(os.path.join("assets","sprites","Exit_Button.png"),scale=True)
+PLAYER_LASER = loadImage(os.path.join("assets","sprites","PLAYER_Laser_Proj.png"),scale=False)
+SPEED_IMG = loadImage(os.path.join("assets","sprites","Speed_Symbol.png"),scale=True)
+
+
+DUCK_IMGS = [DUCK_IMG, DUCK_IMG2]
+
 
 class Entity(pygame.sprite.Sprite):
     def __init__(self,x,y,image):
@@ -232,10 +254,10 @@ class Tile():
         
 
 class Level():
-    def __init__(self):
+    def __init__(self, difficulty):
         self.x = 0
 
-        self.difficulty = 2
+        self.difficulty = difficulty
         
         self.blocks = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
@@ -297,14 +319,25 @@ class Level():
             self.inactive_sprites.remove(p)
         
         self.tiles = self.tiles[1:]
-        
+
+difficulty = 1
 def gameScreen():
-    #Do everything here???
-    background = pygame.image.load(
-        os.path.join(
-            "assets",
-            "backgrounds",
-            "tertiary.jpg"))
+    ##Set up
     screen = pygame.display.get_surface()
+    #Background
+    background = pygame.image.load(os.path.join("assets","backgrounds","tertiary.jpg"))
     background = pygame.transform.scale(background,(screen.get_width(),screen.get_height()))
     screen.blit(background, (0,0))
+
+    #Font
+    font = pygame.font.Font(os.path.join("assets","fonts","Ethocentric.ttf"),int(values.screenX * 0.019))
+    
+    #Level
+    level = Level(difficulty)
+
+    #Duck
+    p = Duck(DUCK_IMGS)
+
+    while True:
+        #Game loop
+        pass

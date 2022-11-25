@@ -46,16 +46,16 @@ Other Packages used (most likely already installed with Python 3.6.5):
 
 ## Style Guide
 We will be PEP8 Style Guide for Python. You can find the style guide here: https://www.python.org/dev/peps/pep-0008/
-This can be done by using a command run using autopep8. You can install autopep8 using pip.
+This can be done by using a command run using yapf. You can install autopep8 using pip.
 
 ```` 
-pip install autopep8 
+pip install yapf
 ````
 
 Then you can run the command for individual files:
 
 ```` 
-autopep8 --in-place --aggressive --aggressive <filename> 
+Python -m yapf --in-place --recursive --style="{indent_width: 4}" 
 ````
 
 To run autopep8 on all files in a directory, you can use the following command to run batch script:
