@@ -10,6 +10,7 @@ from fileio import settingIO
 global active
 active = False
 
+
 def settings_screen(noises):
     global active
     """summay: running method for screen (loop)
@@ -28,19 +29,30 @@ def settings_screen(noises):
                                             values.COLOR_Purple)
     playerCords = (left + 10, screen.get_height() / 16 * 3)
     screen.blit(player_name_image, playerCords)
-    
+
     # Text box for player name right of player name
     inputNameBox = pygame.Rect(left + 10 + player_name_image.get_width(),
-                                 screen.get_height() / 16 * 3, widthButton,
-                                    50)
+                               screen.get_height() / 16 * 3, widthButton, 50)
     pygame.draw.rect(screen, values.COLOR_Purple, inputNameBox, 0)
     #Write player name in box
-    player_name_value_image = subtitleFont.render(settingIO.Player_Name, True,
-                                            values.COLOR_White)
+
+    if active:
+        #Add blinking cursor
+        player_name_value_image = subtitleFont.render(
+            settingIO.Player_Name + "|", True, values.COLOR_White)
+        # flicker every 500 ms
+        if pygame.time.get_ticks() % 1000 > 500:
+            player_name_value_image = subtitleFont.render(
+                settingIO.Player_Name, True, values.COLOR_White)
+    else:
+        player_name_value_image = subtitleFont.render(settingIO.Player_Name,
+                                                      True, values.COLOR_White)
+    screen.blit(player_name_value_image,
+                (inputNameBox.x + 5, inputNameBox.y + 5))
+
     playerValueCords = (left + 10 + player_name_image.get_width() + 5,
                         screen.get_height() / 16 * 3 + 5)
     screen.blit(player_name_value_image, playerValueCords)
-    
 
     # Master Volume Slider
     master_volume_image = subtitleFont.render("Master Volume:", True,
@@ -220,6 +232,7 @@ def settings_screen(noises):
 
     # check for mouse click
     for event in pygame.event.get():
+        settingIO.save_settings()
         if event.type == pygame.MOUSEBUTTONDOWN:
             menuS.double_click_preventer()
             if event.button == 1:
@@ -272,14 +285,12 @@ def settings_screen(noises):
                          (left + 70 + sfx_volume_image.get_width())) /
                         sfxValRange * 100)
                     settingIO.SFX_Volume = newPercent
-                    
-                    
+
                 if inputNameBox.collidepoint(event.pos):
                     # Toggle the active variable.
                     active = not active
                 else:
                     active = False
-                    
 
         elif event.type == pygame.QUIT:
             menuS.set_game_menu(menuS.menu.QUIT)
@@ -287,14 +298,14 @@ def settings_screen(noises):
             if event.key == pygame.K_ESCAPE:
                 menuS.set_game_menu(menuS.menu.QUIT)
             if active:
-                    if event.key == pygame.K_BACKSPACE:
-                        settingIO.Player_Name = settingIO.Player_Name[:-1]
-                    elif event.key == pygame.K_RETURN:
-                        active = False
-                    else:
-                        if(len(settingIO.Player_Name) < 8):
-                            settingIO.Player_Name += event.unicode
-                    settingIO.save_settings()
+                if event.key == pygame.K_BACKSPACE:
+                    settingIO.Player_Name = settingIO.Player_Name[:-1]
+                elif event.key == pygame.K_RETURN:
+                    active = False
+                else:
+                    if (len(settingIO.Player_Name) < 8):
+                        settingIO.Player_Name += event.unicode
+                settingIO.save_settings()
 
 
 def round_Percent(percent):
