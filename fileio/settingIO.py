@@ -61,6 +61,11 @@ def save_settings():
     global Keymap_Left, Keymap_Right, Keymap_Up
     global Keymap_Down, Keymap_Primary_Fire
     global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
+
+    #Cleans Name Value
+    Player_Name = Player_Name.replace("\u001b", "")
+    Player_Name = Player_Name.upper()
+
     data = {
         "Player_Name": Player_Name,
         "Master_Volume": Master_Volume,
