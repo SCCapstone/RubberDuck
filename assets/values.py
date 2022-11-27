@@ -17,17 +17,20 @@ FONT_EthnocentricItalic = os.path.join("assets", "fonts",
                                        "EthnocentricItalic.ttf")
 
 # Screen Size defaults to 0 until setScreenSize is called
+# Screen Size defaults to 0 until setScreenSize is called
 screenX = 0
 screenY = 0
+SCREEN_SIZE = (screenX, screenY)
 
 SETTING_PATH = "fileio\\UserSetting.json"
 
 
 # Set Screen Size
 def set_screen_size(x, y):
-    global screenX, screenY
+    global screenX, screenY, SCREEN_SIZE
     screenX = x
     screenY = y
+    SCREEN_SIZE = (screenX, screenY)
 
 
 def sessionRunTime():
@@ -40,3 +43,6 @@ def setStartTime():
     """Sets the start time of the session in HH:MM"""
     global startTime
     startTime = time.time()
+
+
+masterVolume = .75

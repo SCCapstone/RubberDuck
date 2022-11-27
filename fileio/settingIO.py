@@ -1,3 +1,5 @@
+"""summary: FileIo handler for settings
+"""
 import json
 import pygame
 import shutil
@@ -7,19 +9,48 @@ import tkinter
 from tkinter.filedialog import askopenfilename
 import pygame
 from assets import values
+import tkinter
+from tkinter.filedialog import askopenfilename
+from assets import values
 
-global Player_Name, Volume, Music, Sound_Effect, Difficulty, Keymap_Left, Keymap_Right, Keymap_Up, Keymap_Down, Keymap_Primary_Fire, Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
+global Player_Name
+global Volume
+global Music
+global Sound_Effect
+global Difficulty
+global Keymap_Left
+global Keymap_Right
+global Keymap_Up
+global Keymap_Down
+global Keymap_Primary_Fire
+global Keymap_Secondary_Fire
+global Keymap_Dash
+global Keymap_Pause
 
 
 def load_settings(path):
+    """summary: Loads the settings from the file
+
+    Args:
+        path (string): path to the file
+    
+    Throws:
+        IOError: if the file does not exist, will load default settings
+    """
+    global Player_Name, Master_Volume, Music_Volume
+    global SFX_Volume, Difficulty
+    global Keymap_Left, Keymap_Right, Keymap_Up
+    global Keymap_Down, Keymap_Primary_Fire
+    global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
+    try:
     global Player_Name, Volume, Music, Sound_Effect, Difficulty, Keymap_Left, Keymap_Right, Keymap_Up, Keymap_Down, Keymap_Primary_Fire, Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
     try:
         data = json.load(open(path))
 
         Player_Name = data["Player_Name"]
-        Volume = data["Volume"]
-        Music = data["Music"]
-        Sound_Effect = data["Sound_Effect"]
+        Master_Volume = data["Master_Volume"]
+        Music_Volume = data["Music_Volume"]
+        SFX_Volume = data["SFX_Volume"]
         Difficulty = data["Difficulty"]
         Keymap_Left = data["Keymap_Left"]
         Keymap_Right = data["Keymap_Right"]
@@ -36,11 +67,24 @@ def load_settings(path):
 
 
 def save_settings():
+    """summary: Saves the settings to the file
+    """
+
+    global Player_Name, Master_Volume, Music_Volume
+    global SFX_Volume, Difficulty
+    global Keymap_Left, Keymap_Right, Keymap_Up
+    global Keymap_Down, Keymap_Primary_Fire
+    global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
+
+    #Cleans Name Value
+    Player_Name = Player_Name.replace("\u001b", "")
+    Player_Name = Player_Name.upper()
+
     data = {
         "Player_Name": Player_Name,
-        "Volume": Volume,
-        "Music": Music,
-        "Sound_Effect": Sound_Effect,
+        "Master_Volume": Master_Volume,
+        "Music_Volume": Music_Volume,
+        "SFX_Volume": SFX_Volume,
         "Difficulty": Difficulty,
         "Keymap_Left": Keymap_Left,
         "Keymap_Right": Keymap_Right,
@@ -56,125 +100,21 @@ def save_settings():
         json.dump(data, f, indent=4)
 
 
-def setPlayerName(name):
-    global Player_Name
-    Player_Name = name
-
-
-def setVolume(volume):
-    global Volume
-    Volume = volume
-
-
-def setMusic(music):
-    global Music
-    Music = music
-
-
-def setSoundEffect(soundEffect):
-    global Sound_Effect
-    Sound_Effect = soundEffect
-
-
-def setDifficulty(difficulty):
-    global Difficulty
-    Difficulty = difficulty
-
-
-def setKeymapLeft(keymapLeft):
-    global Keymap_Left
-    Keymap_Left = keymapLeft
-
-
-def setKeymapRight(keymapRight):
-    global Keymap_Right
-    Keymap_Right = keymapRight
-
-
-def setKeymapUp(keymapUp):
-    global Keymap_Up
-    Keymap_Up = keymapUp
-
-
-def setKeymapDown(keymapDown):
-    global Keymap_Down
-    Keymap_Down = keymapDown
-
-
-def setKeymapPrimaryFire(keymapPrimaryFire):
-    global Keymap_Primary_Fire
-    Keymap_Primary_Fire = keymapPrimaryFire
-
-
-def setKeymapSecondaryFire(keymapSecondaryFire):
-    global Keymap_Secondary_Fire
-    Keymap_Secondary_Fire = keymapSecondaryFire
-
-
-def setKeymapDash(keymapDash):
-    global Keymap_Dash
-    Keymap_Dash = keymapDash
-
-
-def setKeymapPause(keymapPause):
-    global Keymap_Pause
-    Keymap_Pause = keymapPause
-
-
-def getPlayerName():
-    return Player_Name
-
-
-def getVolume():
-    return Volume
-
-
-def getMusic():
-    return Music
-
-
-def getSoundEffect():
-    return Sound_Effect
-
-
-def getDifficulty():
-    return Difficulty
-
-
-def getKeymapLeft():
-    return Keymap_Left
-
-
-def getKeymapRight():
-    return Keymap_Right
-
-
-def getKeymapUp():
-    return Keymap_Up
-
-
-def getKeymapDown():
-    return Keymap_Down
-
-
-def getKeymapPrimaryFire():
-    return Keymap_Primary_Fire
-
-
-def getKeymapSecondaryFire():
-    return Keymap_Secondary_Fire
-
-
-def getKeymapDash():
-    return Keymap_Dash
-
-
-def getKeymapPause():
-    return Keymap_Pause
-
-
 def load_default_settings():
-    global Player_Name, Volume, Music, Sound_Effect, Difficulty, Keymap_Left, Keymap_Right, Keymap_Up, Keymap_Down, Keymap_Primary_Fire, Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
+    global Player_Name
+    global Volume
+    global Music
+    global Sound_Effect
+    global Difficulty
+    global Keymap_Left
+    global Keymap_Right
+    global Keymap_Up
+    global Keymap_Down
+    global Keymap_Primary_Fire
+    global Keymap_Secondary_Fire
+    global Keymap_Dash
+    global Keymap_Pause
+
     Player_Name = "Player"
     Volume = 100
     Music = True
@@ -191,22 +131,19 @@ def load_default_settings():
 
 
 def import_settings():
-    root = tkinter.Tk()
-    root.withdraw()
-    # Freeze pygame window
-    pygame.display.set_mode(values.SCREEN_SIZE)
-    filename = askopenfilename()
-    root.update()
-    print(filename)
-    if (filename != ""):
-        try:
-            check_valid_setting_file(filename)
-            load_settings(filename)
-        except:
-            easygui.msgbox("Invalid File", "Error")
+    #fn = askopenfilename()
+    fn = "fileio\\UserSetting.json"
+    print("user chose", fn)
+    #check if file is valid setting file
+    if fn[-5:] != ".json":
+        pygame.display.set_caption("Invalid File")
+    else:
+        load_settings(fn)
 
 
 def export_settings():
+    """_summary_: Exports the settings to the file and asks the user to select the file
+    """
     save_settings()
 
     #make copy of UserSetting.json and move it to desktop

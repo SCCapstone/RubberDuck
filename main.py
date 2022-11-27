@@ -1,5 +1,5 @@
-"""Class that runs menu and start up"""
-# Create Pygame ins
+"""summary: The main file for the game
+"""
 import sys
 import pygame
 import menuStructure as menuS
@@ -9,8 +9,12 @@ from views import homeScreen
 from views import statScreen
 from views import settingScreen
 from views import highScoreScreen
+from views import customizeScreen
+from views import gameOverScreen
+
 from fileio import settingIO
 from fileio import highScoreIO
+from fileio import statsIO
 
 pygame.init()
 # Make game full screen
@@ -21,7 +25,7 @@ pygame.display.update()
 # Initialize the mixer
 noises = soundHandler.SFXHandler()
 
-statScreen.start_load()
+statsIO.load_stats()
 settingIO.load_settings(values.SETTING_PATH)
 highScoreIO.load_high_scores()
 values.setStartTime()
@@ -29,12 +33,14 @@ values.setStartTime()
 menuS.set_game_menu(menuS.menu.HOME)
 values.set_screen_size(pygame.display.get_surface().get_size()[0],
                        pygame.display.get_surface().get_size()[1])
-"""Runs the loop for various menu control functions"""
 
 
 def main():
+    """summary: main loop for game
+    """
     # Keep the game open until the user closes it
     noises.playMusic("menus")
+    noises.music_volume(settingIO.Music_Volume)
     ran = False
     while True:
         pygame.display.flip()
@@ -59,13 +65,15 @@ def main():
                 noises.playMusic("gameplay")
             ran = True
         elif menuS.get_game_menu() == menuS.menu.CUSTOMIZE:
-            pass
+            customizeScreen.customize_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.HIGH_SCORE:
             highScoreScreen.high_score_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.SETTING:
             settingScreen.settings_screen(noises)
+        elif menuS.get_game_menu() == menuS.menu.GAMEOVER:
+            gameOverScreen.start_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.QUIT:
-            statScreen.save_stats()
+            statsIO.save_stats()
             settingIO.save_settings()
             pygame.quit()
             sys.exit()

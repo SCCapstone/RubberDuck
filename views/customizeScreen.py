@@ -1,129 +1,148 @@
 #Imports
-import pygame
 import os
-import menuStructure as menuS
+import pygame
 from assets import values
+import menuStructure as menuS
 
 
-def start_screen(noises):
-    # Set the background to secondaryScreen (need to work on what will be on
-    # Gameover Screen)
+# Runs the customize screen
+def customize_screen(noises):
+    # Set the background to main.jpg
     background = pygame.image.load(
-        os.path.join("assets", "backgrounds", "base_bg.jpg"))
+        os.path.join("assets", "backgrounds", "tertiary.jpg"))
     screen = pygame.display.get_surface()
     # scale the background to the screen size
     background = pygame.transform.scale(
         background, (screen.get_width(), screen.get_height()))
     screen.blit(background, (0, 0))
 
+    # Screen Position Variables
+    left = screen.get_width() / 4
+    right = screen.get_width() / 4 * 3
+
     # font size for Titles = .05
     titleFont = pygame.font.Font(
         os.path.join("assets", "fonts", "Ethnocentric.ttf"),
         int(values.screenX * .05))
-
-    titleFont2 = pygame.font.Font(
-        os.path.join("assets", "fonts", "Ethnocentric.ttf"),
-        int(values.screenX * .07))
 
     # font size for subtitle = .03
     subtitleFont = pygame.font.Font(
         os.path.join("assets", "fonts", "Ethnocentric.ttf"),
         int(values.screenX * .03))
 
-    # coordinates for drawing
-    left = screen.get_width() / 4
-    right = screen.get_width() / 4 * 3
+    # font size for what to customize
+    smallFont = pygame.font.Font(
+        os.path.join("assets", "fonts", "Ethnocentric.ttf"),
+        int(values.screenX * .015))
 
-    #GameOver title
-    GO_text_image = titleFont2.render("Game Over", True, values.COLOR_Red)
-    GOCords = GO_text_image.get_rect(center=(screen.get_width() / 2,
-                                             screen.get_height() / 16 * 2))
-    screen.blit(GO_text_image, GOCords)
+    #Customize title
+    customize_text_image = titleFont.render("Customize", True,
+                                            values.COLOR_Yellow)
+    customizeCords = customize_text_image.get_rect(
+        center=(screen.get_width() / 2, screen.get_height() / 16 * 2))
+    screen.blit(customize_text_image, customizeCords)
 
-    #4 boxes
-    xCord = screen.get_width() / 3.4
-    yCord = screen.get_height() / 16 * 4
-    width = 700
+    #Coins available text
+    coins_text_image = subtitleFont.render("Coins: ", True,
+                                           values.COLOR_Yellow)
+    coinsCords = (left + 200, screen.get_height() / 16 * 3)
+    screen.blit(coins_text_image, coinsCords)
+
+    #coins asset next to available coins
+    coins = pygame.image.load("assets/sprites/Coin.png")
+    screen.blit(coins, (coinsCords[0] + 220, coinsCords[1]))
+
+    #TODO add coin asset plus amount of coins available
+
+    #load duck base skins
+    silhouetteDuck = pygame.image.load("assets/sprites/silhouetteDuck.png")
+    baseDuck = pygame.image.load("assets/sprites/baseDuck.png")
+    swagDuck = pygame.image.load("assets/sprites/swagDuck.png")
+
+    #scale base skins for preview
+    pygame.transform.scale(baseDuck, (500, 500))
+    pygame.transform.scale(swagDuck, (500, 500))
+    bigSilhouetteDuck = pygame.transform.scale(silhouetteDuck, (500, 500))
+
+    #TODO Preview of Duck in Current State
+    screen.blit(bigSilhouetteDuck,
+                (screen.get_width() / 3, screen.get_height() / 4))
+
+    #TODO Purchase / Equip Skin
+
+    #TODO Left/Right arrows to browse skins to purchase / equip
+
+    #TODO array of skins to purchase /equip at the bottom of the screen
+
+    #4 boxes to change screen to purchase base skins, hats, trails, and backgrounds
+    xCord = 50
+    yCord = 200
+    width = 275
     height = 100
     separation = 50
 
-    #Replay Level Box
+    #Base Skins Box
     pygame.draw.rect(screen, values.COLOR_Pink, (xCord, yCord, width, height),
                      0)
-    #Replay Level text
+
     if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
     )[0] < xCord + width and pygame.mouse.get_pos(
     )[1] > yCord and pygame.mouse.get_pos()[1] < yCord + height:
-        Replay_text_image = subtitleFont.render("Replay Level", True,
-                                                values.COLOR_Yellow)
+        BS_text_image = smallFont.render("Base Skins", True,
+                                         values.COLOR_Yellow)
     else:
-        Replay_text_image = subtitleFont.render("Replay Level", True,
-                                                values.COLOR_Purple)
-    screen.blit(Replay_text_image, (xCord + 75, yCord + 20))
+        BS_text_image = smallFont.render("Base Skins", True,
+                                         values.COLOR_Purple)
+    screen.blit(BS_text_image, (xCord + 30, yCord + 35))
 
-    #New Game Box
+    #Hats Box
     pygame.draw.rect(screen, values.COLOR_Pink,
                      (xCord, yCord +
                       ((height + separation) * 1), width, height), 0)
-    #New Game text
     if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
     )[0] < xCord + width and pygame.mouse.get_pos()[1] > (
             yCord +
         (height + separation) * 1) and pygame.mouse.get_pos()[1] < (
             yCord + height + (height + separation) * 1):
-        NewGame_text_image = subtitleFont.render("New Game", True,
-                                                 values.COLOR_Yellow)
+        Hats_text_image = smallFont.render("Hats", True, values.COLOR_Yellow)
     else:
-        NewGame_text_image = subtitleFont.render("New Game", True,
-                                                 values.COLOR_Purple)
-    screen.blit(NewGame_text_image,
-                (xCord + 160, yCord + 25 + (height + separation) * 1))
+        Hats_text_image = smallFont.render("Hats", True, values.COLOR_Purple)
+    screen.blit(Hats_text_image,
+                (xCord + 90, yCord + 35 + (height + separation) * 1))
 
-    #Share High Score box
+    #Trails Box
     pygame.draw.rect(screen, values.COLOR_Pink,
                      (xCord, yCord +
                       ((height + separation) * 2), width, height), 0)
-    #Share High Score text
     if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
     )[0] < xCord + width and pygame.mouse.get_pos()[1] > (
             yCord +
         (height + separation) * 2) and pygame.mouse.get_pos()[1] < (
             yCord + height + (height + separation) * 2):
-        high_text_image = subtitleFont.render("Share High Score", True,
-                                              values.COLOR_Yellow)
+        Trails_text_image = smallFont.render("Trails", True,
+                                             values.COLOR_Yellow)
     else:
-        high_text_image = subtitleFont.render("Share High Score", True,
-                                              values.COLOR_Purple)
-    screen.blit(high_text_image,
-                (xCord, yCord + 20 + (height + separation) * 2))
+        Trails_text_image = smallFont.render("Trails", True,
+                                             values.COLOR_Purple)
+    screen.blit(Trails_text_image,
+                (xCord + 70, yCord + 35 + (height + separation) * 2))
 
-    #Share Recording Box
+    #Backgrounds Box
     pygame.draw.rect(screen, values.COLOR_Pink,
                      (xCord, yCord +
                       ((height + separation) * 3), width, height), 0)
-    #Share Recording text
     if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
     )[0] < xCord + width and pygame.mouse.get_pos()[1] > (
             yCord +
         (height + separation) * 3) and pygame.mouse.get_pos()[1] < (
             yCord + height + (height + separation) * 3):
-        recording_text_image = subtitleFont.render("Share Recording", True,
-                                                   values.COLOR_Yellow)
+        Backgrounds_text_image = smallFont.render("Backgrounds", True,
+                                                  values.COLOR_Yellow)
     else:
-        recording_text_image = subtitleFont.render("Share Recording", True,
-                                                   values.COLOR_Purple)
-    screen.blit(recording_text_image,
-                (xCord + 10, yCord + 20 + (height + separation) * 3))
-
-    #Show Score
-    Score_text = titleFont.render("Score", True, values.COLOR_White)
-    screen.blit(Score_text, (values.screenX * .02, yCord + 25))
-    #TODO Show game score underneath
-
-    #Show Time
-    Time_text = titleFont.render("Time", True, values.COLOR_White)
-    screen.blit(Time_text, (values.screenX * .75, yCord + 25))
-    #TODO Show game time underneath
+        Backgrounds_text_image = smallFont.render("Backgrounds", True,
+                                                  values.COLOR_Purple)
+    screen.blit(Backgrounds_text_image,
+                (xCord + 5, yCord + 35 + (height + separation) * 3))
 
     # Coordinates Home button
     homeCords = (values.screenX * .0065, values.screenY * .011)
@@ -151,33 +170,28 @@ def start_screen(noises):
                 )[0] < xCord + width and yCord < pygame.mouse.get_pos(
                 )[1] < yCord + height:
                     noises.playSound("quack")
-                    #TODO Replay the level
+                    #TODO make text red or highlight box, then switch screen to customize different asset
                 elif xCord < pygame.mouse.get_pos(
                 )[0] < xCord + width and yCord + (
                         height + separation) * 1 < pygame.mouse.get_pos(
                         )[1] < yCord + height + (height + separation) * 1:
                     noises.playSound("quack")
-                    #TODO New Game
-                    menuS.set_game_menu(menuS.menu.GAME)
+                    #TODO make text red or highlight box, then switch screen to customize different asset
                 elif xCord < pygame.mouse.get_pos(
                 )[0] < xCord + width and yCord + (
                         height + separation) * 2 < pygame.mouse.get_pos(
                         )[1] < yCord + height + (height + separation) * 2:
                     noises.playSound("quack")
-                    #TODO Share High Score
+                    #TODO make text red or highlight box, then switch screen to customize different asset
                 elif xCord < pygame.mouse.get_pos(
                 )[0] < xCord + width and yCord + (
                         height + separation) * 3 < pygame.mouse.get_pos(
                         )[1] < yCord + height + (height + separation) * 3:
                     noises.playSound("quack")
-                    #TODO Share Recording
+                    #TODO make text red or highlight box, then switch screen to customize different asset
 
         elif event.type == pygame.QUIT:
             menuS.set_game_menu(menuS.menu.QUIT)
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 menuS.set_game_menu(menuS.menu.QUIT)
-
-    # Update the screen
-    pygame.display.flip()
-    pygame.display.update()
