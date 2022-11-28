@@ -1,3 +1,5 @@
+"""summary: FileIo handler for settings
+"""
 import json
 import pygame
 import shutil
@@ -5,16 +7,36 @@ import os
 import easygui
 import tkinter
 from tkinter.filedialog import askopenfilename
+import pygame
+from assets import values
+import tkinter
+from tkinter.filedialog import askopenfilename
 from assets import values
 
-global Player_Name, Master_Volume, Music_Volume
-global SFX_Volume, Difficulty
-global Keymap_Left, Keymap_Right, Keymap_Up
-global Keymap_Down, Keymap_Primary_Fire
-global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
+global Player_Name
+global Volume
+global Music
+global Sound_Effect
+global Difficulty
+global Keymap_Left
+global Keymap_Right
+global Keymap_Up
+global Keymap_Down
+global Keymap_Primary_Fire
+global Keymap_Secondary_Fire
+global Keymap_Dash
+global Keymap_Pause
 
 
 def load_settings(path):
+    """summary: Loads the settings from the file
+
+    Args:
+        path (string): path to the file
+    
+    Throws:
+        IOError: if the file does not exist, will load default settings
+    """
     global Player_Name, Master_Volume, Music_Volume
     global SFX_Volume, Difficulty
     global Keymap_Left, Keymap_Right, Keymap_Up
@@ -43,11 +65,19 @@ def load_settings(path):
 
 
 def save_settings():
+    """summary: Saves the settings to the file
+    """
+
     global Player_Name, Master_Volume, Music_Volume
     global SFX_Volume, Difficulty
     global Keymap_Left, Keymap_Right, Keymap_Up
     global Keymap_Down, Keymap_Primary_Fire
     global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
+
+    #Cleans Name Value
+    Player_Name = Player_Name.replace("\u001b", "")
+    Player_Name = Player_Name.upper()
+
     data = {
         "Player_Name": Player_Name,
         "Master_Volume": Master_Volume,
@@ -68,94 +98,6 @@ def save_settings():
         json.dump(data, f, indent=4)
 
 
-def setPlayerName(name):
-    global Player_Name
-
-
-def setDifficulty(difficulty):
-    global Difficulty
-    Difficulty = difficulty
-
-
-def setKeymapLeft(keymapLeft):
-    global Keymap_Left
-    Keymap_Left = keymapLeft
-
-
-def setKeymapRight(keymapRight):
-    global Keymap_Right
-    Keymap_Right = keymapRight
-
-
-def setKeymapUp(keymapUp):
-    global Keymap_Up
-    Keymap_Up = keymapUp
-
-
-def setKeymapDown(keymapDown):
-    global Keymap_Down
-    Keymap_Down = keymapDown
-
-
-def setKeymapPrimaryFire(keymapPrimaryFire):
-    global Keymap_Primary_Fire
-    Keymap_Primary_Fire = keymapPrimaryFire
-
-
-def setKeymapSecondaryFire(keymapSecondaryFire):
-    global Keymap_Secondary_Fire
-    Keymap_Secondary_Fire = keymapSecondaryFire
-
-
-def setKeymapDash(keymapDash):
-    global Keymap_Dash
-    Keymap_Dash = keymapDash
-
-
-def setKeymapPause(keymapPause):
-    global Keymap_Pause
-    Keymap_Pause = keymapPause
-
-
-def getPlayerName():
-    return Player_Name
-
-def getDifficulty():
-    return Difficulty
-
-
-def getKeymapLeft():
-    return Keymap_Left
-
-
-def getKeymapRight():
-    return Keymap_Right
-
-
-def getKeymapUp():
-    return Keymap_Up
-
-
-def getKeymapDown():
-    return Keymap_Down
-
-
-def getKeymapPrimaryFire():
-    return Keymap_Primary_Fire
-
-
-def getKeymapSecondaryFire():
-    return Keymap_Secondary_Fire
-
-
-def getKeymapDash():
-    return Keymap_Dash
-
-
-def getKeymapPause():
-    return Keymap_Pause
-
-
 def load_default_settings():
     global Player_Name, Master_Volume, Music_Volume
     global SFX_Volume, Difficulty
@@ -164,10 +106,10 @@ def load_default_settings():
     global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
 
     Player_Name = "Player"
-    Master_Volume = 100
-    Music_Volume = 100
-    SFX_Volume = 100
-    Difficulty = "Easy"
+    Volume = 100
+    Music = True
+    Sound_Effect = True
+    Difficulty = "Bath Time"
     Keymap_Left = pygame.K_a
     Keymap_Right = pygame.K_d
     Keymap_Up = pygame.K_w
@@ -176,7 +118,6 @@ def load_default_settings():
     Keymap_Secondary_Fire = pygame.K_RSHIFT
     Keymap_Dash = pygame.K_SPACE
     Keymap_Pause = pygame.K_ESCAPE
-    
 
 
 def import_settings():
@@ -186,13 +127,18 @@ def import_settings():
     pygame.display.set_mode(values.SCREEN_SIZE)
     filename = askopenfilename()
     root.update()
+    print(filename)
     if (filename != ""):
         try:
+            check_valid_setting_file(filename)
             load_settings(filename)
         except:
             easygui.msgbox("Invalid File", "Error")
 
+
 def export_settings():
+    """_summary_: Exports the settings to the file and asks the user to select the file
+    """
     save_settings()
 
     #make copy of UserSetting.json and move it to desktop
@@ -205,4 +151,109 @@ def export_settings():
     easygui.msgbox(
         "UserSetting.json has been exported to your Documents folder",
         "Export Successful")
-    
+
+
+def check_valid_setting_file(path):
+
+    try:
+        if (path == ""):
+            easygui.msgbox("Invalid File", "Error")
+        if (path[-5:] != ".json"):
+            easygui.msgbox("Invalid File Type", "Error")
+
+        #check valid json file
+        data = json.load(open(path))
+        if (data["Player_Name"] == ""):
+            easygui.msgbox("Invalid File", "Error")
+        if (data["Volume"] < 0 or data["Volume"] > 100):
+            easygui.msgbox("Invalid File - Volume Invalid Value (Range 1-100)",
+                           "Error")
+        if (data["Music"] != True and data["Music"] != False):
+            easygui.msgbox(
+                "Invalid File - Music Invalid Value (TRUE or FALSE)", "Error")
+        if (data["Sound_Effect"] != True and data["Sound_Effect"] != False):
+            easygui.msgbox(
+                "Invalid File - Sound_Effect Invalid Value (TRUE or FALSE)",
+                "Error")
+        if (data["Difficulty"] != "Bath Time" and data["Difficulty"] != "Easy"
+                and data["Difficulty"] != "Normal"
+                and data["Difficulty"] != "Hard"):
+            easygui.msgbox(
+                "Invalid File - Difficulty Invalid Value (\"Bath Time\", \"Easy\", \"Normal\", \"Hard\")",
+                "Error")
+        if (type(data["Keymap_Left"]) != int):
+            easygui.msgbox(
+                "Invalid File - Keymap_Left Invalid Value (Integer)", "Error")
+        if (type(data["Keymap_Right"]) != int):
+            easygui.msgbox(
+                "Invalid File - Keymap_Right Invalid Value (Integer)", "Error")
+        if (type(data["Keymap_Up"]) != int):
+            easygui.msgbox("Invalid File - Keymap_Up Invalid Value (Integer)",
+                           "Error")
+        if (type(data["Keymap_Down"]) != int):
+            easygui.msgbox(
+                "Invalid File - Keymap_Down Invalid Value (Integer)", "Error")
+        if (type(data["Keymap_Primary_Fire"]) != int):
+            easygui.msgbox(
+                "Invalid File - Keymap_Primary_Fire Invalid Value (Integer)",
+                "Error")
+        if (type(data["Keymap_Secondary_Fire"]) != int):
+            easygui.msgbox(
+                "Invalid File - Keymap_Secondary_Fire Invalid Value (Integer)",
+                "Error")
+        if (type(data["Keymap_Dash"]) != int):
+            easygui.msgbox(
+                "Invalid File - Keymap_Dash Invalid Value (Integer)", "Error")
+        if (type(data["Keymap_Pause"]) != int):
+            easygui.msgbox(
+                "Invalid File - Keymap_Pause Invalid Value (Integer)", "Error")
+        if (data["Keymap_Left"] == data["Keymap_Right"]
+                or data["Keymap_Left"] == data["Keymap_Up"]
+                or data["Keymap_Left"] == data["Keymap_Down"]
+                or data["Keymap_Left"] == data["Keymap_Primary_Fire"]
+                or data["Keymap_Left"] == data["Keymap_Secondary_Fire"]
+                or data["Keymap_Left"] == data["Keymap_Dash"]
+                or data["Keymap_Left"] == data["Keymap_Pause"]):
+            easygui.msgbox(
+                "Invalid File - Keymap_Left Invalid Value (Duplicate)",
+                "Error")
+        if (data["Keymap_Right"] == data["Keymap_Up"]
+                or data["Keymap_Right"] == data["Keymap_Down"]
+                or data["Keymap_Right"] == data["Keymap_Primary_Fire"]
+                or data["Keymap_Right"] == data["Keymap_Secondary_Fire"]
+                or data["Keymap_Right"] == data["Keymap_Dash"]
+                or data["Keymap_Right"] == data["Keymap_Pause"]):
+            easygui.msgbox(
+                "Invalid File - Keymap_Right Invalid Value (Duplicate)",
+                "Error")
+        if (data["Keymap_Up"] == data["Keymap_Down"]
+                or data["Keymap_Up"] == data["Keymap_Primary_Fire"]
+                or data["Keymap_Up"] == data["Keymap_Secondary_Fire"]
+                or data["Keymap_Up"] == data["Keymap_Dash"]
+                or data["Keymap_Up"] == data["Keymap_Pause"]):
+            easygui.msgbox(
+                "Invalid File - Keymap_Up Invalid Value (Duplicate)", "Error")
+        if (data["Keymap_Down"] == data["Keymap_Primary_Fire"]
+                or data["Keymap_Down"] == data["Keymap_Secondary_Fire"]
+                or data["Keymap_Down"] == data["Keymap_Dash"]
+                or data["Keymap_Down"] == data["Keymap_Pause"]):
+            easygui.msgbox(
+                "Invalid File - Keymap_Down Invalid Value (Duplicate)",
+                "Error")
+        if (data["Keymap_Primary_Fire"] == data["Keymap_Secondary_Fire"]
+                or data["Keymap_Primary_Fire"] == data["Keymap_Dash"]
+                or data["Keymap_Primary_Fire"] == data["Keymap_Pause"]):
+            easygui.msgbox(
+                "Invalid File - Keymap_Primary_Fire Invalid Value (Duplicate)",
+                "Error")
+        if (data["Keymap_Secondary_Fire"] == data["Keymap_Dash"]
+                or data["Keymap_Secondary_Fire"] == data["Keymap_Pause"]):
+            easygui.msgbox(
+                "Invalid File - Keymap_Secondary_Fire Invalid Value (Duplicate)",
+                "Error")
+        if (data["Keymap_Dash"] == data["Keymap_Pause"]):
+            easygui.msgbox(
+                "Invalid File - Keymap_Dash Invalid Value (Duplicate)",
+                "Error")
+    except:
+        easygui.msgbox("Invalid File", "Error")

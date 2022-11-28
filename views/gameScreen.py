@@ -1,19 +1,24 @@
 import pygame
 import random
+import os
+
 GRID_SIZE = 64
+
 
 def loadImage(filePath, scale=False):
     img = pygame.image.load(filePath)
     if scale:
-        img = pygame.transform.scale(img,(GRID_SIZE, GRID_SIZE))
+        img = pygame.transform.scale(img, (GRID_SIZE, GRID_SIZE))
     return img
 
 
 #Image loading
 BLOCK_IMG = ""
 
+
 class Entity(pygame.sprite.Sprite):
-    def __init__(self,x,y,image):
+
+    def __init__(self, x, y, image):
         super().__init__()
         self.image = image
         self.rect = self.image.get_rect()
@@ -27,15 +32,17 @@ class Entity(pygame.sprite.Sprite):
     def levelUpdate(self, speed):
         self.rect.x -= speed
 
+
 class Block(Entity):
 
-    def __init__(self,x,y,image):
-        super().__init__(x,y,image)
+    def __init__(self, x, y, image):
+        super().__init__(x, y, image)
+
 
 class Duck(Entity):
 
     def __init__(self, images):
-        super.__init__(0,0,images[0])
+        super.__init__(0, 0, images[0])
         self.images = images
 
         self.health = 3
@@ -58,15 +65,18 @@ class Duck(Entity):
 
         self.activePowerups = []
 
-
     def moveLeft(self):
         self.vx = -self.speed
+
     def moveRight(self):
         self.vx = self.speed
+
     def moveDown(self):
         self.vy = self.speed
+
     def moveUp(self):
         self.vy = -self.speed
+
     def stop(self):
         self.vx = 0
         self.vy = 0
@@ -102,12 +112,11 @@ class Duck(Entity):
                 self.rect.top = block.rect.bottom
                 self.vy = 0
 
-    def processEnemies(self, enemies):   
+    def processEnemies(self, enemies):
         hit_list = pygame.sprite.spritecollide(self, enemies, True)
         for enemy in hit_list:
             self.takeDamage(enemy.power)
-                
-    
+
     def processCoins(self, coins):
         hit_list = pygame.sprite.spritecollide(self, coins, True)
         for coin in hit_list:
@@ -115,10 +124,9 @@ class Duck(Entity):
             self.coins += 1
 
     def processPowerups(self, powerups):
-        hit_list = pygame.sprite.spritecollide(self, powerups, True)
+        pygame.sprite.spritecollide(self, powerups, True)
         for p in powerups:
             p.apply(self)
-        
 
     def setImage(self):
         pass
@@ -137,20 +145,24 @@ class Duck(Entity):
         if self.invincibility > 0:
             self.invincibility -= 1
 
+
 class Coin(Entity):
+
     def __init__(self, x, y, image):
-        super().__init__(x,y,image)
+        super().__init__(x, y, image)
 
         self.value = 50
 
+
 class PowerUp(Entity):
     EFFECTS = ["Health", "Speed"]
+
     def __init__(self, x, y, effect):
         if effect == 0:
             self.image = HEALTH_IMG
         if effect == 1:
             self.image = SPEED_IMG
-        super().__init__(x,y,self.image)
+        super().__init__(x, y, self.image)
 
         self.effect = EFFECTS[effect]
 
@@ -168,11 +180,12 @@ class PowerUp(Entity):
             duck.takeDamage(1)
         if self.effect == "Bomb":
             duck.takeDamage(3)
-    
+
 
 class Enemy(Entity):
-    def __init__(self,x,y,speed,images):
-        super().__init__(x,y,images[0])
+
+    def __init__(self, x, y, speed, images):
+        super().__init__(x, y, images[0])
 
         self.vy = speed
 
@@ -180,14 +193,15 @@ class Enemy(Entity):
         pass
 
 
-
 #Level made of tiles
 #Tile one screen long with own sprites
 #Upon passing width X, delete old tile, generate new
 #Generate 3 tiles to begin
 
+
 class Tile():
     EFFECTS = ["Health", "Speed"]
+
     def __init__(self, numBlocks, numEnemies, numPowerups, numCoins):
         self.blocks = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
@@ -201,42 +215,42 @@ class Tile():
         enemies = []
         powerups = []
         coins = []
-        
+
         for i in range(numBlocks):
-            x = random.randint(20,screen.get_width()-60)
-            y = random.randint(0,1)
+            x = random.randint(20, screen.get_width() - 60)
+            y = random.randint(0, 1)
             if y:
                 y = 0
             else:
-                y = screen.get_height() - 50 #block height instead of 50
-            blocks.append(Block(x,y,BLOCK_IMG))
+                y = screen.get_height() - 50  #block height instead of 50
+            blocks.append(Block(x, y, BLOCK_IMG))
         for i in range(numEnemies):
-            x = random.randint(20,screen.get_width()-60)
-            y = random.randint(30,screen.get_height()-60)
-            enemies.append(Enemy(x,y,ENEMY_IMG))
+            x = random.randint(20, screen.get_width() - 60)
+            y = random.randint(30, screen.get_height() - 60)
+            enemies.append(Enemy(x, y, ENEMY_IMG))
         for i in range(numPowerups):
-            x = random.randint(20,screen.get_width()-60)
-            y = random.randint(30,screen.get_height()-60)
-            effect = random.randint(0,len(EFFECTS))
-            powerups.append(Powerup(x,y,effect))
+            x = random.randint(20, screen.get_width() - 60)
+            y = random.randint(30, screen.get_height() - 60)
+            effect = random.randint(0, len(EFFECTS))
+            powerups.append(Powerup(x, y, effect))
         for i in range(numCoins):
-            x = random.randint(20,screen.get_width()-60)
-            y = random.randint(30,screen.get_height()-60)
-            coins.append(Coin(x,y,COIN_IMG))
+            x = random.randint(20, screen.get_width() - 60)
+            y = random.randint(30, screen.get_height() - 60)
+            coins.append(Coin(x, y, COIN_IMG))
 
         self.blocks.add(blocks)
         self.enemies.add(enemies)
         self.powerups.add(powerups)
         self.coins.add(coins)
-        
-        
+
 
 class Level():
+
     def __init__(self):
         self.x = 0
 
         self.difficulty = 2
-        
+
         self.blocks = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
         self.coins = pygame.sprite.Group()
@@ -252,14 +266,14 @@ class Level():
         self.tiles = []
         while len(self.tiles) < 3:
             self.generateTile()
-        
+
     def generateTile(self):
-        numEnemies = random.randint(1,self.difficulty)
-        numCoins = random.randint(1,2)
-        numPowerups = random.randint(0,1)
+        numEnemies = random.randint(1, self.difficulty)
+        numCoins = random.randint(1, 2)
+        numPowerups = random.randint(0, 1)
         if numPowerups:
-            numPowerups = random.randint(0,1)
-        numBlocks = random.randint(3,3+self.difficulty)
+            numPowerups = random.randint(0, 1)
+        numBlocks = random.randint(3, 3 + self.difficulty)
 
         newTile = Tile(numBlocks, numEnemies, numPowerups, numCoins)
 
@@ -295,16 +309,15 @@ class Level():
         for p in t.powerups:
             self.powerups.remove(p)
             self.inactive_sprites.remove(p)
-        
+
         self.tiles = self.tiles[1:]
-        
+
+
 def gameScreen():
     #Do everything here???
     background = pygame.image.load(
-        os.path.join(
-            "assets",
-            "backgrounds",
-            "tertiary.jpg"))
+        os.path.join("assets", "backgrounds", "tertiary.jpg"))
     screen = pygame.display.get_surface()
-    background = pygame.transform.scale(background,(screen.get_width(),screen.get_height()))
-    screen.blit(background, (0,0))
+    background = pygame.transform.scale(
+        background, (screen.get_width(), screen.get_height()))
+    screen.blit(background, (0, 0))

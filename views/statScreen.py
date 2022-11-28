@@ -1,3 +1,5 @@
+"""summary: FileIO handler for stats
+"""
 import pygame
 from assets import values
 import menuStructure as menuS
@@ -5,15 +7,12 @@ import os
 from fileio import statsIO
 
 
-def start_load():
-    statsIO.load_stats()
-
-
-def save_stats():
-    statsIO.save_stats()
-
-
 def start_screen(noises):
+    """summary: Starts the stat screen and runs the loop
+
+    Args:
+        noises (SFXHandler): SFXHandler object for playing sounds
+    """
     # Set the background to main.jpg
     background = pygame.image.load(
         os.path.join("assets", "backgrounds", "tertiary.jpg"))
