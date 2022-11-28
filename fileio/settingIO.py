@@ -43,8 +43,6 @@ def load_settings(path):
     global Keymap_Down, Keymap_Primary_Fire
     global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
     try:
-    global Player_Name, Volume, Music, Sound_Effect, Difficulty, Keymap_Left, Keymap_Right, Keymap_Up, Keymap_Down, Keymap_Primary_Fire, Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
-    try:
         data = json.load(open(path))
 
         Player_Name = data["Player_Name"]
@@ -101,19 +99,11 @@ def save_settings():
 
 
 def load_default_settings():
-    global Player_Name
-    global Volume
-    global Music
-    global Sound_Effect
-    global Difficulty
-    global Keymap_Left
-    global Keymap_Right
-    global Keymap_Up
-    global Keymap_Down
-    global Keymap_Primary_Fire
-    global Keymap_Secondary_Fire
-    global Keymap_Dash
-    global Keymap_Pause
+    global Player_Name, Master_Volume, Music_Volume
+    global SFX_Volume, Difficulty
+    global Keymap_Left, Keymap_Right, Keymap_Up
+    global Keymap_Down, Keymap_Primary_Fire
+    global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
 
     Player_Name = "Player"
     Volume = 100
@@ -131,14 +121,19 @@ def load_default_settings():
 
 
 def import_settings():
-    #fn = askopenfilename()
-    fn = "fileio\\UserSetting.json"
-    print("user chose", fn)
-    #check if file is valid setting file
-    if fn[-5:] != ".json":
-        pygame.display.set_caption("Invalid File")
-    else:
-        load_settings(fn)
+    root = tkinter.Tk()
+    root.withdraw()
+    # Freeze pygame window
+    pygame.display.set_mode(values.SCREEN_SIZE)
+    filename = askopenfilename()
+    root.update()
+    print(filename)
+    if (filename != ""):
+        try:
+            check_valid_setting_file(filename)
+            load_settings(filename)
+        except:
+            easygui.msgbox("Invalid File", "Error")
 
 
 def export_settings():
