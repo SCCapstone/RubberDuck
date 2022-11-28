@@ -6,6 +6,9 @@ import menuStructure as menuS
 GRID_SIZE = 64
 FPS = 30
 
+SCREEN = pygame.display.get_surface()
+WIDTH = SCREEN.get_width()
+HEIGHT = SCREEN.get_height()
 
 def loadImage(filePath, scale):
     img = pygame.image.load(filePath)
@@ -14,6 +17,8 @@ def loadImage(filePath, scale):
     return img
 
 
+#COLORS
+TRANSPARENT = (0,0,0,0)
 
 #Image loading
 BLOCK_IMG = loadImage(os.path.join("assets","sprites","Wall_block.png"),scale=True)
@@ -233,8 +238,8 @@ class Tile():
                 y = screen.get_height() - 50 #block height instead of 50
             blocks.append(Block(x,y,BLOCK_IMG))
         for i in range(numEnemies):
-            x = random.randint(20,screen.get_width()-60)
-            y = random.randint(30,screen.get_height()-60)
+            x = random.randint(20,WIDTH-60) #do for all
+            y = random.randint(30,HEIGHT-60)
             enemies.append(Enemy(x,y,ENEMY_IMG))
         for i in range(numPowerups):
             x = random.randint(20,screen.get_width()-60)
@@ -269,8 +274,16 @@ class Level():
 
         #Remove is self.blocks.remove(block)
 
-        self.height = screen.get_height()
+        self.active_layer = pygame.Surface([WIDTH,HEIGHT], pygame.SRCALPHA,32)
+        self.inactive_layer = pygame.Surface([WIDTH,HEIGHT], pygame.SRCALPHA,32)
+        self.background_layer = = pygame.Surface([WIDTH,HEIGHT], pygame.SRCALPHA,32)
 
+        
+
+    def update(self,duck):
+        pass
+
+    def reset(self):
         self.tiles = []
         while len(self.tiles) < 3:
             self.generateTile()
@@ -321,23 +334,115 @@ class Level():
         self.tiles = self.tiles[1:]
 
 difficulty = 1
-def gameScreen():
-    ##Set up
-    screen = pygame.display.get_surface()
-    #Background
-    background = pygame.image.load(os.path.join("assets","backgrounds","tertiary.jpg"))
-    background = pygame.transform.scale(background,(screen.get_width(),screen.get_height()))
-    screen.blit(background, (0,0))
+class Game():
 
-    #Font
-    font = pygame.font.Font(os.path.join("assets","fonts","Ethocentric.ttf"),int(values.screenX * 0.019))
-    
-    #Level
-    level = Level(difficulty)
+    SPLASH = 0
+    START = 1
+    PLAYING = 2
+    PAUSED = 3
+    GAME_OVER = 4
 
-    #Duck
-    p = Duck(DUCK_IMGS)
+    def __init__(self):
 
-    while True:
-        #Game loop
+        self.difficulty = 1
+
+        self.window = pygame.display.get_surface()
+        self.WIDTH = self.window.get_width()
+        self.HEIGHT = self.window.get_height()
+
+        self.clock = pygame.time.Clock()
+
+        self.done = False
+
+        self.reset()
+
+    def start(self):
+        self.level = Level(self.difficulty)
+        
+        self.duck = Duck(DUCK_IMGS)
+
+    def reset(self):
+        self.duck = Duck(DUCK_IMGS)
+        self.level = Level(self.difficulty)
+        self.start()
+
+        self.stage = Game.SPLASH
+
+    def display_splash(self):
         pass
+
+    def display_message(self,text):
+        pass
+
+    def display_stats(self):
+        pass
+
+    def process_events(self):
+        global sound_on
+        global paused
+        
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.done = True
+            elif event.type == pygame.KEYDOWN and self.stage == Game.PLAYING:
+                if event.key == pygame.K_w:
+                    self.duck.moveUp()
+                elif event.key == pygame.K_a:
+                    self.duck.moveLeft()
+                elif event.key == pygame.K_s:
+                    self.duck.moveDown()
+                elif event.key == pygame.K_d:
+                    self.duck.moveRight()
+                elif event.key == pygame.K_ESCAPE:
+                    self.stage = Game.PAUSED
+            elif self.stage == Game.PAUSED:
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                    self.stage = Game.PLAYING
+
+    def update(self):
+        if self.stage == Game.PLAYING:
+            self.duck.update(self.level)
+            self.level.enemies.update(self.duck)
+
+        if self.duck.health <= 0:
+            self.stage = Game.GAME_OVER
+
+    def draw(self):
+        self.level.active_layer.fill(TRANSPARENT)
+        self.level.active_sprites.draw(self.level.active_layer)
+
+        if self.duck.invincibility % 3 < 2:
+            self.level.active_layer.blit(self.duck.image, [self.duck.rect.x, self.duck.rect.y])
+
+        SCREEN.blit(self.level.background_layer, [0,0])
+        SCREEN.blit(self.level.inactive_layer, [0,0])
+        SCREEN.blit(self.active_layer, [0,0])
+
+        self.display_stats()
+
+        if self.stage == Game.SPLASH:
+            self.display_splash()
+        elif self.stage == Game.START:
+            self.display_message("Press any key to start!")
+        elif self.stage == Game.PAUSED:
+            self.display_message("Paused. Press 'ESC' to resume.")
+        elif self.stage == Game.GAME_OVER:
+            self.display_message("You died.")
+
+
+        pygame.display.flip()
+
+    def loop(self):
+        while not self.done:
+            self.process_events()
+            self.update()
+            self.draw()
+            self.clock.tick(FPS)
+
+def gameScreen():
+    game = Game()
+    game.start()
+    game.loop()
+    #pygame.quit()
+    #sys.exit()
