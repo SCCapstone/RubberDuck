@@ -58,7 +58,7 @@ class SFXHandler:
                 return True
             # Load the new song and unload the previous one to save memory
             pygame.mixer.music.load(musicBook[music])
-            pygae.mixer.music.unload(musicBook[self.currentSong])
+            pygame.mixer.music.unload(musicBook[self.currentSong])
             # Play the loaded music track (-1 loops forever)
             pygame.mixer.music.play(-1)
             self.currentSong = music
