@@ -118,12 +118,17 @@ def start_screen(noises):
     #Show Score
     Score_text = titleFont.render("Score", True, values.COLOR_White)
     screen.blit(Score_text, (values.screenX * .02, yCord + 25))
-    #TODO Show game score underneath
+
+    #TODO Show game score underneath from actual game session
+    Score_text = titleFont.render("17228", True, values.COLOR_White)
+    screen.blit(Score_text, (values.screenX * .02, yCord + 125))
 
     #Show Time
     Time_text = titleFont.render("Time", True, values.COLOR_White)
     screen.blit(Time_text, (values.screenX * .75, yCord + 25))
-    #TODO Show game time underneath
+    #TODO Show game time underneath from actual game session
+    Score_text = titleFont.render("4:32", True, values.COLOR_White)
+    screen.blit(Score_text, (values.screenX * .75, yCord + 125))
 
     # Coordinates Home button
     homeCords = (values.screenX * .0065, values.screenY * .011)

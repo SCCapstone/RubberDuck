@@ -44,14 +44,15 @@ def customize_screen(noises):
 
 
 
-    #Coins available text
-    coins_text_image = subtitleFont.render("Coins: ", True, values.COLOR_Yellow)
-    coinsCords = (left + 200, screen.get_height() / 16 * 3)
+    #Coins available text - import actaul amount from JSON
+    coins_text_image = subtitleFont.render("Coins:   500", True, values.COLOR_Yellow)
+    coinsCords = (left + 210, screen.get_height() / 16 * 3)
     screen.blit(coins_text_image, coinsCords)
 
     #coins asset next to available coins
     coins = pygame.image.load("assets/sprites/Coin.png")
-    screen .blit(coins, (coinsCords[0] + 220, coinsCords[1]))
+    screen.blit(coins, (coinsCords[0] + 220, coinsCords[1]))
+
 
     #TODO add coin asset plus amount of coins available
 
@@ -59,6 +60,7 @@ def customize_screen(noises):
     silhouetteDuck = pygame.image.load("assets/sprites/silhouetteDuck.png")
     baseDuck = pygame.image.load("assets/sprites/baseDuck.png")
     swagDuck = pygame.image.load("assets/sprites/swagDuck.png")
+    swagDuck = pygame.transform.scale(swagDuck, (260, 260))
 
     #scale base skins for preview
     bigBaseDuck = pygame.transform.scale(baseDuck, (500,500))
@@ -66,7 +68,7 @@ def customize_screen(noises):
     bigSilhouetteDuck = pygame.transform.scale(silhouetteDuck, (500,500))
 
     #TODO Preview of Duck in Current State
-    screen.blit(bigSilhouetteDuck, (screen.get_width() / 3, screen.get_height() / 4))
+    screen.blit(bigBaseDuck, (screen.get_width() / 3, screen.get_height() / 4))
 
     #TODO Purchase / Equip Skin
 
@@ -96,6 +98,17 @@ def customize_screen(noises):
     screen.blit(rightArr,(xArr1 + sep+ sep + box + wArr, yArr))
 
     #TODO array of skins to purchase /equip at the bottom of the screen
+    #will make these box objects for an array so we can move with arrows, know which ones have been purchased.
+    numboxes = 10
+    for i in range(numboxes):
+        pygame.draw.rect(screen, values.COLOR_Pink, ((i+1)*200 - 50, 850, 150, 150),0)
+        if(i == 0):
+            screen.blit(baseDuck, ((i+1)*200 -105, 795))
+        elif(i == 1):
+            screen.blit(swagDuck, ((i+1)*200 -105, 795))
+        else:
+            screen.blit(silhouetteDuck, ((i+1)*200 -105, 795))
+        
 
     #4 boxes to change screen to purchase base skins, hats, trails, and backgrounds
     xCord = 50
@@ -191,12 +204,18 @@ def customize_screen(noises):
                 )[0] < xCord + width and yCord + (height + separation)*3< pygame.mouse.get_pos()[1] < yCord+height + (height + separation)*3:
                     noises.playSound("quack")
                     #TODO make text red or highlight box, then switch screen to customize different asset
+
+                    #click on left arrow, move boxes to the left
                 elif xArr1 < pygame.mouse.get_pos(
                 )[0] < xArr1 + wArr and yArr < pygame.mouse.get_pos()[1] < yArr + hArr: 
                     noises.playSound("quack")
+                    
+
+                    #click on equip or buy 
                 elif xArr1 +sep + wArr < pygame.mouse.get_pos(
                 )[0] < xArr1 + sep + wArr + box and yArr < pygame.mouse.get_pos()[1] < yArr + hArr: 
                     noises.playSound("quack")
+                    #click on right arrow, move boxes to the right
                 elif xArr1 + sep + wArr + box + sep < pygame.mouse.get_pos(
                 )[0] < xArr1 + sep + sep +wArr + box + wArr and yArr < pygame.mouse.get_pos()[1] < yArr + hArr: 
                     noises.playSound("quack")
