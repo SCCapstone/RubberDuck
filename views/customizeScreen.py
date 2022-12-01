@@ -3,7 +3,7 @@ import os
 import pygame
 from assets import values
 import menuStructure as menuS
-import fileio.customizationIO as cIO
+
 
 # Runs the customize screen
 def customize_screen(noises):
@@ -33,26 +33,24 @@ def customize_screen(noises):
     # font size for what to customize
     smallFont = pygame.font.Font(
         os.path.join("assets", "fonts", "Ethnocentric.ttf"),
-        int(values.screenX * .015))    
+        int(values.screenX * .015))
 
     #Customize title
-    customize_text_image = titleFont.render("Customize", True, values.COLOR_Yellow)
-    customizeCords = customize_text_image.get_rect(center=(screen.get_width() / 2,
-                                                   screen.get_height() / 16 *
-                                                   2))
+    customize_text_image = titleFont.render("Customize", True,
+                                            values.COLOR_Yellow)
+    customizeCords = customize_text_image.get_rect(
+        center=(screen.get_width() / 2, screen.get_height() / 16 * 2))
     screen.blit(customize_text_image, customizeCords)
 
-
-
     #Coins available text - import actaul amount from JSON
-    coins_text_image = subtitleFont.render("Coins:   500", True, values.COLOR_Yellow)
+    coins_text_image = subtitleFont.render("Coins:   500", True,
+                                           values.COLOR_Yellow)
     coinsCords = (left + 210, screen.get_height() / 16 * 3)
     screen.blit(coins_text_image, coinsCords)
 
     #coins asset next to available coins
     coins = pygame.image.load("assets/sprites/Coin.png")
     screen.blit(coins, (coinsCords[0] + 220, coinsCords[1]))
-
 
     #TODO add coin asset plus amount of coins available
 
@@ -63,9 +61,9 @@ def customize_screen(noises):
     swagDuck = pygame.transform.scale(swagDuck, (260, 260))
 
     #scale base skins for preview
-    bigBaseDuck = pygame.transform.scale(baseDuck, (500,500))
-    bigSwagDuck = pygame.transform.scale(swagDuck, (500,500))
-    bigSilhouetteDuck = pygame.transform.scale(silhouetteDuck, (500,500))
+    bigBaseDuck = pygame.transform.scale(baseDuck, (500, 500))
+    pygame.transform.scale(swagDuck, (500, 500))
+    pygame.transform.scale(silhouetteDuck, (500, 500))
 
     #TODO Preview of Duck in Current State
     screen.blit(bigBaseDuck, (screen.get_width() / 3, screen.get_height() / 4))
@@ -79,36 +77,37 @@ def customize_screen(noises):
     hArr = 100
     sep = 50
     box = 250
-    
+
     leftArr = pygame.image.load("assets/sprites/Back_Arrow.png")
-    bigArr = pygame.transform.scale(leftArr, (wArr,hArr))
-    screen.blit(bigArr, (xArr1,yArr))
+    bigArr = pygame.transform.scale(leftArr, (wArr, hArr))
+    screen.blit(bigArr, (xArr1, yArr))
 
-    pygame.draw.rect(screen, values.COLOR_Pink, (xArr1+wArr+sep, yArr, box,hArr),0)
+    pygame.draw.rect(screen, values.COLOR_Pink,
+                     (xArr1 + wArr + sep, yArr, box, hArr), 0)
 
-    if pygame.mouse.get_pos()[0] > xArr1+wArr+sep and pygame.mouse.get_pos(
-    )[0] < xArr1+wArr+sep+box and pygame.mouse.get_pos(
-    )[1] > yArr and pygame.mouse.get_pos()[1] < yArr+hArr:
+    if pygame.mouse.get_pos()[0] > xArr1 + wArr + sep and pygame.mouse.get_pos(
+    )[0] < xArr1 + wArr + sep + box and pygame.mouse.get_pos(
+    )[1] > yArr and pygame.mouse.get_pos()[1] < yArr + hArr:
         equip_text_image = smallFont.render("Equip", True, values.COLOR_Yellow)
     else:
         equip_text_image = smallFont.render("Equip", True, values.COLOR_Purple)
-    screen.blit(equip_text_image, (xArr1 + wArr + sep + 75, yArr +35))
+    screen.blit(equip_text_image, (xArr1 + wArr + sep + 75, yArr + 35))
 
     rightArr = pygame.transform.rotate(bigArr, 180)
-    screen.blit(rightArr,(xArr1 + sep+ sep + box + wArr, yArr))
+    screen.blit(rightArr, (xArr1 + sep + sep + box + wArr, yArr))
 
     #TODO array of skins to purchase /equip at the bottom of the screen
     #will make these box objects for an array so we can move with arrows, know which ones have been purchased.
     numboxes = 10
     for i in range(numboxes):
-        pygame.draw.rect(screen, values.COLOR_Pink, ((i+1)*200 - 50, 850, 150, 150),0)
-        if(i == 0):
-            screen.blit(baseDuck, ((i+1)*200 -105, 795))
-        elif(i == 1):
-            screen.blit(swagDuck, ((i+1)*200 -105, 795))
+        pygame.draw.rect(screen, values.COLOR_Pink,
+                         ((i + 1) * 200 - 50, 850, 150, 150), 0)
+        if (i == 0):
+            screen.blit(baseDuck, ((i + 1) * 200 - 105, 795))
+        elif (i == 1):
+            screen.blit(swagDuck, ((i + 1) * 200 - 105, 795))
         else:
-            screen.blit(silhouetteDuck, ((i+1)*200 -105, 795))
-        
+            screen.blit(silhouetteDuck, ((i + 1) * 200 - 105, 795))
 
     #4 boxes to change screen to purchase base skins, hats, trails, and backgrounds
     xCord = 50
@@ -116,53 +115,69 @@ def customize_screen(noises):
     width = 275
     height = 100
     separation = 50
-    
+
     #Base Skins Box
-    pygame.draw.rect(screen, values.COLOR_Pink,
-                     (xCord,yCord ,width,height ),0)
-    
+    pygame.draw.rect(screen, values.COLOR_Pink, (xCord, yCord, width, height),
+                     0)
+
     if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
-    )[0] < xCord+width and pygame.mouse.get_pos(
-    )[1] > yCord and pygame.mouse.get_pos()[1] < yCord+height:
-        BS_text_image = smallFont.render("Base Skins", True, values.COLOR_Yellow)
+    )[0] < xCord + width and pygame.mouse.get_pos(
+    )[1] > yCord and pygame.mouse.get_pos()[1] < yCord + height:
+        BS_text_image = smallFont.render("Base Skins", True,
+                                         values.COLOR_Yellow)
     else:
-        BS_text_image = smallFont.render("Base Skins", True, values.COLOR_Purple)
-    screen.blit(BS_text_image, (xCord + 30, yCord +35))
+        BS_text_image = smallFont.render("Base Skins", True,
+                                         values.COLOR_Purple)
+    screen.blit(BS_text_image, (xCord + 30, yCord + 35))
 
     #Hats Box
     pygame.draw.rect(screen, values.COLOR_Pink,
-                     (xCord,yCord + ((height + separation)*1) ,width,height ),0) 
+                     (xCord, yCord +
+                      ((height + separation) * 1), width, height), 0)
     if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
-    )[0] < xCord+width and pygame.mouse.get_pos(
-    )[1] > (yCord + (height + separation)*1)  and pygame.mouse.get_pos()[1] < (yCord+height+ (height + separation)*1):
+    )[0] < xCord + width and pygame.mouse.get_pos()[1] > (
+            yCord +
+        (height + separation) * 1) and pygame.mouse.get_pos()[1] < (
+            yCord + height + (height + separation) * 1):
         Hats_text_image = smallFont.render("Hats", True, values.COLOR_Yellow)
     else:
         Hats_text_image = smallFont.render("Hats", True, values.COLOR_Purple)
-    screen.blit(Hats_text_image, (xCord + 90, yCord +35 +(height + separation)*1))
+    screen.blit(Hats_text_image,
+                (xCord + 90, yCord + 35 + (height + separation) * 1))
 
     #Trails Box
     pygame.draw.rect(screen, values.COLOR_Pink,
-                     (xCord,yCord + ((height + separation)*2),width,height ),0)  
+                     (xCord, yCord +
+                      ((height + separation) * 2), width, height), 0)
     if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
-    )[0] < xCord+width and pygame.mouse.get_pos(
-    )[1] > (yCord + (height + separation)*2)  and pygame.mouse.get_pos()[1] < (yCord+height+ (height + separation)*2):
-        Trails_text_image = smallFont.render("Trails", True, values.COLOR_Yellow)
+    )[0] < xCord + width and pygame.mouse.get_pos()[1] > (
+            yCord +
+        (height + separation) * 2) and pygame.mouse.get_pos()[1] < (
+            yCord + height + (height + separation) * 2):
+        Trails_text_image = smallFont.render("Trails", True,
+                                             values.COLOR_Yellow)
     else:
-        Trails_text_image = smallFont.render("Trails", True, values.COLOR_Purple)
-    screen.blit(Trails_text_image, (xCord + 70, yCord +35 +(height + separation)*2))
+        Trails_text_image = smallFont.render("Trails", True,
+                                             values.COLOR_Purple)
+    screen.blit(Trails_text_image,
+                (xCord + 70, yCord + 35 + (height + separation) * 2))
 
     #Backgrounds Box
     pygame.draw.rect(screen, values.COLOR_Pink,
-                     (xCord,yCord + ((height + separation)*3) ,width,height ),0)        
+                     (xCord, yCord +
+                      ((height + separation) * 3), width, height), 0)
     if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
-    )[0] < xCord+width and pygame.mouse.get_pos(
-    )[1] > (yCord + (height + separation)*3)  and pygame.mouse.get_pos()[1] < (yCord+height+ (height + separation)*3):
-        Backgrounds_text_image = smallFont.render("Backgrounds", True, values.COLOR_Yellow)
+    )[0] < xCord + width and pygame.mouse.get_pos()[1] > (
+            yCord +
+        (height + separation) * 3) and pygame.mouse.get_pos()[1] < (
+            yCord + height + (height + separation) * 3):
+        Backgrounds_text_image = smallFont.render("Backgrounds", True,
+                                                  values.COLOR_Yellow)
     else:
-        Backgrounds_text_image = smallFont.render("Backgrounds", True, values.COLOR_Purple)
-    screen.blit(Backgrounds_text_image, (xCord +5, yCord +35 +(height + separation)*3))                           
-
-
+        Backgrounds_text_image = smallFont.render("Backgrounds", True,
+                                                  values.COLOR_Purple)
+    screen.blit(Backgrounds_text_image,
+                (xCord + 5, yCord + 35 + (height + separation) * 3))
 
     # Coordinates Home button
     homeCords = (values.screenX * .0065, values.screenY * .011)
@@ -174,8 +189,6 @@ def customize_screen(noises):
         SR_text_image = subtitleFont.render("HOME", True, values.COLOR_Pink)
     screen.blit(SR_text_image, (homeCords[0], homeCords[1]))
 
-
-    
     # check for mouse click
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -189,47 +202,48 @@ def customize_screen(noises):
                     noises.playSound("quack")
                     menuS.set_game_menu(menuS.menu.HOME)
                 elif xCord < pygame.mouse.get_pos(
-                )[0] < xCord + width and yCord < pygame.mouse.get_pos()[1] < yCord+height:
+                )[0] < xCord + width and yCord < pygame.mouse.get_pos(
+                )[1] < yCord + height:
                     noises.playSound("quack")
                     #TODO make text red or highlight box, then switch screen to customize different asset
                 elif xCord < pygame.mouse.get_pos(
-                )[0] < xCord + width and yCord + (height + separation)*1 < pygame.mouse.get_pos()[1] < yCord+height + (height + separation)*1:
+                )[0] < xCord + width and yCord + (
+                        height + separation) * 1 < pygame.mouse.get_pos(
+                        )[1] < yCord + height + (height + separation) * 1:
                     noises.playSound("quack")
                     #TODO make text red or highlight box, then switch screen to customize different asset
                 elif xCord < pygame.mouse.get_pos(
-                )[0] < xCord + width and yCord + (height + separation)*2 < pygame.mouse.get_pos()[1] < yCord+height + (height + separation)*2:
+                )[0] < xCord + width and yCord + (
+                        height + separation) * 2 < pygame.mouse.get_pos(
+                        )[1] < yCord + height + (height + separation) * 2:
                     noises.playSound("quack")
                     #TODO make text red or highlight box, then switch screen to customize different asset
                 elif xCord < pygame.mouse.get_pos(
-                )[0] < xCord + width and yCord + (height + separation)*3< pygame.mouse.get_pos()[1] < yCord+height + (height + separation)*3:
+                )[0] < xCord + width and yCord + (
+                        height + separation) * 3 < pygame.mouse.get_pos(
+                        )[1] < yCord + height + (height + separation) * 3:
                     noises.playSound("quack")
                     #TODO make text red or highlight box, then switch screen to customize different asset
 
                     #click on left arrow, move boxes to the left
                 elif xArr1 < pygame.mouse.get_pos(
-                )[0] < xArr1 + wArr and yArr < pygame.mouse.get_pos()[1] < yArr + hArr: 
+                )[0] < xArr1 + wArr and yArr < pygame.mouse.get_pos(
+                )[1] < yArr + hArr:
                     noises.playSound("quack")
-                    
 
-                    #click on equip or buy 
-                elif xArr1 +sep + wArr < pygame.mouse.get_pos(
-                )[0] < xArr1 + sep + wArr + box and yArr < pygame.mouse.get_pos()[1] < yArr + hArr: 
+                    #click on equip or buy
+                elif xArr1 + sep + wArr < pygame.mouse.get_pos(
+                )[0] < xArr1 + sep + wArr + box and yArr < pygame.mouse.get_pos(
+                )[1] < yArr + hArr:
                     noises.playSound("quack")
                     #click on right arrow, move boxes to the right
                 elif xArr1 + sep + wArr + box + sep < pygame.mouse.get_pos(
-                )[0] < xArr1 + sep + sep +wArr + box + wArr and yArr < pygame.mouse.get_pos()[1] < yArr + hArr: 
+                )[0] < xArr1 + sep + sep + wArr + box + wArr and yArr < pygame.mouse.get_pos(
+                )[1] < yArr + hArr:
                     noises.playSound("quack")
-                    
-
 
         elif event.type == pygame.QUIT:
             menuS.set_game_menu(menuS.menu.QUIT)
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 menuS.set_game_menu(menuS.menu.QUIT)
-    
-
-        
-
-
-    

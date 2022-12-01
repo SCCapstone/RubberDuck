@@ -20,6 +20,7 @@ global Keymap_Left, Keymap_Right, Keymap_Up
 global Keymap_Down, Keymap_Primary_Fire
 global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
 
+
 class difficulty(Enum):
     Easy = 1
     Medium = 2
@@ -62,6 +63,7 @@ def load_settings(path):
         pygame.display.set_caption(
             "Setting File Not Found, Default Setting Loaded")
 
+
 def convertDifficulty(difficulty):
     if difficulty == "Easy":
         return difficulty.Easy
@@ -70,6 +72,7 @@ def convertDifficulty(difficulty):
     elif difficulty == "Hard":
         return difficulty.Hard
 
+
 def convertDifficultyToText(difficulty):
     if difficulty == difficulty.Easy:
         return "Easy"
@@ -77,7 +80,8 @@ def convertDifficultyToText(difficulty):
         return "Medium"
     elif difficulty == difficulty.Hard:
         return "Hard"
-    
+
+
 def save_settings():
     """summary: Saves the settings to the file
     """
@@ -87,7 +91,7 @@ def save_settings():
     global Keymap_Left, Keymap_Right, Keymap_Up
     global Keymap_Down, Keymap_Primary_Fire
     global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
-    
+
     dif_text = convertDifficultyToText(Difficulty)
 
     #Cleans Name Value
@@ -124,7 +128,7 @@ def load_default_settings():
     Player_Name = "Player"
     Master_Volume = 100
     Music_Volume = 100
-    SFX_Volume = 100   
+    SFX_Volume = 100
     Difficulty = difficulty.Easy
     Keymap_Left = pygame.K_a
     Keymap_Right = pygame.K_d
