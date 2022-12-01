@@ -6,6 +6,7 @@ import shutil
 import os
 import easygui
 import tkinter
+from enum import Enum
 from tkinter.filedialog import askopenfilename
 import pygame
 from assets import values
@@ -13,19 +14,16 @@ import tkinter
 from tkinter.filedialog import askopenfilename
 from assets import values
 
-global Player_Name
-global Volume
-global Music
-global Sound_Effect
-global Difficulty
-global Keymap_Left
-global Keymap_Right
-global Keymap_Up
-global Keymap_Down
-global Keymap_Primary_Fire
-global Keymap_Secondary_Fire
-global Keymap_Dash
-global Keymap_Pause
+global Player_Name, Master_Volume, Music_Volume
+global SFX_Volume, Difficulty
+global Keymap_Left, Keymap_Right, Keymap_Up
+global Keymap_Down, Keymap_Primary_Fire
+global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
+
+class difficulty(Enum):
+    Easy = 1
+    Medium = 2
+    Hard = 3
 
 
 def load_settings(path):
@@ -49,7 +47,8 @@ def load_settings(path):
         Master_Volume = data["Master_Volume"]
         Music_Volume = data["Music_Volume"]
         SFX_Volume = data["SFX_Volume"]
-        Difficulty = data["Difficulty"]
+        Difficulty_pre = data["Difficulty"]
+        Difficulty = convertDifficulty(Difficulty_pre)
         Keymap_Left = data["Keymap_Left"]
         Keymap_Right = data["Keymap_Right"]
         Keymap_Up = data["Keymap_Up"]
@@ -63,7 +62,22 @@ def load_settings(path):
         pygame.display.set_caption(
             "Setting File Not Found, Default Setting Loaded")
 
+def convertDifficulty(difficulty):
+    if difficulty == "Easy":
+        return difficulty.Easy
+    elif difficulty == "Medium":
+        return difficulty.Medium
+    elif difficulty == "Hard":
+        return difficulty.Hard
 
+def convertDifficultyToText(difficulty):
+    if difficulty == difficulty.Easy:
+        return "Easy"
+    elif difficulty == difficulty.Medium:
+        return "Medium"
+    elif difficulty == difficulty.Hard:
+        return "Hard"
+    
 def save_settings():
     """summary: Saves the settings to the file
     """
@@ -73,6 +87,8 @@ def save_settings():
     global Keymap_Left, Keymap_Right, Keymap_Up
     global Keymap_Down, Keymap_Primary_Fire
     global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
+    
+    dif_text = convertDifficultyToText(Difficulty)
 
     #Cleans Name Value
     Player_Name = Player_Name.replace("\u001b", "")
@@ -83,7 +99,7 @@ def save_settings():
         "Master_Volume": Master_Volume,
         "Music_Volume": Music_Volume,
         "SFX_Volume": SFX_Volume,
-        "Difficulty": Difficulty,
+        "Difficulty": dif_text,
         "Keymap_Left": Keymap_Left,
         "Keymap_Right": Keymap_Right,
         "Keymap_Up": Keymap_Up,
@@ -106,10 +122,10 @@ def load_default_settings():
     global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
 
     Player_Name = "Player"
-    Volume = 100
-    Music = True
-    Sound_Effect = True
-    Difficulty = "Bath Time"
+    Master_Volume = 100
+    Music_Volume = 100
+    SFX_Volume = 100   
+    Difficulty = difficulty.Easy
     Keymap_Left = pygame.K_a
     Keymap_Right = pygame.K_d
     Keymap_Up = pygame.K_w
@@ -175,11 +191,10 @@ def check_valid_setting_file(path):
             easygui.msgbox(
                 "Invalid File - Sound_Effect Invalid Value (TRUE or FALSE)",
                 "Error")
-        if (data["Difficulty"] != "Bath Time" and data["Difficulty"] != "Easy"
-                and data["Difficulty"] != "Normal"
+        if (data["Difficulty"] != "Easy" and data["Difficulty"] != "Medium"
                 and data["Difficulty"] != "Hard"):
             easygui.msgbox(
-                "Invalid File - Difficulty Invalid Value (\"Bath Time\", \"Easy\", \"Normal\", \"Hard\")",
+                "Invalid File - Difficulty Invalid Value (Easy, Medium, Hard)",
                 "Error")
         if (type(data["Keymap_Left"]) != int):
             easygui.msgbox(

@@ -116,7 +116,7 @@ def settings_screen(noises):
     easydifficultySettingCords = (left + 30 + widthButton,
                                   screen.get_height() / 16 * 7)
     # Highlighting Easy
-    if settingIO.Difficulty == "Easy":
+    if settingIO.Difficulty == settingIO.Difficulty.Easy:
         easy_difficulty_settings_image = subtitleFont.render(
             "Easy", True, values.COLOR_Red)
     elif pygame.mouse.get_pos(
@@ -139,7 +139,7 @@ def settings_screen(noises):
     mediumdifficultySettingCords = (slashOneCords[0] + 20,
                                     screen.get_height() / 16 * 7)
     # Highlighting Medium
-    if settingIO.Difficulty == "Medium":
+    if settingIO.Difficulty == settingIO.Difficulty.Medium:
         medium_difficulty_settings_image = subtitleFont.render(
             "Medium", True, values.COLOR_Red)
     elif pygame.mouse.get_pos(
@@ -162,7 +162,7 @@ def settings_screen(noises):
     harddifficultySettingCords = (slashTwoCords[0] + 20,
                                   screen.get_height() / 16 * 7)
     # Highlighting Hard
-    if settingIO.Difficulty == "Hard":
+    if settingIO.Difficulty == settingIO.Difficulty.Hard:
         hard_difficulty_settings_image = subtitleFont.render(
             "Hard", True, values.COLOR_Red)
     elif pygame.mouse.get_pos(
@@ -253,13 +253,13 @@ def settings_screen(noises):
                     settingIO.export_settings()
                 elif checkDifCords(easydifficultySettingCords, 120):
                     noises.playSound("quack")
-                    settingIO.Difficulty = "Easy"
+                    settingIO.Difficulty = settingIO.Difficulty.Easy
                 elif checkDifCords(mediumdifficultySettingCords, 180):
                     noises.playSound("quack")
-                    settingIO.Difficulty = "Medium"
+                    settingIO.Difficulty = settingIO.Difficulty.Medium
                 elif checkDifCords(harddifficultySettingCords, 120):
                     noises.playSound("quack")
-                    settingIO.Difficulty = "Hard"
+                    settingIO.Difficulty = settingIO.Difficulty.Hard
                 elif checkSliderCords(left, 30, master_volume_image, screen,
                                       masterValRange, 3.95):
                     noises.playSound("quack")
