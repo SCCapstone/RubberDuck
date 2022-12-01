@@ -33,7 +33,7 @@ FONT_LG = pygame.font.Font("assets/fonts/ethnocentric.ttf",96)
 def loadImage(filePath, scale):
     img = pygame.image.load(filePath)
     if scale:
-        img = pygame.transform.scale(img,(GRID_SIZE, GRID_SIZE))
+        img = pygame.transform.scale(img, (GRID_SIZE, GRID_SIZE))
     return img
 
 
@@ -69,8 +69,10 @@ POWERUP_IMGS = {"Health" : HEALTH_IMG,
                 "Speed" : SPEED_IMG}
 
 
+
 class Entity(pygame.sprite.Sprite):
-    def __init__(self,x,y,image):
+
+    def __init__(self, x, y, image):
         super().__init__()
         self.image = image
         self.rect = self.image.get_rect()
@@ -140,8 +142,9 @@ class Rocket(Entity):
 
 class Block(Entity):
 
-    def __init__(self,x,y,image):
-        super().__init__(x,y,image)
+    def __init__(self, x, y, image):
+        super().__init__(x, y, image)
+
 
 class Duck(Entity):
 
@@ -176,10 +179,13 @@ class Duck(Entity):
 
     def moveLeft(self):
         self.vx = -self.speed
+
     def moveRight(self):
         self.vx = self.speed
+
     def moveDown(self):
         self.vy = self.speed
+
     def moveUp(self):
         self.vy = -self.speed
     def stop(self, xBool, yBool):
@@ -225,12 +231,11 @@ class Duck(Entity):
                 self.rect.top = block.rect.bottom
                 self.vy = 0
 
-    def processEnemies(self, enemies):   
+    def processEnemies(self, enemies):
         hit_list = pygame.sprite.spritecollide(self, enemies, True)
         for enemy in hit_list:
             self.takeDamage(enemy.power)
-                
-    
+
     def processCoins(self, coins):
         hit_list = pygame.sprite.spritecollide(self, coins, True)
         for coin in hit_list:
@@ -273,6 +278,7 @@ class Duck(Entity):
 
         if self.invincibility > 0:
             self.invincibility -= 1
+
 
 class Coin(Entity):
     def __init__(self, x, y, image, blocks):
@@ -321,7 +327,7 @@ class Powerup(Entity):
             duck.takeDamage(1)
         if self.effect == "Bomb":
             duck.takeDamage(3)
-    
+
 
 class Enemy(Entity):
     def __init__(self,x,y,images):
@@ -346,11 +352,11 @@ class Enemy(Entity):
         self.rect.y += self.vy
 
 
-
 #Level made of tiles
 #Tile one screen long with own sprites
 #Upon passing width X, delete old tile, generate new
 #Generate 3 tiles to begin
+
 
 class Tile():
     def __init__(self, numBlocks, numEnemies, numPowerups, numCoins):
@@ -364,7 +370,7 @@ class Tile():
         enemies = []
         powerups = []
         coins = []
-        
+
         for i in range(numBlocks):
             x = random.randint(150,WIDTH-60)
             for xBlock in blockXs:
@@ -406,8 +412,7 @@ class Tile():
         self.enemies.add(enemies)
         self.powerups.add(powerups)
         self.coins.add(coins)
-        
-        
+
 
 class Level():
     def __init__(self, difficulty):

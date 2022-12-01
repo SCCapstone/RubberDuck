@@ -171,6 +171,8 @@ cython_debug/
 #.idea/
 
 # End of https://www.toptal.com/developers/gitignore/api/python
-fileio/HighScore.json
+
+fileio/stats.json
 fileio/UserSetting.json
-.gitignore
+fileio/customization.json
+
