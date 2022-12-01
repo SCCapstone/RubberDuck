@@ -61,6 +61,7 @@ HEART_IMG = loadImage(os.path.join("assets","sprites","Heart.png"),True)
 
 
 COIN_IMG_SM = pygame.transform.scale(COIN_IMG, (32,32))
+ROCKET_IMG = pygame.transform.scale(ROCKET_IMG, (32,20))
 
 DUCK_IMGS = [DUCK_IMG, DUCK_IMG2]
 ENEMY_IMGS = [ENEMY_IMG]
@@ -82,6 +83,60 @@ class Entity(pygame.sprite.Sprite):
 
     def levelUpdate(self, speed):
         self.rect.x -= speed
+
+class Rocket(Entity):
+    def __init__(self,x,y,image):
+        super().__init__(x,y,image)
+
+        pos = pygame.mouse.get_pos()
+        xTarget = pos[0]
+        yTarget = pos[1]
+
+        xOrigin = x
+        yOrigin = y
+
+        rise = yTarget - yOrigin
+        run = xTarget - xOrigin
+
+        
+
+        self.speed = 20
+
+        if run > 0:
+            self.vx = 10
+        else:
+            self.vx = -10
+
+        if run == 0:
+            slope = 1000
+            self.vx = 0
+        else:
+            slope = rise/run
+        
+
+        self.vy = slope * self.vx
+
+        if rise > 0 and self.vy < 0:
+            self.vy *= -1
+        elif rise < 0 and self.vy > 0:
+            self.vy *= -1
+
+        '''if self.vy > 10:
+            self.vy = 10
+        elif self.vy < -10:
+            self.vy = -10'''
+
+    def update(self,enemies):
+        
+        self.rect.x += self.vx
+        self.rect.y += self.vy
+        
+        
+        hit_list = pygame.sprite.spritecollide(self,enemies,True)
+        if hit_list:
+            
+            self.kill()
+            
 
 class Block(Entity):
 
@@ -114,6 +169,10 @@ class Duck(Entity):
 
         self.activePowerups = []
 
+        self.rockets = []
+        self.rocketGroup = pygame.sprite.Group()
+        self.rocketCD = 0
+        self.rocketCooldown = 40
 
     def moveLeft(self):
         self.vx = -self.speed
@@ -135,6 +194,12 @@ class Duck(Entity):
             self.invincibility = 20
         if self.health <= 0:
             self.dead = True
+    def shoot(self):
+        if not self.rocketCD:
+            newRocket = Rocket(self.rect.right,self.rect.y,ROCKET_IMG)
+            self.rockets.append(newRocket)
+            self.rocketGroup.add(newRocket)
+            self.rocketCD = self.rocketCooldown
 
     def move(self, blocks):
 
@@ -198,6 +263,11 @@ class Duck(Entity):
         
         self.checkBoundaries()
 
+        if self.rocketCD > 0:
+            self.rocketCD -= 1
+
+        self.rocketGroup.update(level.enemies)
+
         if self.health > self.maxHealth:
             self.health = self.maxHealth
 
@@ -212,8 +282,11 @@ class Coin(Entity):
 
         hit_list = pygame.sprite.spritecollide(self,blocks,False)
 
-        for block in hit_list:
-            self.rect.right = block.rect.left
+        while hit_list:
+            hit_list = pygame.sprite.spritecollide(self, blocks,False)
+            for block in hit_list:
+                self.rect.right = block.rect.left
+        
         
 
 EFFECTS = ["Health", "Speed"]
@@ -293,10 +366,11 @@ class Tile():
         coins = []
         
         for i in range(numBlocks):
-            x = random.randint(100,WIDTH-60)
+            x = random.randint(150,WIDTH-60)
             for xBlock in blockXs:
-                while abs(x-xBlock) <= DUCK_IMG.get_width():
+                while abs(x-xBlock) <= BLOCK_IMG.get_width() * 2:
                     x -= BLOCK_IMG.get_width() * 2
+            blockXs.append(x)
             y = random.randint(0,1)
             stack = random.randint(3,6)
             if y:
@@ -510,14 +584,25 @@ class Game():
                 
                 if event.key == pygame.K_ESCAPE:
                     self.stage = Game.PAUSED
+            elif event.type == pygame.MOUSEBUTTONUP and self.stage == Game.PLAYING:
+                self.duck.shoot()
             elif self.stage == Game.PAUSED:
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     self.stage = Game.PLAYING
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_r:
+                    self.reset()
             elif self.stage == Game.SPLASH:
                 self.stage = Game.START
             elif self.stage == Game.START:
                 if event.type == pygame.KEYDOWN:
                     self.stage = Game.PLAYING
+            elif self.stage == Game.GAME_OVER:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_q:
+                        #quit to menu
+                        pass
+                    elif event.key == pygame.K_r:
+                        self.reset()
 
     def update(self):
         if self.stage == Game.PLAYING:
@@ -534,6 +619,7 @@ class Game():
         self.level.active_layer.fill(TRANSPARENT)
         self.level.active_sprites.draw(self.level.active_layer)
         self.level.inactive_sprites.draw(self.level.inactive_layer)
+        self.duck.rocketGroup.draw(self.level.active_layer)
 
         if self.duck.invincibility % 3 < 2:
             self.level.active_layer.blit(self.duck.image, [self.duck.rect.x, self.duck.rect.y])
@@ -549,9 +635,9 @@ class Game():
         elif self.stage == Game.START:
             self.display_message("DUCKS IN SPACE!","Press any key to start!")
         elif self.stage == Game.PAUSED:
-            self.display_message("PAUSED","Press 'ESC' to resume.")
+            self.display_message("PAUSED","'ESC' to resume. 'R' to restart. 'Q' to quit to menu.")
         elif self.stage == Game.GAME_OVER:
-            self.display_message("You died.","")
+            self.display_message("You died.","Press 'R' to play again. Press 'Q' to quit to menu.")
 
         pygame.display.update()
         pygame.display.flip()
