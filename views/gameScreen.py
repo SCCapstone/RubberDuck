@@ -1,14 +1,34 @@
 import pygame
 import random
-from assets import values
-import menuStructure as menuS
+import sys
+import math
+import os
+#from assets import values
+#import menuStructure as menuS
 
 GRID_SIZE = 64
 FPS = 30
 
+#CONTROLS
+UP = pygame.K_w
+DOWN = pygame.K_s
+LEFT = pygame.K_a
+RIGHT = pygame.K_d
+
+#REMOVE
+pygame.init()
+pygame.display.init()
+pygame.display.set_mode((0,0), flags=pygame.FULLSCREEN)
+#REMOVE
+
 SCREEN = pygame.display.get_surface()
+
 WIDTH = SCREEN.get_width()
 HEIGHT = SCREEN.get_height()
+
+FONT = pygame.font.Font("assets/fonts/ethnocentric.ttf",64)
+FONT_SM = pygame.font.Font("assets/fonts/ethnocentric.ttf",32)
+FONT_LG = pygame.font.Font("assets/fonts/ethnocentric.ttf",96)
 
 def loadImage(filePath, scale):
     img = pygame.image.load(filePath)
@@ -19,9 +39,11 @@ def loadImage(filePath, scale):
 
 #COLORS
 TRANSPARENT = (0,0,0,0)
+WHITE = (255,255,255)
 
 #Image loading
 BLOCK_IMG = loadImage(os.path.join("assets","sprites","Wall_block.png"),scale=True)
+BLOCK_IMG2 = pygame.transform.flip(BLOCK_IMG, False, True)
 DUCK_IMG = loadImage(os.path.join("assets","sprites","BaseDuck.png"),scale=True)
 SWAG_DUCK = loadImage(os.path.join("assets","sprites","SwagDuck.png"),scale=True)
 COIN_IMG = loadImage(os.path.join("assets","sprites","Coin.png"),scale=True)
@@ -34,9 +56,16 @@ HEALTH_IMG = loadImage(os.path.join("assets","sprites","Health_Symbol.png"),scal
 EXIT_IMG = loadImage(os.path.join("assets","sprites","Exit_Button.png"),scale=True)
 PLAYER_LASER = loadImage(os.path.join("assets","sprites","PLAYER_Laser_Proj.png"),scale=False)
 SPEED_IMG = loadImage(os.path.join("assets","sprites","Speed_Symbol.png"),scale=True)
+BACKGROUND_IMG = loadImage(os.path.join("assets","backgrounds","base_bg.png"),False)
+HEART_IMG = loadImage(os.path.join("assets","sprites","Heart.png"),True)
 
+
+COIN_IMG_SM = pygame.transform.scale(COIN_IMG, (32,32))
 
 DUCK_IMGS = [DUCK_IMG, DUCK_IMG2]
+ENEMY_IMGS = [ENEMY_IMG]
+POWERUP_IMGS = {"Health" : HEALTH_IMG,
+                "Speed" : SPEED_IMG}
 
 
 class Entity(pygame.sprite.Sprite):
@@ -62,7 +91,7 @@ class Block(Entity):
 class Duck(Entity):
 
     def __init__(self, images):
-        super.__init__(0,0,images[0])
+        super().__init__(0,HEIGHT/2-20,images[0])
         self.images = images
 
         self.health = 3
@@ -71,8 +100,8 @@ class Duck(Entity):
         self.image_index = 0
         self.steps = 0
 
-        self.speed = 5
-        self.baseSpeed = 5
+        self.speed = 10
+        self.baseSpeed = 10
 
         self.damage = 3
 
@@ -94,13 +123,15 @@ class Duck(Entity):
         self.vy = self.speed
     def moveUp(self):
         self.vy = -self.speed
-    def stop(self):
-        self.vx = 0
-        self.vy = 0
+    def stop(self, xBool, yBool):
+        if xBool:
+            self.vx = 0
+        if yBool:
+            self.vy = 0
 
     def takeDamage(self, amount):
         if self.invincibility == 0:
-            self.health -= self.amount
+            self.health -= amount
             self.invincibility = 20
         if self.health <= 0:
             self.dead = True
@@ -140,23 +171,32 @@ class Duck(Entity):
         for coin in hit_list:
             self.score += coin.value
             self.coins += 1
+            coin.kill()
+        
 
     def processPowerups(self, powerups):
         hit_list = pygame.sprite.spritecollide(self, powerups, True)
-        for p in powerups:
+        for p in hit_list:
             p.apply(self)
+            powerups.remove(p)
+            p.kill()
         
 
     def setImage(self):
         pass
 
     def checkBoundaries(self):
-        pass
-
+        if self.rect.y < 0:
+            self.rect.y = 0
+        if self.rect.y >= HEIGHT - self.rect.height:
+            self.rect.y = HEIGHT - self.rect.height
     def update(self, level):
         self.processEnemies(level.enemies)
+        self.processCoins(level.coins)
+        self.processPowerups(level.powerups)
         self.move(level.blocks)
-        self.checkBoundaries(self)
+        
+        self.checkBoundaries()
 
         if self.health > self.maxHealth:
             self.health = self.maxHealth
@@ -165,21 +205,34 @@ class Duck(Entity):
             self.invincibility -= 1
 
 class Coin(Entity):
-    def __init__(self, x, y, image):
+    def __init__(self, x, y, image, blocks):
         super().__init__(x,y,image)
 
         self.value = 50
 
-class PowerUp(Entity):
-    EFFECTS = ["Health", "Speed"]
-    def __init__(self, x, y, effect):
+        hit_list = pygame.sprite.spritecollide(self,blocks,False)
+
+        for block in hit_list:
+            self.rect.right = block.rect.left
+        
+
+EFFECTS = ["Health", "Speed"]
+class Powerup(Entity):
+    
+    def __init__(self, x, y, effect,blocks):
         if effect == 0:
             self.image = HEALTH_IMG
         if effect == 1:
             self.image = SPEED_IMG
+        
         super().__init__(x,y,self.image)
 
         self.effect = EFFECTS[effect]
+
+        hit_list = pygame.sprite.spritecollide(self,blocks,False)
+
+        for block in hit_list:
+            self.rect.right = block.rect.left
 
     def apply(self, duck):
         if self.effect == "Health":
@@ -198,13 +251,26 @@ class PowerUp(Entity):
     
 
 class Enemy(Entity):
-    def __init__(self,x,y,speed,images):
+    def __init__(self,x,y,images):
         super().__init__(x,y,images[0])
 
-        self.vy = speed
+        self.speed = 6
+        self.power = 1
 
     def update(self, duck):
-        pass
+
+        if self.rect.y - duck.rect.y > 10:
+            directiony = -1
+        elif self.rect.y - duck.rect.y < -10:
+            directiony = 1
+        else:
+            directiony = 0
+
+        self.vx = self.speed * -1
+        self.vy = self.speed * directiony
+
+        self.rect.x += self.vx
+        self.rect.y += self.vy
 
 
 
@@ -214,44 +280,55 @@ class Enemy(Entity):
 #Generate 3 tiles to begin
 
 class Tile():
-    EFFECTS = ["Health", "Speed"]
     def __init__(self, numBlocks, numEnemies, numPowerups, numCoins):
         self.blocks = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
         self.coins = pygame.sprite.Group()
         self.powerups = pygame.sprite.Group()
 
-        self.active_sprites = pygame.sprite.Group()
-        self.inactive_sprites = pygame.sprite.Group()
-
         blocks = []
+        blockXs = []
         enemies = []
         powerups = []
         coins = []
         
         for i in range(numBlocks):
-            x = random.randint(20,screen.get_width()-60)
+            x = random.randint(100,WIDTH-60)
+            for xBlock in blockXs:
+                while abs(x-xBlock) <= DUCK_IMG.get_width():
+                    x -= BLOCK_IMG.get_width() * 2
             y = random.randint(0,1)
+            stack = random.randint(3,6)
             if y:
                 y = 0
+                bimg = BLOCK_IMG2
+                for b in range(stack):
+                    blocks.append(Block(x,y,bimg))
+                    y += bimg.get_height() - 4
             else:
-                y = screen.get_height() - 50 #block height instead of 50
-            blocks.append(Block(x,y,BLOCK_IMG))
-        for i in range(numEnemies):
-            x = random.randint(20,WIDTH-60) #do for all
-            y = random.randint(30,HEIGHT-60)
-            enemies.append(Enemy(x,y,ENEMY_IMG))
-        for i in range(numPowerups):
-            x = random.randint(20,screen.get_width()-60)
-            y = random.randint(30,screen.get_height()-60)
-            effect = random.randint(0,len(EFFECTS))
-            powerups.append(Powerup(x,y,effect))
-        for i in range(numCoins):
-            x = random.randint(20,screen.get_width()-60)
-            y = random.randint(30,screen.get_height()-60)
-            coins.append(Coin(x,y,COIN_IMG))
-
+                y = HEIGHT - BLOCK_IMG.get_height()
+                bimg = BLOCK_IMG
+                for b in range(stack):
+                    blocks.append(Block(x,y,bimg))
+                    y -= bimg.get_height() - 4
+            
+            blocks.append(Block(x,y,bimg))
         self.blocks.add(blocks)
+        for i in range(3):
+            x = random.randint(200,WIDTH-60) #do for all
+            y = random.randint(30,HEIGHT-60)
+            enemies.append(Enemy(x,y,ENEMY_IMGS))
+        for i in range(numPowerups):
+            x = random.randint(100,WIDTH-60)
+            y = random.randint(30,HEIGHT-60)
+            effect = random.randint(0,len(EFFECTS)-1)
+            powerups.append(Powerup(x,y,effect,self.blocks))
+        for i in range(numCoins):
+            x = random.randint(100,WIDTH-60)
+            y = random.randint(30,HEIGHT-60)
+            coins.append(Coin(x,y,COIN_IMG,self.blocks))
+
+        
         self.enemies.add(enemies)
         self.powerups.add(powerups)
         self.coins.add(coins)
@@ -274,35 +351,42 @@ class Level():
 
         #Remove is self.blocks.remove(block)
 
+
         self.active_layer = pygame.Surface([WIDTH,HEIGHT], pygame.SRCALPHA,32)
         self.inactive_layer = pygame.Surface([WIDTH,HEIGHT], pygame.SRCALPHA,32)
-        self.background_layer = = pygame.Surface([WIDTH,HEIGHT], pygame.SRCALPHA,32)
+        self.background_layer = pygame.Surface([WIDTH,HEIGHT], pygame.SRCALPHA,32)
 
+        self.background_layer.blit(BACKGROUND_IMG,(0,0))
+
+        self.reset()
         
-
     def update(self,duck):
         pass
 
     def reset(self):
         self.tiles = []
-        while len(self.tiles) < 3:
+        while len(self.tiles) < 1:
             self.generateTile()
+
         
     def generateTile(self):
         numEnemies = random.randint(1,self.difficulty)
-        numCoins = random.randint(1,2)
-        numPowerups = random.randint(0,1)
+        numCoins = random.randint(1,4)
+        numPowerups = random.randint(0,2)
         if numPowerups:
-            numPowerups = random.randint(0,1)
+            numPowerups = random.randint(0,2)
         numBlocks = random.randint(3,3+self.difficulty)
 
         newTile = Tile(numBlocks, numEnemies, numPowerups, numCoins)
+
+        self.addTile(newTile)
 
         self.tiles.append(newTile)
 
         if len(self.tiles) > 3:
             self.deleteTile()
 
+        
     def addTile(self, t):
         for b in t.blocks:
             self.blocks.add(b)
@@ -313,8 +397,8 @@ class Level():
         for p in t.powerups:
             self.powerups.add(p)
 
-        self.inactive_sprites.add(blocks, coins, powerups)
-        self.active_sprites.add(enemies)
+        self.inactive_sprites.add(t.blocks)
+        self.active_sprites.add(t.enemies, t.coins, t.powerups)
 
     def deleteTile(self):
         t = self.tiles[0]
@@ -326,10 +410,10 @@ class Level():
             self.active_sprites.remove(b)
         for c in t.coins:
             self.coins.remove(c)
-            self.inactive_sprites.remove(c)
+            self.active_sprites.remove(c)
         for p in t.powerups:
             self.powerups.remove(p)
-            self.inactive_sprites.remove(p)
+            self.active_sprites.remove(p)
         
         self.tiles = self.tiles[1:]
 
@@ -356,81 +440,120 @@ class Game():
 
         self.reset()
 
-    def start(self):
-        self.level = Level(self.difficulty)
-        
-        self.duck = Duck(DUCK_IMGS)
 
     def reset(self):
         self.duck = Duck(DUCK_IMGS)
         self.level = Level(self.difficulty)
-        self.start()
 
         self.stage = Game.SPLASH
 
     def display_splash(self):
-        pass
+        line1 = FONT_LG.render("DUCKS IN SPACE!", 1, WHITE)
+        line2 = FONT_SM.render("Press any key to start.",1,WHITE)
 
-    def display_message(self,text):
-        pass
+        #Skip actually
+        
+
+    def display_message(self,text,text2):
+        line1 = FONT.render(text,1,WHITE)
+        line2 = FONT_SM.render(text2,1,WHITE)
+
+        x1 = WIDTH / 2 - line1.get_width() / 2
+        y1 = HEIGHT / 3 - line1.get_height()/ 2
+        x2 = WIDTH / 2 - line2.get_width() / 2
+        y2 = y1 + line1.get_height() + 16
+
+        SCREEN.blit(line1,(x1,y1))
+        SCREEN.blit(line2,(x2,y2))
 
     def display_stats(self):
-        pass
+        scoreLine = FONT_SM.render("Score: " + str(self.duck.score),1,WHITE)
+        coinLine = FONT_SM.render(" x" + str(self.duck.coins),1,WHITE)
+        
+        heartX = 10
+        for h in range(self.duck.health):
+            SCREEN.blit(HEART_IMG, (heartX, 10))
+            heartX += HEART_IMG.get_width()
+
+        x1 = 15 + COIN_IMG_SM.get_width()
+        y1 = 15 + HEART_IMG.get_height()
+
+        y2 = y1 + 5 + COIN_IMG_SM.get_height()
+
+        SCREEN.blit(COIN_IMG_SM, (10,y1))
+        SCREEN.blit(coinLine, (x1,y1))
+        SCREEN.blit(scoreLine,(20,y2))
 
     def process_events(self):
         global sound_on
         global paused
-        
+
+        pressed = pygame.key.get_pressed()
+        if pressed[UP]:
+            self.duck.moveUp()
+        elif pressed[DOWN]:
+            self.duck.moveDown()
+        else:
+            self.duck.stop(False,True)
+        if pressed[LEFT]:
+            self.duck.moveLeft()
+        elif pressed[RIGHT]:
+            self.duck.moveRight()
+        else:
+            self.duck.stop(True,False)
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.done = True
-            elif event.type == pygame.KEYDOWN and self.stage == Game.PLAYING:
-                if event.key == pygame.K_w:
-                    self.duck.moveUp()
-                elif event.key == pygame.K_a:
-                    self.duck.moveLeft()
-                elif event.key == pygame.K_s:
-                    self.duck.moveDown()
-                elif event.key == pygame.K_d:
-                    self.duck.moveRight()
-                elif event.key == pygame.K_ESCAPE:
+            
+            if event.type == pygame.KEYDOWN and self.stage == Game.PLAYING:
+                
+                if event.key == pygame.K_ESCAPE:
                     self.stage = Game.PAUSED
             elif self.stage == Game.PAUSED:
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                    self.stage = Game.PLAYING
+            elif self.stage == Game.SPLASH:
+                self.stage = Game.START
+            elif self.stage == Game.START:
+                if event.type == pygame.KEYDOWN:
                     self.stage = Game.PLAYING
 
     def update(self):
         if self.stage == Game.PLAYING:
             self.duck.update(self.level)
-            self.level.enemies.update(self.duck)
+            for e in self.level.enemies:
+                e.update(self.duck)
+            
 
         if self.duck.health <= 0:
             self.stage = Game.GAME_OVER
 
+        self.level.update(self.duck)
     def draw(self):
         self.level.active_layer.fill(TRANSPARENT)
         self.level.active_sprites.draw(self.level.active_layer)
+        self.level.inactive_sprites.draw(self.level.inactive_layer)
 
         if self.duck.invincibility % 3 < 2:
             self.level.active_layer.blit(self.duck.image, [self.duck.rect.x, self.duck.rect.y])
 
         SCREEN.blit(self.level.background_layer, [0,0])
         SCREEN.blit(self.level.inactive_layer, [0,0])
-        SCREEN.blit(self.active_layer, [0,0])
+        SCREEN.blit(self.level.active_layer, [0,0])
 
         self.display_stats()
 
         if self.stage == Game.SPLASH:
             self.display_splash()
         elif self.stage == Game.START:
-            self.display_message("Press any key to start!")
+            self.display_message("DUCKS IN SPACE!","Press any key to start!")
         elif self.stage == Game.PAUSED:
-            self.display_message("Paused. Press 'ESC' to resume.")
+            self.display_message("PAUSED","Press 'ESC' to resume.")
         elif self.stage == Game.GAME_OVER:
-            self.display_message("You died.")
+            self.display_message("You died.","")
 
-
+        pygame.display.update()
         pygame.display.flip()
 
     def loop(self):
@@ -442,7 +565,9 @@ class Game():
 
 def gameScreen():
     game = Game()
-    game.start()
+    game.reset()
     game.loop()
     #pygame.quit()
     #sys.exit()
+
+gameScreen()
