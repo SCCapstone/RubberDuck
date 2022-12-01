@@ -3,7 +3,7 @@ import os
 import pygame
 from assets import values
 import menuStructure as menuS
-
+import fileio.customizationIO as cIO
 
 # Runs the customize screen
 def customize_screen(noises):

@@ -15,6 +15,7 @@ from views import gameOverScreen
 from fileio import settingIO
 from fileio import highScoreIO
 from fileio import statsIO
+from fileio import customizationIO
 
 pygame.init()
 # Make game full screen
@@ -29,6 +30,7 @@ statsIO.load_stats()
 settingIO.load_settings(values.SETTING_PATH)
 highScoreIO.load_high_scores()
 values.setStartTime()
+customizationIO.load_customization()
 
 menuS.set_game_menu(menuS.menu.HOME)
 values.set_screen_size(pygame.display.get_surface().get_size()[0],
@@ -75,6 +77,7 @@ def main():
         elif menuS.get_game_menu() == menuS.menu.QUIT:
             statsIO.save_stats()
             settingIO.save_settings()
+            customizationIO.save_customization()
             pygame.quit()
             sys.exit()
 
