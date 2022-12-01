@@ -41,94 +41,91 @@ def start_screen(noises):
     screen.blit(GO_text_image, GOCords)
 
     #4 boxes
-    xCord = screen.get_width() / 3.4
-    yCord = screen.get_height() / 16 * 4
-    width = 700
-    height = 100
-    separation = 50
+    #xCord = screen.get_width() / 3.4
+    #yCord = screen.get_height() / 16 * 4
+    #width = 700
+    #height = 100
+    #separation = 50
+    
+    # Create 4 bottons with res of screen below
+    remainHeight = screen.get_height() - screen.get_height() / 16 * 4
+    buttonHeight = (remainHeight-200) / 4
+    buttonWidth = screen.get_width() / 2.3
+    buttonX = screen.get_width() / 2 - buttonWidth / 2
+    buttonY = screen.get_height() / 16 * 4
+    button1 = pygame.Rect(buttonX, buttonY, buttonWidth, buttonHeight)
+    button2 = pygame.Rect(buttonX, buttonY + buttonHeight + 50, buttonWidth,
+                            buttonHeight)   
+    button3 = pygame.Rect(buttonX, buttonY + buttonHeight * 2 + 100, buttonWidth,
+                            buttonHeight)
+    button4 = pygame.Rect(buttonX, buttonY + buttonHeight * 3 + 150, buttonWidth,   
+                            buttonHeight)
+    
+    #Replay Levem, New Game, Share High Scorem Share Recording
 
-    #Replay Level Box
-    pygame.draw.rect(screen, values.COLOR_Pink, (xCord, yCord, width, height),
-                     0)
-    #Replay Level text
-    if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
-    )[0] < xCord + width and pygame.mouse.get_pos(
-    )[1] > yCord and pygame.mouse.get_pos()[1] < yCord + height:
-        Replay_text_image = subtitleFont.render("Replay Level", True,
-                                                values.COLOR_Yellow)
-    else:
-        Replay_text_image = subtitleFont.render("Replay Level", True,
-                                                values.COLOR_Purple)
-    screen.blit(Replay_text_image, (xCord + 75, yCord + 20))
+    # Draw the buttons
+    pygame.draw.rect(screen, values.COLOR_Pink, button1)
+    pygame.draw.rect(screen, values.COLOR_Pink, button2)
+    pygame.draw.rect(screen, values.COLOR_Pink, button3)
+    pygame.draw.rect(screen, values.COLOR_Pink, button4)
+    
+    # Text for buttons
+    replayLevel_text_image = subtitleFont.render("Replay Level", True,
+                                                    values.COLOR_Purple)
+    #Center on button
+    replayLevelCords = replayLevel_text_image.get_rect(center=(button1.centerx,
+                                                    button1.centery))
+    screen.blit(replayLevel_text_image, replayLevelCords)
+    
+    newGame_text_image = subtitleFont.render("New Game", True,
+                                                    values.COLOR_Purple)
+    #Center on button
+    newGameCords = newGame_text_image.get_rect(center=(button2.centerx,
+                                                    button2.centery))
+    screen.blit(newGame_text_image, newGameCords)
 
-    #New Game Box
-    pygame.draw.rect(screen, values.COLOR_Pink,
-                     (xCord, yCord +
-                      ((height + separation) * 1), width, height), 0)
-    #New Game text
-    if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
-    )[0] < xCord + width and pygame.mouse.get_pos()[1] > (
-            yCord +
-        (height + separation) * 1) and pygame.mouse.get_pos()[1] < (
-            yCord + height + (height + separation) * 1):
-        NewGame_text_image = subtitleFont.render("New Game", True,
-                                                 values.COLOR_Yellow)
-    else:
-        NewGame_text_image = subtitleFont.render("New Game", True,
-                                                 values.COLOR_Purple)
-    screen.blit(NewGame_text_image,
-                (xCord + 160, yCord + 25 + (height + separation) * 1))
+    shareHighScore_text_image = subtitleFont.render("Share High Score", True,
+                                                    values.COLOR_Purple)
+    
+    #Center on button
+    shareHighScoreCords = shareHighScore_text_image.get_rect(center=(button3.centerx,
+                                                    button3.centery))
+    screen.blit(shareHighScore_text_image, shareHighScoreCords)
+    
+    shareRecording_text_image = subtitleFont.render("Share Recording", True,
+                                                    values.COLOR_Purple)
+    #Center on button
+    shareRecordingCords = shareRecording_text_image.get_rect(center=(button4.centerx,
+                                                    button4.centery))
+    screen.blit(shareRecording_text_image, shareRecordingCords)
+    
 
-    #Share High Score box
-    pygame.draw.rect(screen, values.COLOR_Pink,
-                     (xCord, yCord +
-                      ((height + separation) * 2), width, height), 0)
-    #Share High Score text
-    if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
-    )[0] < xCord + width and pygame.mouse.get_pos()[1] > (
-            yCord +
-        (height + separation) * 2) and pygame.mouse.get_pos()[1] < (
-            yCord + height + (height + separation) * 2):
-        high_text_image = subtitleFont.render("Share High Score", True,
-                                              values.COLOR_Yellow)
-    else:
-        high_text_image = subtitleFont.render("Share High Score", True,
-                                              values.COLOR_Purple)
-    screen.blit(high_text_image,
-                (xCord, yCord + 20 + (height + separation) * 2))
+    
+    # Put Score on right side of screen
+    score_text_image = titleFont.render("Score", True,
+                                        values.COLOR_Red)
+    scoreCords = score_text_image.get_rect(center=(button1.left/2,
+                                                    screen.get_height() / 2))
+    screen.blit(score_text_image, scoreCords)
+    
+    score_val = titleFont.render("100", True,
+                                        values.COLOR_Red)
+    scoreValCords = score_val.get_rect(center=(button1.left/2,
+                                                    scoreCords.bottom + 50))
+    screen.blit(score_val, scoreValCords)
+    
+    time_text_image = titleFont.render("Time", True,
+                                        values.COLOR_Red)
+    timeCords = time_text_image.get_rect(center=((screen.get_width() - button1.right)/2 + button1.right,
+                                                     screen.get_height() / 2))
+    screen.blit(time_text_image, timeCords)
+    
+    time_val = titleFont.render("4:32", True,
+                                        values.COLOR_Red)
+    timeValCords = time_val.get_rect(center=((screen.get_width() - button1.right)/2 + button1.right,
+                                                    timeCords.bottom + 50))
+    screen.blit(time_val, timeValCords)
 
-    #Share Recording Box
-    pygame.draw.rect(screen, values.COLOR_Pink,
-                     (xCord, yCord +
-                      ((height + separation) * 3), width, height), 0)
-    #Share Recording text
-    if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
-    )[0] < xCord + width and pygame.mouse.get_pos()[1] > (
-            yCord +
-        (height + separation) * 3) and pygame.mouse.get_pos()[1] < (
-            yCord + height + (height + separation) * 3):
-        recording_text_image = subtitleFont.render("Share Recording", True,
-                                                   values.COLOR_Yellow)
-    else:
-        recording_text_image = subtitleFont.render("Share Recording", True,
-                                                   values.COLOR_Purple)
-    screen.blit(recording_text_image,
-                (xCord + 10, yCord + 20 + (height + separation) * 3))
-
-    #Show Score
-    Score_text = titleFont.render("Score", True, values.COLOR_White)
-    screen.blit(Score_text, (values.screenX * .02, yCord + 25))
-
-    #TODO Show game score underneath from actual game session
-    Score_text = titleFont.render("17228", True, values.COLOR_White)
-    screen.blit(Score_text, (values.screenX * .02, yCord + 125))
-
-    #Show Time
-    Time_text = titleFont.render("Time", True, values.COLOR_White)
-    screen.blit(Time_text, (values.screenX * .75, yCord + 25))
-    #TODO Show game time underneath from actual game session
-    Score_text = titleFont.render("4:32", True, values.COLOR_White)
-    screen.blit(Score_text, (values.screenX * .75, yCord + 125))
 
     # Coordinates Home button
     homeCords = (values.screenX * .0065, values.screenY * .011)
@@ -152,29 +149,23 @@ def start_screen(noises):
                     # return to home screen
                     noises.playSound("quack")
                     menuS.set_game_menu(menuS.menu.HOME)
-                elif xCord < pygame.mouse.get_pos(
-                )[0] < xCord + width and yCord < pygame.mouse.get_pos(
-                )[1] < yCord + height:
+                elif button1.collidepoint(pygame.mouse.get_pos()):
+                    # replay level
                     noises.playSound("quack")
-                    #TODO Replay the level
-                elif xCord < pygame.mouse.get_pos(
-                )[0] < xCord + width and yCord + (
-                        height + separation) * 1 < pygame.mouse.get_pos(
-                        )[1] < yCord + height + (height + separation) * 1:
+                    #TODO: replay level
+                elif button2.collidepoint(pygame.mouse.get_pos()):
+                    # new game
                     noises.playSound("quack")
-                    #TODO New Game
                     menuS.set_game_menu(menuS.menu.GAME)
-                elif xCord < pygame.mouse.get_pos(
-                )[0] < xCord + width and yCord + (
-                        height + separation) * 2 < pygame.mouse.get_pos(
-                        )[1] < yCord + height + (height + separation) * 2:
+                elif button3.collidepoint(pygame.mouse.get_pos()):
+                    # share high score
                     noises.playSound("quack")
-                    #TODO Share High Score
-                elif xCord < pygame.mouse.get_pos(
-                )[0] < xCord + width and yCord + (
-                        height + separation) * 3 < pygame.mouse.get_pos(
-                        )[1] < yCord + height + (height + separation) * 3:
+                    #TODO: share high score
+                elif button4.collidepoint(pygame.mouse.get_pos()):
+                    # share recording
                     noises.playSound("quack")
+                
+                
                     #TODO Share Recording
 
         elif event.type == pygame.QUIT:

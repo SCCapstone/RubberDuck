@@ -51,16 +51,7 @@ def home_screen(noises):
     check_highlight([.872, .9539, .925, .983, .872, .925], values.COLOR_Yellow,
                     values.COLOR_White, fontMenu, screen, "QUIT")
 
-    # temporary if mouse is over gameOver, change color to yellow
-    if pygame.mouse.get_pos(
-    )[0] > values.screenX * .750 and pygame.mouse.get_pos(
-    )[0] < values.screenX * .9539 and pygame.mouse.get_pos(
-    )[1] > values.screenY * .05 and pygame.mouse.get_pos(
-    )[1] < values.screenY * .10:
-        GO_image = fontMenu.render("GAME OVER", True, values.COLOR_Yellow)
-    else:
-        GO_image = fontMenu.render("GAME OVER", True, values.COLOR_White)
-    screen.blit(GO_image, (values.screenX * .750, values.screenY * .05))
+
 
     #Check if click is on a button
     click_handler(noises)

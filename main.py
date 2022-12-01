@@ -78,7 +78,11 @@ def main():
         elif menuS.get_game_menu() == menuS.menu.GAMEOVER:
             gameOverScreen.start_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.QUIT:
-            quit_game()
+            statsIO.save_stats()
+            settingIO.save_settings()
+            customizationIO.save_customization()
+            pygame.quit()
+            sys.exit()
 
 
 if __name__ == "__main__":
