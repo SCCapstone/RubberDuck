@@ -5,6 +5,7 @@ global skins, hats, trails, backgrounds
 global coins, current_skin, current_hat
 global current_trail, current_background
 
+
 def load_customization():
     """summary: Loads the customization from the file
     """
@@ -28,7 +29,7 @@ def load_customization():
     except:
         load_new_customization()
 
-        
+
 def load_new_customization():
     """summary: Loads the customization from the file
     """
@@ -47,7 +48,7 @@ def load_new_customization():
     current_background = 0
     save_customization()
 
-    
+
 def save_customization():
     """summary: Saves the customization to the file
     """
@@ -67,5 +68,3 @@ def save_customization():
     }
     with open("fileio\\Customization.json", "w") as f:
         json.dump(data, f, indent=4)
-        
-    

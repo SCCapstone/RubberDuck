@@ -11,6 +11,7 @@ from views import settingScreen
 from views import highScoreScreen
 from views import customizeScreen
 from views import gameOverScreen
+from views import gameScreen
 
 from fileio import settingIO
 from fileio import highScoreIO
@@ -65,7 +66,9 @@ def main():
         elif menuS.get_game_menu() == menuS.menu.GAME:
             if not ran:
                 noises.playMusic("gameplay")
+
             ran = True
+            gameScreen.gameScreen()
         elif menuS.get_game_menu() == menuS.menu.CUSTOMIZE:
             customizeScreen.customize_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.HIGH_SCORE:
@@ -75,12 +78,18 @@ def main():
         elif menuS.get_game_menu() == menuS.menu.GAMEOVER:
             gameOverScreen.start_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.QUIT:
-            statsIO.save_stats()
-            settingIO.save_settings()
-            customizationIO.save_customization()
-            pygame.quit()
-            sys.exit()
+            quit_game()
 
 
 if __name__ == "__main__":
     main()
+
+
+def quit_game():
+    """summary: quits the game
+    """
+    statsIO.save_stats()
+    settingIO.save_settings()
+    customizationIO.save_customization()
+    pygame.quit()
+    sys.exit()
