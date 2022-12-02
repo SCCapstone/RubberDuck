@@ -18,7 +18,7 @@ def load_stats():
     global allTimeCurrency, averageGameTime, averagePoints
 
     if (os.path.exists("fileio\\stats.json")):
-        with open("stats.json") as f:
+        with open("fileio\\stats.json") as f:
             data = json.load(f)
             distanceTravelled = data["distanceTravelled"]
             totalGamesPlayed = data["totalGamesPlayed"]
