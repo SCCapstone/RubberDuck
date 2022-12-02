@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 import os
 import menuStructure as menuS
 import main as main
@@ -98,7 +99,7 @@ class Entity(pygame.sprite.Sprite):
 class Rocket(Entity):
 
     def __init__(self, x, y, image):
-        super().__init__(x, y, image)
+        super().__init__(x - 30, y + 15, image)
 
         pos = pygame.mouse.get_pos()
         xTarget = pos[0]
@@ -107,32 +108,26 @@ class Rocket(Entity):
         xOrigin = x
         yOrigin = y
 
-        rise = yTarget - yOrigin
-        run = xTarget - xOrigin
-
-        self.speed = 20
-
-        if run > 0:
-            self.vx = 10
+        dx = xTarget - xOrigin
+        dy = yOrigin - yTarget
+        vBase = 0.05
+        # Getting the angle of the rocket trajectory
+        if xOrigin == xTarget:
+            # Here, the rocket is going straight up
+            theta = 90
+        elif dx < 0:
+            # Need to make the angle between 90 and 270
+            theta = 180 + math.degrees(math.atan(dy / dx))
         else:
-            self.vx = -10
-
-        if run == 0:
-            slope = 1000
-            self.vx = 0
-        else:
-            slope = rise / run
-
-        self.vy = slope * self.vx
-
-        if rise > 0 and self.vy < 0:
-            self.vy *= -1
-        elif rise < 0 and self.vy > 0:
-            self.vy *= -1
-        '''if self.vy > 10:
-            self.vy = 10
-        elif self.vy < -10:
-            self.vy = -10'''
+            theta = math.degrees(math.atan(dy / dx))
+        # Now we have theta, so we can rotate the image
+        if theta < 0 and dx > 0:
+            theta = 360 + theta
+        self.image = pygame.transform.rotate(image, theta)
+        self.speed = vBase
+        # Set velocity
+        self.vx = vBase * dx
+        self.vy = -vBase * dy
 
     def update(self, enemies):
 
@@ -141,7 +136,6 @@ class Rocket(Entity):
 
         hit_list = pygame.sprite.spritecollide(self, enemies, True)
         if hit_list:
-
             self.kill()
 
 
