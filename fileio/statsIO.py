@@ -56,5 +56,7 @@ def save_stats():
         "averageGameTime": averageGameTime,
         "averagePoints": averagePoints
     }
-    with open("fileio\\stats.json", "w") as f:
+
+    with open("stats.json", "w") as f:
         json.dump(data, f, indent=4)
+

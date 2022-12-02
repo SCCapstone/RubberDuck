@@ -114,7 +114,7 @@ def save_settings():
         "Keymap_Pause": Keymap_Pause
     }
 
-    with open("fileio\\UserSetting.json", "w") as f:
+    with open("UserSetting.json", "w") as f:
         json.dump(data, f, indent=4)
 
 
@@ -165,7 +165,7 @@ def export_settings():
     #get document path
     path = os.path.expanduser("~/Documents")
     path = path + "\\UserSetting.json"
-    shutil.copy("fileio\\UserSetting.json", path)
+    shutil.copy("UserSetting.json", path)
 
     #display banner message
     easygui.msgbox(

@@ -14,9 +14,9 @@ def load_customization():
     global current_trail, current_background
 
     try:
-        if not os.path.exists("fileio\\Customization.json"):
+        if not os.path.exists("Customization.json"):
             load_new_customization()
-        data = json.load(open("fileio\\Customization.json"))
+        data = json.load(open("Customization.json"))
         skins = data["skins"]
         hats = data["hats"]
         trails = data["trails"]
@@ -66,5 +66,5 @@ def save_customization():
         "current_trail": current_trail,
         "current_background": current_background
     }
-    with open("fileio\\Customization.json", "w") as f:
+    with open("Customization.json", "w") as f:
         json.dump(data, f, indent=4)
