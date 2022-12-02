@@ -17,7 +17,7 @@ def load_stats():
     global enemyDefeated, spaceshipKills, meteroidKills
     global allTimeCurrency, averageGameTime, averagePoints
 
-    if (os.path.exists("stats.json")):
+    if (os.path.exists("fileio\\stats.json")):
         with open("stats.json") as f:
             data = json.load(f)
             distanceTravelled = data["distanceTravelled"]
@@ -57,6 +57,5 @@ def save_stats():
         "averagePoints": averagePoints
     }
 
-    with open("stats.json", "w") as f:
+    with open("fileio\\stats.json", "w") as f:
         json.dump(data, f, indent=4)
-

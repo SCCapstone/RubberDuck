@@ -46,21 +46,21 @@ def start_screen(noises):
     #width = 700
     #height = 100
     #separation = 50
-    
+
     # Create 4 bottons with res of screen below
     remainHeight = screen.get_height() - screen.get_height() / 16 * 4
-    buttonHeight = (remainHeight-200) / 4
+    buttonHeight = (remainHeight - 200) / 4
     buttonWidth = screen.get_width() / 2.3
     buttonX = screen.get_width() / 2 - buttonWidth / 2
     buttonY = screen.get_height() / 16 * 4
     button1 = pygame.Rect(buttonX, buttonY, buttonWidth, buttonHeight)
     button2 = pygame.Rect(buttonX, buttonY + buttonHeight + 50, buttonWidth,
-                            buttonHeight)   
-    button3 = pygame.Rect(buttonX, buttonY + buttonHeight * 2 + 100, buttonWidth,
-                            buttonHeight)
-    button4 = pygame.Rect(buttonX, buttonY + buttonHeight * 3 + 150, buttonWidth,   
-                            buttonHeight)
-    
+                          buttonHeight)
+    button3 = pygame.Rect(buttonX, buttonY + buttonHeight * 2 + 100,
+                          buttonWidth, buttonHeight)
+    button4 = pygame.Rect(buttonX, buttonY + buttonHeight * 3 + 150,
+                          buttonWidth, buttonHeight)
+
     #Replay Levem, New Game, Share High Scorem Share Recording
 
     # Draw the buttons
@@ -68,64 +68,59 @@ def start_screen(noises):
     pygame.draw.rect(screen, values.COLOR_Pink, button2)
     pygame.draw.rect(screen, values.COLOR_Pink, button3)
     pygame.draw.rect(screen, values.COLOR_Pink, button4)
-    
+
     # Text for buttons
     replayLevel_text_image = subtitleFont.render("Replay Level", True,
-                                                    values.COLOR_Purple)
+                                                 values.COLOR_Purple)
     #Center on button
-    replayLevelCords = replayLevel_text_image.get_rect(center=(button1.centerx,
-                                                    button1.centery))
+    replayLevelCords = replayLevel_text_image.get_rect(
+        center=(button1.centerx, button1.centery))
     screen.blit(replayLevel_text_image, replayLevelCords)
-    
+
     newGame_text_image = subtitleFont.render("New Game", True,
-                                                    values.COLOR_Purple)
+                                             values.COLOR_Purple)
     #Center on button
     newGameCords = newGame_text_image.get_rect(center=(button2.centerx,
-                                                    button2.centery))
+                                                       button2.centery))
     screen.blit(newGame_text_image, newGameCords)
 
     shareHighScore_text_image = subtitleFont.render("Share High Score", True,
                                                     values.COLOR_Purple)
-    
+
     #Center on button
-    shareHighScoreCords = shareHighScore_text_image.get_rect(center=(button3.centerx,
-                                                    button3.centery))
+    shareHighScoreCords = shareHighScore_text_image.get_rect(
+        center=(button3.centerx, button3.centery))
     screen.blit(shareHighScore_text_image, shareHighScoreCords)
-    
+
     shareRecording_text_image = subtitleFont.render("Share Recording", True,
                                                     values.COLOR_Purple)
     #Center on button
-    shareRecordingCords = shareRecording_text_image.get_rect(center=(button4.centerx,
-                                                    button4.centery))
+    shareRecordingCords = shareRecording_text_image.get_rect(
+        center=(button4.centerx, button4.centery))
     screen.blit(shareRecording_text_image, shareRecordingCords)
-    
 
-    
     # Put Score on right side of screen
-    score_text_image = titleFont.render("Score", True,
-                                        values.COLOR_Red)
-    scoreCords = score_text_image.get_rect(center=(button1.left/2,
-                                                    screen.get_height() / 2))
+    score_text_image = titleFont.render("Score", True, values.COLOR_Red)
+    scoreCords = score_text_image.get_rect(center=(button1.left / 2,
+                                                   screen.get_height() / 2))
     screen.blit(score_text_image, scoreCords)
-    
-    score_val = titleFont.render("100", True,
-                                        values.COLOR_Red)
-    scoreValCords = score_val.get_rect(center=(button1.left/2,
-                                                    scoreCords.bottom + 50))
-    screen.blit(score_val, scoreValCords)
-    
-    time_text_image = titleFont.render("Time", True,
-                                        values.COLOR_Red)
-    timeCords = time_text_image.get_rect(center=((screen.get_width() - button1.right)/2 + button1.right,
-                                                     screen.get_height() / 2))
-    screen.blit(time_text_image, timeCords)
-    
-    time_val = titleFont.render("4:32", True,
-                                        values.COLOR_Red)
-    timeValCords = time_val.get_rect(center=((screen.get_width() - button1.right)/2 + button1.right,
-                                                    timeCords.bottom + 50))
-    screen.blit(time_val, timeValCords)
 
+    score_val = titleFont.render("100", True, values.COLOR_Red)
+    scoreValCords = score_val.get_rect(center=(button1.left / 2,
+                                               scoreCords.bottom + 50))
+    screen.blit(score_val, scoreValCords)
+
+    time_text_image = titleFont.render("Time", True, values.COLOR_Red)
+    timeCords = time_text_image.get_rect(
+        center=((screen.get_width() - button1.right) / 2 + button1.right,
+                screen.get_height() / 2))
+    screen.blit(time_text_image, timeCords)
+
+    time_val = titleFont.render("4:32", True, values.COLOR_Red)
+    timeValCords = time_val.get_rect(
+        center=((screen.get_width() - button1.right) / 2 + button1.right,
+                timeCords.bottom + 50))
+    screen.blit(time_val, timeValCords)
 
     # Coordinates Home button
     homeCords = (values.screenX * .0065, values.screenY * .011)
@@ -164,8 +159,7 @@ def start_screen(noises):
                 elif button4.collidepoint(pygame.mouse.get_pos()):
                     # share recording
                     noises.playSound("quack")
-                
-                
+
                     #TODO Share Recording
 
         elif event.type == pygame.QUIT:

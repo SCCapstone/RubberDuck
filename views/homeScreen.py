@@ -51,8 +51,6 @@ def home_screen(noises):
     check_highlight([.872, .9539, .925, .983, .872, .925], values.COLOR_Yellow,
                     values.COLOR_White, fontMenu, screen, "QUIT")
 
-
-
     #Check if click is on a button
     click_handler(noises)
 

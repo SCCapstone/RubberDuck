@@ -445,7 +445,6 @@ class Level():
         self.background_layer = pygame.Surface([WIDTH, HEIGHT],
                                                pygame.SRCALPHA, 32)
 
-        
         # fit background to screen
         for x in range(0, WIDTH, BACKGROUND_IMG.get_width()):
             for y in range(0, HEIGHT, BACKGROUND_IMG.get_height()):
