@@ -121,7 +121,7 @@ def settings_screen(noises):
     easy_image = subtitleFont.render("Easy", True, values.COLOR_Red)
     #find width of image
     easy_image_width = easy_image.get_width()
-    if settingIO.Difficulty == settingIO.difficulty.Easy:
+    if settingIO.DifficultyLevel is settingIO.difficulty.EASY:
         pass
     elif checkDifCords(easydifficultySettingCords, easy_image):
         easy_image = subtitleFont.render("Easy", True, values.COLOR_Yellow)
@@ -141,7 +141,7 @@ def settings_screen(noises):
                                     screen.get_height() / 16 * 7)
     medium_image = subtitleFont.render("Medium", True, values.COLOR_Red)
     medium_image_width = medium_image.get_width()
-    if settingIO.Difficulty == settingIO.difficulty.Medium:
+    if settingIO.DifficultyLevel is settingIO.difficulty.MEDIUM:
         pass
     elif checkDifCords(mediumdifficultySettingCords, medium_image):
         medium_image = subtitleFont.render("Medium", True, values.COLOR_Yellow)
@@ -158,7 +158,7 @@ def settings_screen(noises):
     harddifficultySettingCords = (left + 30 + widthButton + easy_image_width + 10 + dash_width + 10 + medium_image_width + 10 + dash_width + 10,
                                     screen.get_height() / 16 * 7)
     hard_image = subtitleFont.render("Hard", True, values.COLOR_Red)
-    if settingIO.Difficulty == settingIO.difficulty.Hard:
+    if settingIO.DifficultyLevel is settingIO.difficulty.HARD:
         pass
     elif checkDifCords(harddifficultySettingCords, hard_image):
         hard_image = subtitleFont.render("Hard", True, values.COLOR_Yellow)
@@ -244,13 +244,13 @@ def settings_screen(noises):
                     settingIO.export_settings()
                 elif checkDifCords(easydifficultySettingCords, easy_image):
                     noises.playSound("quack")
-                    settingIO.Difficulty = settingIO.difficulty.Easy
+                    settingIO.DifficultyLevel = settingIO.difficulty.EASY
                 elif checkDifCords(mediumdifficultySettingCords, medium_image):
                     noises.playSound("quack")
-                    settingIO.Difficulty = settingIO.difficulty.Medium
+                    settingIO.DifficultyLevel = settingIO.difficulty.MEDIUM
                 elif checkDifCords(harddifficultySettingCords, hard_image):
                     noises.playSound("quack")
-                    settingIO.Difficulty = settingIO.difficulty.Hard
+                    settingIO.DifficultyLevel = settingIO.difficulty.HARD
                 elif checkSliderCords(left, 30, master_volume_image, screen,
                                       masterValRange, 3.95):
                     noises.playSound("quack")
