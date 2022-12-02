@@ -11,7 +11,7 @@ from tkinter.filedialog import askopenfilename
 import pygame
 from assets import values
 import tkinter
-from tkinter.filedialog import askopenfilename
+from tkinter.filedialog import askdirectory
 from assets import values
 
 global Player_Name, Master_Volume, Music_Volume
@@ -161,15 +161,19 @@ def export_settings():
     """
     save_settings()
 
+    root = tkinter.Tk()
+    root.withdraw()
+    pygame.display.set_mode(values.SCREEN_SIZE)
+    root.update()
     #make copy of UserSetting.json and move it to desktop
     #get document path
-    path = os.path.expanduser("~/Documents")
+    path = askdirectory()
     path = path + "\\UserSetting.json"
     shutil.copy("fileio\\UserSetting.json", path)
 
     #display banner message
     easygui.msgbox(
-        "UserSetting.json has been exported to your Documents folder",
+        "UserSetting.json has been exported to" + str(path), 
         "Export Successful")
 
 
