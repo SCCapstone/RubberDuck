@@ -50,22 +50,26 @@ def customize_screen(noises):
     screen.blit(coins_text_image, coinsCords)
     #coins asset next to available coins
     coins = pygame.image.load("assets/sprites/Coin.png")
+    coins = pygame.transform.scale(coins, (int(screen.get_width()*.035),int(screen.get_width()*.035)))
     screen.blit(coins, (coinsCords[0] +screen.get_width() *.1273, coinsCords[1]))
 
     #TODO add coin asset plus amount of coins available
 
     #load duck base skins
-    purchaseSize = math.floor( screen.get_width()*.1504)
+    purchaseSize = int(values.screenX * .1504)
     silhouetteDuck = pygame.image.load("assets/sprites/silhouetteDuck.png")
     baseDuck = pygame.image.load("assets/sprites/baseDuck.png")
     swagDuck = pygame.image.load("assets/sprites/swagDuck.png")
+
     swagDuck = pygame.transform.scale(swagDuck, (purchaseSize, purchaseSize))
+    silhouetteDuck = pygame.transform.scale(silhouetteDuck, (purchaseSize, purchaseSize))
+    baseDuck = pygame.transform.scale(baseDuck, (purchaseSize, purchaseSize))
 
     #scale base skins for preview
-    previewSize = math.floor(screen.get_width()*.28935)
+    previewSize = int(values.screenX*.28935)
     bigBaseDuck = pygame.transform.scale(baseDuck, (previewSize, previewSize))
-    pygame.transform.scale(swagDuck, (previewSize, previewSize))
-    pygame.transform.scale(silhouetteDuck, (previewSize, previewSize))
+    bigSwagDuck =  pygame.transform.scale(swagDuck, (previewSize, previewSize))
+    bigSilhouetteDuck = pygame.transform.scale(silhouetteDuck, (previewSize, previewSize))
 
     #TODO Preview of Duck in Current State
     screen.blit(bigBaseDuck, (screen.get_width() / 3, screen.get_height() / 4))
@@ -190,6 +194,7 @@ def customize_screen(noises):
     else:
         SR_text_image = subtitleFont.render("HOME", True, values.COLOR_Pink)
     screen.blit(SR_text_image, (homeCords[0], homeCords[1]))
+
 
     # check for mouse click
     for event in pygame.event.get():
