@@ -113,70 +113,59 @@ def settings_screen(noises):
     # TODO - Add special coloring for current difficulty (new color or just yellow?)
     # Difficulty Settings
     # Easy setting
+    
+    ## put easy, medium, hard text after difficulty_image
     easydifficultySettingCords = (left + 30 + widthButton,
                                   screen.get_height() / 16 * 7)
-    # Highlighting Easy
-    if settingIO.Difficulty == settingIO.Difficulty.Easy:
-        easy_difficulty_settings_image = subtitleFont.render(
-            "Easy", True, values.COLOR_Red)
-    elif pygame.mouse.get_pos(
-    )[0] > easydifficultySettingCords[0] and pygame.mouse.get_pos(
-    )[0] < easydifficultySettingCords[0] + 120 and pygame.mouse.get_pos(
-    )[1] > easydifficultySettingCords[1] and pygame.mouse.get_pos(
-    )[1] < easydifficultySettingCords[1] + 30:
-        easy_difficulty_settings_image = subtitleFont.render(
-            "Easy", True, values.COLOR_Yellow)
+    #for image size
+    easy_image = subtitleFont.render("Easy", True, values.COLOR_Red)
+    #find width of image
+    easy_image_width = easy_image.get_width()
+    if settingIO.Difficulty == settingIO.difficulty.Easy:
+        pass
+    elif checkDifCords(easydifficultySettingCords, easy_image):
+        easy_image = subtitleFont.render("Easy", True, values.COLOR_Yellow)
     else:
-        easy_difficulty_settings_image = subtitleFont.render(
-            "Easy", True, values.COLOR_Purple)
-    screen.blit(easy_difficulty_settings_image, easydifficultySettingCords)
-    # Slash after Easy
-    slash_one_image = subtitleFont.render("/", True, values.COLOR_Purple)
-    slashOneCords = (easydifficultySettingCords[0] + 120,
-                     screen.get_height() / 16 * 7)
-    screen.blit(slash_one_image, slashOneCords)
-    # Medium setting
-    mediumdifficultySettingCords = (slashOneCords[0] + 20,
-                                    screen.get_height() / 16 * 7)
-    # Highlighting Medium
-    if settingIO.Difficulty == settingIO.Difficulty.Medium:
-        medium_difficulty_settings_image = subtitleFont.render(
-            "Medium", True, values.COLOR_Red)
-    elif pygame.mouse.get_pos(
-    )[0] > mediumdifficultySettingCords[0] and pygame.mouse.get_pos(
-    )[0] < mediumdifficultySettingCords[0] + 180 and pygame.mouse.get_pos(
-    )[1] > mediumdifficultySettingCords[1] and pygame.mouse.get_pos(
-    )[1] < mediumdifficultySettingCords[1] + 30:
-        medium_difficulty_settings_image = subtitleFont.render(
-            "Medium", True, values.COLOR_Yellow)
-    else:
-        medium_difficulty_settings_image = subtitleFont.render(
-            "Medium", True, values.COLOR_Purple)
-    screen.blit(medium_difficulty_settings_image, mediumdifficultySettingCords)
-    # Slash after Medium
-    slash_two_image = subtitleFont.render("/", True, values.COLOR_Purple)
-    slashTwoCords = (mediumdifficultySettingCords[0] + 180,
-                     screen.get_height() / 16 * 7)
-    screen.blit(slash_two_image, slashTwoCords)
-    # Hard setting
-    harddifficultySettingCords = (slashTwoCords[0] + 20,
-                                  screen.get_height() / 16 * 7)
-    # Highlighting Hard
-    if settingIO.Difficulty == settingIO.Difficulty.Hard:
-        hard_difficulty_settings_image = subtitleFont.render(
-            "Hard", True, values.COLOR_Red)
-    elif pygame.mouse.get_pos(
-    )[0] > harddifficultySettingCords[0] and pygame.mouse.get_pos(
-    )[0] < harddifficultySettingCords[0] + 120 and pygame.mouse.get_pos(
-    )[1] > harddifficultySettingCords[1] and pygame.mouse.get_pos(
-    )[1] < harddifficultySettingCords[1] + 30:
-        hard_difficulty_settings_image = subtitleFont.render(
-            "Hard", True, values.COLOR_Yellow)
-    else:
-        hard_difficulty_settings_image = subtitleFont.render(
-            "Hard", True, values.COLOR_Purple)
-    screen.blit(hard_difficulty_settings_image, harddifficultySettingCords)
+        easy_image = subtitleFont.render("Easy", True, values.COLOR_Purple)
+    screen.blit(easy_image, easydifficultySettingCords)
+    
+    # Dash between easy and medium
+    dash_image = subtitleFont.render("/", True, values.COLOR_Purple)
+    dash_width = dash_image.get_width()
+    dashCords = (left + 30 + widthButton + easy_image_width+10,
+                    screen.get_height() / 16 * 7)
+    screen.blit(dash_image, dashCords)
 
+    # Put to right of easy
+    mediumdifficultySettingCords = (left + 30 + widthButton + easy_image_width + 10 + dash_width + 10,
+                                    screen.get_height() / 16 * 7)
+    medium_image = subtitleFont.render("Medium", True, values.COLOR_Red)
+    medium_image_width = medium_image.get_width()
+    if settingIO.Difficulty == settingIO.difficulty.Medium:
+        pass
+    elif checkDifCords(mediumdifficultySettingCords, medium_image):
+        medium_image = subtitleFont.render("Medium", True, values.COLOR_Yellow)
+    else:
+        medium_image = subtitleFont.render("Medium", True, values.COLOR_Purple)
+    screen.blit(medium_image, mediumdifficultySettingCords)
+    
+    dash_image2 = subtitleFont.render("/", True, values.COLOR_Purple)
+    dashCords2 = (left + 30 + widthButton + easy_image_width + 10 + dash_width + 10 + medium_image_width + 10,
+                    screen.get_height() / 16 * 7)
+    screen.blit(dash_image2, dashCords2)
+    
+    # Put to right of medium
+    harddifficultySettingCords = (left + 30 + widthButton + easy_image_width + 10 + dash_width + 10 + medium_image_width + 10 + dash_width + 10,
+                                    screen.get_height() / 16 * 7)
+    hard_image = subtitleFont.render("Hard", True, values.COLOR_Red)
+    if settingIO.Difficulty == settingIO.difficulty.Hard:
+        pass
+    elif checkDifCords(harddifficultySettingCords, hard_image):
+        hard_image = subtitleFont.render("Hard", True, values.COLOR_Yellow)
+    else:
+        hard_image = subtitleFont.render("Hard", True, values.COLOR_Purple)
+    screen.blit(hard_image, harddifficultySettingCords)
+    
     # Coordinates for back button
     homeCords = (values.screenX * .0065, values.screenY * .011)
     if pygame.mouse.get_pos()[0] > homeCords[0] and pygame.mouse.get_pos(
@@ -186,6 +175,8 @@ def settings_screen(noises):
     else:
         SR_text_image = titleFont.render("HOME", True, values.COLOR_Pink)
     screen.blit(SR_text_image, (homeCords[0], homeCords[1]))
+    
+    homeBox = pygame.Rect(homeCords[0], homeCords[1], SR_text_image.get_width(), SR_text_image.get_height())
 
     # Add 2 centered buttons
     importCords = (left + ((right - left) / 2) - widthButton - 10,
@@ -238,7 +229,7 @@ def settings_screen(noises):
             if event.button == 1:
 
                 # check if mouse is in rect
-                if checkCords(homeCords, widthButton):
+                if homeBox.collidepoint(pygame.mouse.get_pos()):
                     # share stats
                     noises.playSound("quack")
                     menuS.set_game_menu(menuS.menu.HOME)
@@ -251,15 +242,15 @@ def settings_screen(noises):
                 elif checkCords(exportCords, widthButton):
                     noises.playSound("quack")
                     settingIO.export_settings()
-                elif checkDifCords(easydifficultySettingCords, 120):
+                elif checkDifCords(easydifficultySettingCords, easy_image):
                     noises.playSound("quack")
-                    settingIO.Difficulty = settingIO.Difficulty.Easy
-                elif checkDifCords(mediumdifficultySettingCords, 180):
+                    settingIO.Difficulty = settingIO.difficulty.Easy
+                elif checkDifCords(mediumdifficultySettingCords, medium_image):
                     noises.playSound("quack")
-                    settingIO.Difficulty = settingIO.Difficulty.Medium
-                elif checkDifCords(harddifficultySettingCords, 120):
+                    settingIO.Difficulty = settingIO.difficulty.Medium
+                elif checkDifCords(harddifficultySettingCords, hard_image):
                     noises.playSound("quack")
-                    settingIO.Difficulty = settingIO.Difficulty.Hard
+                    settingIO.Difficulty = settingIO.difficulty.Hard
                 elif checkSliderCords(left, 30, master_volume_image, screen,
                                       masterValRange, 3.95):
                     noises.playSound("quack")
@@ -372,7 +363,7 @@ def checkCords(cords, width):
         1] < pygame.mouse.get_pos()[1] < cords[1] + 50
 
 
-def checkDifCords(cords, factor):
+def checkDifCords(cords, image):
     """summary: Checks if cordinated were clicke
 
     Args:
@@ -382,8 +373,8 @@ def checkDifCords(cords, factor):
     Returns:
         boolean: true if clicked, false if not
     """
-    return cords[0] < pygame.mouse.get_pos()[0] < cords[0] + factor and cords[
-        1] < pygame.mouse.get_pos()[1] < cords[1] + 30
+    return pygame.mouse.get_pos()[0] > cords[0] and pygame.mouse.get_pos()[0] < cords[0] + image.get_width() and pygame.mouse.get_pos()[1] > cords[1] and pygame.mouse.get_pos()[1] < cords[1] + image.get_height()
+
 
 
 def checkSliderCords(left, factor, image, screen, range, height):

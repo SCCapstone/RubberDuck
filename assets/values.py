@@ -2,7 +2,7 @@ import os
 import time
 
 global startTime
-
+global game_score
 # Colors
 COLOR_Purple = (46, 41, 78)
 COLOR_Pink = (204, 167, 162)
@@ -46,3 +46,11 @@ def setStartTime():
 
 
 masterVolume = .75
+
+def setGameScore(score):
+    global game_score
+    game_score = score
+
+def resetGameScore():
+    global game_score
+    game_score = 0

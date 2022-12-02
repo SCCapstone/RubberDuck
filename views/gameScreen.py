@@ -3,7 +3,7 @@ import random
 import os
 import menuStructure as menuS
 import main as main
-#from assets import values
+from assets import values
 #import menuStructure as menuS
 
 GRID_SIZE = 64
@@ -174,6 +174,7 @@ class Duck(Entity):
 
         self.score = 0
         self.coins = 0
+        values.resetGameScore()
 
         self.activePowerups = []
 
@@ -247,6 +248,7 @@ class Duck(Entity):
         hit_list = pygame.sprite.spritecollide(self, coins, True)
         for coin in hit_list:
             self.score += coin.value
+            values.game_score += coin.value
             self.coins += 1
             coin.kill()
 
