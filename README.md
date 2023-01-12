@@ -100,10 +100,11 @@ pip install pyinstaller
 
 # Testing
 
-***TO BE DONE LATER***
-
-In 492 you will write automated tests. When you do you will need to add a 
-section that explains how to run them.
+To run tests, simply run
+```
+$ pytest
+``` 
+which will output the test results
 
 The unit tests are in `/test/unit`.
 
@@ -111,15 +112,18 @@ The behavioral tests are in `/test/casper/`.
 
 ## Testing Technology
 
-***TO BE DONE LATER***
-
-In some cases you need to install test runners, etc. Explain how.
+This uses PyTest, which can be installed using
+```
+$ pip install pytest
+```
 
 ## Running Tests
 
-***TO BE DONE LATER***
-
-Explain how to run the automated tests.
+To run tests, simply run
+```
+$ pytest
+``` 
+which will output the test results
 
 # Authors
 
