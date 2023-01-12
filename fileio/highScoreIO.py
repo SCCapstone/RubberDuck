@@ -15,7 +15,11 @@ def load_high_scores():
     if not os.path.exists("fileio\\HighScore.json"):
         high_score_board = []
     else:
-        high_score_board = json.load(open("fileio\\HighScore.json"))
+        try:
+            high_score_board = json.load(open("fileio\\HighScore.json"))
+            high_score_board = checkValid(high_score_board)
+        except:
+            high_score_board = []
 
 
 def save_high_scores():
@@ -33,4 +37,10 @@ def print_high_scores():
 
 
 def get_high_scores():
+    return high_score_board
+
+def checkValid(high_score_board):
+    for i in high_score_board:
+        if len(i) != 3:
+            high_score_board.remove(i)
     return high_score_board
