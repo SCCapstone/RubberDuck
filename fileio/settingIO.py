@@ -3,15 +3,14 @@
 import json
 import pygame
 import shutil
-import os
 import easygui
 import tkinter
+import pygame
+
 from enum import Enum
 from tkinter.filedialog import askopenfilename
-import pygame
-from assets import values
-import tkinter
 from tkinter.filedialog import askdirectory
+from assets import values
 from assets import values
 
 global Player_Name, Master_Volume, Music_Volume
@@ -188,91 +187,32 @@ def check_valid_setting_file(path):
 
         #check valid json file
         data = json.load(open(path))
-        if (data["Player_Name"] == ""):
-            easygui.msgbox("Invalid File", "Error")
-        if (data["Volume"] < 0 or data["Volume"] > 100):
-            easygui.msgbox("Invalid File - Volume Invalid Value (Range 1-100)",
-                           "Error")
-        if (data["Music"] != True and data["Music"] != False):
-            easygui.msgbox(
-                "Invalid File - Music Invalid Value (TRUE or FALSE)", "Error")
-        if (data["Sound_Effect"] != True and data["Sound_Effect"] != False):
-            easygui.msgbox(
-                "Invalid File - Sound_Effect Invalid Value (TRUE or FALSE)",
-                "Error")
-        if (type(data["Keymap_Left"]) != int):
-            easygui.msgbox(
-                "Invalid File - Keymap_Left Invalid Value (Integer)", "Error")
-        if (type(data["Keymap_Right"]) != int):
-            easygui.msgbox(
-                "Invalid File - Keymap_Right Invalid Value (Integer)", "Error")
-        if (type(data["Keymap_Up"]) != int):
-            easygui.msgbox("Invalid File - Keymap_Up Invalid Value (Integer)",
-                           "Error")
-        if (type(data["Keymap_Down"]) != int):
-            easygui.msgbox(
-                "Invalid File - Keymap_Down Invalid Value (Integer)", "Error")
-        if (type(data["Keymap_Primary_Fire"]) != int):
-            easygui.msgbox(
-                "Invalid File - Keymap_Primary_Fire Invalid Value (Integer)",
-                "Error")
-        if (type(data["Keymap_Secondary_Fire"]) != int):
-            easygui.msgbox(
-                "Invalid File - Keymap_Secondary_Fire Invalid Value (Integer)",
-                "Error")
-        if (type(data["Keymap_Dash"]) != int):
-            easygui.msgbox(
-                "Invalid File - Keymap_Dash Invalid Value (Integer)", "Error")
-        if (type(data["Keymap_Pause"]) != int):
-            easygui.msgbox(
-                "Invalid File - Keymap_Pause Invalid Value (Integer)", "Error")
-        if (data["Keymap_Left"] == data["Keymap_Right"]
-                or data["Keymap_Left"] == data["Keymap_Up"]
-                or data["Keymap_Left"] == data["Keymap_Down"]
-                or data["Keymap_Left"] == data["Keymap_Primary_Fire"]
-                or data["Keymap_Left"] == data["Keymap_Secondary_Fire"]
-                or data["Keymap_Left"] == data["Keymap_Dash"]
-                or data["Keymap_Left"] == data["Keymap_Pause"]):
-            easygui.msgbox(
-                "Invalid File - Keymap_Left Invalid Value (Duplicate)",
-                "Error")
-        if (data["Keymap_Right"] == data["Keymap_Up"]
-                or data["Keymap_Right"] == data["Keymap_Down"]
-                or data["Keymap_Right"] == data["Keymap_Primary_Fire"]
-                or data["Keymap_Right"] == data["Keymap_Secondary_Fire"]
-                or data["Keymap_Right"] == data["Keymap_Dash"]
-                or data["Keymap_Right"] == data["Keymap_Pause"]):
-            easygui.msgbox(
-                "Invalid File - Keymap_Right Invalid Value (Duplicate)",
-                "Error")
-        if (data["Keymap_Up"] == data["Keymap_Down"]
-                or data["Keymap_Up"] == data["Keymap_Primary_Fire"]
-                or data["Keymap_Up"] == data["Keymap_Secondary_Fire"]
-                or data["Keymap_Up"] == data["Keymap_Dash"]
-                or data["Keymap_Up"] == data["Keymap_Pause"]):
-            easygui.msgbox(
-                "Invalid File - Keymap_Up Invalid Value (Duplicate)", "Error")
-        if (data["Keymap_Down"] == data["Keymap_Primary_Fire"]
-                or data["Keymap_Down"] == data["Keymap_Secondary_Fire"]
-                or data["Keymap_Down"] == data["Keymap_Dash"]
-                or data["Keymap_Down"] == data["Keymap_Pause"]):
-            easygui.msgbox(
-                "Invalid File - Keymap_Down Invalid Value (Duplicate)",
-                "Error")
-        if (data["Keymap_Primary_Fire"] == data["Keymap_Secondary_Fire"]
-                or data["Keymap_Primary_Fire"] == data["Keymap_Dash"]
-                or data["Keymap_Primary_Fire"] == data["Keymap_Pause"]):
-            easygui.msgbox(
-                "Invalid File - Keymap_Primary_Fire Invalid Value (Duplicate)",
-                "Error")
-        if (data["Keymap_Secondary_Fire"] == data["Keymap_Dash"]
-                or data["Keymap_Secondary_Fire"] == data["Keymap_Pause"]):
-            easygui.msgbox(
-                "Invalid File - Keymap_Secondary_Fire Invalid Value (Duplicate)",
-                "Error")
-        if (data["Keymap_Dash"] == data["Keymap_Pause"]):
-            easygui.msgbox(
-                "Invalid File - Keymap_Dash Invalid Value (Duplicate)",
-                "Error")
+        if (data["Player_Name"] == "" or data["Player_Name"].length() > 10):
+            easygui.msgbox("Invalid Player Name", "Error")
+        if (data["Master_Volume"] < 0 or data["Master_Volume"] > 100):
+            easygui.msgbox("Invalid Master Volume", "Error")
+        if (data["Music_Volume"] < 0 or data["Music_Volume"] > 100):
+            easygui.msgbox("Invalid Music Volume", "Error")
+        if (data["SFX_Volume"] < 0 or data["SFX_Volume"] > 100):
+            easygui.msgbox("Invalid SFX Volume", "Error")
+        if (data["Difficulty"] != "Easy" and data["Difficulty"] != "Medium" and data["Difficulty"] != "Hard"):
+            easygui.msgbox("Invalid Difficulty", "Error")
+        if (data["Keymap_Left"] is not int):
+            easygui.msgbox("Invalid Keymap Left", "Error")
+        if (data["Keymap_Right"] is not int):
+            easygui.msgbox("Invalid Keymap Right", "Error")
+        if (data["Keymap_Up"] is not int):
+            easygui.msgbox("Invalid Keymap Up", "Error")
+        if (data["Keymap_Down"] is not int):
+            easygui.msgbox("Invalid Keymap Down", "Error")
+        if (data["Keymap_Primary_Fire"] is not int):
+            easygui.msgbox("Invalid Keymap Primary Fire", "Error")
+        if (data["Keymap_Secondary_Fire"] is not int):
+            easygui.msgbox("Invalid Keymap Secondary Fire", "Error")
+        if (data["Keymap_Dash"] is not int):
+            easygui.msgbox("Invalid Keymap Dash", "Error")
+        if (data["Keymap_Pause"] is not int):
+            easygui.msgbox("Invalid Keymap Pause", "Error")
+
     except:
         easygui.msgbox("Invalid File", "Error")
