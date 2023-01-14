@@ -59,3 +59,22 @@ def save_stats():
 
     with open("fileio\\stats.json", "w") as f:
         json.dump(data, f, indent=4)
+
+def postgame_update(game):
+    # Game Format is [Distance, Time, Points, Currency, Enemies, Spaceships, Meteroids, Currency]
+    global distanceTravelled, totalGamesPlayed, totalGameTime
+    global enemyDefeated, spaceshipKills, meteroidKills
+    global allTimeCurrency, averageGameTime, averagePoints
+
+    totalGamesPlayed += 1
+    totalGameTime += game[1]
+    averageGameTime = totalGameTime / totalGamesPlayed
+    averagePoints = ((averagePoints*totalGamesPlayed) + game[2]) / totalGamesPlayed
+    distanceTravelled += game[0]
+    enemyDefeated += game[4]
+    spaceshipKills += game[5]
+    meteroidKills += game[6]
+    allTimeCurrency += game[7]
+    save_stats()
+    
+    
