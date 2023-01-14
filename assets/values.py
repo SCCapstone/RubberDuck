@@ -10,6 +10,7 @@ COLOR_Yellow = (233, 215, 88)
 COLOR_Orange = (175, 67, 25)
 COLOR_Red = (119, 32, 20)
 COLOR_White = (255, 255, 255)
+COLOR_Black = (0, 0, 0)
 
 # Fonts
 FONT_Ethnocentric = os.path.join("assets", "fonts", "Ethnocentric.ttf")
