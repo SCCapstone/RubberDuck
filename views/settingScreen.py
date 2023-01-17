@@ -113,7 +113,7 @@ def settings_screen(noises):
     # TODO - Add special coloring for current difficulty (new color or just yellow?)
     # Difficulty Settings
     # Easy setting
-    
+
     ## put easy, medium, hard text after difficulty_image
     easydifficultySettingCords = (left + 30 + widthButton,
                                   screen.get_height() / 16 * 7)
@@ -128,16 +128,17 @@ def settings_screen(noises):
     else:
         easy_image = subtitleFont.render("Easy", True, values.COLOR_Purple)
     screen.blit(easy_image, easydifficultySettingCords)
-    
+
     # Dash between easy and medium
     dash_image = subtitleFont.render("/", True, values.COLOR_Purple)
     dash_width = dash_image.get_width()
-    dashCords = (left + 30 + widthButton + easy_image_width+10,
-                    screen.get_height() / 16 * 7)
+    dashCords = (left + 30 + widthButton + easy_image_width + 10,
+                 screen.get_height() / 16 * 7)
     screen.blit(dash_image, dashCords)
 
     # Put to right of easy
-    mediumdifficultySettingCords = (left + 30 + widthButton + easy_image_width + 10 + dash_width + 10,
+    mediumdifficultySettingCords = (left + 30 + widthButton +
+                                    easy_image_width + 10 + dash_width + 10,
                                     screen.get_height() / 16 * 7)
     medium_image = subtitleFont.render("Medium", True, values.COLOR_Red)
     medium_image_width = medium_image.get_width()
@@ -148,15 +149,18 @@ def settings_screen(noises):
     else:
         medium_image = subtitleFont.render("Medium", True, values.COLOR_Purple)
     screen.blit(medium_image, mediumdifficultySettingCords)
-    
+
     dash_image2 = subtitleFont.render("/", True, values.COLOR_Purple)
-    dashCords2 = (left + 30 + widthButton + easy_image_width + 10 + dash_width + 10 + medium_image_width + 10,
-                    screen.get_height() / 16 * 7)
+    dashCords2 = (left + 30 + widthButton + easy_image_width +
+                  10 + dash_width + 10 + medium_image_width + 10,
+                  screen.get_height() / 16 * 7)
     screen.blit(dash_image2, dashCords2)
-    
+
     # Put to right of medium
-    harddifficultySettingCords = (left + 30 + widthButton + easy_image_width + 10 + dash_width + 10 + medium_image_width + 10 + dash_width + 10,
-                                    screen.get_height() / 16 * 7)
+    harddifficultySettingCords = (left + 30 + widthButton + easy_image_width +
+                                  10 + dash_width + 10 +
+                                  medium_image_width + 10 + dash_width + 10,
+                                  screen.get_height() / 16 * 7)
     hard_image = subtitleFont.render("Hard", True, values.COLOR_Red)
     if settingIO.DifficultyLevel is settingIO.difficulty.HARD:
         pass
@@ -165,7 +169,7 @@ def settings_screen(noises):
     else:
         hard_image = subtitleFont.render("Hard", True, values.COLOR_Purple)
     screen.blit(hard_image, harddifficultySettingCords)
-    
+
     # Coordinates for back button
     homeCords = (values.screenX * .0065, values.screenY * .011)
     if pygame.mouse.get_pos()[0] > homeCords[0] and pygame.mouse.get_pos(
@@ -175,8 +179,10 @@ def settings_screen(noises):
     else:
         SR_text_image = titleFont.render("HOME", True, values.COLOR_Pink)
     screen.blit(SR_text_image, (homeCords[0], homeCords[1]))
-    
-    homeBox = pygame.Rect(homeCords[0], homeCords[1], SR_text_image.get_width(), SR_text_image.get_height())
+
+    homeBox = pygame.Rect(homeCords[0],
+                          homeCords[1], SR_text_image.get_width(),
+                          SR_text_image.get_height())
 
     # Add 2 centered buttons
     importCords = (left + ((right - left) / 2) - widthButton - 10,
@@ -373,8 +379,9 @@ def checkDifCords(cords, image):
     Returns:
         boolean: true if clicked, false if not
     """
-    return pygame.mouse.get_pos()[0] > cords[0] and pygame.mouse.get_pos()[0] < cords[0] + image.get_width() and pygame.mouse.get_pos()[1] > cords[1] and pygame.mouse.get_pos()[1] < cords[1] + image.get_height()
-
+    return pygame.mouse.get_pos()[0] > cords[0] and pygame.mouse.get_pos(
+    )[0] < cords[0] + image.get_width() and pygame.mouse.get_pos()[1] > cords[
+        1] and pygame.mouse.get_pos()[1] < cords[1] + image.get_height()
 
 
 def checkSliderCords(left, factor, image, screen, range, height):

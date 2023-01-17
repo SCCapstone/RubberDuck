@@ -129,7 +129,7 @@ def load_default_settings():
     Master_Volume = 100
     Music_Volume = 100
     SFX_Volume = 100
-    Difficulty = difficulty.EASY
+    DifficultyLevel = difficulty.EASY
     Keymap_Left = pygame.K_a
     Keymap_Right = pygame.K_d
     Keymap_Up = pygame.K_w
@@ -172,9 +172,8 @@ def export_settings():
     shutil.copy("fileio\\UserSetting.json", path)
 
     #display banner message
-    easygui.msgbox(
-        "UserSetting.json has been exported to" + str(path), 
-        "Export Successful")
+    easygui.msgbox("UserSetting.json has been exported to" + str(path),
+                   "Export Successful")
 
 
 def check_valid_setting_file(path):
@@ -195,7 +194,8 @@ def check_valid_setting_file(path):
             easygui.msgbox("Invalid Music Volume", "Error")
         if (data["SFX_Volume"] < 0 or data["SFX_Volume"] > 100):
             easygui.msgbox("Invalid SFX Volume", "Error")
-        if (data["Difficulty"] != "Easy" and data["Difficulty"] != "Medium" and data["Difficulty"] != "Hard"):
+        if (data["Difficulty"] != "Easy" and data["Difficulty"] != "Medium"
+                and data["Difficulty"] != "Hard"):
             easygui.msgbox("Invalid Difficulty", "Error")
         if (data["Keymap_Left"] is not int):
             easygui.msgbox("Invalid Keymap Left", "Error")
@@ -216,3 +216,6 @@ def check_valid_setting_file(path):
 
     except:
         easygui.msgbox("Invalid File", "Error")
+
+def get_username():
+    return Player_Name

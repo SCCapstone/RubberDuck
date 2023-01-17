@@ -39,6 +39,7 @@ def print_high_scores():
 def get_high_scores():
     return high_score_board
 
+
 def checkValid(high_score_board):
     for i in high_score_board:
         if len(i) != 3:
