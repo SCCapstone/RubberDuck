@@ -105,7 +105,8 @@ def start_screen(noises):
                                                    screen.get_height() / 2))
     screen.blit(score_text_image, scoreCords)
 
-    score_val = titleFont.render(str(values.game_score), True, values.COLOR_Red)
+    score_val = titleFont.render(str(values.game_score), True,
+                                 values.COLOR_Red)
     scoreValCords = score_val.get_rect(center=(button1.left / 2,
                                                scoreCords.bottom + 50))
     screen.blit(score_val, scoreValCords)

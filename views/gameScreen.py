@@ -5,6 +5,8 @@ import os
 import menuStructure as menuS
 import main as main
 from assets import values
+from fileio import settingIO    
+from fileio import statsIO
 #import menuStructure as menuS
 
 GRID_SIZE = 64
@@ -169,6 +171,7 @@ class Duck(Entity):
         self.score = 0
         self.coins = 0
         values.resetGameScore()
+        values.resetCoinsinGame()
 
         self.activePowerups = []
 
@@ -244,6 +247,7 @@ class Duck(Entity):
             self.score += coin.value
             values.game_score += coin.value
             self.coins += 1
+            values.coins_in_game += 1
             coin.kill()
 
     def processPowerups(self, powerups):
@@ -591,8 +595,10 @@ class Game():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                create_log()
                 menuS.menu.QUIT
                 main.quit_game()
+                
 
             if event.type == pygame.KEYDOWN and self.stage == Game.PLAYING:
 
@@ -606,6 +612,7 @@ class Game():
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_r:
                     self.reset()
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_q:
+                    create_log()
                     menuS.set_game_menu(menuS.menu.HOME)
                     main.main()
             elif self.stage == Game.SPLASH:
@@ -616,6 +623,7 @@ class Game():
             elif self.stage == Game.GAME_OVER:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
+                        create_log()
                         menuS.set_game_menu(menuS.menu.HOME)
                         main.main()
 
@@ -658,6 +666,7 @@ class Game():
                 "PAUSED",
                 "'ESC' to resume. 'R' to restart. 'Q' to quit to menu.")
         elif self.stage == Game.GAME_OVER:
+            create_log()
             menuS.set_game_menu(menuS.menu.GAMEOVER)
             main.main()
 
@@ -678,3 +687,9 @@ def gameScreen():
     game.loop()
     #pygame.quit()
     #sys.exit()
+
+def create_log():
+    # Game Format is [Distance, Time, Points, Currency, Enemies, Spaceships, Meteroids]
+    game = [1, 1, values.game_score, values.coins_in_game, 1, 1, 1, 1, 1, 1]
+    statsIO.postgame_update(game)
+    statsIO.create_game_log(game)

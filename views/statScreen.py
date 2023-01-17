@@ -7,7 +7,7 @@ import os
 from fileio import statsIO
 from fileio import settingIO
 import time
-import tkinter 
+import tkinter
 from tkinter.filedialog import askdirectory
 import easygui
 
@@ -20,7 +20,7 @@ def start_screen(noises):
     """
     # Set the background to main.jpg
     screen = pygame.display.get_surface()
-    
+
     left, right, subtitleFont = screen_no_button(screen)
     # Make cordinates for 3 inline buttons
     widthButton = (right - left - 40) / 3
@@ -86,14 +86,15 @@ def start_screen(noises):
             if event.key == pygame.K_ESCAPE:
                 menuS.set_game_menu(menuS.menu.QUIT)
 
+
 def shareStats(screen):
     #Clear screen
-    filestring =  "stat-" + time.strftime("%Y%m%d-%H%M%S") + ".png"
+    filestring = "stat-" + time.strftime("%Y%m%d-%H%M%S") + ".png"
     # Get Path to save file
     root = tkinter.Tk()
     root.withdraw()
     pygame.display.set_mode(values.SCREEN_SIZE)
-    
+
     root.update()
     #make copy of UserSetting.json and move it to desktop
     #get document path
@@ -101,26 +102,29 @@ def shareStats(screen):
     path = path + "/" + filestring
     screen.fill(values.COLOR_Black)
     screen_no_button(screen)
-    
+
     # Put Username where button was
     username = settingIO.Player_Name
     usernameFont = pygame.font.Font(
         os.path.join("assets", "fonts", "Ethnocentric.ttf"),
         int(values.screenX * .03))
     print(username)
-    username_text_image = usernameFont.render(username, True, values.COLOR_Purple)
+    username_text_image = usernameFont.render(username, True,
+                                              values.COLOR_Purple)
     #center text wifth screen
-    
-    screen.blit(username_text_image, (screen.get_width()/2 - username_text_image.get_width()/2, screen.get_height() / 16 * 13.5))
-    pygame.image.save(screen, path)
-    easygui.msgbox("Your stats have been saved to "+path, title="Stats Saved")
-    
 
-    
+    screen.blit(username_text_image,
+                (screen.get_width() / 2 - username_text_image.get_width() / 2,
+                 screen.get_height() / 16 * 13.5))
+    pygame.image.save(screen, path)
+    easygui.msgbox("Your stats have been saved to " + path,
+                   title="Stats Saved")
+
+
 def screen_no_button(screen):
     background = pygame.image.load(
         os.path.join("assets", "backgrounds", "tertiary.jpg"))
-    
+
     # scale the background to the screen size
     background = pygame.transform.scale(
         background, (screen.get_width(), screen.get_height()))
@@ -211,10 +215,12 @@ def screen_no_button(screen):
         str(statsIO.meteroidKills), True, values.COLOR_Red)
     ValAllTimeCurrency_text_image = subtitleFont.render(
         str(statsIO.allTimeCurrency), True, values.COLOR_Red)
+    rounded_average_time = round(statsIO.averageGameTime, 2)
     ValAverageGameTime_text_image = subtitleFont.render(
-        str(statsIO.averageGameTime), True, values.COLOR_Red)
+        str(rounded_average_time), True, values.COLOR_Red)
+    rounded_average_points = round(statsIO.averagePoints, 2)
     ValAveragePoints_text_image = subtitleFont.render(
-        str(statsIO.averagePoints), True, values.COLOR_Red)
+        str(rounded_average_points), True, values.COLOR_Red)
 
     # Draw to screen RIGHT of STAT lines with 10 buffer on right side
     screen.blit(Valdist_text_image,
