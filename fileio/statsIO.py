@@ -89,7 +89,7 @@ def create_game_log(game):
         game_log = {}
         game_log["user"] = settingIO.get_username()
         game_log["date"] = time.strftime("%Y%m%d-%H%M%S")
-        game_log["difficulty"] = settingIO.get_difficulty()
+        game_log["difficulty"] = settingIO.DifficultyLevel
         game_log["distance"] = game[0]
         game_log["time"] = game[1]
         game_log["points"] = game[2]
@@ -98,7 +98,6 @@ def create_game_log(game):
         game_log["spaceships"] = game[5]
         game_log["meteroids"] = game[6]
         
-        #append to file
-        f.write(json.dumps(game_log, indent=4))
-        f.close()
+        #append to the game_log.txt file
+        f.write
 
