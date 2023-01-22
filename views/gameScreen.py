@@ -1,12 +1,15 @@
+import datetime
 import pygame
 import random
 import math
 import os
 import menuStructure as menuS
 import main as main
+import time
 from assets import values
 from fileio import settingIO    
 from fileio import statsIO
+from fileio import highScoreIO
 #import menuStructure as menuS
 
 GRID_SIZE = 64
@@ -595,7 +598,7 @@ class Game():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                create_log()
+                end_game_process()
                 menuS.menu.QUIT
                 main.quit_game()
                 
@@ -612,7 +615,7 @@ class Game():
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_r:
                     self.reset()
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_q:
-                    create_log()
+                    end_game_process()
                     menuS.set_game_menu(menuS.menu.HOME)
                     main.main()
             elif self.stage == Game.SPLASH:
@@ -623,7 +626,7 @@ class Game():
             elif self.stage == Game.GAME_OVER:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
-                        create_log()
+                        end_game_process()
                         menuS.set_game_menu(menuS.menu.HOME)
                         main.main()
 
@@ -666,7 +669,7 @@ class Game():
                 "PAUSED",
                 "'ESC' to resume. 'R' to restart. 'Q' to quit to menu.")
         elif self.stage == Game.GAME_OVER:
-            create_log()
+            end_game_process()
             menuS.set_game_menu(menuS.menu.GAMEOVER)
             main.main()
 
@@ -688,8 +691,11 @@ def gameScreen():
     #pygame.quit()
     #sys.exit()
 
-def create_log():
+def end_game_process():
     # Game Format is [Distance, Time, Points, Currency, Enemies, Spaceships, Meteroids]
     game = [1, 1, values.game_score, values.coins_in_game, 1, 1, 1, 1, 1, 1]
     statsIO.postgame_update(game)
     statsIO.create_game_log(game)
+    day = datetime.datetime.now().strftime("%d/%m/%Y")
+    score = [settingIO.Player_Name, values.game_score, day]
+    highScoreIO.check_for_high_score(score)

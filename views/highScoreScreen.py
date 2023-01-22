@@ -5,6 +5,7 @@ from assets import values
 import menuStructure as menuS
 import os
 from fileio import highScoreIO
+import pandas as pd
 
 #from fileio import highScoreIO
 
@@ -94,16 +95,31 @@ def write_scores_text(subtitleFont, left, right, screen):
         right (float): right cordinate for box
         screen (Surface): pygame surface to draw on
     """
-    for i in highScoreIO.high_score_board:
-        # Positon an Name on Left
-        left_hs_text_image = subtitleFont.render(str(i[0]), True,
-                                                 values.COLOR_Purple)
-        left_2_hs_text_image = subtitleFont.render((i[1]), True,
-                                                   values.COLOR_Purple)
-        center_hs_text_image = subtitleFont.render(str(i[2]), True,
-                                                   values.COLOR_Purple)
-        right_hs_text_image = subtitleFont.render(i[3], True,
-                                                  values.COLOR_Purple)
+    # high score board is pd.DataFrame
+    # columns are: name, score, date
+    # index is 0-9
+    #get length of high score board
+    length = len(highScoreIO.high_score_board)
+    for i in range(length):
+        # Put 1-10 in left column
+        left_hs_text_image = subtitleFont.render(
+            str(i + 1) + ".", True, values.COLOR_Purple)
+        # Put name in middle column
+        left_2_hs_text_image = subtitleFont.render(
+            highScoreIO.high_score_board.iloc[i, 0], True, values.COLOR_Purple)
+        # Put score in center column
+        center_hs_text_image = subtitleFont.render(
+            str(highScoreIO.high_score_board.iloc[i, 1]), True,
+            values.COLOR_Purple)
+        
+        # Put date in right column
+        # remove 00:00:00 from date
+        date = str(highScoreIO.high_score_board.iloc[i, 2])
+        date = date[:10]
+
+        right_hs_text_image = subtitleFont.render(
+            str(date), True, values.COLOR_Purple)
+
 
         widthOfLeft = left_hs_text_image.get_width() / 2
         widthOfLeftHalf2 = left_2_hs_text_image.get_width() / 2
