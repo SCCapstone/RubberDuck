@@ -6,11 +6,12 @@ import shutil
 import easygui
 import tkinter
 import pygame
+import os
+import sys
 
 from enum import Enum
 from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import askdirectory
-from assets import values
 from assets import values
 
 global Player_Name, Master_Volume, Music_Volume
