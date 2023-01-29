@@ -43,7 +43,7 @@ Other Packages used (most likely already installed with Python 3.6.5):
 * datetime `pip install datetime`
 * json `pip install json`
 * (TESTING ONLY) pytest `pip install pytest`
-* (TESTING ONLY) `pip pytest-bdd`
+* (TESTING ONLY) pytest bdd `pip install pytest-bdd`
 
 ## Style Guide
 We will be PEP8 Style Guide for Python. You can find the style guide here: https://www.python.org/dev/peps/pep-0008/
@@ -105,7 +105,7 @@ In order to run tests you must have `pytest` and `pytest-bdd` installed
 
 To Install:
 * pytest `pip install pytest`
-* pytest bdd `pip pytest-bdd`
+* pytest bdd `pip install pytest-bdd`
 
 To run tests, simply run
 ```
