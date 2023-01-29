@@ -42,7 +42,8 @@ Other Packages used (most likely already installed with Python 3.6.5):
 * pygame_menu `pip install pygame_menu`
 * datetime `pip install datetime`
 * json `pip install json`
-
+* (TESTING ONLY) pytest `pip install pytest`
+* (TESTING ONLY) `pip pytest-bdd`
 
 ## Style Guide
 We will be PEP8 Style Guide for Python. You can find the style guide here: https://www.python.org/dev/peps/pep-0008/
@@ -100,15 +101,19 @@ pip install pyinstaller
 
 # Testing
 
+In order to run tests you must have `pytest` and `pytest-bdd` installed
+
+To Install:
+* pytest `pip install pytest`
+* pytest bdd `pip pytest-bdd`
+
 To run tests, simply run
 ```
 $ pytest
 ``` 
 which will output the test results
 
-The unit tests are in `/test/unit`.
-
-The behavioral tests are in `/test/casper/`.
+The unit tests and behavioral are all in the test folder. They are labeled behavioral after test.
 
 ## Testing Technology
 
