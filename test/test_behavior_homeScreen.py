@@ -28,7 +28,7 @@ def test_click_StartGame():
    
     print(pygame.display.get_surface().get_size()[0], pygame.display.get_surface().get_size()[1])
     # move mouse to start game button
-    pygame.mouse.set_pos(values.screenX*300, values.screenY*.765)
+    pygame.mouse.set_pos(values.screenX*.300, values.screenY*.765)
     print(pygame.mouse.get_pos())
 
     homeScreen.check_click(.253, .498, .761, .797, soundHandler.SFXHandler(), menuS.menu.GAME)
