@@ -101,3 +101,18 @@ def create_game_log(game):
         #append to the game_log.txt file
         f.write
 
+def reset_stats():
+    global distanceTravelled, totalGamesPlayed, totalGameTime
+    global enemyDefeated, spaceshipKills, meteroidKills
+    global allTimeCurrency, averageGameTime, averagePoints
+    
+    distanceTravelled = 0
+    totalGamesPlayed = 0
+    totalGameTime = 0
+    enemyDefeated = 0
+    spaceshipKills = 0
+    meteroidKills = 0
+    allTimeCurrency = 0
+    averageGameTime = 0
+    averagePoints = 0
+    save_stats()
