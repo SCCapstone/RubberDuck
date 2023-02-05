@@ -47,6 +47,8 @@ def check_for_high_score(score):
         add_new_high_score(score)
     else:
         if score[1] > high_score_board.iloc[-1]["Score"]:
+            #adjust date to MM/DD/YYYY
+            score[2] = score[2].strftime("%m/%d/%Y")
             add_new_high_score(score)
     
 def add_new_high_score(score):
