@@ -189,9 +189,10 @@ def settings_screen(noises):
      )[0] < awsd_Cords[0] + 150 and pygame.mouse.get_pos(
      )[1] > awsd_Cords[1] and pygame.mouse.get_pos(
      )[1] < awsd_Cords[1] + 30:
-         awsd_image = subtitleFont.render(
+        awsd_image = subtitleFont.render(
              "AWSD", True, values.COLOR_Yellow)
-         awsd_image = subtitleFont.render(
+    else:
+        awsd_image = subtitleFont.render(
              "AWSD", True, values.COLOR_Purple)
     screen.blit(awsd_image, awsd_Cords)
      # Slash after AWSD
@@ -317,11 +318,11 @@ def settings_screen(noises):
                      gameScreen.RIGHT = pygame.K_d
                      gameScreen.UP = pygame.K_w
                      gameScreen.DOWN = pygame.K_s
-                 #key mapping (NOT WORKING YET)
-                elif checkCords(arrow_Cords, 300):
-                     noises.playSound("quack")
                 elif checkSliderCords(left, 30, master_volume_image, screen,
                                       masterValRange, 3.95):
+                    noises.playSound("quack")
+                #key mapping (NOT WORKING YET)
+                elif checkCords(arrow_Cords, 300):
                     noises.playSound("quack")
                     #settingIO.KeyMap_Left = pygame.K_LEFT
                     #settingIO.KeyMap_Right = pygame.K_RIGHT
