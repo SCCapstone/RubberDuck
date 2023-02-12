@@ -5,7 +5,7 @@ from assets import values
 import menuStructure as menuS
 import os
 from fileio import settingIO
-
+from views import gameScreen
 #from fileio import settingIO
 global active
 active = False
@@ -169,6 +169,55 @@ def settings_screen(noises):
     else:
         hard_image = subtitleFont.render("Hard", True, values.COLOR_Purple)
     screen.blit(hard_image, harddifficultySettingCords)
+    
+    #KeyMapping
+    key_image = subtitleFont.render("Key Mapping:", True,
+                                            values.COLOR_Purple)
+    key_Cords = (left + 10, screen.get_height() / 16 * 8)
+    screen.blit(key_image, key_Cords)
+
+    # AWSD setting
+    awsd_Cords = (left + 60 + widthButton,
+                                   screen.get_height() / 16 * 8)
+    # Highlighting AWSD
+    #if settingIO.Keymap_Left == pygame.K_a:
+    if gameScreen.LEFT == pygame.K_a:
+        awsd_image = subtitleFont.render(
+            "AWSD", True, values.COLOR_Red)
+    elif pygame.mouse.get_pos(
+     )[0] > awsd_Cords[0] and pygame.mouse.get_pos(
+     )[0] < awsd_Cords[0] + 150 and pygame.mouse.get_pos(
+     )[1] > awsd_Cords[1] and pygame.mouse.get_pos(
+     )[1] < awsd_Cords[1] + 30:
+         awsd_image = subtitleFont.render(
+             "AWSD", True, values.COLOR_Yellow)
+         awsd_image = subtitleFont.render(
+             "AWSD", True, values.COLOR_Purple)
+    screen.blit(awsd_image, awsd_Cords)
+     # Slash after AWSD
+    slash_awsd_image = subtitleFont.render("/", True, values.COLOR_Purple)
+    slashAWSD = (awsd_Cords[0] + 150,
+                      screen.get_height() / 16 * 8)
+    screen.blit(slash_awsd_image, slashAWSD)
+     # Arrow keys setting
+    arrow_Cords = (slashAWSD[0] + 20,
+                                     screen.get_height() / 16 * 8)
+     # Highlighting Arrow Keys
+     #if settingIO.Keymap_Left == pygame.K_LEFT:
+    if gameScreen.LEFT == pygame.K_LEFT:
+         arrows_image = subtitleFont.render(
+             "Arrow Keys", True, values.COLOR_Red)
+    elif pygame.mouse.get_pos(
+     )[0] > arrow_Cords[0] and pygame.mouse.get_pos(
+     )[0] < arrow_Cords[0] + 300 and pygame.mouse.get_pos(
+     )[1] > arrow_Cords[1] and pygame.mouse.get_pos(
+     )[1] < arrow_Cords[1] + 30:
+         arrows_image = subtitleFont.render(
+             "Arrow Keys", True, values.COLOR_Yellow)
+    else:
+         arrows_image = subtitleFont.render(
+             "Arrow Keys", True, values.COLOR_Purple)
+    screen.blit(arrows_image, arrow_Cords)
 
     # Coordinates for back button
     homeCords = (values.screenX * .0065, values.screenY * .011)
@@ -257,9 +306,31 @@ def settings_screen(noises):
                 elif checkDifCords(harddifficultySettingCords, hard_image):
                     noises.playSound("quack")
                     settingIO.DifficultyLevel = settingIO.difficulty.HARD
+                #key mapping (NOT WORKING YET)
+                elif checkCords(awsd_Cords, 150):
+                     noises.playSound("quack")
+                    #settingIO.KeyMap_Left = pygame.K_a
+                     #settingIO.KeyMap_Right = pygame.K_d
+                     #settingIO.KeyMap_Up = pygame.K_w
+                     #settingIO.KeyMap_Down = pygame.K_s
+                     gameScreen.LEFT = pygame.K_a
+                     gameScreen.RIGHT = pygame.K_d
+                     gameScreen.UP = pygame.K_w
+                     gameScreen.DOWN = pygame.K_s
+                 #key mapping (NOT WORKING YET)
+                elif checkCords(arrow_Cords, 300):
+                     noises.playSound("quack")
                 elif checkSliderCords(left, 30, master_volume_image, screen,
                                       masterValRange, 3.95):
                     noises.playSound("quack")
+                    #settingIO.KeyMap_Left = pygame.K_LEFT
+                    #settingIO.KeyMap_Right = pygame.K_RIGHT
+                    #settingIO.KeyMap_Up = pygame.K_UP
+                    #settingIO.KeyMap_Down = pygame.K_DOWN
+                    gameScreen.LEFT = pygame.K_LEFT
+                    gameScreen.RIGHT = pygame.K_RIGHT
+                    gameScreen.UP = pygame.K_UP
+                    gameScreen.DOWN = pygame.K_DOWN
                     newPercent = round_Percent(
                         (pygame.mouse.get_pos()[0] -
                          (left + 30 + master_volume_image.get_width())) /
