@@ -10,6 +10,7 @@ from assets import values
 from fileio import settingIO    
 from fileio import statsIO
 from fileio import highScoreIO
+from views import gameScreen
 #import menuStructure as menuS
 
 GRID_SIZE = 64
@@ -521,6 +522,7 @@ class Game():
     PLAYING = 2
     PAUSED = 3
     GAME_OVER = 4
+    SETTINGS = 5
 
     def __init__(self):
 
@@ -559,6 +561,22 @@ class Game():
 
         SCREEN.blit(line1, (x1, y1))
         SCREEN.blit(line2, (x2, y2))
+        
+    def display_message2(self, text, text2, text3): 
+         line1 = FONT.render(text, 1, WHITE)
+         line2 = FONT_SM.render(text2, 1, WHITE)
+         line3 = FONT_SM.render(text3, 1, WHITE)
+
+         x1 = WIDTH / 2 - line1.get_width() / 2
+         y1 = HEIGHT / 3 - line1.get_height() / 2
+         x2 = WIDTH / 2 - line2.get_width() / 2
+         y2 = y1 + line1.get_height() + 16
+         x3 = WIDTH / 2 - line3.get_width() / 2
+         y3 = y2 + line1.get_height() + 16
+
+         SCREEN.blit(line1, (x1, y1))
+         SCREEN.blit(line2, (x2, y2))
+         SCREEN.blit(line3, (x3, y3))
 
     def display_stats(self):
         scoreLine = FONT_SM.render("Score: " + str(self.duck.score), 1, WHITE)
@@ -614,6 +632,9 @@ class Game():
                     self.stage = Game.PLAYING
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_r:
                     self.reset()
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_s:
+                     #settings pop up and able to change
+                     self.stage = Game.SETTINGS
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_q:
                     end_game_process()
                     menuS.set_game_menu(menuS.menu.HOME)
@@ -623,6 +644,10 @@ class Game():
             elif self.stage == Game.START:
                 if event.type == pygame.KEYDOWN:
                     self.stage = Game.PLAYING
+            elif self.stage == Game.SETTINGS:
+                 #events for in-game settings screen
+                 if event.type == pygame.KEYDOWN and event.key == pygame.K_b:
+                     self.stage = Game.PAUSED
             elif self.stage == Game.GAME_OVER:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
@@ -665,13 +690,19 @@ class Game():
         elif self.stage == Game.START:
             self.display_message("DUCKS IN SPACE!", "Press any key to start!")
         elif self.stage == Game.PAUSED:
-            self.display_message(
+            self.display_message2(
                 "PAUSED",
-                "'ESC' to resume. 'R' to restart. 'Q' to quit to menu.")
+                "'ESC' to resume. 'R' to restart. 'Q' to quit to menu.","'S' to change Settings")
         elif self.stage == Game.GAME_OVER:
             end_game_process()
             menuS.set_game_menu(menuS.menu.GAMEOVER)
             main.main()
+        elif self.stage == Game.SETTINGS:
+                 #display in-game settings Screen
+             self.display_message(
+                 "SETTINGS",
+                 "'B' to go back to pause screen"
+             )
 
         pygame.display.update()
         pygame.display.flip()
