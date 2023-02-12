@@ -11,7 +11,7 @@ import pandas as pd
 
 
 # Runs the high score screen
-def high_score_screen(noises):
+def high_score_screen(noises, gameOver=False, scoreId = -1):
     """summay: running method for screen
 
     Args:
@@ -38,7 +38,11 @@ def high_score_screen(noises):
     titleFont = pygame.font.Font(
         os.path.join("assets", "fonts", "Ethnocentric.ttf"),
         int(values.screenX * .03))
-    title_text_image = titleFont.render("DUCKS IN SPACE", True,
+    if gameOver:
+        title_text_image = titleFont.render("NEW HIGH SCORE", True,
+                                            values.COLOR_Purple)
+    else:
+        title_text_image = titleFont.render("DUCKS IN SPACE", True,
                                         values.COLOR_Purple)
     title_rect = title_text_image.get_rect(center=(screen.get_width() / 2,
                                                    screen.get_height() / 16 *
@@ -58,7 +62,7 @@ def high_score_screen(noises):
     if len(highScoreIO.high_score_board) == 0:
         write_no_high_score(subtitleFont, screen)
     else:
-        write_scores_text(subtitleFont, left, right, screen)
+        write_scores_text(subtitleFont, left, right, screen, gameOver, scoreId)
 
     playAgainCords, homeCords, quitCords, widthButton = draw_buttons(
         screen, right, left, subtitleFont)
@@ -86,7 +90,7 @@ def high_score_screen(noises):
                 menuS.set_game_menu(menuS.menu.QUIT)
 
 
-def write_scores_text(subtitleFont, left, right, screen):
+def write_scores_text(subtitleFont, left, right, screen, gameOver, ScoreId):
     """summary: Prints out all 10 high scores to screen
 
     Args:
@@ -101,16 +105,21 @@ def write_scores_text(subtitleFont, left, right, screen):
     #get length of high score board
     length = len(highScoreIO.high_score_board)
     for i in range(length):
+        Color = values.COLOR_Purple
+        if gameOver and ScoreId == i:
+            Color = values.COLOR_Red
+        if gameOver == False and i < 3:
+            Color = values.COLOR_Red
         # Put 1-10 in left column
         left_hs_text_image = subtitleFont.render(
-            str(i + 1) + ".", True, values.COLOR_Purple)
+            str(i + 1) + ".", True, Color)
         # Put name in middle column
         left_2_hs_text_image = subtitleFont.render(
-            highScoreIO.high_score_board.iloc[i, 0], True, values.COLOR_Purple)
+            highScoreIO.high_score_board.iloc[i, 0], True, Color)
         # Put score in center column
         center_hs_text_image = subtitleFont.render(
             str(highScoreIO.high_score_board.iloc[i, 1]), True,
-            values.COLOR_Purple)
+            Color)
         
         # Put date in right column
         # remove 00:00:00 from date
@@ -118,7 +127,7 @@ def write_scores_text(subtitleFont, left, right, screen):
         date = date[:10]
 
         right_hs_text_image = subtitleFont.render(
-            str(date), True, values.COLOR_Purple)
+            str(date), True, Color)
 
 
         widthOfLeft = left_hs_text_image.get_width() / 2

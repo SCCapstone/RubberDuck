@@ -3,6 +3,7 @@
 import json
 import os
 import pandas as pd
+import menuStructure as menuS
 
 global high_score_board
 
@@ -56,5 +57,7 @@ def add_new_high_score(score):
     high_score_board = high_score_board.append(pd.DataFrame([score], columns=["Player_Name", "Score", "Date"]))
     high_score_board = high_score_board.sort_values(by=["Score"], ascending=False)
     high_score_board = high_score_board.reset_index(drop=True)
+    menuS.set_game_menu(menuS.menu.HIGH_SCORE, True)
+    
     save_high_scores()
     

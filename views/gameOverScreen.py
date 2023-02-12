@@ -84,7 +84,7 @@ def start_screen(noises):
                                                        button2.centery))
     screen.blit(newGame_text_image, newGameCords)
 
-    shareHighScore_text_image = subtitleFont.render("Share High Score", True,
+    shareHighScore_text_image = subtitleFont.render("Share Score", True,
                                                     values.COLOR_Purple)
 
     #Center on button
