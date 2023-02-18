@@ -58,10 +58,12 @@ def setGameScore(score):
 def resetGameScore():
     global game_score
     game_score = 0
-    
+
+
 def setCoinsinGame(coins):
     global coins_in_game
     coins_in_game = coins
+
 
 def resetCoinsinGame():
     global coins_in_game

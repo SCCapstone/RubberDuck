@@ -1,9 +1,10 @@
 import sys
+
 sys.path.append('..')
-import pygame
 import os
 
 from fileio import statsIO
+
 
 def test_load_stats():
     statsIO.reset_stats()
@@ -17,11 +18,13 @@ def test_load_stats():
     assert statsIO.allTimeCurrency == 0
     assert statsIO.averageGameTime == 0
     assert statsIO.averagePoints == 0
-    
+
+
 def test_save_stats():
     statsIO.save_stats
     assert os.path.exists("fileio\\stats.json")
-    
+
+
 def test_postgame_update():
     statsIO.reset_stats()
     statsIO.postgame_update([100, 100, 100, 100, 100, 100, 100, 100])
@@ -35,7 +38,7 @@ def test_postgame_update():
     assert statsIO.averageGameTime == 100
     assert statsIO.averagePoints == 100
 
-    
+
 def test_reset_stats():
     statsIO.reset_stats()
     assert statsIO.distanceTravelled == 0
@@ -47,4 +50,3 @@ def test_reset_stats():
     assert statsIO.allTimeCurrency == 0
     assert statsIO.averageGameTime == 0
     assert statsIO.averagePoints == 0
-

@@ -6,8 +6,6 @@ import shutil
 import easygui
 import tkinter
 import pygame
-import os
-import sys
 
 from enum import Enum
 from tkinter.filedialog import askopenfilename
@@ -169,6 +167,9 @@ def export_settings():
     #make copy of UserSetting.json and move it to desktop
     #get document path
     path = askdirectory()
+    if (path == ""):
+        easygui.msgbox("Invalid File", "Error")
+        return
     path = path + "\\UserSetting.json"
     shutil.copy("fileio\\UserSetting.json", path)
 
@@ -217,6 +218,7 @@ def check_valid_setting_file(path):
 
     except:
         easygui.msgbox("Invalid File", "Error")
+
 
 def get_username():
     return Player_Name

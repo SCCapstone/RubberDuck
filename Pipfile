@@ -17,6 +17,8 @@ pygame-widgets = "*"
 pytest = "*"
 opencv-python = "*"
 pyperclip = "*"
+datetime = "*"
+pandas = "*"
 
 [dev-packages]
 

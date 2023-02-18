@@ -1,8 +1,10 @@
 import sys
+
 sys.path.append('..')
 import pygame
 
 from fileio import settingIO
+
 
 def test_convertDifficulty():
     diff = "Easy"
@@ -29,32 +31,42 @@ def test_load_default_settings():
     assert settingIO.Keymap_Dash == pygame.K_SPACE
     assert settingIO.Keymap_Pause == pygame.K_ESCAPE
 
+
 def test_import_setting():
     #Untestable
     assert True
-    
+
+
 def test_export_setting():
     #Untestable
     assert True
-    
+
+
 def test_load_settings():
     #Untestable
     assert True
 
+
 def test_convertDifficultyToText():
-    assert settingIO.convertDifficultyToText(settingIO.difficulty.EASY) == "Easy"
-    assert settingIO.convertDifficultyToText(settingIO.difficulty.MEDIUM) == "Medium"
-    assert settingIO.convertDifficultyToText(settingIO.difficulty.HARD) == "Hard"
-    
+    assert settingIO.convertDifficultyToText(
+        settingIO.difficulty.EASY) == "Easy"
+    assert settingIO.convertDifficultyToText(
+        settingIO.difficulty.MEDIUM) == "Medium"
+    assert settingIO.convertDifficultyToText(
+        settingIO.difficulty.HARD) == "Hard"
+
+
 def test_save_settings():
     settingIO.load_default_settings()
     settingIO.save_settings()
     assert settingIO.Player_Name == "PLAYER"
 
+
 def test_valid_setting_file():
     #Untestable
     assert True
-    
+
+
 def test_get_username():
     settingIO.load_default_settings()
     settingIO.save_settings()
