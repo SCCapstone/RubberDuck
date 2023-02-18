@@ -5,13 +5,12 @@ from assets import values
 import menuStructure as menuS
 import os
 from fileio import highScoreIO
-import pandas as pd
 
 #from fileio import highScoreIO
 
 
 # Runs the high score screen
-def high_score_screen(noises, gameOver=False, scoreId = -1):
+def high_score_screen(noises, gameOver=False, scoreId=-1):
     """summay: running method for screen
 
     Args:
@@ -43,7 +42,7 @@ def high_score_screen(noises, gameOver=False, scoreId = -1):
                                             values.COLOR_Purple)
     else:
         title_text_image = titleFont.render("DUCKS IN SPACE", True,
-                                        values.COLOR_Purple)
+                                            values.COLOR_Purple)
     title_rect = title_text_image.get_rect(center=(screen.get_width() / 2,
                                                    screen.get_height() / 16 *
                                                    2))
@@ -111,24 +110,23 @@ def write_scores_text(subtitleFont, left, right, screen, gameOver, ScoreId):
         if gameOver == False and i < 3:
             Color = values.COLOR_Red
         # Put 1-10 in left column
-        left_hs_text_image = subtitleFont.render(
-            str(i + 1) + ".", True, Color)
+        left_hs_text_image = subtitleFont.render(str(i + 1) + ".", True, Color)
         # Put name in middle column
         left_2_hs_text_image = subtitleFont.render(
             highScoreIO.high_score_board.iloc[i, 0], True, Color)
         # Put score in center column
         center_hs_text_image = subtitleFont.render(
-            str(highScoreIO.high_score_board.iloc[i, 1]), True,
-            Color)
-        
+            str(highScoreIO.high_score_board.iloc[i, 1]), True, Color)
+
         # Put date in right column
-        # remove 00:00:00 from date
+
+        #check if date has 00:00:00 if so remove
+        #make it string first
         date = str(highScoreIO.high_score_board.iloc[i, 2])
-        date = date[:10]
+        if date[-8:] == "00:00:00":
+            date = date[:-9]
 
-        right_hs_text_image = subtitleFont.render(
-            str(date), True, Color)
-
+        right_hs_text_image = subtitleFont.render(str(date), True, Color)
 
         widthOfLeft = left_hs_text_image.get_width() / 2
         widthOfLeftHalf2 = left_2_hs_text_image.get_width() / 2

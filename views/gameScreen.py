@@ -5,9 +5,8 @@ import math
 import os
 import menuStructure as menuS
 import main as main
-import time
 from assets import values
-from fileio import settingIO    
+from fileio import settingIO
 from fileio import statsIO
 from fileio import highScoreIO
 #import menuStructure as menuS
@@ -601,7 +600,6 @@ class Game():
                 end_game_process()
                 menuS.menu.QUIT
                 main.quit_game()
-                
 
             if event.type == pygame.KEYDOWN and self.stage == Game.PLAYING:
 
@@ -616,7 +614,7 @@ class Game():
                     self.reset()
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_q:
                     end_game_process()
-                    menuS.set_game_menu(menuS.menu.HOME)
+                    menuS.set_game_menu(menuS.menu.GAMEOVER)
                     main.main()
             elif self.stage == Game.SPLASH:
                 self.stage = Game.START
@@ -627,7 +625,7 @@ class Game():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
                         end_game_process()
-                        menuS.set_game_menu(menuS.menu.HOME)
+                        menuS.set_game_menu(menuS.menu.GAMEOVER)
                         main.main()
 
                     elif event.key == pygame.K_r:
@@ -691,11 +689,16 @@ def gameScreen():
     #pygame.quit()
     #sys.exit()
 
+
 def end_game_process():
     # Game Format is [Distance, Time, Points, Currency, Enemies, Spaceships, Meteroids]
     game = [1, 1, values.game_score, values.coins_in_game, 1, 1, 1, 1, 1, 1]
     statsIO.postgame_update(game)
     statsIO.create_game_log(game)
-    day = datetime.datetime.now().strftime("%d/%m/%Y")
+    #make YYYY-MM-DD
+    day = str(
+        str(datetime.datetime.now().year) + "-" +
+        str(datetime.datetime.now().month) + "-" +
+        str(datetime.datetime.now().day))
     score = [settingIO.Player_Name, values.game_score, day]
     highScoreIO.check_for_high_score(score)

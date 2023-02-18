@@ -81,6 +81,7 @@ def postgame_update(game):
     allTimeCurrency += game[7]
     save_stats()
 
+
 def create_game_log(game):
     # Game Format is [Distance, Time, Points, Currency, Enemies, Spaceships, Meteroids]
     if not os.path.exists("fileio\\logs"):
@@ -97,15 +98,16 @@ def create_game_log(game):
         game_log["enemies"] = game[4]
         game_log["spaceships"] = game[5]
         game_log["meteroids"] = game[6]
-        
+
         #append to the game_log.txt file
         f.write
+
 
 def reset_stats():
     global distanceTravelled, totalGamesPlayed, totalGameTime
     global enemyDefeated, spaceshipKills, meteroidKills
     global allTimeCurrency, averageGameTime, averagePoints
-    
+
     distanceTravelled = 0
     totalGamesPlayed = 0
     totalGameTime = 0
