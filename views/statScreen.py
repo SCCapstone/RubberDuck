@@ -99,6 +99,9 @@ def shareStats(screen):
     #make copy of UserSetting.json and move it to desktop
     #get document path
     path = askdirectory()
+    # check if path is valid
+    if path == "":
+        return
     path = path + "/" + filestring
     screen.fill(values.COLOR_Black)
     screen_no_button(screen)
