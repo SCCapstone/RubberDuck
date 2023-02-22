@@ -372,11 +372,13 @@ class Enemy(Entity):
 
 class Tile():
 
-    def __init__(self, numBlocks, numEnemies, numPowerups, numCoins):
+    def __init__(self, numBlocks, numEnemies, numPowerups, numCoins, offset):
         self.blocks = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
         self.coins = pygame.sprite.Group()
         self.powerups = pygame.sprite.Group()
+
+        self.offset = WIDTH * offset
 
         blocks = []
         blockXs = []
@@ -391,35 +393,35 @@ class Tile():
                     x -= BLOCK_IMG.get_width() * 2
             blockXs.append(x)
             y = random.randint(0, 1)
-            stack = random.randint(3, 6)
+            stack = random.randint(4, 8)
             if y:
                 y = 0
                 bimg = BLOCK_IMG2
                 for b in range(stack):
-                    blocks.append(Block(x, y, bimg))
+                    blocks.append(Block(x+self.offset, y, bimg))
                     y += bimg.get_height() - 4
             else:
                 y = HEIGHT - BLOCK_IMG.get_height()
                 bimg = BLOCK_IMG
                 for b in range(stack):
-                    blocks.append(Block(x, y, bimg))
+                    blocks.append(Block(x+self.offset, y, bimg))
                     y -= bimg.get_height() - 4
 
-            blocks.append(Block(x, y, bimg))
+            #blocks.append(Block(x, y, bimg))
         self.blocks.add(blocks)
-        for i in range(3):
+        for i in range(numEnemies):
             x = random.randint(200, WIDTH - 60)  #do for all
             y = random.randint(30, HEIGHT - 60)
-            enemies.append(Enemy(x, y, ENEMY_IMGS))
+            enemies.append(Enemy(x+self.offset, y, ENEMY_IMGS))
         for i in range(numPowerups):
             x = random.randint(100, WIDTH - 60)
             y = random.randint(30, HEIGHT - 60)
             effect = random.randint(0, len(EFFECTS) - 1)
-            powerups.append(Powerup(x, y, effect, self.blocks))
+            powerups.append(Powerup(x+self.offset, y, effect, self.blocks))
         for i in range(numCoins):
             x = random.randint(100, WIDTH - 60)
             y = random.randint(30, HEIGHT - 60)
-            coins.append(Coin(x, y, COIN_IMG, self.blocks))
+            coins.append(Coin(x+self.offset, y, COIN_IMG, self.blocks))
 
         self.enemies.add(enemies)
         self.powerups.add(powerups)
@@ -460,10 +462,12 @@ class Level():
 
     def reset(self):
         self.tiles = []
-        while len(self.tiles) < 1:
-            self.generateTile()
+        
+        self.generateTile(0)
+        self.generateTile(1)
+        self.generateTile(2)
 
-    def generateTile(self):
+    def generateTile(self, offset):
         numEnemies = random.randint(1, self.difficulty)
         numCoins = random.randint(1, 4)
         numPowerups = random.randint(0, 2)
@@ -471,7 +475,7 @@ class Level():
             numPowerups = random.randint(0, 2)
         numBlocks = random.randint(3, 3 + self.difficulty)
 
-        newTile = Tile(numBlocks, numEnemies, numPowerups, numCoins)
+        newTile = Tile(numBlocks, numEnemies, numPowerups, numCoins, offset)
 
         self.addTile(newTile)
 
@@ -490,8 +494,8 @@ class Level():
         for p in t.powerups:
             self.powerups.add(p)
 
-        self.inactive_sprites.add(t.blocks)
-        self.active_sprites.add(t.enemies, t.coins, t.powerups)
+        #self.inactive_sprites.add(t.blocks)
+        self.active_sprites.add(t.enemies, t.coins, t.powerups, t.blocks)
 
     def deleteTile(self):
         t = self.tiles[0]
@@ -526,6 +530,10 @@ class Game():
 
         self.difficulty = 1
 
+        self.gameSpeed = (self.difficulty + 2) * 2
+
+        self.distanceTraveled = 0
+
         self.window = pygame.display.get_surface()
         self.WIDTH = self.window.get_width()
         self.HEIGHT = self.window.get_height()
@@ -539,6 +547,9 @@ class Game():
     def reset(self):
         self.duck = Duck(DUCK_IMGS)
         self.level = Level(self.difficulty)
+
+        self.distanceTraveled = 0
+        self.gameSpeed = (self.difficulty + 2) * 2
 
         self.stage = Game.SPLASH
 
@@ -638,9 +649,23 @@ class Game():
             self.duck.update(self.level)
             for e in self.level.enemies:
                 e.update(self.duck)
+        
+            #SIDESCROLL
+            for sprite in self.level.active_sprites:
+                sprite.rect.x -= self.gameSpeed
+                if sprite.rect.right < 0:
+                    self.level.active_sprites.remove(sprite)
 
         if self.duck.health <= 0:
             self.stage = Game.GAME_OVER
+
+        self.distanceTraveled += self.gameSpeed
+
+        if self.distanceTraveled > WIDTH:
+            self.level.deleteTile()
+            self.level.generateTile(2)
+            self.difficulty += 1
+            self.distanceTraveled -= WIDTH
 
         self.level.update(self.duck)
 
