@@ -221,7 +221,13 @@ class Duck(Entity):
         hit_list = pygame.sprite.spritecollide(self, blocks, False)
 
         for block in hit_list:
-            if self.vx > 0:
+            '''if self.vx > 0:
+                self.rect.right = block.rect.left
+                self.vx = 0
+            elif self.vx < 0:
+                self.rect.left = block.rect.right
+                self.vx = 0'''
+            if self.rect.centerx < block.rect.centerx:
                 self.rect.right = block.rect.left
                 self.vx = 0
             elif self.vx < 0:
@@ -533,6 +539,7 @@ class Game():
         self.gameSpeed = (self.difficulty + 2) * 2
 
         self.distanceTraveled = 0
+        self.totalDistanceTraveled = 0
 
         self.window = pygame.display.get_surface()
         self.WIDTH = self.window.get_width()
@@ -549,6 +556,7 @@ class Game():
         self.level = Level(self.difficulty)
 
         self.distanceTraveled = 0
+        self.totalDistanceTraveled = 0
         self.gameSpeed = (self.difficulty + 2) * 2
 
         self.stage = Game.SPLASH
@@ -608,7 +616,7 @@ class Game():
             self.duck.stop(True, False)
 
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT: #Bradley
                 end_game_process()
                 menuS.menu.QUIT
                 main.quit_game()
@@ -656,10 +664,11 @@ class Game():
                 if sprite.rect.right < 0:
                     self.level.active_sprites.remove(sprite)
 
-        if self.duck.health <= 0:
+        if self.duck.health <= 0 or self.duck.rect.right < 0:
             self.stage = Game.GAME_OVER
 
         self.distanceTraveled += self.gameSpeed
+        self.totalDistanceTraveled += self.gameSpeed
 
         if self.distanceTraveled > WIDTH:
             self.level.deleteTile()
@@ -716,11 +725,11 @@ def gameScreen():
     #pygame.quit()
     #sys.exit()
 
-def end_game_process():
+def end_game_process(): 
     # Game Format is [Distance, Time, Points, Currency, Enemies, Spaceships, Meteroids]
     game = [1, 1, values.game_score, values.coins_in_game, 1, 1, 1, 1, 1, 1]
     statsIO.postgame_update(game)
     statsIO.create_game_log(game)
     day = datetime.datetime.now().strftime("%d/%m/%Y")
-    score = [settingIO.Player_Name, values.game_score, day]
-    highScoreIO.check_for_high_score(score)
+    #score = [settingIO.Player_Name, values.game_score, day]
+    #highScoreIO.check_for_high_score(score)
