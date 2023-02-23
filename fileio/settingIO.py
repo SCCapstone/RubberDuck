@@ -13,10 +13,7 @@ from tkinter.filedialog import askdirectory
 from assets import values
 
 global Player_Name, Master_Volume, Music_Volume
-global SFX_Volume, DifficultyLevel
-global Keymap_Left, Keymap_Right, Keymap_Up
-global Keymap_Down, Keymap_Primary_Fire
-global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
+global SFX_Volume, DifficultyLevel, keys
 
 
 class difficulty(Enum):
@@ -35,10 +32,7 @@ def load_settings(path):
         IOError: if the file does not exist, will load default settings
     """
     global Player_Name, Master_Volume, Music_Volume
-    global SFX_Volume, DifficultyLevel
-    global Keymap_Left, Keymap_Right, Keymap_Up
-    global Keymap_Down, Keymap_Primary_Fire
-    global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
+    global SFX_Volume, DifficultyLevel, keys
     try:
         data = json.load(open(path))
 
@@ -48,16 +42,9 @@ def load_settings(path):
         SFX_Volume = data["SFX_Volume"]
         Difficulty_pre = data["Difficulty"]
         DifficultyLevel = convertDifficulty(Difficulty_pre)
-        Keymap_Left = data["Keymap_Left"]
-        Keymap_Right = data["Keymap_Right"]
-        Keymap_Up = data["Keymap_Up"]
-        Keymap_Down = data["Keymap_Down"]
-        Keymap_Primary_Fire = data["Keymap_Primary_Fire"]
-        Keymap_Secondary_Fire = data["Keymap_Secondary_Fire"]
-        Keymap_Dash = data["Keymap_Dash"]
-        Keymap_Pause = data["Keymap_Pause"]
+        keys = data["keys"]
     except:
-        print("fialed")
+        print("failed")
         load_default_settings()
         pygame.display.set_caption(
             "Setting File Not Found, Default Setting Loaded")
@@ -86,10 +73,7 @@ def save_settings():
     """
 
     global Player_Name, Master_Volume, Music_Volume
-    global SFX_Volume, DifficultyLevel
-    global Keymap_Left, Keymap_Right, Keymap_Up
-    global Keymap_Down, Keymap_Primary_Fire
-    global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
+    global SFX_Volume, DifficultyLevel, keys
 
     dif_text = convertDifficultyToText(DifficultyLevel)
 
@@ -103,14 +87,7 @@ def save_settings():
         "Music_Volume": Music_Volume,
         "SFX_Volume": SFX_Volume,
         "Difficulty": dif_text,
-        "Keymap_Left": Keymap_Left,
-        "Keymap_Right": Keymap_Right,
-        "Keymap_Up": Keymap_Up,
-        "Keymap_Down": Keymap_Down,
-        "Keymap_Primary_Fire": Keymap_Primary_Fire,
-        "Keymap_Secondary_Fire": Keymap_Secondary_Fire,
-        "Keymap_Dash": Keymap_Dash,
-        "Keymap_Pause": Keymap_Pause
+        "keys" : keys
     }
 
     with open("fileio\\UserSetting.json", "w") as f:
@@ -119,24 +96,14 @@ def save_settings():
 
 def load_default_settings():
     global Player_Name, Master_Volume, Music_Volume
-    global SFX_Volume, DifficultyLevel
-    global Keymap_Left, Keymap_Right, Keymap_Up
-    global Keymap_Down, Keymap_Primary_Fire
-    global Keymap_Secondary_Fire, Keymap_Dash, Keymap_Pause
+    global SFX_Volume, DifficultyLevel, keys
 
     Player_Name = "Player"
     Master_Volume = 100
     Music_Volume = 100
     SFX_Volume = 100
     DifficultyLevel = difficulty.EASY
-    Keymap_Left = pygame.K_a
-    Keymap_Right = pygame.K_d
-    Keymap_Up = pygame.K_w
-    Keymap_Down = pygame.K_s
-    Keymap_Primary_Fire = pygame.K_LSHIFT
-    Keymap_Secondary_Fire = pygame.K_RSHIFT
-    Keymap_Dash = pygame.K_SPACE
-    Keymap_Pause = pygame.K_ESCAPE
+    keys = "wasd"
 
 
 def import_settings():
@@ -199,22 +166,8 @@ def check_valid_setting_file(path):
         if (data["Difficulty"] != "Easy" and data["Difficulty"] != "Medium"
                 and data["Difficulty"] != "Hard"):
             easygui.msgbox("Invalid Difficulty", "Error")
-        if (data["Keymap_Left"] is not int):
-            easygui.msgbox("Invalid Keymap Left", "Error")
-        if (data["Keymap_Right"] is not int):
-            easygui.msgbox("Invalid Keymap Right", "Error")
-        if (data["Keymap_Up"] is not int):
-            easygui.msgbox("Invalid Keymap Up", "Error")
-        if (data["Keymap_Down"] is not int):
-            easygui.msgbox("Invalid Keymap Down", "Error")
-        if (data["Keymap_Primary_Fire"] is not int):
-            easygui.msgbox("Invalid Keymap Primary Fire", "Error")
-        if (data["Keymap_Secondary_Fire"] is not int):
-            easygui.msgbox("Invalid Keymap Secondary Fire", "Error")
-        if (data["Keymap_Dash"] is not int):
-            easygui.msgbox("Invalid Keymap Dash", "Error")
-        if (data["Keymap_Pause"] is not int):
-            easygui.msgbox("Invalid Keymap Pause", "Error")
+        if (data["keys"] != "wasd" and data["keys"] != "arrows"):
+            easygui.msgbox("Invalid Key Setting", "Error")
 
     except:
         easygui.msgbox("Invalid File", "Error")
