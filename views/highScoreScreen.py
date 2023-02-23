@@ -37,9 +37,10 @@ def high_score_screen(noises, gameOver=False, scoreId=-1):
     titleFont = pygame.font.Font(
         os.path.join("assets", "fonts", "Ethnocentric.ttf"),
         int(values.screenX * .03))
-    if gameOver:
+    if values.newHighScore:
         title_text_image = titleFont.render("NEW HIGH SCORE", True,
-                                            values.COLOR_Purple)
+                                            values.COLOR_Red)
+
     else:
         title_text_image = titleFont.render("DUCKS IN SPACE", True,
                                             values.COLOR_Purple)
@@ -73,20 +74,27 @@ def high_score_screen(noises, gameOver=False, scoreId=-1):
             if event.button == 1:
                 # check if mouse is in rect
                 if checkCords(playAgainCords, widthButton):
+                    menuS.set_game_menu(menuS.menu.GAME)
+                    values.newHighScore = False
+                    values.newHighScoreId = -1
                     noises.playSound("quack")
                 elif checkCords(homeCords, widthButton):
                     # go to home screeni
                     noises.playSound("quack")
+                    values.newHighScore = False
+                    values.newHighScoreId = -1
                     menuS.set_game_menu(menuS.menu.HOME)
                 elif checkCords(quitCords, widthButton):
                     # quit game
                     noises.playSound("quack")
+                    values.newHighScore = False
+                    values.newHighScoreId = -1
                     menuS.set_game_menu(menuS.menu.QUIT)
         elif event.type == pygame.QUIT:
             menuS.set_game_menu(menuS.menu.QUIT)
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                menuS.set_game_menu(menuS.menu.QUIT)
+                menuS.set_game_menu(menuS.menu.HOME)
 
 
 def write_scores_text(subtitleFont, left, right, screen, gameOver, ScoreId):
@@ -105,9 +113,11 @@ def write_scores_text(subtitleFont, left, right, screen, gameOver, ScoreId):
     length = len(highScoreIO.high_score_board)
     for i in range(length):
         Color = values.COLOR_Purple
-        if gameOver and ScoreId == i:
+
+        if values.newHighScore == True and i == values.newHighScoreId:
             Color = values.COLOR_Red
-        if gameOver == False and i < 3:
+        elif values.newHighScore == False and i < 3:
+
             Color = values.COLOR_Red
         # Put 1-10 in left column
         left_hs_text_image = subtitleFont.render(str(i + 1) + ".", True, Color)

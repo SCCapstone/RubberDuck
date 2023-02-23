@@ -68,3 +68,7 @@ def setCoinsinGame(coins):
 def resetCoinsinGame():
     global coins_in_game
     coins_in_game = 0
+
+newHighScore = False
+newHighScoreId = -1
+

@@ -277,4 +277,4 @@ def customize_screen(noises):
             menuS.set_game_menu(menuS.menu.QUIT)
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                menuS.set_game_menu(menuS.menu.QUIT)
+                menuS.set_game_menu(menuS.menu.HOME)
