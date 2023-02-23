@@ -175,6 +175,7 @@ cython_debug/
 fileio/stats.json
 fileio/UserSetting.json
 fileio/customization.json
+fileio/logs/
 
 Customization.json
 stats.json

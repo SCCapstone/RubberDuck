@@ -206,13 +206,6 @@ def settings_screen(noises):
         arrow_image = subtitleFont.render("Arrow Keys", True, values.COLOR_Purple)
     screen.blit(arrow_image, arrow_Cords)
 
-
-
-
-    
-
-
-
     # Coordinates for back button
     homeCords = (values.screenX * .0065, values.screenY * .011)
     if pygame.mouse.get_pos()[0] > homeCords[0] and pygame.mouse.get_pos(
@@ -301,6 +294,7 @@ def settings_screen(noises):
                     noises.playSound("quack")
                     settingIO.DifficultyLevel = settingIO.difficulty.HARD
                 #key mapping (NOT WORKING YET)
+
                 elif checkCords(wasd_Cords, 150):
                     noises.playSound("quack")
                     settingIO.keys = "wasd"
@@ -308,17 +302,22 @@ def settings_screen(noises):
                     gameScreen.RIGHT = pygame.K_d
                     gameScreen.UP = pygame.K_w
                     gameScreen.DOWN = pygame.K_s
+
                 elif checkSliderCords(left, 30, master_volume_image, screen,
                                       masterValRange, 3.95):
                     noises.playSound("quack")
                 #key mapping (NOT WORKING YET)
                 elif checkCords(arrow_Cords, 300):
                     noises.playSound("quack")
+
                     settingIO.keys = "arrows"
+
+
                     gameScreen.LEFT = pygame.K_LEFT
                     gameScreen.RIGHT = pygame.K_RIGHT
                     gameScreen.UP = pygame.K_UP
                     gameScreen.DOWN = pygame.K_DOWN
+
                 elif checkSliderCords(left, 70, music_volume_image, screen,
                                       musicValRange, 4.95):
                     noises.playSound("quack")

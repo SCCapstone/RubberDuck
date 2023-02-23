@@ -42,7 +42,8 @@ Other Packages used (most likely already installed with Python 3.6.5):
 * pygame_menu `pip install pygame_menu`
 * datetime `pip install datetime`
 * json `pip install json`
-
+* (TESTING ONLY) pytest `pip install pytest`
+* (TESTING ONLY) pytest bdd `pip install pytest-bdd`
 
 ## Style Guide
 We will be PEP8 Style Guide for Python. You can find the style guide here: https://www.python.org/dev/peps/pep-0008/
@@ -100,26 +101,34 @@ pip install pyinstaller
 
 # Testing
 
-***TO BE DONE LATER***
+In order to run tests you must have `pytest` and `pytest-bdd` installed
 
-In 492 you will write automated tests. When you do you will need to add a 
-section that explains how to run them.
+To Install:
+* pytest `pip install pytest`
+* pytest bdd `pip install pytest-bdd`
 
-The unit tests are in `/test/unit`.
+To run tests, simply run
+```
+$ pytest
+``` 
+which will output the test results
 
-The behavioral tests are in `/test/casper/`.
+The unit tests and behavioral are all in the test folder. They are labeled behavioral after test.
 
 ## Testing Technology
 
-***TO BE DONE LATER***
-
-In some cases you need to install test runners, etc. Explain how.
+This uses PyTest, which can be installed using
+```
+$ pip install pytest
+```
 
 ## Running Tests
 
-***TO BE DONE LATER***
-
-Explain how to run the automated tests.
+To run tests, simply run
+```
+$ pytest
+``` 
+which will output the test results
 
 # Authors
 

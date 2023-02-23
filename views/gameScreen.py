@@ -10,7 +10,9 @@ from fileio import settingIO
 from fileio import statsIO
 from fileio import highScoreIO
 from views import gameScreen
+
 from views import settingScreen
+
 #import menuStructure as menuS
 
 GRID_SIZE = 64
@@ -532,6 +534,7 @@ class Game():
     SETTINGS = 5
     CONTROLS = 6
 
+
     def __init__(self):
 
         self.difficulty = 1
@@ -585,6 +588,7 @@ class Game():
          SCREEN.blit(line1, (x1, y1))
          SCREEN.blit(line2, (x2, y2))
          SCREEN.blit(line3, (x3, y3))
+
          
     def display_message3(self, text, text2, text3, text4):
             line1 = FONT.render(text, 1, WHITE)
@@ -605,6 +609,7 @@ class Game():
             SCREEN.blit(line2, (x2, y2))
             SCREEN.blit(line3, (x3, y3))
             SCREEN.blit(line4, (x4, y4))
+
 
     def display_stats(self):
         scoreLine = FONT_SM.render("Score: " + str(self.duck.score), 1, WHITE)
@@ -645,6 +650,7 @@ class Game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 end_game_process()
+
                 values.newHighScore = False
                 menuS.menu.QUIT
                 main.quit_game()
@@ -663,6 +669,7 @@ class Game():
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_s:
                      #settings pop up and able to change
                      self.stage = Game.SETTINGS
+
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_c:
                     self.stage = Game.CONTROLS
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_q:
@@ -671,6 +678,7 @@ class Game():
                             menuS.set_game_menu(menuS.menu.HIGH_SCORE)
                     else:
                         menuS.set_game_menu(menuS.menu.GAMEOVER)
+
                     main.main()
             elif self.stage == Game.SPLASH:
                 self.stage = Game.START
@@ -685,6 +693,7 @@ class Game():
                     #events for in-game controls screen
                     if event.type == pygame.KEYDOWN:
                         self.stage = Game.PAUSED
+
             elif self.stage == Game.GAME_OVER:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
@@ -693,6 +702,7 @@ class Game():
                             menuS.set_game_menu(menuS.menu.HIGH_SCORE)
                         else:
                             menuS.set_game_menu(menuS.menu.GAMEOVER)
+
                         main.main()
 
                     elif event.key == pygame.K_r:
@@ -756,6 +766,7 @@ class Game():
                     "CONTROLS",
                     "Arrows to move. Space to shoot. ESC to pause.",
                     "Press any key to continue.")
+
         pygame.display.update()
         pygame.display.flip()
 

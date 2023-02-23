@@ -40,6 +40,7 @@ def high_score_screen(noises, gameOver=False, scoreId=-1):
     if values.newHighScore:
         title_text_image = titleFont.render("NEW HIGH SCORE", True,
                                             values.COLOR_Red)
+
     else:
         title_text_image = titleFont.render("DUCKS IN SPACE", True,
                                             values.COLOR_Purple)
@@ -112,9 +113,11 @@ def write_scores_text(subtitleFont, left, right, screen, gameOver, ScoreId):
     length = len(highScoreIO.high_score_board)
     for i in range(length):
         Color = values.COLOR_Purple
+
         if values.newHighScore == True and i == values.newHighScoreId:
             Color = values.COLOR_Red
         elif values.newHighScore == False and i < 3:
+
             Color = values.COLOR_Red
         # Put 1-10 in left column
         left_hs_text_image = subtitleFont.render(str(i + 1) + ".", True, Color)
