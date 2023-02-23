@@ -3,6 +3,7 @@ import time
 
 global startTime
 global game_score
+global coins_in_game
 # Colors
 COLOR_Purple = (46, 41, 78)
 COLOR_Pink = (204, 167, 162)
@@ -10,6 +11,7 @@ COLOR_Yellow = (233, 215, 88)
 COLOR_Orange = (175, 67, 25)
 COLOR_Red = (119, 32, 20)
 COLOR_White = (255, 255, 255)
+COLOR_Black = (0, 0, 0)
 
 # Fonts
 FONT_Ethnocentric = os.path.join("assets", "fonts", "Ethnocentric.ttf")
@@ -47,10 +49,25 @@ def setStartTime():
 
 masterVolume = .75
 
+
 def setGameScore(score):
     global game_score
     game_score = score
 
+
 def resetGameScore():
     global game_score
     game_score = 0
+
+
+def setCoinsinGame(coins):
+    global coins_in_game
+    coins_in_game = coins
+
+
+def resetCoinsinGame():
+    global coins_in_game
+    coins_in_game = 0
+
+newHighScore = False
+newHighScoreId = -1

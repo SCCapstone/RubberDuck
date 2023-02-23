@@ -10,7 +10,7 @@ from fileio import highScoreIO
 
 
 # Runs the high score screen
-def high_score_screen(noises):
+def high_score_screen(noises, gameOver=False, scoreId=-1):
     """summay: running method for screen
 
     Args:
@@ -37,8 +37,12 @@ def high_score_screen(noises):
     titleFont = pygame.font.Font(
         os.path.join("assets", "fonts", "Ethnocentric.ttf"),
         int(values.screenX * .03))
-    title_text_image = titleFont.render("DUCKS IN SPACE", True,
-                                        values.COLOR_Purple)
+    if values.newHighScore:
+        title_text_image = titleFont.render("NEW HIGH SCORE", True,
+                                            values.COLOR_Red)
+    else:
+        title_text_image = titleFont.render("DUCKS IN SPACE", True,
+                                            values.COLOR_Purple)
     title_rect = title_text_image.get_rect(center=(screen.get_width() / 2,
                                                    screen.get_height() / 16 *
                                                    2))
@@ -57,7 +61,7 @@ def high_score_screen(noises):
     if len(highScoreIO.high_score_board) == 0:
         write_no_high_score(subtitleFont, screen)
     else:
-        write_scores_text(subtitleFont, left, right, screen)
+        write_scores_text(subtitleFont, left, right, screen, gameOver, scoreId)
 
     playAgainCords, homeCords, quitCords, widthButton = draw_buttons(
         screen, right, left, subtitleFont)
@@ -69,23 +73,30 @@ def high_score_screen(noises):
             if event.button == 1:
                 # check if mouse is in rect
                 if checkCords(playAgainCords, widthButton):
+                    menuS.set_game_menu(menuS.menu.GAME)
+                    values.newHighScore = False
+                    values.newHighScoreId = -1
                     noises.playSound("quack")
                 elif checkCords(homeCords, widthButton):
                     # go to home screeni
                     noises.playSound("quack")
+                    values.newHighScore = False
+                    values.newHighScoreId = -1
                     menuS.set_game_menu(menuS.menu.HOME)
                 elif checkCords(quitCords, widthButton):
                     # quit game
                     noises.playSound("quack")
+                    values.newHighScore = False
+                    values.newHighScoreId = -1
                     menuS.set_game_menu(menuS.menu.QUIT)
         elif event.type == pygame.QUIT:
             menuS.set_game_menu(menuS.menu.QUIT)
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                menuS.set_game_menu(menuS.menu.QUIT)
+                menuS.set_game_menu(menuS.menu.HOME)
 
 
-def write_scores_text(subtitleFont, left, right, screen):
+def write_scores_text(subtitleFont, left, right, screen, gameOver, ScoreId):
     """summary: Prints out all 10 high scores to screen
 
     Args:
@@ -94,16 +105,35 @@ def write_scores_text(subtitleFont, left, right, screen):
         right (float): right cordinate for box
         screen (Surface): pygame surface to draw on
     """
-    for i in highScoreIO.high_score_board:
-        # Positon an Name on Left
-        left_hs_text_image = subtitleFont.render(str(i[0]), True,
-                                                 values.COLOR_Purple)
-        left_2_hs_text_image = subtitleFont.render((i[1]), True,
-                                                   values.COLOR_Purple)
-        center_hs_text_image = subtitleFont.render(str(i[2]), True,
-                                                   values.COLOR_Purple)
-        right_hs_text_image = subtitleFont.render(i[3], True,
-                                                  values.COLOR_Purple)
+    # high score board is pd.DataFrame
+    # columns are: name, score, date
+    # index is 0-9
+    #get length of high score board
+    length = len(highScoreIO.high_score_board)
+    for i in range(length):
+        Color = values.COLOR_Purple
+        if values.newHighScore == True and i == values.newHighScoreId:
+            Color = values.COLOR_Red
+        elif values.newHighScore == False and i < 3:
+            Color = values.COLOR_Red
+        # Put 1-10 in left column
+        left_hs_text_image = subtitleFont.render(str(i + 1) + ".", True, Color)
+        # Put name in middle column
+        left_2_hs_text_image = subtitleFont.render(
+            highScoreIO.high_score_board.iloc[i, 0], True, Color)
+        # Put score in center column
+        center_hs_text_image = subtitleFont.render(
+            str(highScoreIO.high_score_board.iloc[i, 1]), True, Color)
+
+        # Put date in right column
+
+        #check if date has 00:00:00 if so remove
+        #make it string first
+        date = str(highScoreIO.high_score_board.iloc[i, 2])
+        if date[-8:] == "00:00:00":
+            date = date[:-9]
+
+        right_hs_text_image = subtitleFont.render(str(date), True, Color)
 
         widthOfLeft = left_hs_text_image.get_width() / 2
         widthOfLeftHalf2 = left_2_hs_text_image.get_width() / 2

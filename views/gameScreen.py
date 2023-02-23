@@ -1,3 +1,4 @@
+import datetime
 import pygame
 import random
 import math
@@ -5,6 +6,11 @@ import os
 import menuStructure as menuS
 import main as main
 from assets import values
+from fileio import settingIO
+from fileio import statsIO
+from fileio import highScoreIO
+from views import gameScreen
+from views import settingScreen
 #import menuStructure as menuS
 
 GRID_SIZE = 64
@@ -12,10 +18,17 @@ FPS = 30
 
 pygame.init()
 #CONTROLS
-UP = pygame.K_w
-DOWN = pygame.K_s
-LEFT = pygame.K_a
-RIGHT = pygame.K_d
+
+if settingIO.keys == "wasd":
+    UP = pygame.K_w
+    DOWN = pygame.K_s
+    LEFT = pygame.K_a
+    RIGHT = pygame.K_d
+elif settingIO.keys == "arrows":
+    UP = pygame.K_UP
+    DOWN = pygame.K_DOWN
+    LEFT = pygame.K_LEFT
+    RIGHT = pygame.K_RIGHT
 
 pygame.display.init()
 pygame.display.set_mode((0, 0), flags=pygame.FULLSCREEN)
@@ -169,6 +182,7 @@ class Duck(Entity):
         self.score = 0
         self.coins = 0
         values.resetGameScore()
+        values.resetCoinsinGame()
 
         self.activePowerups = []
 
@@ -244,6 +258,7 @@ class Duck(Entity):
             self.score += coin.value
             values.game_score += coin.value
             self.coins += 1
+            values.coins_in_game += 1
             coin.kill()
 
     def processPowerups(self, powerups):
@@ -514,6 +529,8 @@ class Game():
     PLAYING = 2
     PAUSED = 3
     GAME_OVER = 4
+    SETTINGS = 5
+    CONTROLS = 6
 
     def __init__(self):
 
@@ -552,6 +569,42 @@ class Game():
 
         SCREEN.blit(line1, (x1, y1))
         SCREEN.blit(line2, (x2, y2))
+        
+    def display_message2(self, text, text2, text3): 
+         line1 = FONT.render(text, 1, WHITE)
+         line2 = FONT_SM.render(text2, 1, WHITE)
+         line3 = FONT_SM.render(text3, 1, WHITE)
+
+         x1 = WIDTH / 2 - line1.get_width() / 2
+         y1 = HEIGHT / 3 - line1.get_height() / 2
+         x2 = WIDTH / 2 - line2.get_width() / 2
+         y2 = y1 + line1.get_height() + 16
+         x3 = WIDTH / 2 - line3.get_width() / 2
+         y3 = y2 + line1.get_height() + 16
+
+         SCREEN.blit(line1, (x1, y1))
+         SCREEN.blit(line2, (x2, y2))
+         SCREEN.blit(line3, (x3, y3))
+         
+    def display_message3(self, text, text2, text3, text4):
+            line1 = FONT.render(text, 1, WHITE)
+            line2 = FONT_SM.render(text2, 1, WHITE)
+            line3 = FONT_SM.render(text3, 1, WHITE)
+            line4 = FONT_SM.render(text4, 1, WHITE)
+    
+            x1 = WIDTH / 2 - line1.get_width() / 2
+            y1 = HEIGHT / 3 - line1.get_height() / 2
+            x2 = WIDTH / 2 - line2.get_width() / 2
+            y2 = y1 + line1.get_height() + 16
+            x3 = WIDTH / 2 - line3.get_width() / 2
+            y3 = y2 + line1.get_height() + 16
+            x4 = WIDTH / 2 - line4.get_width() / 2
+            y4 = y3 + line1.get_height() + 16
+    
+            SCREEN.blit(line1, (x1, y1))
+            SCREEN.blit(line2, (x2, y2))
+            SCREEN.blit(line3, (x3, y3))
+            SCREEN.blit(line4, (x4, y4))
 
     def display_stats(self):
         scoreLine = FONT_SM.render("Score: " + str(self.duck.score), 1, WHITE)
@@ -591,6 +644,8 @@ class Game():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                end_game_process()
+                values.newHighScore = False
                 menuS.menu.QUIT
                 main.quit_game()
 
@@ -605,18 +660,39 @@ class Game():
                     self.stage = Game.PLAYING
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_r:
                     self.reset()
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_s:
+                     #settings pop up and able to change
+                     self.stage = Game.SETTINGS
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_c:
+                    self.stage = Game.CONTROLS
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_q:
-                    menuS.set_game_menu(menuS.menu.HOME)
+                    end_game_process()
+                    if(values.newHighScore):
+                            menuS.set_game_menu(menuS.menu.HIGH_SCORE)
+                    else:
+                        menuS.set_game_menu(menuS.menu.GAMEOVER)
                     main.main()
             elif self.stage == Game.SPLASH:
                 self.stage = Game.START
             elif self.stage == Game.START:
                 if event.type == pygame.KEYDOWN:
                     self.stage = Game.PLAYING
+            elif self.stage == Game.SETTINGS:
+                 #events for in-game settings screen
+                 if event.type == pygame.KEYDOWN and event.key == pygame.K_b:
+                     self.stage = Game.PAUSED
+            elif self.stage == Game.CONTROLS:
+                    #events for in-game controls screen
+                    if event.type == pygame.KEYDOWN:
+                        self.stage = Game.PAUSED
             elif self.stage == Game.GAME_OVER:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
-                        menuS.set_game_menu(menuS.menu.HOME)
+                        end_game_process()
+                        if(values.newHighScore):
+                            menuS.set_game_menu(menuS.menu.HIGH_SCORE)
+                        else:
+                            menuS.set_game_menu(menuS.menu.GAMEOVER)
                         main.main()
 
                     elif event.key == pygame.K_r:
@@ -654,13 +730,32 @@ class Game():
         elif self.stage == Game.START:
             self.display_message("DUCKS IN SPACE!", "Press any key to start!")
         elif self.stage == Game.PAUSED:
-            self.display_message(
+            self.display_message3(
                 "PAUSED",
-                "'ESC' to resume. 'R' to restart. 'Q' to quit to menu.")
+                "'ESC' to resume. 'R' to restart. 'Q' to quit to menu.","'S' to change Settings", "'C' to see Controls")
         elif self.stage == Game.GAME_OVER:
-            menuS.set_game_menu(menuS.menu.GAMEOVER)
+            end_game_process()
+            if values.newHighScore:
+                menuS.set_game_menu(menuS.menu.HIGH_SCORE)
+            else:
+                menuS.set_game_menu(menuS.menu.GAMEOVER)
             main.main()
-
+                
+        elif self.stage == Game.SETTINGS:
+                 #display in-game settings Screen
+             menuS.set_game_menu(menuS.menu.SETTING)
+             main.main()
+        elif self.stage == Game.CONTROLS:
+            if settingIO.keys == "wasd":
+                self.display_message2(
+                    "CONTROLS",
+                    "WASD to move. Space to shoot. ESC to pause.",
+                    "Press any key to continue.")
+            elif settingIO.keys == "arrows":
+                self.display_message2(
+                    "CONTROLS",
+                    "Arrows to move. Space to shoot. ESC to pause.",
+                    "Press any key to continue.")
         pygame.display.update()
         pygame.display.flip()
 
@@ -673,8 +768,33 @@ class Game():
 
 
 def gameScreen():
+    global UP, DOWN, LEFT, RIGHT
     game = Game()
     game.reset()
     game.loop()
+    if settingIO.keys == "wasd":
+        UP = pygame.K_w
+        DOWN = pygame.K_s
+        LEFT = pygame.K_a
+        RIGHT = pygame.K_d
+    elif settingIO.keys == "arrows":
+        UP = pygame.K_UP
+        DOWN = pygame.K_DOWN
+        LEFT = pygame.K_LEFT
+        RIGHT = pygame.K_RIGHT
     #pygame.quit()
     #sys.exit()
+
+
+def end_game_process():
+    # Game Format is [Distance, Time, Points, Currency, Enemies, Spaceships, Meteroids]
+    game = [1, 1, values.game_score, values.coins_in_game, 1, 1, 1, 1, 1, 1]
+    statsIO.postgame_update(game)
+    statsIO.create_game_log(game)
+    #make YYYY-MM-DD
+    day = str(
+        str(datetime.datetime.now().year) + "-" +
+        str(datetime.datetime.now().month) + "-" +
+        str(datetime.datetime.now().day))
+    score = [settingIO.Player_Name, values.game_score, day]
+    highScoreIO.check_for_high_score(score)
