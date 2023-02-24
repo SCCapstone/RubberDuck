@@ -41,6 +41,8 @@ values.set_screen_size(pygame.display.get_surface().get_size()[0],
 def main():
     """summary: main loop for game
     """
+    startingDuck = 0
+    startingTab = 0
     # Keep the game open until the user closes it
     noises.playMusic("menus")
     noises.music_volume(settingIO.Music_Volume)
@@ -74,7 +76,7 @@ def main():
             ran = True
             gameScreen.gameScreen()
         elif menuS.get_game_menu() == menuS.menu.CUSTOMIZE:
-            customizeScreen.customize_screen(noises)
+            startingDuck, startingTab = customizeScreen.customize_screen(noises, startingDuck, startingTab)
         elif menuS.get_game_menu() == menuS.menu.HIGH_SCORE:
             if values.newHighScore and not visitedHighScore:
                 noises.playMusic("highScore")

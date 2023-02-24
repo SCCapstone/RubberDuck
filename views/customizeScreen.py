@@ -5,9 +5,99 @@ import math
 from assets import values
 import menuStructure as menuS
 
+normalSkins = [
+    "assets/sprites/ducks/baseDuck.png",
+    "assets/sprites/ducks/blueDuck.png",
+    "assets/sprites/ducks/brownDuck.png",
+    "assets/sprites/ducks/grayDuck.png",
+    "assets/sprites/ducks/greenDuck.png",
+    "assets/sprites/ducks/richDuck.png"
+    ]
+
+baseSkins = [
+    "assets/sprites/ducks/baseChain.png",
+    "assets/sprites/ducks/baseConstruction.png",
+    "assets/sprites/ducks/baseCowboy.png",
+    "assets/sprites/ducks/baseLuffy.png",
+    "assets/sprites/ducks/baseSanta.png",
+    "assets/sprites/ducks/baseSunnies.png"
+    ]
+
+blueSkins = [
+    "assets/sprites/ducks/blueChain.png",
+    "assets/sprites/ducks/blueConstruction.png",
+    "assets/sprites/ducks/blueCowboy.png",
+    "assets/sprites/ducks/blueLuffy.png",
+    "assets/sprites/ducks/blueSanta.png",
+    "assets/sprites/ducks/blueSunnies.png"
+    ]
+
+brownSkins = [
+    "assets/sprites/ducks/brownChain.png",
+    "assets/sprites/ducks/brownConstruction.png",
+    "assets/sprites/ducks/brownCowboy.png",
+    "assets/sprites/ducks/brownLuffy.png",
+    "assets/sprites/ducks/brownSanta.png",
+    "assets/sprites/ducks/brownSunnies.png"
+    ]
+
+graySkins = [
+    "assets/sprites/ducks/grayChain.png",
+    "assets/sprites/ducks/grayConstruction.png",
+    "assets/sprites/ducks/grayCowboy.png",
+    "assets/sprites/ducks/grayLuffy.png",
+    "assets/sprites/ducks/graySanta.png",
+    "assets/sprites/ducks/graySunnies.png"
+    ]
+
+greenSkins = [
+    "assets/sprites/ducks/greenChain.png",
+    "assets/sprites/ducks/greenConstruction.png",
+    "assets/sprites/ducks/greenCowboy.png",
+    "assets/sprites/ducks/greenLuffy.png",
+    "assets/sprites/ducks/greenSanta.png",
+    "assets/sprites/ducks/greenSunnies.png"
+    ]
+
+richSkins = [
+    "assets/sprites/ducks/richChain.png",
+    "assets/sprites/ducks/richConstruction.png",
+    "assets/sprites/ducks/richCowboy.png",
+    "assets/sprites/ducks/richLuffy.png",
+    "assets/sprites/ducks/richSanta.png",
+    "assets/sprites/ducks/richSunnies.png"
+    ]
+
+def loadAssets(purchaseSize):
+    allSkins = []
+    baseAccessories = []
+    blueAccessories = []
+    brownAccessories = []
+    grayAccessories = []
+    greenAccessories = []
+    richAccessories = []
+    for x in normalSkins:
+        allSkins.append(pygame.transform.scale(pygame.image.load(x), (purchaseSize, purchaseSize)))
+    for x in baseSkins:
+        baseAccessories.append(pygame.transform.scale(pygame.image.load(x), (purchaseSize, purchaseSize)))
+    for x in blueSkins:
+        blueAccessories.append(pygame.transform.scale(pygame.image.load(x), (purchaseSize, purchaseSize)))
+    for x in brownSkins:
+        brownAccessories.append(pygame.transform.scale(pygame.image.load(x), (purchaseSize, purchaseSize)))
+    for x in graySkins:
+        grayAccessories.append(pygame.transform.scale(pygame.image.load(x), (purchaseSize, purchaseSize)))
+    for x in greenSkins:
+        greenAccessories.append(pygame.transform.scale(pygame.image.load(x), (purchaseSize, purchaseSize)))
+    for x in richSkins:
+        richAccessories.append(pygame.transform.scale(pygame.image.load(x), (purchaseSize, purchaseSize)))
+    return allSkins, baseAccessories, blueAccessories, brownAccessories, grayAccessories, greenAccessories, richAccessories
 
 # Runs the customize screen
-def customize_screen(noises):
+def customize_screen(noises, duckIndex, arrayIndex):
+    startingDuck = duckIndex
+    startingArray = arrayIndex
+    retDuck = startingDuck
+    
     # Set the background to main.jpg
     background = pygame.image.load(
         os.path.join("assets", "backgrounds", "tertiary.jpg"))
@@ -61,24 +151,27 @@ def customize_screen(noises):
 
     #load duck base skins
     purchaseSize = int(values.screenX * .1504)
-    silhouetteDuck = pygame.image.load("assets/sprites/silhouetteDuck.png")
-    baseDuck = pygame.image.load("assets/sprites/baseDuck.png")
-    swagDuck = pygame.image.load("assets/sprites/swagDuck.png")
+    allSkins, baseAccessories, blueAccessories, brownAccessories, grayAccessories, greenAccessories, richAccessories = loadAssets(purchaseSize)
 
-    swagDuck = pygame.transform.scale(swagDuck, (purchaseSize, purchaseSize))
-    silhouetteDuck = pygame.transform.scale(silhouetteDuck,
-                                            (purchaseSize, purchaseSize))
-    baseDuck = pygame.transform.scale(baseDuck, (purchaseSize, purchaseSize))
+    if arrayIndex == 0:
+        currentArray = allSkins
+    elif arrayIndex == 1:
+        currentArray = baseAccessories
+    elif arrayIndex == 2:
+        currentArray = blueAccessories
+    elif arrayIndex == 3:
+        currentArray = brownAccessories
+    elif arrayIndex == 4:
+        currentArray = grayAccessories
+    elif arrayIndex == 5:
+        currentArray = greenAccessories
+    elif arrayIndex == 6:
+        currentArray = richAccessories
+    else:
+        currentArray = allSkins
 
     #scale base skins for preview
     previewSize = int(values.screenX * .28935)
-    bigBaseDuck = pygame.transform.scale(baseDuck, (previewSize, previewSize))
-    pygame.transform.scale(swagDuck, (previewSize, previewSize))
-    bigSilhouetteDuck = pygame.transform.scale(silhouetteDuck,
-                                               (previewSize, previewSize))
-
-    #TODO Preview of Duck in Current State
-    screen.blit(bigBaseDuck, (screen.get_width() / 3, screen.get_height() / 4))
 
     #TODO Purchase / Equip Skin
 
@@ -90,6 +183,7 @@ def customize_screen(noises):
     sep = math.floor(screen.get_width() * .0289)
     box = math.floor(screen.get_width() * .1447)
 
+    # Add checks to see if arrow is pressed and swap to next skin
     leftArr = pygame.image.load("assets/sprites/Back_Arrow.png")
     bigArr = pygame.transform.scale(leftArr, (wArr, hArr))
     screen.blit(bigArr, (xArr1, yArr))
@@ -107,33 +201,24 @@ def customize_screen(noises):
                 (xArr1 + wArr + sep + screen.get_width() * .0434,
                  yArr + screen.get_height() * .0313))
 
+    # Rotated form of the left arrow (Should probably change to a different sprite later)
     rightArr = pygame.transform.rotate(bigArr, 180)
     screen.blit(rightArr, (xArr1 + sep + sep + box + wArr, yArr))
 
     #TODO array of skins to purchase /equip at the bottom of the screen
+    
+    currentPreview = pygame.transform.scale(allSkins[startingDuck], (previewSize, previewSize))
+    #TODO Preview of Duck in Current State
+    screen.blit(currentPreview, (screen.get_width() / 3, screen.get_height() / 4))
     #will make these box objects for an array so we can move with arrows, know which ones have been purchased.
-    numboxes = 10
+    numboxes = 6
     for i in range(numboxes):
         pygame.draw.rect(
             screen, values.COLOR_Pink,
             ((i + 1) * screen.get_width() * .1157 - screen.get_width() * .0289,
              screen.get_height() * .7610, screen.get_width() * .0868,
              screen.get_width() * .0868), 0)
-        if (i == 0):
-            screen.blit(
-                baseDuck,
-                ((i + 1) * screen.get_width() * .1157 -
-                 screen.get_width() * .0607, screen.get_height() * .7117))
-        elif (i == 1):
-            screen.blit(
-                swagDuck,
-                ((i + 1) * screen.get_width() * .1157 -
-                 screen.get_width() * .0607, screen.get_height() * .7117))
-        else:
-            screen.blit(
-                silhouetteDuck,
-                ((i + 1) * screen.get_width() * .1157 -
-                 screen.get_width() * .0607, screen.get_height() * .7117))
+        screen.blit(currentArray[i], ((i + 1) * screen.get_width() * .1157 - screen.get_width() * .0607, screen.get_height() * .7117)) 
 
     #4 boxes to change screen to purchase base skins, hats, trails, and backgrounds
     xCord = math.floor(screen.get_width() * .0289)
@@ -173,28 +258,10 @@ def customize_screen(noises):
                 (xCord + screen.get_width() * .0521, yCord +
                  screen.get_height() * .0313 + (height + separation) * 1))
 
-    #Trails Box
-    pygame.draw.rect(screen, values.COLOR_Pink,
-                     (xCord, yCord +
-                      ((height + separation) * 2), width, height), 0)
-    if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
-    )[0] < xCord + width and pygame.mouse.get_pos()[1] > (
-            yCord +
-        (height + separation) * 2) and pygame.mouse.get_pos()[1] < (
-            yCord + height + (height + separation) * 2):
-        Trails_text_image = smallFont.render("Trails", True,
-                                             values.COLOR_Yellow)
-    else:
-        Trails_text_image = smallFont.render("Trails", True,
-                                             values.COLOR_Purple)
-    screen.blit(Trails_text_image,
-                (xCord + screen.get_width() * .0405, yCord +
-                 screen.get_height() * .0313 + (height + separation) * 2))
-
     #Backgrounds Box
     pygame.draw.rect(screen, values.COLOR_Pink,
                      (xCord, yCord +
-                      ((height + separation) * 3), width, height), 0)
+                      ((height + separation) * 2), width, height), 0)
     if pygame.mouse.get_pos()[0] > xCord and pygame.mouse.get_pos(
     )[0] < xCord + width and pygame.mouse.get_pos()[1] > (
             yCord +
@@ -207,7 +274,7 @@ def customize_screen(noises):
                                                   values.COLOR_Purple)
     screen.blit(Backgrounds_text_image,
                 (xCord + screen.get_width() * .0029, yCord +
-                 screen.get_height() * .0313 + (height + separation) * 3))
+                 screen.get_height() * .0313 + (height + separation) * 2))
 
     # Coordinates Home button
     homeCords = (values.screenX * .0065, values.screenY * .011)
@@ -236,24 +303,23 @@ def customize_screen(noises):
                 )[0] < xCord + width and yCord < pygame.mouse.get_pos(
                 )[1] < yCord + height:
                     noises.playSound("quack")
+                    # Base skins box
+                    startingArray = 0
                     #TODO make text red or highlight box, then switch screen to customize different asset
                 elif xCord < pygame.mouse.get_pos(
                 )[0] < xCord + width and yCord + (
                         height + separation) * 1 < pygame.mouse.get_pos(
                         )[1] < yCord + height + (height + separation) * 1:
                     noises.playSound("quack")
+                    # Accessories box
+                    startingArray = startingDuck + 1
                     #TODO make text red or highlight box, then switch screen to customize different asset
                 elif xCord < pygame.mouse.get_pos(
                 )[0] < xCord + width and yCord + (
                         height + separation) * 2 < pygame.mouse.get_pos(
                         )[1] < yCord + height + (height + separation) * 2:
                     noises.playSound("quack")
-                    #TODO make text red or highlight box, then switch screen to customize different asset
-                elif xCord < pygame.mouse.get_pos(
-                )[0] < xCord + width and yCord + (
-                        height + separation) * 3 < pygame.mouse.get_pos(
-                        )[1] < yCord + height + (height + separation) * 3:
-                    noises.playSound("quack")
+                    # Backgrounds box
                     #TODO make text red or highlight box, then switch screen to customize different asset
 
                     #click on left arrow, move boxes to the left
@@ -261,20 +327,38 @@ def customize_screen(noises):
                 )[0] < xArr1 + wArr and yArr < pygame.mouse.get_pos(
                 )[1] < yArr + hArr:
                     noises.playSound("quack")
+                    startingDuck -=1
+                    if startingDuck < 0:
+                        startingDuck = len(allSkins) - 1
+                    # Make the duck the new duck
+                    currentPreview = pygame.transform.scale(allSkins[startingDuck], (previewSize, previewSize))
 
                     #click on equip or buy
                 elif xArr1 + sep + wArr < pygame.mouse.get_pos(
                 )[0] < xArr1 + sep + wArr + box and yArr < pygame.mouse.get_pos(
                 )[1] < yArr + hArr:
+                    # Check to see if they have the coins to buy the skin then unlock and select it
                     noises.playSound("quack")
+                    # Set the duck
+                    retDuck = startingDuck
+                    # Make sure he doesn't have path.join()
+                    values.setDuck(skinNames[retDuck])
+
                     #click on right arrow, move boxes to the right
                 elif xArr1 + sep + wArr + box + sep < pygame.mouse.get_pos(
                 )[0] < xArr1 + sep + sep + wArr + box + wArr and yArr < pygame.mouse.get_pos(
                 )[1] < yArr + hArr:
                     noises.playSound("quack")
+                    startingDuck += 1
+                    if startingDuck > len(allSkins) - 1:
+                        startingDuck = 0
+                    # Make the duck the new duck
+                    currentPreview = pygame.transform.scale(allSkins[startingDuck], (previewSize, previewSize))
 
         elif event.type == pygame.QUIT:
             menuS.set_game_menu(menuS.menu.QUIT)
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                menuS.set_game_menu(menuS.menu.HOME)
+                menuS.set_game_menu(menuS.menu.QUIT)
+
+    return startingDuck, startingArray
