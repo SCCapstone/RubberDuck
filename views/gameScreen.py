@@ -11,8 +11,6 @@ from fileio import statsIO
 from fileio import highScoreIO
 from views import gameScreen
 
-from views import settingScreen
-
 #import menuStructure as menuS
 
 GRID_SIZE = 64
@@ -153,7 +151,6 @@ class Rocket(Entity):
         if hit_list:
             self.kill()
             duck.enemiesKilled += 1
-        
 
 
 class Block(Entity):
@@ -417,13 +414,13 @@ class Tile():
                 y = 0
                 bimg = BLOCK_IMG2
                 for b in range(stack):
-                    blocks.append(Block(x+self.offset, y, bimg))
+                    blocks.append(Block(x + self.offset, y, bimg))
                     y += bimg.get_height() - 4
             else:
                 y = HEIGHT - BLOCK_IMG.get_height()
                 bimg = BLOCK_IMG
                 for b in range(stack):
-                    blocks.append(Block(x+self.offset, y, bimg))
+                    blocks.append(Block(x + self.offset, y, bimg))
                     y -= bimg.get_height() - 4
 
             #blocks.append(Block(x, y, bimg))
@@ -431,16 +428,16 @@ class Tile():
         for i in range(numEnemies):
             x = random.randint(200, WIDTH - 60)  #do for all
             y = random.randint(30, HEIGHT - 60)
-            enemies.append(Enemy(x+self.offset, y, ENEMY_IMGS))
+            enemies.append(Enemy(x + self.offset, y, ENEMY_IMGS))
         for i in range(numPowerups):
             x = random.randint(100, WIDTH - 60)
             y = random.randint(30, HEIGHT - 60)
             effect = random.randint(0, len(EFFECTS) - 1)
-            powerups.append(Powerup(x+self.offset, y, effect, self.blocks))
+            powerups.append(Powerup(x + self.offset, y, effect, self.blocks))
         for i in range(numCoins):
             x = random.randint(100, WIDTH - 60)
             y = random.randint(30, HEIGHT - 60)
-            coins.append(Coin(x+self.offset, y, COIN_IMG, self.blocks))
+            coins.append(Coin(x + self.offset, y, COIN_IMG, self.blocks))
 
         self.enemies.add(enemies)
         self.powerups.add(powerups)
@@ -481,7 +478,7 @@ class Level():
 
     def reset(self):
         self.tiles = []
-        
+
         self.generateTile(0)
         self.generateTile(1)
         self.generateTile(2)
@@ -547,7 +544,6 @@ class Game():
     SETTINGS = 5
     CONTROLS = 6
 
-
     def __init__(self):
 
         #Distance, Time, Points, Currency, Enemies, Spaceships, Meteroids
@@ -600,44 +596,42 @@ class Game():
 
         SCREEN.blit(line1, (x1, y1))
         SCREEN.blit(line2, (x2, y2))
-        
-    def display_message2(self, text, text2, text3): 
-         line1 = FONT.render(text, 1, WHITE)
-         line2 = FONT_SM.render(text2, 1, WHITE)
-         line3 = FONT_SM.render(text3, 1, WHITE)
 
-         x1 = WIDTH / 2 - line1.get_width() / 2
-         y1 = HEIGHT / 3 - line1.get_height() / 2
-         x2 = WIDTH / 2 - line2.get_width() / 2
-         y2 = y1 + line1.get_height() + 16
-         x3 = WIDTH / 2 - line3.get_width() / 2
-         y3 = y2 + line1.get_height() + 16
+    def display_message2(self, text, text2, text3):
+        line1 = FONT.render(text, 1, WHITE)
+        line2 = FONT_SM.render(text2, 1, WHITE)
+        line3 = FONT_SM.render(text3, 1, WHITE)
 
-         SCREEN.blit(line1, (x1, y1))
-         SCREEN.blit(line2, (x2, y2))
-         SCREEN.blit(line3, (x3, y3))
+        x1 = WIDTH / 2 - line1.get_width() / 2
+        y1 = HEIGHT / 3 - line1.get_height() / 2
+        x2 = WIDTH / 2 - line2.get_width() / 2
+        y2 = y1 + line1.get_height() + 16
+        x3 = WIDTH / 2 - line3.get_width() / 2
+        y3 = y2 + line1.get_height() + 16
 
-         
+        SCREEN.blit(line1, (x1, y1))
+        SCREEN.blit(line2, (x2, y2))
+        SCREEN.blit(line3, (x3, y3))
+
     def display_message3(self, text, text2, text3, text4):
-            line1 = FONT.render(text, 1, WHITE)
-            line2 = FONT_SM.render(text2, 1, WHITE)
-            line3 = FONT_SM.render(text3, 1, WHITE)
-            line4 = FONT_SM.render(text4, 1, WHITE)
-    
-            x1 = WIDTH / 2 - line1.get_width() / 2
-            y1 = HEIGHT / 3 - line1.get_height() / 2
-            x2 = WIDTH / 2 - line2.get_width() / 2
-            y2 = y1 + line1.get_height() + 16
-            x3 = WIDTH / 2 - line3.get_width() / 2
-            y3 = y2 + line1.get_height() + 16
-            x4 = WIDTH / 2 - line4.get_width() / 2
-            y4 = y3 + line1.get_height() + 16
-    
-            SCREEN.blit(line1, (x1, y1))
-            SCREEN.blit(line2, (x2, y2))
-            SCREEN.blit(line3, (x3, y3))
-            SCREEN.blit(line4, (x4, y4))
+        line1 = FONT.render(text, 1, WHITE)
+        line2 = FONT_SM.render(text2, 1, WHITE)
+        line3 = FONT_SM.render(text3, 1, WHITE)
+        line4 = FONT_SM.render(text4, 1, WHITE)
 
+        x1 = WIDTH / 2 - line1.get_width() / 2
+        y1 = HEIGHT / 3 - line1.get_height() / 2
+        x2 = WIDTH / 2 - line2.get_width() / 2
+        y2 = y1 + line1.get_height() + 16
+        x3 = WIDTH / 2 - line3.get_width() / 2
+        y3 = y2 + line1.get_height() + 16
+        x4 = WIDTH / 2 - line4.get_width() / 2
+        y4 = y3 + line1.get_height() + 16
+
+        SCREEN.blit(line1, (x1, y1))
+        SCREEN.blit(line2, (x2, y2))
+        SCREEN.blit(line3, (x3, y3))
+        SCREEN.blit(line4, (x4, y4))
 
     def display_stats(self):
         scoreLine = FONT_SM.render("Score: " + str(self.duck.score), 1, WHITE)
@@ -676,8 +670,10 @@ class Game():
             self.duck.stop(True, False)
 
         for event in pygame.event.get():
-            if event.type == pygame.QUIT: #Bradley
+
+            if event.type == pygame.QUIT: 
                 self.end_game_process()
+
 
                 values.newHighScore = False
                 menuS.menu.QUIT
@@ -695,15 +691,17 @@ class Game():
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_r:
                     self.reset()
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_s:
-                     #settings pop up and able to change
-                     self.stage = Game.SETTINGS
+                    #settings pop up and able to change
+                    self.stage = Game.SETTINGS
 
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_c:
                     self.stage = Game.CONTROLS
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_q:
+
                     self.end_game_process()
                     if(values.newHighScore):
                             menuS.set_game_menu(menuS.menu.HIGH_SCORE)
+
                     else:
                         menuS.set_game_menu(menuS.menu.GAMEOVER)
 
@@ -714,19 +712,21 @@ class Game():
                 if event.type == pygame.KEYDOWN:
                     self.stage = Game.PLAYING
             elif self.stage == Game.SETTINGS:
-                 #events for in-game settings screen
-                 if event.type == pygame.KEYDOWN and event.key == pygame.K_b:
-                     self.stage = Game.PAUSED
+                #events for in-game settings screen
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_b:
+                    self.stage = Game.PAUSED
             elif self.stage == Game.CONTROLS:
-                    #events for in-game controls screen
-                    if event.type == pygame.KEYDOWN:
-                        self.stage = Game.PAUSED
+                #events for in-game controls screen
+                if event.type == pygame.KEYDOWN:
+                    self.stage = Game.PAUSED
 
             elif self.stage == Game.GAME_OVER:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
+
                         self.end_game_process()
                         if(values.newHighScore):
+
                             menuS.set_game_menu(menuS.menu.HIGH_SCORE)
                         else:
                             menuS.set_game_menu(menuS.menu.GAMEOVER)
@@ -743,13 +743,13 @@ class Game():
             self.duck.update(self.level)
             for e in self.level.enemies:
                 e.update(self.duck)
-        
+
             #SIDESCROLL
             for sprite in self.level.active_sprites:
                 sprite.rect.x -= self.gameSpeed
                 if sprite.rect.right < 0:
                     self.level.active_sprites.remove(sprite)
-            
+
             self.duck.rect.x -= self.gameSpeed / 2
 
         if self.duck.health <= 0 or self.duck.rect.right < 0:
@@ -790,7 +790,8 @@ class Game():
         elif self.stage == Game.PAUSED:
             self.display_message3(
                 "PAUSED",
-                "'ESC' to resume. 'R' to restart. 'Q' to quit to menu.","'S' to change Settings", "'C' to see Controls")
+                "'ESC' to resume. 'R' to restart. 'Q' to quit to menu.",
+                "'S' to change Settings", "'C' to see Controls")
         elif self.stage == Game.GAME_OVER:
             self.end_game_process()
             if values.newHighScore:
@@ -798,16 +799,15 @@ class Game():
             else:
                 menuS.set_game_menu(menuS.menu.GAMEOVER)
             main.main()
-                
+
         elif self.stage == Game.SETTINGS:
-                 #display in-game settings Screen
-             menuS.set_game_menu(menuS.menu.SETTING)
-             main.main()
+            #display in-game settings Screen
+            menuS.set_game_menu(menuS.menu.SETTING)
+            main.main()
         elif self.stage == Game.CONTROLS:
             if settingIO.keys == "wasd":
                 self.display_message2(
-                    "CONTROLS",
-                    "WASD to move. Space to shoot. ESC to pause.",
+                    "CONTROLS", "WASD to move. Space to shoot. ESC to pause.",
                     "Press any key to continue.")
             elif settingIO.keys == "arrows":
                 self.display_message2(

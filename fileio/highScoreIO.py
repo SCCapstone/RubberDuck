@@ -68,14 +68,16 @@ def add_new_high_score(score):
     high_score_board = high_score_board.sort_values(by=["Score"],
                                                     ascending=False)
     high_score_board = high_score_board.reset_index(drop=True)
-    
+
     #check if 11 entries in high score board
     if len(high_score_board) > 10:
         high_score_board = high_score_board.drop(10)
     menuS.set_game_menu(menuS.menu.HIGH_SCORE)
-    
-    #find i column in high score board for [score[0], score[1], score[2]]
-    values.newHighScoreId = high_score_board.index[(high_score_board["Player_Name"] == score[0]) & (high_score_board["Score"] == score[1]) & (high_score_board["Date"] == score[2])].tolist()[0]
 
+    #find i column in high score board for [score[0], score[1], score[2]]
+    values.newHighScoreId = high_score_board.index[
+        (high_score_board["Player_Name"] == score[0])
+        & (high_score_board["Score"] == score[1]) &
+        (high_score_board["Date"] == score[2])].tolist()[0]
 
     save_high_scores()

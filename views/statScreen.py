@@ -87,7 +87,6 @@ def start_screen(noises):
                 menuS.set_game_menu(menuS.menu.HOME)
 
 
-
 def shareStats(screen):
     #Clear screen
     filestring = "stat-" + time.strftime("%Y%m%d-%H%M%S") + ".png"

@@ -5,6 +5,10 @@ from assets import values
 import menuStructure as menuS
 import os
 from fileio import highScoreIO
+import time
+import tkinter
+import easygui
+from tkinter.filedialog import askdirectory
 
 #from fileio import highScoreIO
 
@@ -16,6 +20,7 @@ def high_score_screen(noises, gameOver=False, scoreId=-1):
     Args:
         noises (SFXHandler): sounds for screen
     """
+       
     # Set the background to main.jpg
     background = pygame.image.load(
         os.path.join("assets", "backgrounds", "tertiary.jpg"))
@@ -64,7 +69,7 @@ def high_score_screen(noises, gameOver=False, scoreId=-1):
     else:
         write_scores_text(subtitleFont, left, right, screen, gameOver, scoreId)
 
-    playAgainCords, homeCords, quitCords, widthButton = draw_buttons(
+    playAgainCords, homeCords, ShareCords, widthButton = draw_buttons(
         screen, right, left, subtitleFont)
 
     # check for mouse click
@@ -84,12 +89,28 @@ def high_score_screen(noises, gameOver=False, scoreId=-1):
                     values.newHighScore = False
                     values.newHighScoreId = -1
                     menuS.set_game_menu(menuS.menu.HOME)
-                elif checkCords(quitCords, widthButton):
-                    # quit game
+                elif checkCords(ShareCords, widthButton):
                     noises.playSound("quack")
-                    values.newHighScore = False
-                    values.newHighScoreId = -1
-                    menuS.set_game_menu(menuS.menu.QUIT)
+                    filestring = "high-score-" + time.strftime(
+                        "%Y%m%d-%H%M%S") + ".png"
+                    # Get Path to save file
+                    root = tkinter.Tk()
+                    root.withdraw()
+                    pygame.display.set_mode(values.SCREEN_SIZE)
+
+                    root.update()
+                    #get document path
+                    path = askdirectory()
+
+                    high_score_screen(noises, gameOver, scoreId)
+                    # check if path is valid
+                    if path == "":
+                        return
+                    path = path + "/" + filestring
+                    pygame.image.save(screen, path)
+                    easygui.msgbox("Your stats have been saved to " + path,
+                                   title="High Score Saved")
+
         elif event.type == pygame.QUIT:
             menuS.set_game_menu(menuS.menu.QUIT)
         elif event.type == pygame.KEYDOWN:
@@ -188,7 +209,7 @@ def draw_buttons(screen, right, left, subtitleFont):
     Returns:
         tuple: cords for play again button
         tuple: cords for home button
-        tuple: cords for quit button
+        tuple: cords for share button
         float: width of button
     """
     # Make cordinates for 3 inline buttons
@@ -196,8 +217,8 @@ def draw_buttons(screen, right, left, subtitleFont):
     playAgainCords = (left + 10, screen.get_height() / 16 * 13.5)
     homeCords = (10 + playAgainCords[0] + widthButton,
                  screen.get_height() / 16 * 13.5)
-    quitCords = (10 + homeCords[0] + widthButton,
-                 screen.get_height() / 16 * 13.5)
+    shareCords = (10 + homeCords[0] + widthButton,
+                  screen.get_height() / 16 * 13.5)
 
     # Draw Rects for buttons
     pygame.draw.rect(screen, values.COLOR_Purple,
@@ -205,13 +226,13 @@ def draw_buttons(screen, right, left, subtitleFont):
     pygame.draw.rect(screen, values.COLOR_Purple,
                      (homeCords[0], homeCords[1], widthButton, 50))
     pygame.draw.rect(screen, values.COLOR_Purple,
-                     (quitCords[0], quitCords[1], widthButton, 50))
+                     (shareCords[0], shareCords[1], widthButton, 50))
 
     # Add text to center of buttons
     play_again_text_image = subtitleFont.render("Play Again", True,
                                                 values.COLOR_Pink)
     home_text_image = subtitleFont.render("Home", True, values.COLOR_Pink)
-    quit_text_image = subtitleFont.render("Quit", True, values.COLOR_Pink)
+    share_text_image = subtitleFont.render("Share", True, values.COLOR_Pink)
 
     screen.blit(play_again_text_image,
                 (playAgainCords[0] + widthButton / 2 -
@@ -222,11 +243,11 @@ def draw_buttons(screen, right, left, subtitleFont):
         (homeCords[0] + widthButton / 2 - home_text_image.get_width() / 2,
          homeCords[1] + 25 - home_text_image.get_height() / 2))
     screen.blit(
-        quit_text_image,
-        (quitCords[0] + widthButton / 2 - quit_text_image.get_width() / 2,
-         quitCords[1] + 25 - quit_text_image.get_height() / 2))
+        share_text_image,
+        (shareCords[0] + widthButton / 2 - share_text_image.get_width() / 2,
+         shareCords[1] + 25 - share_text_image.get_height() / 2))
 
-    return playAgainCords, homeCords, quitCords, widthButton
+    return playAgainCords, homeCords, shareCords, widthButton
 
 
 def checkCords(cords, width):
