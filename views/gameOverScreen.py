@@ -181,8 +181,8 @@ def start_screen(noises):
 
 def shareScoreGraphic(score, time):
     # Set the screen background
-        # Set the background to main.jpg
-# Set the background to main.jpg
+    # Set the background to main.jpg
+    # Set the background to main.jpg
     background = pygame.image.load(
         os.path.join("assets", "backgrounds", "tertiary.jpg"))
     screen = pygame.display.get_surface()
@@ -190,53 +190,56 @@ def shareScoreGraphic(score, time):
     background = pygame.transform.scale(
         background, (screen.get_width(), screen.get_height()))
     screen.blit(background, (0, 0))
-    
+
     gameNameFont = pygame.font.Font(
         os.path.join("assets", "fonts", "Ethnocentric.ttf"),
         int(values.screenX * .075))
-    
+
     #Center Ducks in Space on Top
     gameName_text_image = gameNameFont.render("Ducks in Space", True,
-                                                values.COLOR_White)
-    gameNameCords = gameName_text_image.get_rect(center=(screen.get_width() / 2,
-                                                        screen.get_height() / 4))
+                                              values.COLOR_White)
+    gameNameCords = gameName_text_image.get_rect(
+        center=(screen.get_width() / 2, screen.get_height() / 4))
     screen.blit(gameName_text_image, gameNameCords)
-    
-        # font size for Titles = .05
+
+    # font size for Titles = .05
     titleFont = pygame.font.Font(
         os.path.join("assets", "fonts", "Ethnocentric.ttf"),
         int(values.screenX * .05))
-    
+
     # Display the score
-    score_text_image = titleFont.render("Score: " + str(score), True, values.COLOR_Yellow)
+    score_text_image = titleFont.render("Score: " + str(score), True,
+                                        values.COLOR_Yellow)
     scoreCords = score_text_image.get_rect(center=(screen.get_width() / 2,
-                                                    screen.get_height() / 2))
+                                                   screen.get_height() / 2))
     screen.blit(score_text_image, scoreCords)
-    
+
     # sub info
     subFont = pygame.font.Font(
         os.path.join("assets", "fonts", "Ethnocentric.ttf"),
         int(values.screenX * .03))
 
     # Display the time
-    time_text_image = subFont.render("Time: " + str(time), True, values.COLOR_Yellow)
+    time_text_image = subFont.render("Time: " + str(time), True,
+                                     values.COLOR_Yellow)
     timeCords = time_text_image.get_rect(center=(screen.get_width() / 2,
-                                                    scoreCords.bottom + 50))
+                                                 scoreCords.bottom + 50))
     screen.blit(time_text_image, timeCords)
-    
+
     #Display User
-    user_text_image = subFont.render("Player: " + str(settingIO.get_username()), True, values.COLOR_Yellow)
+    user_text_image = subFont.render(
+        "Player: " + str(settingIO.get_username()), True, values.COLOR_Yellow)
     userCords = user_text_image.get_rect(center=(screen.get_width() / 2,
-                                                    timeCords.bottom + 50))
+                                                 timeCords.bottom + 50))
     screen.blit(user_text_image, userCords)
-    
+
     # Get Date as MM/DD/YYYY HH:MM
     date = datetime.datetime.now().strftime("%m/%d/%Y %H:%M")
-    date_text_image = subFont.render("Date: " + str(date), True, values.COLOR_Yellow)
+    date_text_image = subFont.render("Date: " + str(date), True,
+                                     values.COLOR_Yellow)
     dateCords = date_text_image.get_rect(center=(screen.get_width() / 2,
-                                                    userCords.bottom + 50))
+                                                 userCords.bottom + 50))
     screen.blit(date_text_image, dateCords)
-
 
     #Clear screen
     filestring = "score-" + t.strftime("%Y%m%d-%H%M%S") + ".png"
@@ -253,9 +256,6 @@ def shareScoreGraphic(score, time):
     if path == "":
         return
     path = path + "/" + filestring
-    
+
     easygui.msgbox("Your game score have been saved to " + path,
                    title="Score Image Saved")
-
-
- 

@@ -169,10 +169,9 @@ def settings_screen(noises):
     else:
         hard_image = subtitleFont.render("Hard", True, values.COLOR_Purple)
     screen.blit(hard_image, harddifficultySettingCords)
-    
+
     #KeyMapping
-    key_image = subtitleFont.render("Key Mapping:", True,
-                                            values.COLOR_Purple)
+    key_image = subtitleFont.render("Key Mapping:", True, values.COLOR_Purple)
     key_Cords = (left + 10, screen.get_height() / 16 * 8)
     screen.blit(key_image, key_Cords)
 
@@ -180,7 +179,7 @@ def settings_screen(noises):
     # WASD Button
     wasd_image = subtitleFont.render("WASD", True, values.COLOR_Red)
     wasd_Cords = (key_Cords[0] + key_image.get_width() + 20, key_Cords[1])
-    
+
     # if hovered yellow, if toggled red, if not hovered purple
     if checkDifCords(wasd_Cords, wasd_image):
         wasd_image = subtitleFont.render("WASD", True, values.COLOR_Yellow)
@@ -189,21 +188,24 @@ def settings_screen(noises):
     else:
         wasd_image = subtitleFont.render("WASD", True, values.COLOR_Purple)
     screen.blit(wasd_image, wasd_Cords)
-    
-    # / 
+
+    # /
     slash_image = subtitleFont.render("/", True, values.COLOR_Purple)
     slash_Cords = (wasd_Cords[0] + wasd_image.get_width() + 10, wasd_Cords[1])
     screen.blit(slash_image, slash_Cords)
 
     # Arrow Keys Button
     arrow_image = subtitleFont.render("Arrow Keys", True, values.COLOR_Red)
-    arrow_Cords = (slash_Cords[0] + slash_image.get_width() + 10, slash_Cords[1])
+    arrow_Cords = (slash_Cords[0] + slash_image.get_width() + 10,
+                   slash_Cords[1])
     if checkDifCords(arrow_Cords, arrow_image):
-        arrow_image = subtitleFont.render("Arrow Keys", True, values.COLOR_Yellow)
+        arrow_image = subtitleFont.render("Arrow Keys", True,
+                                          values.COLOR_Yellow)
     elif settingIO.keys == "arrows":
         arrow_image = subtitleFont.render("Arrow Keys", True, values.COLOR_Red)
     else:
-        arrow_image = subtitleFont.render("Arrow Keys", True, values.COLOR_Purple)
+        arrow_image = subtitleFont.render("Arrow Keys", True,
+                                          values.COLOR_Purple)
     screen.blit(arrow_image, arrow_Cords)
 
     # Coordinates for back button
@@ -311,7 +313,6 @@ def settings_screen(noises):
                     noises.playSound("quack")
 
                     settingIO.keys = "arrows"
-
 
                     gameScreen.LEFT = pygame.K_LEFT
                     gameScreen.RIGHT = pygame.K_RIGHT
@@ -455,4 +456,3 @@ def checkSliderCords(left, factor, image, screen, range, height):
     )[0] < left + factor + image.get_width() + range and screen.get_height(
     ) / 16 * height + 20 < pygame.mouse.get_pos(
     )[1] < screen.get_height() / 16 * height + 30
-
