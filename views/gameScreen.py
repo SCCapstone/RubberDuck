@@ -729,17 +729,33 @@ class Game():
 
 
 def gameScreen():
+    global UP, DOWN, LEFT, RIGHT
     game = Game()
     game.reset()
     game.loop()
+    if settingIO.keys == "wasd":
+        UP = pygame.K_w
+        DOWN = pygame.K_s
+        LEFT = pygame.K_a
+        RIGHT = pygame.K_d
+    elif settingIO.keys == "arrows":
+        UP = pygame.K_UP
+        DOWN = pygame.K_DOWN
+        LEFT = pygame.K_LEFT
+        RIGHT = pygame.K_RIGHT
     #pygame.quit()
     #sys.exit()
 
-def end_game_process(): 
+
+def end_game_process():
     # Game Format is [Distance, Time, Points, Currency, Enemies, Spaceships, Meteroids]
     game = [1, 1, values.game_score, values.coins_in_game, 1, 1, 1, 1, 1, 1]
     statsIO.postgame_update(game)
     statsIO.create_game_log(game)
-    day = datetime.datetime.now().strftime("%d/%m/%Y")
-    #score = [settingIO.Player_Name, values.game_score, day]
-    #highScoreIO.check_for_high_score(score)
+    #make YYYY-MM-DD
+    day = str(
+        str(datetime.datetime.now().year) + "-" +
+        str(datetime.datetime.now().month) + "-" +
+        str(datetime.datetime.now().day))
+    score = [settingIO.Player_Name, values.game_score, day]
+    highScoreIO.check_for_high_score(score)
