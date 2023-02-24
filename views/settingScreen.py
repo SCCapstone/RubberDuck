@@ -110,7 +110,6 @@ def settings_screen(noises):
     difficultyCords = (left + 10, screen.get_height() / 16 * 7)
     screen.blit(difficulty_image, difficultyCords)
 
-    # TODO - Add special coloring for current difficulty (new color or just yellow?)
     # Difficulty Settings
     # Easy setting
 
@@ -305,9 +304,6 @@ def settings_screen(noises):
                     gameScreen.UP = pygame.K_w
                     gameScreen.DOWN = pygame.K_s
 
-                elif checkSliderCords(left, 30, master_volume_image, screen,
-                                      masterValRange, 3.95):
-                    noises.playSound("quack")
                 #key mapping (NOT WORKING YET)
                 elif checkCords(arrow_Cords, 300):
                     noises.playSound("quack")
@@ -318,6 +314,16 @@ def settings_screen(noises):
                     gameScreen.RIGHT = pygame.K_RIGHT
                     gameScreen.UP = pygame.K_UP
                     gameScreen.DOWN = pygame.K_DOWN
+
+                elif checkSliderCords(left, 30, master_volume_image, screen,
+                                      masterValRange, 3.95):
+                    noises.playSound("quack")
+                    newPercent = round_Percent(
+                        (pygame.mouse.get_pos()[0] -
+                         (left + 30 + master_volume_image.get_width())) /
+                        masterValRange * 100)
+                    settingIO.Master_Volume = newPercent
+                    #noises.master_volume(settingIO.Master_Volume)
 
                 elif checkSliderCords(left, 70, music_volume_image, screen,
                                       musicValRange, 4.95):
