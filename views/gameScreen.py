@@ -5,6 +5,7 @@ import math
 import os
 import menuStructure as menuS
 import main as main
+from enum import Enum
 from assets import values
 from fileio import settingIO
 from fileio import statsIO
@@ -15,6 +16,8 @@ from views import gameScreen
 
 GRID_SIZE = 64
 FPS = 30
+
+
 
 pygame.init()
 #CONTROLS
@@ -554,6 +557,7 @@ class Game():
 
         self.elapsedTime = 0
         self.difficulty = 1
+        self.difficultyModifier = settingIO.DifficultyLevel.value
 
         self.gameSpeed = (self.difficulty + 2) * 2
 
@@ -733,6 +737,9 @@ class Game():
                         self.reset()
 
     def update(self):
+
+        self.gameSpeed = min(20, (self.difficulty + 2) * 2)
+
         self.elapsedTime += 1 / FPS
         if self.stage == Game.PLAYING:
             self.duck.update(self.level)
@@ -757,7 +764,8 @@ class Game():
         if self.distanceTraveled > WIDTH:
             self.level.deleteTile()
             self.level.generateTile(2)
-            self.level.difficulty += 1
+            self.level.difficulty += self.difficultyModifier
+            self.difficulty += self.difficultyModifier
             self.distanceTraveled -= WIDTH
 
         self.level.update(self.duck)
