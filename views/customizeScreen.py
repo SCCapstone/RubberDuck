@@ -207,7 +207,7 @@ def customize_screen(noises, duckIndex, arrayIndex):
 
     #TODO array of skins to purchase /equip at the bottom of the screen
     
-    currentPreview = pygame.transform.scale(allSkins[startingDuck], (previewSize, previewSize))
+    currentPreview = pygame.transform.scale(currentArray[startingDuck], (previewSize, previewSize))
     #TODO Preview of Duck in Current State
     screen.blit(currentPreview, (screen.get_width() / 3, screen.get_height() / 4))
     #will make these box objects for an array so we can move with arrows, know which ones have been purchased.
@@ -331,7 +331,7 @@ def customize_screen(noises, duckIndex, arrayIndex):
                     if startingDuck < 0:
                         startingDuck = len(allSkins) - 1
                     # Make the duck the new duck
-                    currentPreview = pygame.transform.scale(allSkins[startingDuck], (previewSize, previewSize))
+                    currentPreview = pygame.transform.scale(currentArray[startingDuck], (previewSize, previewSize))
 
                     #click on equip or buy
                 elif xArr1 + sep + wArr < pygame.mouse.get_pos(
@@ -353,7 +353,7 @@ def customize_screen(noises, duckIndex, arrayIndex):
                     if startingDuck > len(allSkins) - 1:
                         startingDuck = 0
                     # Make the duck the new duck
-                    currentPreview = pygame.transform.scale(allSkins[startingDuck], (previewSize, previewSize))
+                    currentPreview = pygame.transform.scale(currentArray[startingDuck], (previewSize, previewSize))
 
         elif event.type == pygame.QUIT:
             menuS.set_game_menu(menuS.menu.QUIT)
