@@ -4,6 +4,7 @@ import json
 import os
 from fileio import settingIO
 import time
+from fileio import customizationIO
 
 # Global Variables
 global distanceTravelled, totalGamesPlayed, totalGameTime
@@ -64,11 +65,12 @@ def save_stats():
 
 
 def postgame_update(game):
-    # Game Format is [Distance, Time, Points, Currency, Enemies, Spaceships, Meteroids, Currency]
+    # Game Format is [Distance, Time, Points, Currency, Enemies, Spaceships, Meteroi]
     global distanceTravelled, totalGamesPlayed, totalGameTime
     global enemyDefeated, spaceshipKills, meteroidKills
     global allTimeCurrency, averageGameTime, averagePoints
 
+    customizationIO.add_currency(game[3])
     totalGamesPlayed += 1
     totalGameTime += game[1]
     averageGameTime = totalGameTime / totalGamesPlayed
@@ -78,7 +80,7 @@ def postgame_update(game):
     enemyDefeated += game[4]
     spaceshipKills += game[5]
     meteroidKills += game[6]
-    allTimeCurrency += game[7]
+    allTimeCurrency += game[3]
     save_stats()
 
 

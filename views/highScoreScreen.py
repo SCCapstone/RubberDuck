@@ -20,7 +20,7 @@ def high_score_screen(noises, gameOver=False, scoreId=-1):
     Args:
         noises (SFXHandler): sounds for screen
     """
-    noises.play_music("highScore")
+       
     # Set the background to main.jpg
     background = pygame.image.load(
         os.path.join("assets", "backgrounds", "tertiary.jpg"))
