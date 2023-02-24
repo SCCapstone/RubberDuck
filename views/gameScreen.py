@@ -412,7 +412,7 @@ class Tile():
                     x -= BLOCK_IMG.get_width() * 2
             blockXs.append(x)
             y = random.randint(0, 1)
-            stack = random.randint(4, 8)
+            stack = random.randint(6, 8)
             if y:
                 y = 0
                 bimg = BLOCK_IMG2
@@ -554,6 +554,7 @@ class Game():
         #self.totalDistanceTraveled, self.?, self.duck.score, self.duck.coins, self.duck.enemiesKilled, ? , ?
         #Bradley
 
+        self.elapsedTime = 0
         self.difficulty = 1
 
         self.gameSpeed = (self.difficulty + 2) * 2
@@ -572,6 +573,7 @@ class Game():
         self.reset()
 
     def reset(self):
+        self.elapsedTime = 0
         self.duck = Duck(DUCK_IMGS)
         self.level = Level(self.difficulty)
 
@@ -675,7 +677,7 @@ class Game():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT: #Bradley
-                end_game_process()
+                self.end_game_process()
 
                 values.newHighScore = False
                 menuS.menu.QUIT
@@ -699,7 +701,7 @@ class Game():
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_c:
                     self.stage = Game.CONTROLS
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_q:
-                    end_game_process()
+                    self.end_game_process()
                     if(values.newHighScore):
                             menuS.set_game_menu(menuS.menu.HIGH_SCORE)
                     else:
@@ -723,7 +725,7 @@ class Game():
             elif self.stage == Game.GAME_OVER:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
-                        end_game_process()
+                        self.end_game_process()
                         if(values.newHighScore):
                             menuS.set_game_menu(menuS.menu.HIGH_SCORE)
                         else:
@@ -735,6 +737,8 @@ class Game():
                         self.reset()
 
     def update(self):
+        self.elapsedTime += 1 / FPS
+        
         if self.stage == Game.PLAYING:
             self.duck.update(self.level)
             for e in self.level.enemies:
@@ -758,7 +762,7 @@ class Game():
         if self.distanceTraveled > WIDTH:
             self.level.deleteTile()
             self.level.generateTile(2)
-            self.difficulty += 1
+            self.level.difficulty += 1
             self.distanceTraveled -= WIDTH
 
         self.level.update(self.duck)
@@ -788,7 +792,7 @@ class Game():
                 "PAUSED",
                 "'ESC' to resume. 'R' to restart. 'Q' to quit to menu.","'S' to change Settings", "'C' to see Controls")
         elif self.stage == Game.GAME_OVER:
-            end_game_process()
+            self.end_game_process()
             if values.newHighScore:
                 menuS.set_game_menu(menuS.menu.HIGH_SCORE)
             else:
@@ -821,6 +825,21 @@ class Game():
             self.draw()
             self.clock.tick(FPS)
 
+    def end_game_process(self):
+        # Game Format is [Distance, Time, Points, Currency, Enemies, Spaceships, Meteroids]
+        game = [self.totalDistanceTraveled, math.floor(self.elapsedTime), self.duck.score, self.duck.coins, self.duck.enemiesKilled, 1, 1]
+        print(game)
+
+        statsIO.postgame_update(game)
+        statsIO.create_game_log(game)
+        #make YYYY-MM-DD
+        day = str(
+            str(datetime.datetime.now().year) + "-" +
+            str(datetime.datetime.now().month) + "-" +
+            str(datetime.datetime.now().day))
+        score = [settingIO.Player_Name, values.game_score, day]
+        highScoreIO.check_for_high_score(score)
+
 
 def gameScreen():
     global UP, DOWN, LEFT, RIGHT
@@ -841,15 +860,3 @@ def gameScreen():
     #sys.exit()
 
 
-def end_game_process():
-    # Game Format is [Distance, Time, Points, Currency, Enemies, Spaceships, Meteroids]
-    game = [1, 1, values.game_score, values.coins_in_game, 1, 1, 1, 1, 1, 1]
-    statsIO.postgame_update(game)
-    statsIO.create_game_log(game)
-    #make YYYY-MM-DD
-    day = str(
-        str(datetime.datetime.now().year) + "-" +
-        str(datetime.datetime.now().month) + "-" +
-        str(datetime.datetime.now().day))
-    score = [settingIO.Player_Name, values.game_score, day]
-    highScoreIO.check_for_high_score(score)
