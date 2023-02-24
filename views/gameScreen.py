@@ -134,7 +134,7 @@ class Rocket(Entity):
         self.vx = vBase * dx
         self.vy = -vBase * dy
 
-    def update(self, enemies):
+    def update(self, enemies, duck):
 
         self.rect.x += self.vx
         self.rect.y += self.vy
@@ -142,6 +142,8 @@ class Rocket(Entity):
         hit_list = pygame.sprite.spritecollide(self, enemies, True)
         if hit_list:
             self.kill()
+            duck.enemiesKilled += 1
+        
 
 
 class Block(Entity):
@@ -173,6 +175,7 @@ class Duck(Entity):
 
         self.score = 0
         self.coins = 0
+        self.enemiesKilled = 0
         values.resetGameScore()
         values.resetCoinsinGame()
 
@@ -286,7 +289,7 @@ class Duck(Entity):
         if self.rocketCD > 0:
             self.rocketCD -= 1
 
-        self.rocketGroup.update(level.enemies)
+        self.rocketGroup.update(level.enemies, self)
 
         if self.health > self.maxHealth:
             self.health = self.maxHealth
@@ -534,6 +537,10 @@ class Game():
 
     def __init__(self):
 
+        #Distance, Time, Points, Currency, Enemies, Spaceships, Meteroids
+        #self.totalDistanceTraveled, self.?, self.duck.score, self.duck.coins, self.duck.enemiesKilled, ? , ?
+        #Bradley
+
         self.difficulty = 1
 
         self.gameSpeed = (self.difficulty + 2) * 2
@@ -663,9 +670,12 @@ class Game():
                 sprite.rect.x -= self.gameSpeed
                 if sprite.rect.right < 0:
                     self.level.active_sprites.remove(sprite)
+            
+            self.duck.rect.x -= self.gameSpeed / 2
 
         if self.duck.health <= 0 or self.duck.rect.right < 0:
             self.stage = Game.GAME_OVER
+            print(self.duck.enemiesKilled)
 
         self.distanceTraveled += self.gameSpeed
         self.totalDistanceTraveled += self.gameSpeed
