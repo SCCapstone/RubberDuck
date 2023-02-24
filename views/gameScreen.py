@@ -670,8 +670,10 @@ class Game():
             self.duck.stop(True, False)
 
         for event in pygame.event.get():
-            if event.type == pygame.QUIT: #Bradley
+
+            if event.type == pygame.QUIT: 
                 self.end_game_process()
+
 
                 values.newHighScore = False
                 menuS.menu.QUIT
@@ -695,9 +697,11 @@ class Game():
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_c:
                     self.stage = Game.CONTROLS
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_q:
+
                     self.end_game_process()
                     if(values.newHighScore):
                             menuS.set_game_menu(menuS.menu.HIGH_SCORE)
+
                     else:
                         menuS.set_game_menu(menuS.menu.GAMEOVER)
 
@@ -719,8 +723,10 @@ class Game():
             elif self.stage == Game.GAME_OVER:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
+
                         self.end_game_process()
                         if(values.newHighScore):
+
                             menuS.set_game_menu(menuS.menu.HIGH_SCORE)
                         else:
                             menuS.set_game_menu(menuS.menu.GAMEOVER)
