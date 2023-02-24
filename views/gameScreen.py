@@ -344,7 +344,9 @@ class Powerup(Entity):
         if self.effect == "Health":
             duck.health += 1
         if self.effect == "Speed":
-            duck.speed += 2
+            if random.randint(0,9) == 0:
+                duck.speed -= 3
+            duck.speed += 3
         if self.effect == "Damage":
             duck.attack += 1
 
@@ -747,7 +749,7 @@ class Game():
 
         if self.duck.health <= 0 or self.duck.rect.right < 0:
             self.stage = Game.GAME_OVER
-            print(self.duck.enemiesKilled)
+            
 
         self.distanceTraveled += self.gameSpeed
         self.totalDistanceTraveled += self.gameSpeed
