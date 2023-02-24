@@ -45,6 +45,7 @@ def main():
     noises.playMusic("menus")
     noises.music_volume(settingIO.Music_Volume)
     ran = False
+    visitedHighScore = False
     while True:
         pygame.display.flip()
         for event in pygame.event.get():
@@ -60,18 +61,24 @@ def main():
             #       y / pygame.display.get_surface().get_size()[1])
 
         if menuS.get_game_menu() == menuS.menu.HOME:
+            if visitedHighScore:
+                noises.playMusic("menus")
+                visitedHighScore = False
             homeScreen.home_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.STAT:
             statScreen.start_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.GAME:
+            visitedHighScore = False
             if not ran:
                 noises.playMusic("gameplay")
-
             ran = True
             gameScreen.gameScreen()
         elif menuS.get_game_menu() == menuS.menu.CUSTOMIZE:
             customizeScreen.customize_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.HIGH_SCORE:
+            if values.newHighScore and not visitedHighScore:
+                noises.playMusic("highScore")
+                visitedHighScore = True
             highScoreScreen.high_score_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.SETTING:
             settingScreen.settings_screen(noises)
