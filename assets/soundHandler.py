@@ -7,7 +7,7 @@ soundBook = {"quack": "assets/sfx/quack.ogg"}
 musicBook = {
     "menus": "assets/music/menus.ogg",
     "gameplay": "assets/music/gameplay.ogg",
-    "highscore": "assets/music/highscore.ogg"
+    "highScore": "assets/music/highscore.ogg"
 }
 
 # TODO:
