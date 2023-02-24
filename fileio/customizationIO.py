@@ -68,3 +68,8 @@ def save_customization():
     }
     with open("fileio\\Customization.json", "w") as f:
         json.dump(data, f, indent=4)
+
+def add_currency(amount):
+    global coins
+    coins += amount
+    save_customization()

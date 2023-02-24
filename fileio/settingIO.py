@@ -87,7 +87,7 @@ def save_settings():
         "Music_Volume": Music_Volume,
         "SFX_Volume": SFX_Volume,
         "Difficulty": dif_text,
-        "keys" : keys
+        "keys": keys
     }
 
     with open("fileio\\UserSetting.json", "w") as f:

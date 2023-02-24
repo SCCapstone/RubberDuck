@@ -25,9 +25,15 @@ screenY = 0
 SCREEN_SIZE = (screenX, screenY)
 
 SETTING_PATH = "fileio\\UserSetting.json"
+"""
+summary: draws 3 buttons for screen
+
+Args:
+    x (int): x size of screen
+    y (int): y size of screen
+"""
 
 
-# Set Screen Size
 def set_screen_size(x, y):
     global screenX, screenY, SCREEN_SIZE
     screenX = x
@@ -69,6 +75,6 @@ def resetCoinsinGame():
     global coins_in_game
     coins_in_game = 0
 
+
 newHighScore = False
 newHighScoreId = -1
-

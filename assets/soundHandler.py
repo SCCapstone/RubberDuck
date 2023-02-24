@@ -6,7 +6,8 @@ soundBook = {"quack": "assets/sfx/quack.ogg"}
 # Dictionary of all music tracks
 musicBook = {
     "menus": "assets/music/menus.ogg",
-    "gameplay": "assets/music/gameplay.ogg"
+    "gameplay": "assets/music/gameplay.ogg",
+    "highScore": "assets/music/highscore.ogg"
 }
 
 # TODO:
