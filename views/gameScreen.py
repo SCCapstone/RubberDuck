@@ -63,8 +63,8 @@ SWAG_DUCK = loadImage(os.path.join("assets", "sprites", "SwagDuck.png"),
 COIN_IMG = loadImage(os.path.join("assets", "sprites", "Coin.png"), scale=True)
 DAMAGE_BUFF = loadImage(os.path.join("assets", "sprites", "Damage_Buff.png"),
                         scale=True)
-DUCK_IMG2 = loadImage(os.path.join("assets", "sprites", "DuckFrame2.png"),
-                      scale=True)
+#DUCK_IMG2 = loadImage(os.path.join("assets", "sprites", "DuckFrame2.png"),
+                      #scale=True)
 ENEMY_LASER = loadImage(os.path.join("assets", "sprites", "Laser_Proj.png"),
                         scale=False)
 ENEMY_IMG = loadImage(os.path.join("assets", "sprites", "Enemy_Sprite.png"),
@@ -87,7 +87,7 @@ HEART_IMG = loadImage(os.path.join("assets", "sprites", "Heart.png"), True)
 COIN_IMG_SM = pygame.transform.scale(COIN_IMG, (32, 32))
 ROCKET_IMG = pygame.transform.scale(ROCKET_IMG, (32, 20))
 
-DUCK_IMGS = [DUCK_IMG, DUCK_IMG2]
+#DUCK_IMGS = [DUCK_IMG, DUCK_IMG2]
 ENEMY_IMGS = [ENEMY_IMG]
 POWERUP_IMGS = {"Health": HEALTH_IMG, "Speed": SPEED_IMG}
 
@@ -550,6 +550,7 @@ class Game():
         #self.totalDistanceTraveled, self.?, self.duck.score, self.duck.coins, self.duck.enemiesKilled, ? , ?
         #Bradley
 
+        self.elapsedTime = 0
         self.difficulty = 1
 
         self.gameSpeed = (self.difficulty + 2) * 2
@@ -568,7 +569,8 @@ class Game():
         self.reset()
 
     def reset(self):
-        self.duck = Duck(DUCK_IMGS)
+        self.elapsedTime = 0
+        self.duck = Duck([DUCK_IMG])
         self.level = Level(self.difficulty)
 
         self.distanceTraveled = 0
@@ -729,6 +731,7 @@ class Game():
                         self.reset()
 
     def update(self):
+        self.elapsedTime += 1 / FPS
         if self.stage == Game.PLAYING:
             self.duck.update(self.level)
             for e in self.level.enemies:
@@ -752,7 +755,7 @@ class Game():
         if self.distanceTraveled > WIDTH:
             self.level.deleteTile()
             self.level.generateTile(2)
-            self.difficulty += 1
+            self.level.difficulty += 1
             self.distanceTraveled -= WIDTH
 
         self.level.update(self.duck)
@@ -814,6 +817,19 @@ class Game():
             self.update()
             self.draw()
             self.clock.tick(FPS)
+    
+    def end_game_process(self):
+        # Game Format is [Distance, Time, Points, Currency, Enemies, Spaceships, Meteroids]
+        game = [self.totalDistanceTraveled, math.floor(self.elapsedTime), self.duck.score, self.duck.coins, self.duck.enemiesKilled, 1, 1, 1, 1, 1]
+        statsIO.postgame_update(game)
+        statsIO.create_game_log(game)
+        #make YYYY-MM-DD
+        day = str(
+            str(datetime.datetime.now().year) + "-" +
+            str(datetime.datetime.now().month) + "-" +
+            str(datetime.datetime.now().day))
+        score = [settingIO.Player_Name, values.game_score, day]
+        highScoreIO.check_for_high_score(score)
 
 
 def gameScreen():
