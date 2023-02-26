@@ -525,6 +525,7 @@ class Level():
             self.blocks.remove(b)
             self.inactive_sprites.remove(b)
         for e in t.enemies:
+            values.enemysKilled += 1
             self.enemies.remove(e)
             self.active_sprites.remove(b)
         for c in t.coins:
@@ -560,6 +561,7 @@ class Game():
         self.difficulty = 1
         self.difficultyModifier = settingIO.DifficultyLevel.value
         values.startTime = time.time()
+        values.enemyKilled = 0
 
         self.gameSpeed = (self.difficulty + 2) * 2
 
@@ -584,7 +586,8 @@ class Game():
         self.distanceTraveled = 0
         self.totalDistanceTraveled = 0
         self.gameSpeed = (self.difficulty + 2) * 2
-
+        values.startTime = time.time()
+        values.enemyKilled = 0
         self.stage = Game.SPLASH
 
     def display_splash(self):
@@ -680,6 +683,8 @@ class Game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  #Bradley
                 end_game_process()
+                values.distanceTraveled = self.totalDistanceTraveled
+
 
                 values.newHighScore = False
                 menuS.menu.QUIT
@@ -704,6 +709,7 @@ class Game():
                     self.stage = Game.CONTROLS
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_q:
                     end_game_process()
+                    values.distanceTraveled = self.totalDistanceTraveled
                     if (values.newHighScore):
                         menuS.set_game_menu(menuS.menu.HIGH_SCORE)
                     else:
@@ -728,6 +734,7 @@ class Game():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
                         end_game_process()
+                        values.distanceTraveled = self.totalDistanceTraveled
                         if (values.newHighScore):
                             menuS.set_game_menu(menuS.menu.HIGH_SCORE)
                         else:
@@ -799,6 +806,8 @@ class Game():
                 "'S' to change Settings", "'C' to see Controls")
         elif self.stage == Game.GAME_OVER:
             end_game_process()
+            values.distanceTraveled = self.totalDistanceTraveled
+
             if values.newHighScore:
                 menuS.set_game_menu(menuS.menu.HIGH_SCORE)
             else:
@@ -871,7 +880,7 @@ def end_game_process():
     values.gameTime = time.strftime('%M:%S', time.gmtime(game_time))
     
     # Game Format is [Distance, Time, Points, Currency, Enemies, Spaceships, Meteroids]
-    game = [1, game_time, values.game_score, values.coins_in_game, 1, 1, 1, 1, 1, 1]
+    game = [values.distanceTraveled, game_time, values.game_score, values.coins_in_game, values.enemysKilled]
     statsIO.postgame_update(game)
     statsIO.create_game_log(game)
     #make YYYY-MM-DD

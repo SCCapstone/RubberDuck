@@ -174,10 +174,6 @@ def screen_no_button(screen):
                                                  values.COLOR_Red)
     EnemyKills_text_image = subtitleFont.render("Enemy Kills", True,
                                                 values.COLOR_Red)
-    SpaceKill_text_image = subtitleFont.render("Spaceships Kills", True,
-                                               values.COLOR_Red)
-    MeteriodKill_text_image = subtitleFont.render("Meteriod Kills", True,
-                                                  values.COLOR_Red)
     AllTimeCurrency_text_image = subtitleFont.render("All Time Currency", True,
                                                      values.COLOR_Red)
     AverageGameTime_text_image = subtitleFont.render("Average Game Time", True,
@@ -192,16 +188,12 @@ def screen_no_button(screen):
                 (left + 10, screen.get_height() / 16 * 6))
     screen.blit(EnemyKills_text_image,
                 (left + 10, screen.get_height() / 16 * 7))
-    screen.blit(SpaceKill_text_image,
-                (left + 10, screen.get_height() / 16 * 8))
-    screen.blit(MeteriodKill_text_image,
-                (left + 10, screen.get_height() / 16 * 9))
     screen.blit(AllTimeCurrency_text_image,
-                (left + 10, screen.get_height() / 16 * 10))
+                (left + 10, screen.get_height() / 16 * 8))
     screen.blit(AverageGameTime_text_image,
-                (left + 10, screen.get_height() / 16 * 11))
+                (left + 10, screen.get_height() / 16 * 9))
     screen.blit(AveragePoints_text_image,
-                (left + 10, screen.get_height() / 16 * 12))
+                (left + 10, screen.get_height() / 16 * 10))
 
     # Get Stat Values
     Valdist_text_image = subtitleFont.render(str(statsIO.distanceTravelled),
@@ -216,10 +208,6 @@ def screen_no_button(screen):
 
     ValEnemyKills_text_image = subtitleFont.render(str(statsIO.enemyDefeated),
                                                    True, values.COLOR_Red)
-    ValSpaceKill_text_image = subtitleFont.render(str(statsIO.spaceshipKills),
-                                                  True, values.COLOR_Red)
-    ValMeteriodKill_text_image = subtitleFont.render(
-        str(statsIO.meteroidKills), True, values.COLOR_Red)
     ValAllTimeCurrency_text_image = subtitleFont.render(
         str(statsIO.allTimeCurrency), True, values.COLOR_Red)
     rounded_average_time = round(statsIO.averageGameTime, 2)
@@ -244,19 +232,13 @@ def screen_no_button(screen):
     screen.blit(ValEnemyKills_text_image,
                 (right - 10 - ValEnemyKills_text_image.get_width(),
                  screen.get_height() / 16 * 7))
-    screen.blit(ValSpaceKill_text_image,
-                (right - 10 - ValSpaceKill_text_image.get_width(),
-                 screen.get_height() / 16 * 8))
-    screen.blit(ValMeteriodKill_text_image,
-                (right - 10 - ValMeteriodKill_text_image.get_width(),
-                 screen.get_height() / 16 * 9))
     screen.blit(ValAllTimeCurrency_text_image,
                 (right - 10 - ValAllTimeCurrency_text_image.get_width(),
-                 screen.get_height() / 16 * 10))
+                 screen.get_height() / 16 * 8))
     screen.blit(ValAverageGameTime_text_image,
                 (right - 10 - ValAverageGameTime_text_image.get_width(),
-                 screen.get_height() / 16 * 11))
+                 screen.get_height() / 16 * 9))
     screen.blit(ValAveragePoints_text_image,
                 (right - 10 - ValAveragePoints_text_image.get_width(),
-                 screen.get_height() / 16 * 12))
+                 screen.get_height() / 16 * 10))
     return left, right, subtitleFont

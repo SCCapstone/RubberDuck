@@ -81,3 +81,5 @@ newHighScoreId = -1
 
 gameTime = -1
 startTime = -1
+enemysKilled = -1
+distanceTraveled = -1
