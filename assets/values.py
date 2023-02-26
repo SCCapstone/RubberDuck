@@ -78,3 +78,6 @@ def resetCoinsinGame():
 
 newHighScore = False
 newHighScoreId = -1
+
+gameTime = -1
+startTime = -1

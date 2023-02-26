@@ -208,8 +208,12 @@ def screen_no_button(screen):
                                              True, values.COLOR_Red)
     ValtotGames_text_image = subtitleFont.render(str(statsIO.totalGamesPlayed),
                                                  True, values.COLOR_Red)
-    ValtotGameTime_text_image = subtitleFont.render(str(statsIO.totalGameTime),
+    #convert to MM:SS
+    rounded_total_time = round(statsIO.totalGameTime, 2)
+    totTime = time.strftime('%M:%S', time.gmtime(rounded_total_time))
+    ValtotGameTime_text_image = subtitleFont.render(str(totTime),
                                                     True, values.COLOR_Red)
+
     ValEnemyKills_text_image = subtitleFont.render(str(statsIO.enemyDefeated),
                                                    True, values.COLOR_Red)
     ValSpaceKill_text_image = subtitleFont.render(str(statsIO.spaceshipKills),
@@ -219,8 +223,10 @@ def screen_no_button(screen):
     ValAllTimeCurrency_text_image = subtitleFont.render(
         str(statsIO.allTimeCurrency), True, values.COLOR_Red)
     rounded_average_time = round(statsIO.averageGameTime, 2)
+    
+    avTime = time.strftime('%M:%S', time.gmtime(rounded_average_time))
     ValAverageGameTime_text_image = subtitleFont.render(
-        str(rounded_average_time), True, values.COLOR_Red)
+        str(avTime), True, values.COLOR_Red)
     rounded_average_points = round(statsIO.averagePoints, 2)
     ValAveragePoints_text_image = subtitleFont.render(
         str(rounded_average_points), True, values.COLOR_Red)

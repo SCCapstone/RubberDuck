@@ -3,6 +3,7 @@ import pygame
 import random
 import math
 import os
+import time
 import menuStructure as menuS
 import main as main
 from enum import Enum
@@ -558,6 +559,7 @@ class Game():
         self.elapsedTime = 0
         self.difficulty = 1
         self.difficultyModifier = settingIO.DifficultyLevel.value
+        values.startTime = time.time()
 
         self.gameSpeed = (self.difficulty + 2) * 2
 
@@ -862,8 +864,14 @@ def gameScreen():
 
 
 def end_game_process():
+    
+    #find game time using values.start_time
+    game_time = time.time() - values.startTime
+    #convert to MM:SS
+    values.gameTime = time.strftime('%M:%S', time.gmtime(game_time))
+    
     # Game Format is [Distance, Time, Points, Currency, Enemies, Spaceships, Meteroids]
-    game = [1, 1, values.game_score, values.coins_in_game, 1, 1, 1, 1, 1, 1]
+    game = [1, game_time, values.game_score, values.coins_in_game, 1, 1, 1, 1, 1, 1]
     statsIO.postgame_update(game)
     statsIO.create_game_log(game)
     #make YYYY-MM-DD
@@ -871,5 +879,7 @@ def end_game_process():
         str(datetime.datetime.now().year) + "-" +
         str(datetime.datetime.now().month) + "-" +
         str(datetime.datetime.now().day))
+    
+
     score = [settingIO.Player_Name, values.game_score, day]
     highScoreIO.check_for_high_score(score)
