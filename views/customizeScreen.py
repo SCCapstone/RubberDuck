@@ -6,31 +6,26 @@ from assets import values
 import menuStructure as menuS
 
 normalSkins = [
-    "assets/sprites/ducks/baseDuck.png",
-    "assets/sprites/ducks/blueDuck.png",
-    "assets/sprites/ducks/brownDuck.png",
-    "assets/sprites/ducks/grayDuck.png",
-    "assets/sprites/ducks/greenDuck.png",
-    "assets/sprites/ducks/richDuck.png"
-    ]
+    "assets/sprites/ducks/baseDuck.png", "assets/sprites/ducks/blueDuck.png",
+    "assets/sprites/ducks/brownDuck.png", "assets/sprites/ducks/grayDuck.png",
+    "assets/sprites/ducks/greenDuck.png", "assets/sprites/ducks/richDuck.png"
+]
 
 baseSkins = [
     "assets/sprites/ducks/baseChain.png",
     "assets/sprites/ducks/baseConstruction.png",
     "assets/sprites/ducks/baseCowboy.png",
-    "assets/sprites/ducks/baseLuffy.png",
-    "assets/sprites/ducks/baseSanta.png",
+    "assets/sprites/ducks/baseLuffy.png", "assets/sprites/ducks/baseSanta.png",
     "assets/sprites/ducks/baseSunnies.png"
-    ]
+]
 
 blueSkins = [
     "assets/sprites/ducks/blueChain.png",
     "assets/sprites/ducks/blueConstruction.png",
     "assets/sprites/ducks/blueCowboy.png",
-    "assets/sprites/ducks/blueLuffy.png",
-    "assets/sprites/ducks/blueSanta.png",
+    "assets/sprites/ducks/blueLuffy.png", "assets/sprites/ducks/blueSanta.png",
     "assets/sprites/ducks/blueSunnies.png"
-    ]
+]
 
 brownSkins = [
     "assets/sprites/ducks/brownChain.png",
@@ -39,16 +34,15 @@ brownSkins = [
     "assets/sprites/ducks/brownLuffy.png",
     "assets/sprites/ducks/brownSanta.png",
     "assets/sprites/ducks/brownSunnies.png"
-    ]
+]
 
 graySkins = [
     "assets/sprites/ducks/grayChain.png",
     "assets/sprites/ducks/grayConstruction.png",
     "assets/sprites/ducks/grayCowboy.png",
-    "assets/sprites/ducks/grayLuffy.png",
-    "assets/sprites/ducks/graySanta.png",
+    "assets/sprites/ducks/grayLuffy.png", "assets/sprites/ducks/graySanta.png",
     "assets/sprites/ducks/graySunnies.png"
-    ]
+]
 
 greenSkins = [
     "assets/sprites/ducks/greenChain.png",
@@ -57,16 +51,16 @@ greenSkins = [
     "assets/sprites/ducks/greenLuffy.png",
     "assets/sprites/ducks/greenSanta.png",
     "assets/sprites/ducks/greenSunnies.png"
-    ]
+]
 
 richSkins = [
     "assets/sprites/ducks/richChain.png",
     "assets/sprites/ducks/richConstruction.png",
     "assets/sprites/ducks/richCowboy.png",
-    "assets/sprites/ducks/richLuffy.png",
-    "assets/sprites/ducks/richSanta.png",
+    "assets/sprites/ducks/richLuffy.png", "assets/sprites/ducks/richSanta.png",
     "assets/sprites/ducks/richSunnies.png"
-    ]
+]
+
 
 def loadAssets(purchaseSize):
     allSkins = []
@@ -77,27 +71,41 @@ def loadAssets(purchaseSize):
     greenAccessories = []
     richAccessories = []
     for x in normalSkins:
-        allSkins.append(pygame.transform.scale(pygame.image.load(x), (purchaseSize, purchaseSize)))
+        allSkins.append(
+            pygame.transform.scale(pygame.image.load(x),
+                                   (purchaseSize, purchaseSize)))
     for x in baseSkins:
-        baseAccessories.append(pygame.transform.scale(pygame.image.load(x), (purchaseSize, purchaseSize)))
+        baseAccessories.append(
+            pygame.transform.scale(pygame.image.load(x),
+                                   (purchaseSize, purchaseSize)))
     for x in blueSkins:
-        blueAccessories.append(pygame.transform.scale(pygame.image.load(x), (purchaseSize, purchaseSize)))
+        blueAccessories.append(
+            pygame.transform.scale(pygame.image.load(x),
+                                   (purchaseSize, purchaseSize)))
     for x in brownSkins:
-        brownAccessories.append(pygame.transform.scale(pygame.image.load(x), (purchaseSize, purchaseSize)))
+        brownAccessories.append(
+            pygame.transform.scale(pygame.image.load(x),
+                                   (purchaseSize, purchaseSize)))
     for x in graySkins:
-        grayAccessories.append(pygame.transform.scale(pygame.image.load(x), (purchaseSize, purchaseSize)))
+        grayAccessories.append(
+            pygame.transform.scale(pygame.image.load(x),
+                                   (purchaseSize, purchaseSize)))
     for x in greenSkins:
-        greenAccessories.append(pygame.transform.scale(pygame.image.load(x), (purchaseSize, purchaseSize)))
+        greenAccessories.append(
+            pygame.transform.scale(pygame.image.load(x),
+                                   (purchaseSize, purchaseSize)))
     for x in richSkins:
-        richAccessories.append(pygame.transform.scale(pygame.image.load(x), (purchaseSize, purchaseSize)))
+        richAccessories.append(
+            pygame.transform.scale(pygame.image.load(x),
+                                   (purchaseSize, purchaseSize)))
     return allSkins, baseAccessories, blueAccessories, brownAccessories, grayAccessories, greenAccessories, richAccessories
+
 
 # Runs the customize screen
 def customize_screen(noises, duckIndex, arrayIndex):
     startingDuck = duckIndex
     startingArray = arrayIndex
-    retDuck = startingDuck
-    
+
     # Set the background to main.jpg
     background = pygame.image.load(
         os.path.join("assets", "backgrounds", "tertiary.jpg"))
@@ -151,7 +159,8 @@ def customize_screen(noises, duckIndex, arrayIndex):
 
     #load duck base skins
     purchaseSize = int(values.screenX * .1504)
-    allSkins, baseAccessories, blueAccessories, brownAccessories, grayAccessories, greenAccessories, richAccessories = loadAssets(purchaseSize)
+    allSkins, baseAccessories, blueAccessories, brownAccessories, grayAccessories, greenAccessories, richAccessories = loadAssets(
+        purchaseSize)
 
     if arrayIndex == 0:
         currentArray = allSkins
@@ -206,10 +215,12 @@ def customize_screen(noises, duckIndex, arrayIndex):
     screen.blit(rightArr, (xArr1 + sep + sep + box + wArr, yArr))
 
     #TODO array of skins to purchase /equip at the bottom of the screen
-    
-    currentPreview = pygame.transform.scale(currentArray[startingDuck], (previewSize, previewSize))
+
+    currentPreview = pygame.transform.scale(currentArray[startingDuck],
+                                            (previewSize, previewSize))
     #TODO Preview of Duck in Current State
-    screen.blit(currentPreview, (screen.get_width() / 3, screen.get_height() / 4))
+    screen.blit(currentPreview,
+                (screen.get_width() / 3, screen.get_height() / 4))
     #will make these box objects for an array so we can move with arrows, know which ones have been purchased.
     numboxes = 6
     for i in range(numboxes):
@@ -218,7 +229,9 @@ def customize_screen(noises, duckIndex, arrayIndex):
             ((i + 1) * screen.get_width() * .1157 - screen.get_width() * .0289,
              screen.get_height() * .7610, screen.get_width() * .0868,
              screen.get_width() * .0868), 0)
-        screen.blit(currentArray[i], ((i + 1) * screen.get_width() * .1157 - screen.get_width() * .0607, screen.get_height() * .7117)) 
+        screen.blit(currentArray[i],
+                    ((i + 1) * screen.get_width() * .1157 -
+                     screen.get_width() * .0607, screen.get_height() * .7117))
 
     #4 boxes to change screen to purchase base skins, hats, trails, and backgrounds
     xCord = math.floor(screen.get_width() * .0289)
@@ -327,11 +340,12 @@ def customize_screen(noises, duckIndex, arrayIndex):
                 )[0] < xArr1 + wArr and yArr < pygame.mouse.get_pos(
                 )[1] < yArr + hArr:
                     noises.playSound("quack")
-                    startingDuck -=1
+                    startingDuck -= 1
                     if startingDuck < 0:
                         startingDuck = len(allSkins) - 1
                     # Make the duck the new duck
-                    currentPreview = pygame.transform.scale(currentArray[startingDuck], (previewSize, previewSize))
+                    currentPreview = pygame.transform.scale(
+                        currentArray[startingDuck], (previewSize, previewSize))
 
                     #click on equip or buy
                 elif xArr1 + sep + wArr < pygame.mouse.get_pos(
@@ -365,7 +379,8 @@ def customize_screen(noises, duckIndex, arrayIndex):
                     if startingDuck > len(allSkins) - 1:
                         startingDuck = 0
                     # Make the duck the new duck
-                    currentPreview = pygame.transform.scale(currentArray[startingDuck], (previewSize, previewSize))
+                    currentPreview = pygame.transform.scale(
+                        currentArray[startingDuck], (previewSize, previewSize))
 
         elif event.type == pygame.QUIT:
             menuS.set_game_menu(menuS.menu.QUIT)

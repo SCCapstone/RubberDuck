@@ -48,9 +48,9 @@ def load_new_customization():
 def save_customization():
     """summary: Saves the customization to the file
     """
-    global skins, hats,  backgrounds
+    global skins, hats, backgrounds
     global coins, current_skin, current_hat
-    global  current_background
+    global current_background
     data = {
         "skins": skins,
         "hats": hats,
@@ -63,8 +63,8 @@ def save_customization():
     with open("fileio\\Customization.json", "w") as f:
         json.dump(data, f, indent=4)
 
+
 def add_currency(amount):
     global coins
     coins += amount
     save_customization()
-    

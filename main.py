@@ -76,7 +76,8 @@ def main():
             ran = True
             gameScreen.gameScreen()
         elif menuS.get_game_menu() == menuS.menu.CUSTOMIZE:
-            startingDuck, startingTab = customizeScreen.customize_screen(noises, startingDuck, startingTab)
+            startingDuck, startingTab = customizeScreen.customize_screen(
+                noises, startingDuck, startingTab)
         elif menuS.get_game_menu() == menuS.menu.HIGH_SCORE:
             if values.newHighScore and not visitedHighScore:
                 noises.playMusic("highScore")

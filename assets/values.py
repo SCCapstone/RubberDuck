@@ -76,6 +76,7 @@ def resetCoinsinGame():
     global coins_in_game
     coins_in_game = 0
 
+
 def setSkin(skin):
     global current_skin
     current_skin = skin

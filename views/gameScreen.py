@@ -6,7 +6,6 @@ import os
 import time
 import menuStructure as menuS
 import main as main
-from enum import Enum
 from assets import values
 from fileio import settingIO
 from fileio import statsIO
@@ -17,8 +16,6 @@ from views import gameScreen
 
 GRID_SIZE = 64
 FPS = 30
-
-
 
 pygame.init()
 #CONTROLS
@@ -68,7 +65,7 @@ COIN_IMG = loadImage(os.path.join("assets", "sprites", "Coin.png"), scale=True)
 DAMAGE_BUFF = loadImage(os.path.join("assets", "sprites", "Damage_Buff.png"),
                         scale=True)
 #DUCK_IMG2 = loadImage(os.path.join("assets", "sprites", "DuckFrame2.png"),
-                      #scale=True)
+#scale=True)
 ENEMY_LASER = loadImage(os.path.join("assets", "sprites", "Laser_Proj.png"),
                         scale=False)
 ENEMY_IMG = loadImage(os.path.join("assets", "sprites", "Enemy_Sprite.png"),
@@ -348,7 +345,7 @@ class Powerup(Entity):
         if self.effect == "Health":
             duck.health += 1
         if self.effect == "Speed":
-            if random.randint(0,9) == 0:
+            if random.randint(0, 9) == 0:
                 duck.speed -= 3
             duck.speed += 3
         if self.effect == "Damage":
@@ -685,7 +682,6 @@ class Game():
                 self.end_game_process()
                 values.distanceTraveled = self.totalDistanceTraveled
 
-
                 values.newHighScore = False
                 menuS.menu.QUIT
                 main.quit_game()
@@ -765,7 +761,6 @@ class Game():
 
         if self.duck.health <= 0 or self.duck.rect.right < 0:
             self.stage = Game.GAME_OVER
-            
 
         self.distanceTraveled += self.gameSpeed
         self.totalDistanceTraveled += self.gameSpeed
@@ -838,15 +833,19 @@ class Game():
             self.update()
             self.draw()
             self.clock.tick(FPS)
-    
+
     def end_game_process(self):
         #find game time using values.start_time
         game_time = time.time() - values.startTime
         #convert to MM:SS
         values.gameTime = time.strftime('%M:%S', time.gmtime(game_time))
-    
+
         # Game Format is [Distance, Time, Points, Currency, Enemies, Spaceships, Meteroids]
-        game = [self.totalDistanceTraveled, math.floor(self.elapsedTime), self.duck.score, self.duck.coins, self.duck.enemiesKilled]
+        game = [
+            self.totalDistanceTraveled,
+            math.floor(self.elapsedTime), self.duck.score, self.duck.coins,
+            self.duck.enemiesKilled
+        ]
         statsIO.postgame_update(game)
         statsIO.create_game_log(game)
         #make YYYY-MM-DD
@@ -854,11 +853,10 @@ class Game():
             str(datetime.datetime.now().year) + "-" +
             str(datetime.datetime.now().month) + "-" +
             str(datetime.datetime.now().day))
-    
 
         score = [settingIO.Player_Name, values.game_score, day]
         highScoreIO.check_for_high_score(score)
-      
+
 
 def gameScreen():
     global UP, DOWN, LEFT, RIGHT
@@ -877,5 +875,3 @@ def gameScreen():
         RIGHT = pygame.K_RIGHT
     #pygame.quit()
     #sys.exit()
-
-
