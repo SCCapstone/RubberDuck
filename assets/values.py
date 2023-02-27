@@ -4,6 +4,8 @@ import time
 global startTime
 global game_score
 global coins_in_game
+global current_skin
+
 # Colors
 COLOR_Purple = (46, 41, 78)
 COLOR_Pink = (204, 167, 162)
@@ -27,7 +29,6 @@ SCREEN_SIZE = (screenX, screenY)
 SETTING_PATH = "fileio\\UserSetting.json"
 """
 summary: draws 3 buttons for screen
-
 Args:
     x (int): x size of screen
     y (int): y size of screen
@@ -75,6 +76,15 @@ def resetCoinsinGame():
     global coins_in_game
     coins_in_game = 0
 
+def setSkin(skin):
+    global current_skin
+    current_skin = skin
+
 
 newHighScore = False
 newHighScoreId = -1
+
+gameTime = -1
+startTime = -1
+enemysKilled = -1
+distanceTraveled = -1

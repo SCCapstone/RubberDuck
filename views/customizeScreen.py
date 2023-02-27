@@ -339,10 +339,22 @@ def customize_screen(noises, duckIndex, arrayIndex):
                 )[1] < yArr + hArr:
                     # Check to see if they have the coins to buy the skin then unlock and select it
                     noises.playSound("quack")
-                    # Set the duck
-                    retDuck = startingDuck
-                    # Make sure he doesn't have path.join()
-                    values.setDuck(skinNames[retDuck])
+                    # Set the duck to the current one with values.py
+                    # Figure out which array we are currently in
+                    if arrayIndex == 0:
+                        values.setSkin(normalSkins[startingDuck])
+                    elif arrayIndex == 1:
+                        values.setSkin(baseSkins[startingDuck])
+                    elif arrayIndex == 2:
+                        values.setSkin(blueSkins[startingDuck])
+                    elif arrayIndex == 3:
+                        values.setSkin(brownSkins[startingDuck])
+                    elif arrayIndex == 4:
+                        values.setSkin(graySkins[startingDuck])
+                    elif arrayIndex == 5:
+                        values.setSkin(greenSkins[startingDuck])
+                    elif arrayIndex == 6:
+                        values.setSkin(richSkins[startingDuck])
 
                     #click on right arrow, move boxes to the right
                 elif xArr1 + sep + wArr + box + sep < pygame.mouse.get_pos(
