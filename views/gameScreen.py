@@ -108,8 +108,10 @@ class Entity(pygame.sprite.Sprite):
         self.vy = 0
         self.vx = 0
 
-    def levelUpdate(self, speed):
+    def levelUpdate(self, speed, level, duck):
         self.rect.x -= speed
+        if self.rect.right < 0:
+            level.active_sprites.remove(self)
 
 
 class Rocket(Entity):
@@ -161,6 +163,16 @@ class Block(Entity):
     def __init__(self, x, y, image):
         super().__init__(x, y, image)
 
+    def levelUpdate(self, speed, level, duck):
+        self.rect.x -= speed
+        if self.rect.right < 0:
+            level.active_sprites.remove(self)
+
+        hit_list = pygame.sprite.spritecollide(self, [duck], False)
+
+        if hit_list:
+            duck.rect.right = self.rect.left
+
 
 class Duck(Entity):
 
@@ -194,7 +206,7 @@ class Duck(Entity):
         self.rockets = []
         self.rocketGroup = pygame.sprite.Group()
         self.rocketCD = 0
-        self.rocketCooldown = 40
+        self.rocketCooldown = 30
 
     def moveLeft(self):
         self.vx = -self.speed
@@ -368,22 +380,33 @@ class Enemy(Entity):
 
         self.speed = 6
         self.power = 1
+        self.directiony = 1
 
-    def update(self, duck):
+    def update(self, duck, blocks):
 
-        if self.rect.y - duck.rect.y > 10:
-            directiony = -1
-        elif self.rect.y - duck.rect.y < -10:
-            directiony = 1
-        else:
-            directiony = 0
+        if self.rect.y - duck.rect.y > 100:
+            self.directiony = -1
+            
+        if self.rect.y - duck.rect.y < -100:
+            self.directiony = 1
+        
 
         self.vx = self.speed * -1
-        self.vy = self.speed * directiony
+        self.vy = self.speed * self.directiony
 
         self.rect.x += self.vx
         self.rect.y += self.vy
 
+        if self.rect.top < 0:
+            self.rect.y = 0
+        elif self.rect.bottom > HEIGHT:
+            self.rect.y = HEIGHT - self.rect.height
+        
+        hit_list = pygame.sprite.spritecollide(self, blocks, False)
+
+        for block in hit_list:
+            if self.rect.centerx > block.rect.x + GRID_SIZE:
+                self.rect.left = block.rect.right 
 
 #Level made of tiles
 #Tile one screen long with own sprites
@@ -744,13 +767,14 @@ class Game():
         if self.stage == Game.PLAYING:
             self.duck.update(self.level)
             for e in self.level.enemies:
-                e.update(self.duck)
+                e.update(self.duck, self.level.blocks)
 
             #SIDESCROLL
             for sprite in self.level.active_sprites:
-                sprite.rect.x -= self.gameSpeed
-                if sprite.rect.right < 0:
-                    self.level.active_sprites.remove(sprite)
+                sprite.levelUpdate(self.gameSpeed, self.level, self.duck)
+                #sprite.rect.x -= self.gameSpeed
+                #if sprite.rect.right < 0:
+                #    self.level.active_sprites.remove(sprite)
 
             self.duck.rect.x -= self.gameSpeed / 2
 
