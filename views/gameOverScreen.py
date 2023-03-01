@@ -123,7 +123,7 @@ def start_screen(noises):
                 screen.get_height() / 2))
     screen.blit(time_text_image, timeCords)
 
-    time_val = titleFont.render("4:32", True, values.COLOR_Red)
+    time_val = titleFont.render(str(values.gameTime), True, values.COLOR_Red)
     timeValCords = time_val.get_rect(
         center=((screen.get_width() - button1.right) / 2 + button1.right,
                 timeCords.bottom + 50))
@@ -162,7 +162,7 @@ def start_screen(noises):
                 elif button3.collidepoint(pygame.mouse.get_pos()):
                     # share high score
                     noises.playSound("quack")
-                    shareScoreGraphic(values.game_score, "4:32")
+                    shareScoreGraphic(values.game_score, values.gameTime)
                 elif button4.collidepoint(pygame.mouse.get_pos()):
                     # share recording
                     noises.playSound("quack")
