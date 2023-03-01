@@ -172,7 +172,7 @@ def screen_no_button(screen):
                                               values.COLOR_Red)
     totGameTime_text_image = subtitleFont.render("Total Game Time", True,
                                                  values.COLOR_Red)
-    EnemyKills_text_image = subtitleFont.render("Enemy Kills", True,
+    EnemyKills_text_image = subtitleFont.render("All Time Enemy Kills", True,
                                                 values.COLOR_Red)
     AllTimeCurrency_text_image = subtitleFont.render("All Time Currency", True,
                                                      values.COLOR_Red)

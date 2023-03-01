@@ -4,6 +4,7 @@ import pygame
 import math
 from assets import values
 import menuStructure as menuS
+import main as main
 
 normalSkins = [
     "assets/sprites/ducks/baseDuck.png", "assets/sprites/ducks/blueDuck.png",
@@ -386,6 +387,8 @@ def customize_screen(noises, duckIndex, arrayIndex):
             menuS.set_game_menu(menuS.menu.QUIT)
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                menuS.set_game_menu(menuS.menu.QUIT)
+                menuS.set_game_menu(menuS.menu.HOME)
+                main.main()
+                    
 
     return startingDuck, startingArray
