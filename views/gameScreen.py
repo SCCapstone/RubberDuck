@@ -72,6 +72,7 @@ ENEMY_IMG = loadImage(os.path.join("assets", "sprites", "Enemy_Sprite.png"),
                       scale=True)
 ROCKET_IMG = loadImage(os.path.join("assets", "sprites", "Rocket.png"),
                        scale=True)
+EXPLOSION_IMG = loadImage(os.path.join("assets","sprites","Boom.png"),scale=True)
 HEALTH_IMG = loadImage(os.path.join("assets", "sprites", "Health_Symbol.png"),
                        scale=True)
 EXIT_IMG = loadImage(os.path.join("assets", "sprites", "Exit_Button.png"),
@@ -91,6 +92,7 @@ ROCKET_IMG = pygame.transform.scale(ROCKET_IMG, (32, 20))
 #DUCK_IMGS = [DUCK_IMG, DUCK_IMG2]
 ENEMY_IMGS = [ENEMY_IMG]
 POWERUP_IMGS = {"Health": HEALTH_IMG, "Speed": SPEED_IMG}
+
 
 
 class Entity(pygame.sprite.Sprite):
@@ -126,7 +128,7 @@ class Rocket(Entity):
 
         dx = xTarget - xOrigin
         dy = yOrigin - yTarget
-        vBase = 0.05
+        vBase = 20
         # Getting the angle of the rocket trajectory
         if xOrigin == xTarget:
             # Here, the rocket is going straight up
@@ -142,16 +144,21 @@ class Rocket(Entity):
         self.image = pygame.transform.rotate(image, theta)
         self.speed = vBase
         # Set velocity
-        self.vx = vBase * dx
-        self.vy = -vBase * dy
+        dr = math.sqrt(dx ** 2 + dy ** 2)
 
-    def update(self, enemies, duck):
+        self.vx = vBase * dx / dr
+        self.vy = -vBase * dy / dr
+
+    def update(self, level, duck):
+
 
         self.rect.x += self.vx
         self.rect.y += self.vy
 
-        hit_list = pygame.sprite.spritecollide(self, enemies, True)
-        if hit_list:
+        hit_list = pygame.sprite.spritecollide(self, level.enemies, True)
+        bit_list = pygame.sprite.spritecollide(self, level.blocks, False)
+        if hit_list or bit_list:
+            level.addBoom(self.rect.x,self.rect.y)
             self.kill()
             duck.enemiesKilled += 1
 
@@ -309,7 +316,7 @@ class Duck(Entity):
         if self.rocketCD > 0:
             self.rocketCD -= 1
 
-        self.rocketGroup.update(level.enemies, self)
+        self.rocketGroup.update(level, self)
 
         if self.health > self.maxHealth:
             self.health = self.maxHealth
@@ -403,7 +410,7 @@ class Enemy(Entity):
         hit_list = pygame.sprite.spritecollide(self, blocks, False)
 
         for block in hit_list:
-            if self.rect.centerx > block.rect.x + GRID_SIZE:
+            if self.rect.centerx > block.rect.x + GRID_SIZE and self.rect.left < 10:
                 self.rect.left = block.rect.right 
 
 #Level made of tiles
@@ -470,6 +477,19 @@ class Tile():
         self.coins.add(coins)
 
 
+class Boom(Entity):
+    def __init__(self, x, y):
+        super().__init__(x,y, EXPLOSION_IMG)
+        self.timer = 8
+    def levelUpdate(self, speed, level, duck):
+        self.rect.x -= speed
+        self.timer -= 1
+        if self.rect.right < 0 or self.timer <= 0:
+            level.active_sprites.remove(self)
+        
+
+
+
 class Level():
 
     def __init__(self, difficulty):
@@ -481,6 +501,7 @@ class Level():
         self.enemies = pygame.sprite.Group()
         self.coins = pygame.sprite.Group()
         self.powerups = pygame.sprite.Group()
+        
 
         self.active_sprites = pygame.sprite.Group()
         self.inactive_sprites = pygame.sprite.Group()
@@ -498,6 +519,10 @@ class Level():
                 self.background_layer.blit(BACKGROUND_IMG, (x, y))
 
         self.reset()
+
+    def addBoom(self, x, y):
+        newBoom = Boom(x,y)
+        self.active_sprites.add(newBoom)
 
     def update(self, duck):
         pass
