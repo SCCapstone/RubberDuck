@@ -6,7 +6,7 @@ from pytest_bdd import *
 import pygame
 
 import menuStructure as menuS
-from views import customizeScreen
+#from views import customizeScreen
 from assets import values
 from assets import soundHandler
 

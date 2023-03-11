@@ -4,4 +4,4 @@ sys.path.append('..')
 import os
 import pytest
 
-from views import customizeScreen
+#from views import customizeScreen
