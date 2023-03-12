@@ -20,6 +20,8 @@ FPS = 30
 pygame.init()
 #CONTROLS
 
+#for some reason this is causing an error when running tests 
+#AttributeError: module 'fileio.settingIO' has no attribute 'keys'
 if settingIO.keys == "wasd":
     UP = pygame.K_w
     DOWN = pygame.K_s

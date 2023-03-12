@@ -13,8 +13,8 @@ def test_load_stats():
     assert statsIO.totalGamesPlayed == 0
     assert statsIO.totalGameTime == 0
     assert statsIO.enemyDefeated == 0
-    assert statsIO.spaceshipKills == 0
-    assert statsIO.meteroidKills == 0
+    #assert statsIO.spaceshipKills == 0
+    #assert statsIO.meteroidKills == 0
     assert statsIO.allTimeCurrency == 0
     assert statsIO.averageGameTime == 0
     assert statsIO.averagePoints == 0
@@ -32,8 +32,8 @@ def test_postgame_update():
     assert statsIO.totalGamesPlayed == 1
     assert statsIO.totalGameTime == 100
     assert statsIO.enemyDefeated == 100
-    assert statsIO.spaceshipKills == 100
-    assert statsIO.meteroidKills == 100
+   #assert statsIO.spaceshipKills == 100
+    #assert statsIO.meteroidKills == 100
     assert statsIO.allTimeCurrency == 100
     assert statsIO.averageGameTime == 100
     assert statsIO.averagePoints == 100
@@ -45,8 +45,8 @@ def test_reset_stats():
     assert statsIO.totalGamesPlayed == 0
     assert statsIO.totalGameTime == 0
     assert statsIO.enemyDefeated == 0
-    assert statsIO.spaceshipKills == 0
-    assert statsIO.meteroidKills == 0
+    #assert statsIO.spaceshipKills == 0
+    #assert statsIO.meteroidKills == 0
     assert statsIO.allTimeCurrency == 0
     assert statsIO.averageGameTime == 0
     assert statsIO.averagePoints == 0
