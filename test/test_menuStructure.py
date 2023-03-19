@@ -15,15 +15,28 @@ def test_set_and_get_game_menu():
         from menuStructure import menu
         menuStructure.set_game_menu(menu.HOME)
         assert menuStructure.get_game_menu() == (menu.HOME)
-       #self.assertEqual(menuStructure.get_game_menu(), menuStructure.HOME)
+        
+        menuStructure.set_game_menu(menu.STAT)
+        assert menuStructure.get_game_menu() == (menu.STAT)
 
         menuStructure.set_game_menu(menu.GAME)
         assert menuStructure.get_game_menu() == (menu.GAME)
-        #self.assertEqual(menuStructure.get_game_menu(), menuStructure.GAME)
+
+        menuStructure.set_game_menu(menu.CUSTOMIZE)
+        assert menuStructure.get_game_menu() == (menu.CUSTOMIZE)
+
+        menuStructure.set_game_menu(menu.HIGH_SCORE)
+        assert menuStructure.get_game_menu() == (menu.HIGH_SCORE)
+
+        menuStructure.set_game_menu(menu.SETTING)
+        assert menuStructure.get_game_menu() == (menu.SETTING)
 
         menuStructure.set_game_menu(menu.QUIT)
         assert menuStructure.get_game_menu() == (menu.QUIT)
-        #self.assertEqual(menuStructure.get_game_menu(), menuStructure.QUIT)
+
+        menuStructure.set_game_menu(menu.GAMEOVER)
+        assert menuStructure.get_game_menu() == (menu.GAMEOVER)
+
 
 def test_double_click_preventer():
         # Test that the double_click_preventer function sleeps for 0.1 seconds
@@ -32,4 +45,4 @@ def test_double_click_preventer():
         menuStructure.double_click_preventer()
         end_time = time.time()
         assert math.isclose(end_time - start_time, 0.1, abs_tol = 0.05)
-        #self.assertAlmostEqual(end_time - start_time, 0.1, delta=0.05)
+
