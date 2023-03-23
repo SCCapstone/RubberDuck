@@ -24,14 +24,16 @@ pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Ducks In Space")
 pygame.display.update()
 
-# Initialize the mixer
-noises = soundHandler.SFXHandler()
+
 
 statsIO.load_stats()
 settingIO.load_settings(values.SETTING_PATH)
 highScoreIO.load_high_scores()
 values.setStartTime()
 customizationIO.load_customization()
+
+# Initialize the mixer
+noises = soundHandler.SFXHandler()
 
 menuS.set_game_menu(menuS.menu.HOME)
 values.set_screen_size(pygame.display.get_surface().get_size()[0],

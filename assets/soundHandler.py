@@ -1,4 +1,5 @@
 import pygame
+from fileio import settingIO
 
 # Dictionary of all sounds
 soundBook = {"quack": "assets/sfx/quack.ogg"}
@@ -20,14 +21,14 @@ class SFXHandler:
     def __init__(self):
         pygame.mixer.init()
         self.currentSong = "NA"
-        self.sound_volume = 1.0
-        self.music_volume(100)
+        self.sound_volume(settingIO.SFX_Volume * (settingIO.Master_Volume / 100))
+        self.music_volume(settingIO.Music_Volume * (settingIO.Master_Volume / 100))
 
     def sound_volume(self, newVol):
         # Make sure it is a valid volume
         if newVol >= 0 and newVol <= 100:
             # Set volume
-            self.sound_volume = newVol / 100.0
+            self.Sound_volume_var = newVol / 100.0
             return True
         return False
 
@@ -44,8 +45,9 @@ class SFXHandler:
     def playSound(self, sound):
         if sound in soundBook:
             playedSound = pygame.mixer.Sound(soundBook[sound])
-            playedSound.set_volume(self.sound_volume)
-            pygame.mixer.Sound.play(pygame.mixer.Sound(soundBook[sound]))
+            playedSound.set_volume(self.Sound_volume_var)
+            #change sound volume
+            pygame.mixer.Sound.play(playedSound)
             return True
         return False
 
