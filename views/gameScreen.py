@@ -180,6 +180,42 @@ class Block(Entity):
         if hit_list:
             duck.rect.right = self.rect.left
 
+class RocketCD(pygame.sprite.Sprite):
+    def __init__(self,x,y,cd):
+        super().__init__()
+        self.rect = pygame.rect.Rect(0,0,3,56)
+
+        self.rect.x = x
+        self.rect.y = y
+
+        self.cd = cd
+        self.time = 0
+        self.yoffset = 0
+
+        self.avail = True
+
+    def update(self,duck):
+
+        self.rect.x = duck.rect.x - 10
+        self.rect.y = duck.rect.y + 4 + self.yoffset
+
+        if not self.avail:
+            self.time += 1
+            if self.time >= self.cd:
+                self.avail = True
+                self.rect.height = 56
+                self.yoffset = 0
+            else:
+                prop = self.time / self.cd
+                self.rect.height = math.floor(56*prop)
+                self.yoffset = 56-self.rect.height
+
+    def shoot(self):
+        self.avail = False
+        self.time = 0
+        self.yoffset = 0
+
+
 
 class Duck(Entity):
 
@@ -212,8 +248,9 @@ class Duck(Entity):
 
         self.rockets = []
         self.rocketGroup = pygame.sprite.Group()
-        self.rocketCD = 0
+        
         self.rocketCooldown = 30
+        self.RocketCD = RocketCD(0,0,self.rocketCooldown)
 
     def moveLeft(self):
         self.vx = -self.speed
@@ -241,11 +278,11 @@ class Duck(Entity):
             self.dead = True
 
     def shoot(self):
-        if not self.rocketCD:
+        if self.RocketCD.avail:
             newRocket = Rocket(self.rect.right, self.rect.y, ROCKET_IMG)
             self.rockets.append(newRocket)
             self.rocketGroup.add(newRocket)
-            self.rocketCD = self.rocketCooldown
+            self.RocketCD.shoot()
 
     def move(self, blocks):
 
@@ -315,8 +352,7 @@ class Duck(Entity):
 
         self.checkBoundaries()
 
-        if self.rocketCD > 0:
-            self.rocketCD -= 1
+        self.RocketCD.update(self)
 
         self.rocketGroup.update(level, self)
 
@@ -378,6 +414,7 @@ class Powerup(Entity):
             duck.takeDamage(1)
         if self.effect == "Bomb":
             duck.takeDamage(3)
+    
 
 
 class Enemy(Entity):
@@ -460,15 +497,18 @@ class Tile():
 
             #blocks.append(Block(x, y, bimg))
         self.blocks.add(blocks)
+        #Generate enemies
         for i in range(numEnemies):
             x = random.randint(200, WIDTH - 60)  #do for all
             y = random.randint(30, HEIGHT - 60)
             enemies.append(Enemy(x + self.offset, y, ENEMY_IMGS))
+        #Generate powerups
         for i in range(numPowerups):
             x = random.randint(100, WIDTH - 60)
             y = random.randint(30, HEIGHT - 60)
             effect = random.randint(0, len(EFFECTS) - 1)
             powerups.append(Powerup(x + self.offset, y, effect, self.blocks))
+        #Generate coins
         for i in range(numCoins):
             x = random.randint(100, WIDTH - 60)
             y = random.randint(30, HEIGHT - 60)
@@ -821,6 +861,7 @@ class Game():
             self.level.generateTile(2)
             self.level.difficulty += self.difficultyModifier
             self.difficulty += self.difficultyModifier
+            self.duck.speed += 0.5
             self.distanceTraveled -= WIDTH
 
         self.level.update(self.duck)
@@ -834,6 +875,8 @@ class Game():
         if self.duck.invincibility % 3 < 2:
             self.level.active_layer.blit(self.duck.image,
                                          [self.duck.rect.x, self.duck.rect.y])
+        #Draw cd
+        pygame.draw.rect(self.level.active_layer,(255,0,0),self.duck.RocketCD.rect)
 
         SCREEN.blit(self.level.background_layer, [0, 0])
         SCREEN.blit(self.level.inactive_layer, [0, 0])
