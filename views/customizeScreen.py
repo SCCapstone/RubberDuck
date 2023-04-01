@@ -402,7 +402,12 @@ def customize_screen(noises, duckIndex, arrayIndex):
                     else:
                         if coins_imported >= 100:
                             # Can purchase
-                            customizationIO.skins.append(usedArray[startingDuck])
+                            if "duck" in usedArray[startingDuck]:
+                                # It is a skin
+                                customizationIO.skins.append(usedArray[startingDuck])
+                            else:
+                                # It is a background
+                                customizationIO.backgrounds.append(usedArray[startingDuck])
                             coins_imported -= 100
                             customizationIO.coins = coins_imported
                             customizationIO.save_customization()
