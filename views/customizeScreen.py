@@ -5,6 +5,13 @@ import math
 from assets import values
 import menuStructure as menuS
 import main as main
+from fileio import customizationIO
+
+customizationIO.load_customization()
+
+
+ownedSkins = customizationIO.skins
+ownedBackgrounds = customizationIO.backgrounds
 
 normalSkins = [
     "assets/sprites/ducks/baseDuck.png", "assets/sprites/ducks/blueDuck.png",
@@ -143,7 +150,9 @@ def customize_screen(noises, duckIndex, arrayIndex):
     screen.blit(customize_text_image, customizeCords)
 
     #Coins available text - import actaul amount from JSON
-    coins_text_image = subtitleFont.render("Coins:   500", True,
+    coins_imported = customizationIO.coins
+    coin_text = "Coins:   " + str(coins_imported)
+    coins_text_image = subtitleFont.render(coin_text, True,
                                            values.COLOR_Yellow)
     coinsCords = (left + screen.get_width() * .1215,
                   screen.get_height() / 16 * 3)
@@ -201,24 +210,56 @@ def customize_screen(noises, duckIndex, arrayIndex):
     pygame.draw.rect(screen, values.COLOR_Pink,
                      (xArr1 + wArr + sep, yArr, box, hArr), 0)
 
-    if pygame.mouse.get_pos()[0] > xArr1 + wArr + sep and pygame.mouse.get_pos(
-    )[0] < xArr1 + wArr + sep + box and pygame.mouse.get_pos(
-    )[1] > yArr and pygame.mouse.get_pos()[1] < yArr + hArr:
-        equip_text_image = smallFont.render("Equip", True, values.COLOR_Yellow)
+
+    # Equip section
+    # Check and see if the skin is owned
+    if arrayIndex == 0:
+        usedArray = normalSkins
+    elif arrayIndex == 1:
+        usedArray = baseSkins
+    elif arrayIndex == 2:
+        usedArray = blueSkins
+    elif arrayIndex == 3:
+        usedArray = brownSkins
+    elif arrayIndex == 4:
+        usedArray = graySkins
+    elif arrayIndex == 5:
+        usedArray = greenSkins
+    elif arrayIndex == 6:
+        usedArray = richSkins
     else:
-        equip_text_image = smallFont.render("Equip", True, values.COLOR_Purple)
-    screen.blit(equip_text_image,
-                (xArr1 + wArr + sep + screen.get_width() * .0434,
-                 yArr + screen.get_height() * .0313))
+        usedArray = normalSkins
+
+    if usedArray[startingDuck] in ownedSkins or usedArray[startingDuck] in ownedBackgrounds:
+        # Skin is owned, show equip
+        if pygame.mouse.get_pos()[0] > xArr1 + wArr + sep and pygame.mouse.get_pos(
+        )[0] < xArr1 + wArr + sep + box and pygame.mouse.get_pos(
+        )[1] > yArr and pygame.mouse.get_pos()[1] < yArr + hArr:
+            equip_text_image = smallFont.render("Equip", True, values.COLOR_Yellow)
+        else:
+            equip_text_image = smallFont.render("Equip", True, values.COLOR_Purple)
+        screen.blit(equip_text_image,
+                    (xArr1 + wArr + sep + screen.get_width() * .0434,
+                    yArr + screen.get_height() * .0313))
+    else:
+        # Skin is unowned, show purchase option
+        if pygame.mouse.get_pos()[0] > xArr1 + wArr + sep and pygame.mouse.get_pos(
+        )[0] < xArr1 + wArr + sep + box and pygame.mouse.get_pos(
+        )[1] > yArr and pygame.mouse.get_pos()[1] < yArr + hArr:
+            equip_text_image = smallFont.render("100", True, values.COLOR_Yellow)
+        else:
+            equip_text_image = smallFont.render("100", True, values.COLOR_Purple)
+        screen.blit(equip_text_image,
+                    (xArr1 + wArr + sep + screen.get_width() * .055,
+                    yArr + screen.get_height() * .0313))
 
     # Rotated form of the left arrow (Should probably change to a different sprite later)
     rightArr = pygame.transform.rotate(bigArr, 180)
     screen.blit(rightArr, (xArr1 + sep + sep + box + wArr, yArr))
 
-    #TODO array of skins to purchase /equip at the bottom of the screen
-
     currentPreview = pygame.transform.scale(currentArray[startingDuck],
                                             (previewSize, previewSize))
+
     #TODO Preview of Duck in Current State
     screen.blit(currentPreview,
                 (screen.get_width() / 3, screen.get_height() / 4))
@@ -356,20 +397,16 @@ def customize_screen(noises, duckIndex, arrayIndex):
                     noises.playSound("quack")
                     # Set the duck to the current one with values.py
                     # Figure out which array we are currently in
-                    if arrayIndex == 0:
-                        values.setSkin(normalSkins[startingDuck])
-                    elif arrayIndex == 1:
-                        values.setSkin(baseSkins[startingDuck])
-                    elif arrayIndex == 2:
-                        values.setSkin(blueSkins[startingDuck])
-                    elif arrayIndex == 3:
-                        values.setSkin(brownSkins[startingDuck])
-                    elif arrayIndex == 4:
-                        values.setSkin(graySkins[startingDuck])
-                    elif arrayIndex == 5:
-                        values.setSkin(greenSkins[startingDuck])
-                    elif arrayIndex == 6:
-                        values.setSkin(richSkins[startingDuck])
+                    if usedArray[startingDuck] in ownedSkins or usedArray[startingDuck] in ownedBackgrounds:
+                        values.setSkin(usedArray[startingDuck])
+                    else:
+                        if coins_imported >= 100:
+                            # Can purchase
+                            customizationIO.skins.append(usedArray[startingDuck])
+                            coins_imported -= 100
+                            customizationIO.coins = coins_imported
+                            customizationIO.save_customization()
+                            customizationIO.load_customization()
 
                     #click on right arrow, move boxes to the right
                 elif xArr1 + sep + wArr + box + sep < pygame.mouse.get_pos(

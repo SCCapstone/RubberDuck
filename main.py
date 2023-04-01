@@ -31,6 +31,9 @@ settingIO.load_settings(values.SETTING_PATH)
 highScoreIO.load_high_scores()
 values.setStartTime()
 customizationIO.load_customization()
+values.total_coins = customizationIO.coins
+values.current_skin = customizationIO.current_skin
+values.current_background = customizationIO.current_background
 
 # Initialize the mixer
 noises = soundHandler.SFXHandler()

@@ -1,10 +1,15 @@
 import os
 import time
+from fileio import customizationIO
 
 global startTime
 global game_score
 global coins_in_game
 global current_skin
+global current_background
+global total_coins
+
+customizationIO.load_customization()
 
 # Colors
 COLOR_Purple = (46, 41, 78)
@@ -80,6 +85,18 @@ def resetCoinsinGame():
 def setSkin(skin):
     global current_skin
     current_skin = skin
+
+def purchaseSkin(cost, skin):
+    global total_coins
+    if total_coins > cost:
+        total_coins -= cost
+        customizationIO.skins.add(skin)
+
+def purchaseBG(cost, bg):
+    global total_coins
+    if total_coins > cost:
+        total_coins -= cost
+        customizationIO.skins.add(skin)
 
 
 newHighScore = False

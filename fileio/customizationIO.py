@@ -5,7 +5,6 @@ global skins, hats, backgrounds
 global coins, current_skin, current_hat
 global current_background
 
-
 def load_customization():
     """summary: Loads the customization from the file
     """
