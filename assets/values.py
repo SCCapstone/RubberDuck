@@ -6,7 +6,10 @@ global startTime
 global game_score
 global coins_in_game
 global current_skin
+global current_skin_index
+global current_hat_index
 global current_background
+global current_background_index
 global total_coins
 
 customizationIO.load_customization()
@@ -86,18 +89,22 @@ def setSkin(skin):
     global current_skin
     current_skin = skin
 
-def purchaseSkin(cost, skin):
-    global total_coins
-    if total_coins > cost:
-        total_coins -= cost
-        customizationIO.skins.add(skin)
+def setBackground(bg):
+    global current_background
+    current_background = bg
 
-def purchaseBG(cost, bg):
-    global total_coins
-    if total_coins > cost:
-        total_coins -= cost
-        customizationIO.skins.add(skin)
+def updateCoins():
+    global coins_in_game
+    customizationIO.coins += coins_in_game
+    customizationIO.save_customization()
 
+def getBG(index):
+    if index == 0:
+        return "assets/backgrounds/base_bg.jpg"
+    elif index == 1:
+        return "assets/backgrounds/pixelNebula.png"
+    else:
+        return "assets/backgrounds/pixelSpace.png"
 
 newHighScore = False
 newHighScoreId = -1
