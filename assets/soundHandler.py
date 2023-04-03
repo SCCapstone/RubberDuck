@@ -21,8 +21,10 @@ class SFXHandler:
     def __init__(self):
         pygame.mixer.init()
         self.currentSong = "NA"
-        self.sound_volume(settingIO.SFX_Volume * (settingIO.Master_Volume / 100))
-        self.music_volume(settingIO.Music_Volume * (settingIO.Master_Volume / 100))
+        self.sound_volume(settingIO.SFX_Volume *
+                          (settingIO.Master_Volume / 100))
+        self.music_volume(settingIO.Music_Volume *
+                          (settingIO.Master_Volume / 100))
 
     def sound_volume(self, newVol):
         # Make sure it is a valid volume

@@ -323,10 +323,11 @@ def settings_screen(noises):
                          (left + 30 + master_volume_image.get_width())) /
                         masterValRange * 100)
                     settingIO.Master_Volume = newPercent
-                    noises.music_volume(settingIO.Music_Volume*settingIO.Master_Volume/100)
-                    noises.sound_volume(settingIO.SFX_Volume*settingIO.Master_Volume/100)
-    
-           
+                    noises.music_volume(settingIO.Music_Volume *
+                                        settingIO.Master_Volume / 100)
+                    noises.sound_volume(settingIO.SFX_Volume *
+                                        settingIO.Master_Volume / 100)
+
                 elif checkSliderCords(left, 70, music_volume_image, screen,
                                       musicValRange, 4.95):
                     noises.playSound("quack")
@@ -335,8 +336,9 @@ def settings_screen(noises):
                          (left + 70 + music_volume_image.get_width())) /
                         musicValRange * 100)
                     settingIO.Music_Volume = newPercent
-                    noises.music_volume(settingIO.Music_Volume*settingIO.Master_Volume/100)
-                    
+                    noises.music_volume(settingIO.Music_Volume *
+                                        settingIO.Master_Volume / 100)
+
                 elif checkSliderCords(left, 70, sfx_volume_image, screen,
                                       sfxValRange, 5.95):
                     noises.playSound("quack")
@@ -345,7 +347,8 @@ def settings_screen(noises):
                          (left + 70 + sfx_volume_image.get_width())) /
                         sfxValRange * 100)
                     settingIO.SFX_Volume = newPercent
-                    noises.sound_volume(settingIO.SFX_Volume*settingIO.Master_Volume/100)
+                    noises.sound_volume(settingIO.SFX_Volume *
+                                        settingIO.Master_Volume / 100)
 
                 if inputNameBox.collidepoint(event.pos):
                     # Toggle the active variable.

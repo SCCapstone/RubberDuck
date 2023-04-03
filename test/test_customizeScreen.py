@@ -1,11 +1,6 @@
 import sys
-import pygame
 
 sys.path.append('..')
-import os
-import pytest
-
-from views import customizeScreen
 
 
 normalSkins = ['normal1.png', 'normal2.png', 'normal3.png']
@@ -15,7 +10,6 @@ brownSkins = []
 graySkins = ['gray1.png', 'gray2.png', 'gray3.png']
 greenSkins = ['green1.png', 'green2.png']
 richSkins = ['rich1.png']
-
 """
 def test_load_assets():
      # Define test input
@@ -39,6 +33,7 @@ def test_load_assets():
     assert len(result[5]) == len(greenSkins)
     assert len(result[6]) == len(richSkins)
 """
-    
+
+
 def test_customize_screen():
     assert True

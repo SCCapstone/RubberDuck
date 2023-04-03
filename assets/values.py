@@ -89,14 +89,17 @@ def setSkin(skin):
     global current_skin
     current_skin = skin
 
+
 def setBackground(bg):
     global current_background
     current_background = bg
+
 
 def updateCoins():
     global coins_in_game
     customizationIO.coins += coins_in_game
     customizationIO.save_customization()
+
 
 def getBG(index):
     if index == 0:
@@ -105,6 +108,7 @@ def getBG(index):
         return "assets/backgrounds/pixelNebula.png"
     else:
         return "assets/backgrounds/pixelSpace.png"
+
 
 newHighScore = False
 newHighScoreId = -1

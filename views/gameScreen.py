@@ -20,7 +20,7 @@ FPS = 30
 pygame.init()
 #CONTROLS
 
-#for some reason this is causing an error when running tests 
+#for some reason this is causing an error when running tests
 #AttributeError: module 'fileio.settingIO' has no attribute 'keys'
 if settingIO.keys == "wasd":
     UP = pygame.K_w
@@ -59,8 +59,7 @@ WHITE = (255, 255, 255)
 BLOCK_IMG = loadImage(os.path.join("assets", "sprites", "Wall_block.png"),
                       scale=True)
 BLOCK_IMG2 = pygame.transform.flip(BLOCK_IMG, False, True)
-DUCK_IMG = loadImage(values.current_skin,
-                     scale=True)
+DUCK_IMG = loadImage(values.current_skin, scale=True)
 SWAG_DUCK = loadImage(os.path.join("assets", "sprites", "SwagDuck.png"),
                       scale=True)
 COIN_IMG = loadImage(os.path.join("assets", "sprites", "Coin.png"), scale=True)
@@ -74,7 +73,8 @@ ENEMY_IMG = loadImage(os.path.join("assets", "sprites", "Enemy_Sprite.png"),
                       scale=True)
 ROCKET_IMG = loadImage(os.path.join("assets", "sprites", "Rocket.png"),
                        scale=True)
-EXPLOSION_IMG = loadImage(os.path.join("assets","sprites","Boom.png"),scale=True)
+EXPLOSION_IMG = loadImage(os.path.join("assets", "sprites", "Boom.png"),
+                          scale=True)
 HEALTH_IMG = loadImage(os.path.join("assets", "sprites", "Health_Symbol.png"),
                        scale=True)
 EXIT_IMG = loadImage(os.path.join("assets", "sprites", "Exit_Button.png"),
@@ -93,7 +93,6 @@ ROCKET_IMG = pygame.transform.scale(ROCKET_IMG, (32, 20))
 #DUCK_IMGS = [DUCK_IMG, DUCK_IMG2]
 ENEMY_IMGS = [ENEMY_IMG]
 POWERUP_IMGS = {"Health": HEALTH_IMG, "Speed": SPEED_IMG}
-
 
 
 class Entity(pygame.sprite.Sprite):
@@ -145,13 +144,12 @@ class Rocket(Entity):
         self.image = pygame.transform.rotate(image, theta)
         self.speed = vBase
         # Set velocity
-        dr = math.sqrt(dx ** 2 + dy ** 2)
+        dr = math.sqrt(dx**2 + dy**2)
 
         self.vx = vBase * dx / dr
         self.vy = -vBase * dy / dr
 
     def update(self, level, duck):
-
 
         self.rect.x += self.vx
         self.rect.y += self.vy
@@ -159,7 +157,7 @@ class Rocket(Entity):
         hit_list = pygame.sprite.spritecollide(self, level.enemies, True)
         bit_list = pygame.sprite.spritecollide(self, level.blocks, False)
         if hit_list or bit_list:
-            level.addBoom(self.rect.x,self.rect.y)
+            level.addBoom(self.rect.x, self.rect.y)
             self.kill()
             duck.enemiesKilled += 1
 
@@ -179,10 +177,12 @@ class Block(Entity):
         if hit_list:
             duck.rect.right = self.rect.left
 
+
 class RocketCD(pygame.sprite.Sprite):
-    def __init__(self,x,y,cd):
+
+    def __init__(self, x, y, cd):
         super().__init__()
-        self.rect = pygame.rect.Rect(0,0,3,56)
+        self.rect = pygame.rect.Rect(0, 0, 3, 56)
 
         self.rect.x = x
         self.rect.y = y
@@ -193,7 +193,7 @@ class RocketCD(pygame.sprite.Sprite):
 
         self.avail = True
 
-    def update(self,duck):
+    def update(self, duck):
 
         self.rect.x = duck.rect.x - 10
         self.rect.y = duck.rect.y + 4 + self.yoffset
@@ -206,14 +206,13 @@ class RocketCD(pygame.sprite.Sprite):
                 self.yoffset = 0
             else:
                 prop = self.time / self.cd
-                self.rect.height = math.floor(56*prop)
-                self.yoffset = 56-self.rect.height
+                self.rect.height = math.floor(56 * prop)
+                self.yoffset = 56 - self.rect.height
 
     def shoot(self):
         self.avail = False
         self.time = 0
         self.yoffset = 0
-
 
 
 class Duck(Entity):
@@ -247,9 +246,9 @@ class Duck(Entity):
 
         self.rockets = []
         self.rocketGroup = pygame.sprite.Group()
-        
+
         self.rocketCooldown = 30
-        self.RocketCD = RocketCD(0,0,self.rocketCooldown)
+        self.RocketCD = RocketCD(0, 0, self.rocketCooldown)
 
     def moveLeft(self):
         self.vx = -self.speed
@@ -413,7 +412,6 @@ class Powerup(Entity):
             duck.takeDamage(1)
         if self.effect == "Bomb":
             duck.takeDamage(3)
-    
 
 
 class Enemy(Entity):
@@ -429,10 +427,9 @@ class Enemy(Entity):
 
         if self.rect.y - duck.rect.y > 100:
             self.directiony = -1
-            
+
         if self.rect.y - duck.rect.y < -100:
             self.directiony = 1
-        
 
         self.vx = self.speed * -1
         self.vy = self.speed * self.directiony
@@ -444,12 +441,13 @@ class Enemy(Entity):
             self.rect.y = 0
         elif self.rect.bottom > HEIGHT:
             self.rect.y = HEIGHT - self.rect.height
-        
+
         hit_list = pygame.sprite.spritecollide(self, blocks, False)
 
         for block in hit_list:
             if self.rect.centerx > block.rect.x + GRID_SIZE and self.rect.left < 10:
-                self.rect.left = block.rect.right 
+                self.rect.left = block.rect.right
+
 
 #Level made of tiles
 #Tile one screen long with own sprites
@@ -519,16 +517,16 @@ class Tile():
 
 
 class Boom(Entity):
+
     def __init__(self, x, y):
-        super().__init__(x,y, EXPLOSION_IMG)
+        super().__init__(x, y, EXPLOSION_IMG)
         self.timer = 8
+
     def levelUpdate(self, speed, level, duck):
         self.rect.x -= speed
         self.timer -= 1
         if self.rect.right < 0 or self.timer <= 0:
             level.active_sprites.remove(self)
-        
-
 
 
 class Level():
@@ -542,7 +540,6 @@ class Level():
         self.enemies = pygame.sprite.Group()
         self.coins = pygame.sprite.Group()
         self.powerups = pygame.sprite.Group()
-        
 
         self.active_sprites = pygame.sprite.Group()
         self.inactive_sprites = pygame.sprite.Group()
@@ -562,7 +559,7 @@ class Level():
         self.reset()
 
     def addBoom(self, x, y):
-        newBoom = Boom(x,y)
+        newBoom = Boom(x, y)
         self.active_sprites.add(newBoom)
 
     def update(self, duck):
@@ -666,7 +663,7 @@ class Game():
 
     def reset(self):
         DUCK_IMG = loadImage(values.current_skin, scale=True)
-        BACKGROUND_IMG = loadImage(values.current_background, False)
+        loadImage(values.current_background, False)
         self.elapsedTime = 0
         self.duck = Duck([DUCK_IMG])
         self.level = Level(self.difficulty)
@@ -877,7 +874,8 @@ class Game():
             self.level.active_layer.blit(self.duck.image,
                                          [self.duck.rect.x, self.duck.rect.y])
         #Draw cd
-        pygame.draw.rect(self.level.active_layer,(255,0,0),self.duck.RocketCD.rect)
+        pygame.draw.rect(self.level.active_layer, (255, 0, 0),
+                         self.duck.RocketCD.rect)
 
         SCREEN.blit(self.level.background_layer, [0, 0])
         SCREEN.blit(self.level.inactive_layer, [0, 0])

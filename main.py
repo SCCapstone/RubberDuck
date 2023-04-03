@@ -24,8 +24,6 @@ pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Ducks In Space")
 pygame.display.update()
 
-
-
 statsIO.load_stats()
 settingIO.load_settings(values.SETTING_PATH)
 highScoreIO.load_high_scores()

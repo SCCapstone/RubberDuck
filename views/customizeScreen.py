@@ -9,7 +9,6 @@ from fileio import customizationIO
 
 customizationIO.load_customization()
 
-
 ownedSkins = customizationIO.skins
 ownedBackgrounds = customizationIO.backgrounds
 
@@ -70,8 +69,7 @@ richSkins = [
 ]
 
 bgs = [
-    "assets/backgrounds/base_bg.jpg",
-    "assets/backgrounds/pixelNebula.png",
+    "assets/backgrounds/base_bg.jpg", "assets/backgrounds/pixelNebula.png",
     "assets/backgrounds/pixelSpace.png"
 ]
 
@@ -98,6 +96,7 @@ elif current_skin_index == 6:
 
 values.setSkin(tempArray[current_hat_index])
 
+
 def loadAssets(purchaseSize):
     allSkins = []
     baseAccessories = []
@@ -106,7 +105,7 @@ def loadAssets(purchaseSize):
     grayAccessories = []
     greenAccessories = []
     richAccessories = []
-    backgrounds = [] 
+    backgrounds = []
     for x in normalSkins:
         allSkins.append(
             pygame.transform.scale(pygame.image.load(x),
@@ -137,8 +136,8 @@ def loadAssets(purchaseSize):
                                    (purchaseSize, purchaseSize)))
     for x in bgs:
         backgrounds.append(
-            pygame.transform.scale(pygame.image.load(x), 
-                                    (purchaseSize / 2, purchaseSize / 2)))
+            pygame.transform.scale(pygame.image.load(x),
+                                   (purchaseSize / 2, purchaseSize / 2)))
     return allSkins, baseAccessories, blueAccessories, brownAccessories, grayAccessories, greenAccessories, richAccessories, backgrounds
 
 
@@ -249,7 +248,6 @@ def customize_screen(noises, duckIndex, arrayIndex):
     pygame.draw.rect(screen, values.COLOR_Pink,
                      (xArr1 + wArr + sep, yArr, box, hArr), 0)
 
-
     # Equip section
     # Check and see if the skin is owned
     if arrayIndex == 0:
@@ -271,28 +269,35 @@ def customize_screen(noises, duckIndex, arrayIndex):
     else:
         usedArray = normalSkins
 
-    if usedArray[startingDuck] in ownedSkins or usedArray[startingDuck] in ownedBackgrounds:
+    if usedArray[startingDuck] in ownedSkins or usedArray[
+            startingDuck] in ownedBackgrounds:
         # Skin is owned, show equip
-        if pygame.mouse.get_pos()[0] > xArr1 + wArr + sep and pygame.mouse.get_pos(
+        if pygame.mouse.get_pos(
+        )[0] > xArr1 + wArr + sep and pygame.mouse.get_pos(
         )[0] < xArr1 + wArr + sep + box and pygame.mouse.get_pos(
         )[1] > yArr and pygame.mouse.get_pos()[1] < yArr + hArr:
-            equip_text_image = smallFont.render("Equip", True, values.COLOR_Yellow)
+            equip_text_image = smallFont.render("Equip", True,
+                                                values.COLOR_Yellow)
         else:
-            equip_text_image = smallFont.render("Equip", True, values.COLOR_Purple)
+            equip_text_image = smallFont.render("Equip", True,
+                                                values.COLOR_Purple)
         screen.blit(equip_text_image,
                     (xArr1 + wArr + sep + screen.get_width() * .0434,
-                    yArr + screen.get_height() * .0313))
+                     yArr + screen.get_height() * .0313))
     else:
         # Skin is unowned, show purchase option
-        if pygame.mouse.get_pos()[0] > xArr1 + wArr + sep and pygame.mouse.get_pos(
+        if pygame.mouse.get_pos(
+        )[0] > xArr1 + wArr + sep and pygame.mouse.get_pos(
         )[0] < xArr1 + wArr + sep + box and pygame.mouse.get_pos(
         )[1] > yArr and pygame.mouse.get_pos()[1] < yArr + hArr:
-            equip_text_image = smallFont.render("100", True, values.COLOR_Yellow)
+            equip_text_image = smallFont.render("100", True,
+                                                values.COLOR_Yellow)
         else:
-            equip_text_image = smallFont.render("100", True, values.COLOR_Purple)
+            equip_text_image = smallFont.render("100", True,
+                                                values.COLOR_Purple)
         screen.blit(equip_text_image,
                     (xArr1 + wArr + sep + screen.get_width() * .055,
-                    yArr + screen.get_height() * .0313))
+                     yArr + screen.get_height() * .0313))
 
     # Rotated form of the left arrow (Should probably change to a different sprite later)
     rightArr = pygame.transform.rotate(bigArr, 180)
@@ -318,21 +323,23 @@ def customize_screen(noises, duckIndex, arrayIndex):
             # Make backgrounds in center of box
             pygame.draw.rect(
                 screen, values.COLOR_Pink,
-                ((i + 1) * screen.get_width() * .1157 - screen.get_width() * .0289,
-                screen.get_height() * .7610, screen.get_width() * .0868,
-                screen.get_width() * .0868), 0)
-            screen.blit(currentArray[i],
-                        ((i + 1) * screen.get_width() * .1157 -
-                        screen.get_width() * .0225, screen.get_height() * .77))
+                ((i + 1) * screen.get_width() * .1157 -
+                 screen.get_width() * .0289, screen.get_height() * .7610,
+                 screen.get_width() * .0868, screen.get_width() * .0868), 0)
+            screen.blit(
+                currentArray[i],
+                ((i + 1) * screen.get_width() * .1157 -
+                 screen.get_width() * .0225, screen.get_height() * .77))
         else:
             pygame.draw.rect(
                 screen, values.COLOR_Pink,
-                ((i + 1) * screen.get_width() * .1157 - screen.get_width() * .0289,
-                screen.get_height() * .7610, screen.get_width() * .0868,
-                screen.get_width() * .0868), 0)
-            screen.blit(currentArray[i],
-                        ((i + 1) * screen.get_width() * .1157 -
-                        screen.get_width() * .0607, screen.get_height() * .7117))
+                ((i + 1) * screen.get_width() * .1157 -
+                 screen.get_width() * .0289, screen.get_height() * .7610,
+                 screen.get_width() * .0868, screen.get_width() * .0868), 0)
+            screen.blit(
+                currentArray[i],
+                ((i + 1) * screen.get_width() * .1157 -
+                 screen.get_width() * .0607, screen.get_height() * .7117))
 
     #4 boxes to change screen to purchase base skins, hats, trails, and backgrounds
     xCord = math.floor(screen.get_width() * .0289)
@@ -461,7 +468,8 @@ def customize_screen(noises, duckIndex, arrayIndex):
                     noises.playSound("quack")
                     # Set the duck to the current one with values.py
                     # Figure out which array we are currently in
-                    if usedArray[startingDuck] in ownedSkins or usedArray[startingDuck] in ownedBackgrounds:
+                    if usedArray[startingDuck] in ownedSkins or usedArray[
+                            startingDuck] in ownedBackgrounds:
                         # We own the item, figure out what it is
                         if "background" in usedArray[startingDuck]:
                             values.setBackground(usedArray[startingDuck])
@@ -472,11 +480,13 @@ def customize_screen(noises, duckIndex, arrayIndex):
                             # Can purchase
                             if "background" in usedArray[startingDuck]:
                                 # It is a background
-                                customizationIO.backgrounds.append(usedArray[startingDuck])
+                                customizationIO.backgrounds.append(
+                                    usedArray[startingDuck])
                                 customizationIO.current_background = startingDuck
                             else:
                                 # It is a skin
-                                customizationIO.skins.append(usedArray[startingDuck])
+                                customizationIO.skins.append(
+                                    usedArray[startingDuck])
                                 customizationIO.current_skin = arrayIndex
                                 customizationIO.current_hat = startingDuck
                             coins_imported -= 100
@@ -508,6 +518,5 @@ def customize_screen(noises, duckIndex, arrayIndex):
             if event.key == pygame.K_ESCAPE:
                 menuS.set_game_menu(menuS.menu.HOME)
                 main.main()
-                    
 
     return startingDuck, startingArray

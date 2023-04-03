@@ -2,21 +2,23 @@ import sys
 import pygame
 
 sys.path.append('..')
-import os
-import pytest
 
 from views import settingScreen
 
+
 def test_settingScreen():
     assert True
-    
+
+
 def test_round_Percent():
     assert settingScreen.round_Percent(53.2) == 55
     assert settingScreen.round_Percent(48.3) == 45
-    
+
+
 def test_draw_background():
     assert True
-    
+
+
 """    
 def test_checkCords():
     assert settingScreen.checkCords((100, 100), 50) == True
@@ -43,6 +45,8 @@ def test_checkDifCords():
     image = pygame.Surface((50, 50))
     assert settingScreen.checkDifCords(cords, image) == False
     """
+
+
 def test_checkSliderCords():
     left = 100
     factor = 20
@@ -50,9 +54,13 @@ def test_checkSliderCords():
     screen = pygame.Surface((500, 500))
     range = 200
     height = 5
-    pygame.mouse.set_pos((left + factor + image.get_width() + range/2, screen.get_height() / 16 * height + 25))
-    assert settingScreen.checkSliderCords(left, factor, image, screen, range, height) == True
+    pygame.mouse.set_pos((left + factor + image.get_width() + range / 2,
+                          screen.get_height() / 16 * height + 25))
+    assert settingScreen.checkSliderCords(left, factor, image, screen, range,
+                                          height) == True
 
     # Test with coordinates outside the slider
-    pygame.mouse.set_pos((left + factor + image.get_width() + range + 50, screen.get_height() / 16 * height + 25))
-    assert settingScreen.checkSliderCords(left, factor, image, screen, range, height) == False
+    pygame.mouse.set_pos((left + factor + image.get_width() + range + 50,
+                          screen.get_height() / 16 * height + 25))
+    assert settingScreen.checkSliderCords(left, factor, image, screen, range,
+                                          height) == False

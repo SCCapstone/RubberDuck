@@ -16,7 +16,6 @@ global Player_Name, Master_Volume, Music_Volume
 global SFX_Volume, DifficultyLevel, keys
 
 
-
 class difficulty(Enum):
     EASY = 1
     MEDIUM = 2

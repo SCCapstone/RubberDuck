@@ -32,7 +32,7 @@ def test_postgame_update():
     assert statsIO.totalGamesPlayed == 1
     assert statsIO.totalGameTime == 100
     assert statsIO.enemyDefeated == 100
-   #assert statsIO.spaceshipKills == 100
+    #assert statsIO.spaceshipKills == 100
     #assert statsIO.meteroidKills == 100
     assert statsIO.allTimeCurrency == 100
     assert statsIO.averageGameTime == 100
