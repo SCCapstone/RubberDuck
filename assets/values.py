@@ -1,10 +1,18 @@
 import os
 import time
+from fileio import customizationIO
 
 global startTime
 global game_score
 global coins_in_game
 global current_skin
+global current_skin_index
+global current_hat_index
+global current_background
+global current_background_index
+global total_coins
+
+customizationIO.load_customization()
 
 # Colors
 COLOR_Purple = (46, 41, 78)
@@ -81,6 +89,22 @@ def setSkin(skin):
     global current_skin
     current_skin = skin
 
+def setBackground(bg):
+    global current_background
+    current_background = bg
+
+def updateCoins():
+    global coins_in_game
+    customizationIO.coins += coins_in_game
+    customizationIO.save_customization()
+
+def getBG(index):
+    if index == 0:
+        return "assets/backgrounds/base_bg.jpg"
+    elif index == 1:
+        return "assets/backgrounds/pixelNebula.png"
+    else:
+        return "assets/backgrounds/pixelSpace.png"
 
 newHighScore = False
 newHighScoreId = -1

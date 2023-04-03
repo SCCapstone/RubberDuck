@@ -59,7 +59,7 @@ WHITE = (255, 255, 255)
 BLOCK_IMG = loadImage(os.path.join("assets", "sprites", "Wall_block.png"),
                       scale=True)
 BLOCK_IMG2 = pygame.transform.flip(BLOCK_IMG, False, True)
-DUCK_IMG = loadImage(os.path.join("assets", "sprites", "BaseDuck.png"),
+DUCK_IMG = loadImage(values.current_skin,
                      scale=True)
 SWAG_DUCK = loadImage(os.path.join("assets", "sprites", "SwagDuck.png"),
                       scale=True)
@@ -84,8 +84,7 @@ PLAYER_LASER = loadImage(os.path.join("assets", "sprites",
                          scale=False)
 SPEED_IMG = loadImage(os.path.join("assets", "sprites", "Speed_Symbol.png"),
                       scale=True)
-BACKGROUND_IMG = loadImage(
-    os.path.join("assets", "backgrounds", "base_bg.png"), False)
+BACKGROUND_IMG = loadImage(values.current_background, False)
 HEART_IMG = loadImage(os.path.join("assets", "sprites", "Heart.png"), True)
 
 COIN_IMG_SM = pygame.transform.scale(COIN_IMG, (32, 32))
@@ -666,6 +665,8 @@ class Game():
         self.reset()
 
     def reset(self):
+        DUCK_IMG = loadImage(values.current_skin, scale=True)
+        BACKGROUND_IMG = loadImage(values.current_background, False)
         self.elapsedTime = 0
         self.duck = Duck([DUCK_IMG])
         self.level = Level(self.difficulty)
@@ -927,6 +928,7 @@ class Game():
             self.update()
             self.draw()
             self.clock.tick(FPS)
+        values.updateCoins()
 
     def end_game_process(self):
         #find game time using values.start_time
