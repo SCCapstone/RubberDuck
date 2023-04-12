@@ -137,7 +137,7 @@ def loadAssets(purchaseSize):
     for x in bgs:
         backgrounds.append(
             pygame.transform.scale(pygame.image.load(x),
-                                   (purchaseSize / 2, purchaseSize / 2)))
+                                   (int(purchaseSize / 2), int(purchaseSize / 2))))
     return allSkins, baseAccessories, blueAccessories, brownAccessories, grayAccessories, greenAccessories, richAccessories, backgrounds
 
 
@@ -197,7 +197,7 @@ def customize_screen(noises, duckIndex, arrayIndex):
         coins,
         (int(screen.get_width() * .035), int(screen.get_width() * .035)))
     screen.blit(coins,
-                (coinsCords[0] + screen.get_width() * .1273, coinsCords[1]))
+                (coinsCords[0] - screen.get_width() * .05, coinsCords[1]))
 
     #TODO add coin asset plus amount of coins available
 
