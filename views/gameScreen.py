@@ -34,7 +34,7 @@ elif settingIO.keys == "arrows":
     RIGHT = pygame.K_RIGHT
 
 pygame.display.init()
-pygame.display.set_mode((0, 0), flags=pygame.FULLSCREEN)
+pygame.display.set_mode((0, 0), flasgs=pygame.FULLSCREEN)
 SCREEN = pygame.display.get_surface()
 WIDTH = SCREEN.get_width()
 HEIGHT = SCREEN.get_height()
@@ -886,12 +886,12 @@ class Game():
         if self.stage == Game.SPLASH:
             self.display_splash()
         elif self.stage == Game.START:
-            self.display_message("DUCKS IN SPACE!", "Press any key to start!")
+            self.display_message2("DUCKS IN SPACE!", "Press ESC at any time to pause game", "Press any key to start!")
         elif self.stage == Game.PAUSED:
             self.display_message3(
                 "PAUSED",
                 "'ESC' to resume. 'R' to restart. 'Q' to quit to menu.",
-                "'S' to change Settings", "'C' to see Controls")
+                "'S' to quit to Settings screen", "'C' to see Controls")
         elif self.stage == Game.GAME_OVER:
             self.end_game_process()
             values.distanceTraveled = self.totalDistanceTraveled
@@ -909,7 +909,7 @@ class Game():
         elif self.stage == Game.CONTROLS:
             if settingIO.keys == "wasd":
                 self.display_message2(
-                    "CONTROLS", "WASD to move. Space to shoot. ESC to pause.",
+                    "CONTROLS", "WASD to move. Left Click to shoot. ESC to pause.",
                     "Press any key to continue.")
             elif settingIO.keys == "arrows":
                 self.display_message2(
