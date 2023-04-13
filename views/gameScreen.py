@@ -34,7 +34,7 @@ elif settingIO.keys == "arrows":
     RIGHT = pygame.K_RIGHT
 
 pygame.display.init()
-pygame.display.set_mode((0, 0), flasgs=pygame.FULLSCREEN)
+pygame.display.set_mode((0, 0), flags=pygame.FULLSCREEN)
 SCREEN = pygame.display.get_surface()
 WIDTH = SCREEN.get_width()
 HEIGHT = SCREEN.get_height()
