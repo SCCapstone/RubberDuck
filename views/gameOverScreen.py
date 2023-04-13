@@ -67,7 +67,7 @@ def start_screen(noises):
     button4 = pygame.Rect(buttonX, buttonY + buttonHeight * 3 + 150,
                           buttonWidth, buttonHeight)
 
-    #Replay Levem, New Game, Share High Scorem Share Recording
+    #Return Home, New Game, Share High Scorem Share Recording
 
     # Draw the buttons
     pygame.draw.rect(screen, values.COLOR_Pink, button1)
@@ -76,12 +76,12 @@ def start_screen(noises):
     pygame.draw.rect(screen, values.COLOR_Pink, button4)
 
     # Text for buttons
-    replayLevel_text_image = subtitleFont.render("Replay Level", True,
+    returnHome_text_image = subtitleFont.render("Return Home", True,
                                                  values.COLOR_Purple)
     #Center on button
-    replayLevelCords = replayLevel_text_image.get_rect(
+    returnHomeCords = returnHome_text_image.get_rect(
         center=(button1.centerx, button1.centery))
-    screen.blit(replayLevel_text_image, replayLevelCords)
+    screen.blit(returnHome_text_image, returnHomeCords)
 
     newGame_text_image = subtitleFont.render("New Game", True,
                                              values.COLOR_Purple)
@@ -129,7 +129,8 @@ def start_screen(noises):
                 timeCords.bottom + 50))
     screen.blit(time_val, timeValCords)
 
-    # Coordinates Home button
+    # Coordinates for Home button (removed from top right of screen)
+    '''
     homeCords = (values.screenX * .0065, values.screenY * .011)
     if pygame.mouse.get_pos()[0] > homeCords[0] and pygame.mouse.get_pos(
     )[0] < values.screenX * .122 and pygame.mouse.get_pos(
@@ -138,23 +139,25 @@ def start_screen(noises):
     else:
         SR_text_image = subtitleFont.render("HOME", True, values.COLOR_Pink)
     screen.blit(SR_text_image, (homeCords[0], homeCords[1]))
-
+    '''
+    
     # check for mouse click
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
             menuS.double_click_preventer()
             if event.button == 1:
                 # check if mouse is in rect
-                if homeCords[0] < pygame.mouse.get_pos(
+                '''if homeCords[0] < pygame.mouse.get_pos(
                 )[0] < homeCords[0] + (right - left - 40) / 3 and homeCords[
                         1] < pygame.mouse.get_pos()[1] < homeCords[1] + 50:
                     # return to home screen
                     noises.playSound("quack")
                     menuS.set_game_menu(menuS.menu.HOME)
-                elif button1.collidepoint(pygame.mouse.get_pos()):
-                    # replay level
+                '''
+                if button1.collidepoint(pygame.mouse.get_pos()):
+                    # return home
                     noises.playSound("quack")
-                    #TODO: replay level
+                    menuS.set_game_menu(menuS.menu.HOME)
                 elif button2.collidepoint(pygame.mouse.get_pos()):
                     # new game
                     noises.playSound("quack")
