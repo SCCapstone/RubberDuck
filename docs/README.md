@@ -35,6 +35,8 @@ Coins can be used to purchase skins and customizables from the show.
   - R key will restart the game
   - Q key will quit to the homescreen
   - C key will show all controls to user
+
+
 ### Powerups
 ![Coin](https://user-images.githubusercontent.com/47512745/232127420-d954490d-6055-4496-bf6e-b8c5a904efab.png)
 Collect Coins to buy customizations for your character and gain more points
