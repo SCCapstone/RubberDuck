@@ -1,4 +1,6 @@
 # Ducks In Space
+[<img src="https://cdn.pixabay.com/photo/2016/12/18/13/45/download-1915753_960_720.png" width="25"/>](https://github.com/SCCapstone/RubberDuck/releases/tag/v0.9) Download the Newest Release Here!
+
 
 ## About The Game
 
@@ -48,8 +50,13 @@ Collect more hearts back to make up for ones you may have lost
 Collect speed symbols to speed up your duck
 
 
-
 ## Images Of Gameplay
+![Home](https://user-images.githubusercontent.com/47512745/232130681-ba3d949f-1db6-40d2-97ab-bd2cea5aa0e1.png)
+![Customize1](https://user-images.githubusercontent.com/47512745/232130696-4697a080-c5d0-4768-84d8-1a6eb2efc3f3.png)
+![Customize2](https://user-images.githubusercontent.com/47512745/232130708-d27e71bd-8cb6-4a00-94c1-3a74de5f4a4e.png)
+![Settings](https://user-images.githubusercontent.com/47512745/232130729-3339ee5a-75f0-4516-9ecd-289f0221bd12.png)
+![Gameplay](https://user-images.githubusercontent.com/47512745/232130740-a36730bb-c367-4983-a14c-55f81a598059.png)
+
 
 ## Contributors
 - Colin Anderson <a href="https://www.linkedin.com/in/colin-anderson-248832211/">
