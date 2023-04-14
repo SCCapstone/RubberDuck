@@ -3,6 +3,9 @@
 ## About The Game
 
 ## How Its Played
+[https://img.youtube.com/vi/WDd7junYZYo/maxresdefault.jpg](https://user-images.githubusercontent.com/228704/205386194-5657bbc4-66d8-4030-ae54-e21002c94a44.mp4)
+
+*Note This is a Placeholder*
 
 ## Images/Videos Of Gameplay
 
