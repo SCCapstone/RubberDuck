@@ -21,14 +21,7 @@ def test_load_default_settings():
     assert settingIO.Music_Volume == 100
     assert settingIO.SFX_Volume == 100
     assert settingIO.DifficultyLevel == settingIO.difficulty.EASY
-    """assert settingIO.Keymap_Left == pygame.K_a
-    assert settingIO.Keymap_Right == pygame.K_d
-    assert settingIO.Keymap_Up == pygame.K_w
-    assert settingIO.Keymap_Down == pygame.K_s
-    assert settingIO.Keymap_Primary_Fire == pygame.K_LSHIFT
-    assert settingIO.Keymap_Secondary_Fire == pygame.K_RSHIFT
-    assert settingIO.Keymap_Dash == pygame.K_SPACE
-    assert settingIO.Keymap_Pause == pygame.K_ESCAPE """
+    assert settingIO.keys == "wasd"
 
 
 def test_import_setting():
