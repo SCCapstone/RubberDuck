@@ -37,10 +37,12 @@ def test_get_high_scores():
 
 def test_check_for_high_score():
     # Test that a high score is added to the board
-    score = ["Player", 10000000, "2020-01-01"]
+    # Get Highest Score
+    highScore = highScoreIO.high_score_board.iloc[0, 1]
+    score = ["Player", highScore+1, "2020-01-01"]
     highScoreIO.check_for_high_score(score)
     assert highScoreIO.high_score_board.iloc[0, 0] == "Player"
-    assert highScoreIO.high_score_board.iloc[0, 1] == 10000000
+    assert highScoreIO.high_score_board.iloc[0, 1] == highScore+1
     assert highScoreIO.high_score_board.iloc[0, 2] == "2020-01-01"
 
     # Test that a low score is not added to the board
@@ -55,8 +57,11 @@ def test_check_for_high_score():
  
 
 def test_add_new_high_score():
-    score = ["PlayerBe", 100000000, "2020-01-01"]   
+    # Test that a high score is added to the board
+    # Get Highest Score
+    highScore = highScoreIO.high_score_board.iloc[0, 1]
+    score = ["PlayerBe", highScore+1, "2020-01-01"]   
     highScoreIO.add_new_high_score(score)
     assert highScoreIO.high_score_board.iloc[0, 0] == "PlayerBe"
-    assert highScoreIO.high_score_board.iloc[0, 1] == 100000000
+    assert highScoreIO.high_score_board.iloc[0, 1] == highScore+1
     assert highScoreIO.high_score_board.iloc[0, 2] == "2020-01-01"
