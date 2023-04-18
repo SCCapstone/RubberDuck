@@ -7,15 +7,17 @@ import time
 from fileio import customizationIO
 
 # Global Variables
-global distanceTravelled, totalGamesPlayed, totalGameTime
+global distanceTravelled, totalGamesPlayed, totalGameTime, dontShow
 global enemyDefeated, allTimeCurrency, averageGameTime, averagePoints
+
+help_text = "Welcome to Ducks in Space!\n\nYour goal is to navigate outer space while shooting enemies to both stay alive and on screen. Earn high scores by collecting coins, shooting enemies, and staying alive as long as possible. Collect hearts to increase your health and grab speed boosts to move faster. Use WASD to move and shoot enemies by aiming with your mouse and click to shoot. Customize your duck with unlockables purchased with the coins you collect."
 
 
 # When the game is started, load the stats from the file
 def load_stats():
     """summary: Loads the stats from the file
     """
-    global distanceTravelled, totalGamesPlayed, totalGameTime
+    global distanceTravelled, totalGamesPlayed, totalGameTime, dontShow
     global enemyDefeated, allTimeCurrency, averageGameTime, averagePoints
 
     if (os.path.exists("fileio\\stats.json")):
@@ -28,6 +30,7 @@ def load_stats():
             allTimeCurrency = data["allTimeCurrency"]
             averageGameTime = data["averageGameTime"]
             averagePoints = data["averagePoints"]
+            dontShow = data["dontShow"]
     else:
         distanceTravelled = 0
         totalGamesPlayed = 0
@@ -36,6 +39,7 @@ def load_stats():
         allTimeCurrency = 0
         averageGameTime = 0
         averagePoints = 0
+        dontShow = False
         save_stats()
 
 
@@ -49,7 +53,8 @@ def save_stats():
         "enemyDefeated": enemyDefeated,
         "allTimeCurrency": allTimeCurrency,
         "averageGameTime": averageGameTime,
-        "averagePoints": averagePoints
+        "averagePoints": averagePoints,
+        "dontShow": dontShow
     }
 
     with open("fileio\\stats.json", "w") as f:
@@ -93,7 +98,7 @@ def create_game_log(game):
 
 
 def reset_stats():
-    global distanceTravelled, totalGamesPlayed, totalGameTime
+    global distanceTravelled, totalGamesPlayed, totalGameTime, dontShow
     global enemyDefeated, allTimeCurrency, averageGameTime, averagePoints
 
     distanceTravelled = 0
@@ -103,4 +108,5 @@ def reset_stats():
     allTimeCurrency = 0
     averageGameTime = 0
     averagePoints = 0
+    dontShow = False
     save_stats()

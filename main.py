@@ -3,6 +3,7 @@
 import sys
 import pygame
 import menuStructure as menuS
+from easygui import *
 from assets import values
 from assets import soundHandler
 from views import homeScreen
@@ -47,10 +48,12 @@ def main():
     """
     startingDuck = 0
     startingTab = 0
+
     # Keep the game open until the user closes it
     noises.playMusic("menus")
     noises.music_volume(settingIO.Music_Volume)
     ran = False
+    firstRun = True
     visitedHighScore = False
     while True:
         pygame.display.flip()
@@ -71,6 +74,17 @@ def main():
                 noises.playMusic("menus")
                 visitedHighScore = False
             homeScreen.home_screen(noises)
+            if firstRun:
+                firstRun = False
+                if not statsIO.dontShow:
+                    button1 = "Ok"
+                    button2 = "Don't Show Again"
+                    button_list = [button1, button2]
+                    text = "hi"
+                    output = buttonbox(text, "Ducks In Space", button_list)
+                    if output == button2:
+                        statsIO.dontShow = True
+                        statsIO.save_stats()
         elif menuS.get_game_menu() == menuS.menu.STAT:
             statScreen.start_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.GAME:

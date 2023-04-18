@@ -37,8 +37,8 @@ def start_screen(noises):
         int(values.screenX * .03))
 
     # coordinates for drawing
-    left = screen.get_width() / 4
-    right = screen.get_width() / 4 * 3
+    screen.get_width() / 4
+    screen.get_width() / 4 * 3
 
     #GameOver title
     GO_text_image = titleFont2.render("Game Over", True, values.COLOR_Red)
@@ -77,10 +77,10 @@ def start_screen(noises):
 
     # Text for buttons
     returnHome_text_image = subtitleFont.render("Return Home", True,
-                                                 values.COLOR_Purple)
+                                                values.COLOR_Purple)
     #Center on button
-    returnHomeCords = returnHome_text_image.get_rect(
-        center=(button1.centerx, button1.centery))
+    returnHomeCords = returnHome_text_image.get_rect(center=(button1.centerx,
+                                                             button1.centery))
     screen.blit(returnHome_text_image, returnHomeCords)
 
     newGame_text_image = subtitleFont.render("New Game", True,
@@ -140,7 +140,7 @@ def start_screen(noises):
         SR_text_image = subtitleFont.render("HOME", True, values.COLOR_Pink)
     screen.blit(SR_text_image, (homeCords[0], homeCords[1]))
     '''
-    
+
     # check for mouse click
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:

@@ -3,6 +3,7 @@ from views import homeScreen
 
 sys.path.append('..')
 
+
 # All Untestable
 def test_home_screen():
     homeScreen.home_screen(noises=False)
@@ -22,4 +23,3 @@ def test_click_handler():
 def test_check_click():
     assert True
     # Tested in Behavioral Test
-

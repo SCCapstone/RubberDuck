@@ -890,7 +890,9 @@ class Game():
         if self.stage == Game.SPLASH:
             self.display_splash()
         elif self.stage == Game.START:
-            self.display_message2("DUCKS IN SPACE!", "Press ESC at any time to pause game", "Press any key to start!")
+            self.display_message2("DUCKS IN SPACE!",
+                                  "Press ESC at any time to pause game",
+                                  "Press any key to start!")
         elif self.stage == Game.PAUSED:
             self.display_message3(
                 "PAUSED",
@@ -913,7 +915,8 @@ class Game():
         elif self.stage == Game.CONTROLS:
             if settingIO.keys == "wasd":
                 self.display_message2(
-                    "CONTROLS", "WASD to move. Left Click to shoot. ESC to pause.",
+                    "CONTROLS",
+                    "WASD to move. Left Click to shoot. ESC to pause.",
                     "Press any key to continue.")
             elif settingIO.keys == "arrows":
                 self.display_message2(

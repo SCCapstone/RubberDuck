@@ -23,6 +23,7 @@ def test_save_high_scores():
     highScoreIO.save_high_scores()
     assert os.path.exists("fileio\\highScore.json")
 
+
 #Used for Debugging
 def test_print_high_scores():
     assert True
@@ -39,10 +40,10 @@ def test_check_for_high_score():
     # Test that a high score is added to the board
     # Get Highest Score
     highScore = highScoreIO.high_score_board.iloc[0, 1]
-    score = ["Player", highScore+1, "2020-01-01"]
+    score = ["Player", highScore + 1, "2020-01-01"]
     highScoreIO.check_for_high_score(score)
     assert highScoreIO.high_score_board.iloc[0, 0] == "Player"
-    assert highScoreIO.high_score_board.iloc[0, 1] == highScore+1
+    assert highScoreIO.high_score_board.iloc[0, 1] == highScore + 1
     assert highScoreIO.high_score_board.iloc[0, 2] == "2020-01-01"
 
     # Test that a low score is not added to the board
@@ -54,14 +55,14 @@ def test_check_for_high_score():
         if i[1] == -1:
             foundNeg1 = True
     assert foundNeg1 == False
- 
+
 
 def test_add_new_high_score():
     # Test that a high score is added to the board
     # Get Highest Score
     highScore = highScoreIO.high_score_board.iloc[0, 1]
-    score = ["PlayerBe", highScore+1, "2020-01-01"]   
+    score = ["PlayerBe", highScore + 1, "2020-01-01"]
     highScoreIO.add_new_high_score(score)
     assert highScoreIO.high_score_board.iloc[0, 0] == "PlayerBe"
-    assert highScoreIO.high_score_board.iloc[0, 1] == highScore+1
+    assert highScoreIO.high_score_board.iloc[0, 1] == highScore + 1
     assert highScoreIO.high_score_board.iloc[0, 2] == "2020-01-01"

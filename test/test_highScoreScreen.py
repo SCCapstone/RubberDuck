@@ -2,6 +2,7 @@ import sys
 
 sys.path.append('..')
 
+
 # All Untestable
 def test_high_score_screen():
     assert True

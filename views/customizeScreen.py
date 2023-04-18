@@ -136,8 +136,9 @@ def loadAssets(purchaseSize):
                                    (purchaseSize, purchaseSize)))
     for x in bgs:
         backgrounds.append(
-            pygame.transform.scale(pygame.image.load(x),
-                                   (int(purchaseSize / 2), int(purchaseSize / 2))))
+            pygame.transform.scale(
+                pygame.image.load(x),
+                (int(purchaseSize / 2), int(purchaseSize / 2))))
     return allSkins, baseAccessories, blueAccessories, brownAccessories, grayAccessories, greenAccessories, richAccessories, backgrounds
 
 

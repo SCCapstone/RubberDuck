@@ -6,9 +6,11 @@ import menuStructure as menuS
 import os
 from fileio import settingIO
 from views import gameScreen
+from fileio import statsIO
 #from fileio import settingIO
 global active
 active = False
+from easygui import *
 
 
 def settings_screen(noises):
@@ -247,22 +249,29 @@ def settings_screen(noises):
     screen.blit(import_settings_text_image, import_settings_rect)
     screen.blit(export_settings_text_image, export_settings_rect)
 
-    # Make cords for 3 inline buttons
-    defaultCords = (left + 20 + widthButton, screen.get_height() / 16 * 12)
+    helpCords = (left + ((right - left) / 2) - widthButton - 10,
+                 screen.get_height() / 16 * 12)
+    defaulttCords = (left + ((right - left) / 2) + 10,
+                     screen.get_height() / 16 * 12)
 
-    # Draw Rects for buttons
     pygame.draw.rect(screen, values.COLOR_Purple,
-                     (defaultCords[0], defaultCords[1], widthButton, 50))
+                     (helpCords[0], helpCords[1], widthButton, 50), 0)
+    pygame.draw.rect(screen, values.COLOR_Purple,
+                     (defaulttCords[0], defaulttCords[1], widthButton, 50), 0)
 
-    # Add text to center of buttons
+    help_text_image = subtitleFont.render("Help", True, values.COLOR_Pink)
     default_text_image = subtitleFont.render("Default", True,
                                              values.COLOR_Pink)
 
-    # Add text to screen
-    screen.blit(default_text_image,
-                (defaultCords[0] + widthButton / 2 -
-                 default_text_image.get_width() / 2,
-                 defaultCords[1] + 25 - default_text_image.get_height() / 2))
+    # Draw the text on the buttons in the center
+    help_rect = help_text_image.get_rect(center=(helpCords[0] +
+                                                 widthButton / 2,
+                                                 helpCords[1] + 25))
+    default_rect = export_settings_text_image.get_rect(
+        center=(defaulttCords[0] + widthButton / 2, defaulttCords[1] + 25))
+
+    screen.blit(help_text_image, help_rect)
+    screen.blit(default_text_image, default_rect)
 
     # check for mouse click
     for event in pygame.event.get():
@@ -276,12 +285,26 @@ def settings_screen(noises):
                     # share stats
                     noises.playSound("quack")
                     menuS.set_game_menu(menuS.menu.HOME)
-                elif checkCords(defaultCords, widthButton):
+                elif help_rect.collidepoint(pygame.mouse.get_pos()):
                     noises.playSound("quack")
+                    button1 = "Ok"
+                    button_list = [button1]
+                    text = statsIO.help_text
+                    buttonbox(text, "Ducks In Space", button_list)
+                elif default_rect.collidepoint(pygame.mouse.get_pos()):
                     settingIO.load_default_settings()
-                elif checkCords(importCords, widthButton):
+                    noises.music_volume(settingIO.Music_Volume *
+                                        settingIO.Master_Volume / 100)
+                    noises.sound_volume(settingIO.SFX_Volume *
+                                        settingIO.Master_Volume / 100)
                     noises.playSound("quack")
+                elif checkCords(importCords, widthButton):
                     settingIO.import_settings()
+                    noises.music_volume(settingIO.Music_Volume *
+                                        settingIO.Master_Volume / 100)
+                    noises.sound_volume(settingIO.SFX_Volume *
+                                        settingIO.Master_Volume / 100)
+                    noises.playSound("quack")
                 elif checkCords(exportCords, widthButton):
                     noises.playSound("quack")
                     settingIO.export_settings()
@@ -317,7 +340,7 @@ def settings_screen(noises):
 
                 elif checkSliderCords(left, 30, master_volume_image, screen,
                                       masterValRange, 3.95):
-                    noises.playSound("quack")
+
                     newPercent = round_Percent(
                         (pygame.mouse.get_pos()[0] -
                          (left + 30 + master_volume_image.get_width())) /
@@ -327,10 +350,11 @@ def settings_screen(noises):
                                         settingIO.Master_Volume / 100)
                     noises.sound_volume(settingIO.SFX_Volume *
                                         settingIO.Master_Volume / 100)
+                    noises.playSound("quack")
 
                 elif checkSliderCords(left, 70, music_volume_image, screen,
                                       musicValRange, 4.95):
-                    noises.playSound("quack")
+
                     newPercent = round_Percent(
                         (pygame.mouse.get_pos()[0] -
                          (left + 70 + music_volume_image.get_width())) /
@@ -338,10 +362,11 @@ def settings_screen(noises):
                     settingIO.Music_Volume = newPercent
                     noises.music_volume(settingIO.Music_Volume *
                                         settingIO.Master_Volume / 100)
+                    noises.playSound("quack")
 
                 elif checkSliderCords(left, 70, sfx_volume_image, screen,
                                       sfxValRange, 5.95):
-                    noises.playSound("quack")
+
                     newPercent = round_Percent(
                         (pygame.mouse.get_pos()[0] -
                          (left + 70 + sfx_volume_image.get_width())) /
@@ -349,6 +374,7 @@ def settings_screen(noises):
                     settingIO.SFX_Volume = newPercent
                     noises.sound_volume(settingIO.SFX_Volume *
                                         settingIO.Master_Volume / 100)
+                    noises.playSound("quack")
 
                 if inputNameBox.collidepoint(event.pos):
                     # Toggle the active variable.

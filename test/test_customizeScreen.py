@@ -4,7 +4,6 @@ sys.path.append('..')
 
 # All Untestable
 
-
 normalSkins = ['normal1.png', 'normal2.png', 'normal3.png']
 baseSkins = ['base1.png', 'base2.png']
 blueSkins = ['blue1.png']

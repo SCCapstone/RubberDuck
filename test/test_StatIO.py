@@ -48,7 +48,7 @@ def test_reset_stats():
     assert statsIO.averageGameTime == 0
     assert statsIO.averagePoints == 0
 
+
 def test_create_game_log():
     # Code Abondoned
     assert True
-    

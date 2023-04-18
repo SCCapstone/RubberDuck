@@ -1,10 +1,11 @@
 import sys
 from assets import soundHandler
-from fileio import settingIO
 import pygame
+
 sys.path.append('..')
 
 global hand
+
 
 def test_init():
     global hand
@@ -28,6 +29,7 @@ def test_music_volume():
     assert hand.music_volume(100) == True
     assert hand.music_volume(-1) == False
 
+
 def test_playSound():
     global hand
     hand.playSound("quack")
@@ -40,4 +42,3 @@ def test_playMusic():
     hand.playMusic("menus")
     assert hand.playMusic("NA") == False
     assert hand.playMusic("menus") == True
-
