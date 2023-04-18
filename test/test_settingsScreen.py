@@ -5,7 +5,7 @@ sys.path.append('..')
 
 from views import settingScreen
 
-
+# Most Untestable
 def test_settingScreen():
     assert True
 
