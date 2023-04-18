@@ -794,10 +794,14 @@ class Game():
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_q:
                     self.end_game_process()
                     values.distanceTraveled = self.totalDistanceTraveled
+                    #change to quit to home screen instead of highScore / GameOver Screen
+                    menuS.set_game_menu(menuS.menu.HOME)
+                    """
                     if (values.newHighScore):
                         menuS.set_game_menu(menuS.menu.HIGH_SCORE)
                     else:
                         menuS.set_game_menu(menuS.menu.GAMEOVER)
+                    """
 
                     main.main()
             elif self.stage == Game.SPLASH:
