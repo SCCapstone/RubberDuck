@@ -890,12 +890,12 @@ class Game():
         if self.stage == Game.SPLASH:
             self.display_splash()
         elif self.stage == Game.START:
-            self.display_message2("DUCKS IN SPACE!", "Press ESC at any time to pause game", "Press any key to start!")
+            self.display_message2("DUCKS IN SPACE!", "Press 'ESC' at any time to pause game", "Press any key to start!")
         elif self.stage == Game.PAUSED:
             self.display_message3(
                 "PAUSED",
                 "'ESC' to resume. 'R' to restart. 'Q' to quit to menu.",
-                "'S' to quit to Settings screen", "'C' to see Controls")
+                "'S' to quit to Settings screen.", "'C' to see Controls.")
         elif self.stage == Game.GAME_OVER:
             self.end_game_process()
             values.distanceTraveled = self.totalDistanceTraveled
