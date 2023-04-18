@@ -44,7 +44,6 @@ def load_settings(path):
         DifficultyLevel = convertDifficulty(Difficulty_pre)
         keys = data["keys"]
     except:
-        print("failed")
         load_default_settings()
         pygame.display.set_caption(
             "Setting File Not Found, Default Setting Loaded")
@@ -113,7 +112,6 @@ def import_settings():
     pygame.display.set_mode(values.SCREEN_SIZE)
     filename = askopenfilename()
     root.update()
-    print(filename)
     if (filename != ""):
         try:
             check_valid_setting_file(filename)
@@ -155,7 +153,9 @@ def check_valid_setting_file(path):
 
         #check valid json file
         data = json.load(open(path))
-        if (data["Player_Name"] == "" or data["Player_Name"].length() > 10):
+        if (data["Player_Name"] == ""):
+            easygui.msgbox("Invalid Player Name", "Error")
+        if (len(data["Player_Name"]) > 10):
             easygui.msgbox("Invalid Player Name", "Error")
         if (data["Master_Volume"] < 0 or data["Master_Volume"] > 100):
             easygui.msgbox("Invalid Master Volume", "Error")
@@ -165,9 +165,10 @@ def check_valid_setting_file(path):
             easygui.msgbox("Invalid SFX Volume", "Error")
         if (data["Difficulty"] != "Easy" and data["Difficulty"] != "Medium"
                 and data["Difficulty"] != "Hard"):
-            easygui.msgbox("Invalid Difficulty", "Error")
+            easygui.msgbox("Invalid Difficulty Level", "Error")
         if (data["keys"] != "wasd" and data["keys"] != "arrows"):
-            easygui.msgbox("Invalid Key Setting", "Error")
+            easygui.msgbox("Invalid Key Binding", "Error")
+            
 
     except:
         easygui.msgbox("Invalid File", "Error")
