@@ -80,7 +80,7 @@ def main():
                     button1 = "Ok"
                     button2 = "Don't Show Again"
                     button_list = [button1, button2]
-                    text = "hi"
+                    text = statsIO.help_text
                     output = buttonbox(text, "Ducks In Space", button_list)
                     if output == button2:
                         statsIO.dontShow = True
