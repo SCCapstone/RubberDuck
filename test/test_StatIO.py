@@ -19,11 +19,12 @@ def test_load_stats():
     assert statsIO.allTimeCurrency == 0
     assert statsIO.averageGameTime == 0
     assert statsIO.averagePoints == 0
-    
+
     # Restore backup of stats.json
     if os.path.exists("fileio\\stats.json.bak"):
         os.remove("fileio\\stats.json")
         os.rename("fileio\\stats.json.bak", "fileio\\stats.json")
+
 
 def test_save_stats():
     # Delete fileio\stats.json if it exists
@@ -35,7 +36,7 @@ def test_postgame_update():
     # Make backup of stats.json
     if os.path.exists("fileio\\stats.json"):
         os.rename("fileio\\stats.json", "fileio\\stats.json.bak")
-        
+
     statsIO.reset_stats()
     statsIO.postgame_update([100, 100, 100, 100, 100, 100, 100, 100])
     assert statsIO.distanceTravelled == 100
@@ -51,11 +52,12 @@ def test_postgame_update():
         os.remove("fileio\\stats.json")
         os.rename("fileio\\stats.json.bak", "fileio\\stats.json")
 
+
 def test_reset_stats():
     # Make backup of stats.json
     if os.path.exists("fileio\\stats.json"):
         os.rename("fileio\\stats.json", "fileio\\stats.json.bak")
-    
+
     statsIO.reset_stats()
     assert statsIO.distanceTravelled == 0
     assert statsIO.totalGamesPlayed == 0
@@ -71,6 +73,7 @@ def test_reset_stats():
     if os.path.exists("fileio\\stats.json.bak"):
         os.remove("fileio\\stats.json")
         os.rename("fileio\\stats.json.bak", "fileio\\stats.json")
+
 
 def test_create_game_log():
     # Code Abondoned

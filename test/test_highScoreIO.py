@@ -40,7 +40,7 @@ def test_check_for_high_score():
     # Make backup of highScore.json
     if os.path.exists("fileio\\highScore.json"):
         os.rename("fileio\\highScore.json", "fileio\\highScore.json.bak")
-    
+
     # Test that a high score is added to the board
     # Get Highest Score
     highScore = highScoreIO.high_score_board.iloc[0, 1]
@@ -79,7 +79,7 @@ def test_add_new_high_score():
     assert highScoreIO.high_score_board.iloc[0, 0] == "PlayerBe"
     assert highScoreIO.high_score_board.iloc[0, 1] == highScore + 1
     assert highScoreIO.high_score_board.iloc[0, 2] == "2020-01-01"
-    
+
     # Restore backup of highScore.json
     if os.path.exists("fileio\\highScore.json.bak"):
         os.remove("fileio\\highScore.json")

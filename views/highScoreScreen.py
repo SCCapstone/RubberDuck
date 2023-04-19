@@ -263,4 +263,3 @@ def checkCords(cords, width):
     """
     return cords[0] < pygame.mouse.get_pos()[0] < cords[0] + width and cords[
         1] < pygame.mouse.get_pos()[1] < cords[1] + 50
-

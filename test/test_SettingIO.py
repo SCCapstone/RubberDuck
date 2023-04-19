@@ -19,7 +19,7 @@ def test_load_default_settings():
     # Make backup of settings.json
     if os.path.exists("fileio\\settings.json"):
         os.rename("fileio\\settings.json", "fileio\\settings.json.bak")
-        
+
     settingIO.load_default_settings()
     assert settingIO.Player_Name == "Player"
     assert settingIO.Master_Volume == 100
@@ -32,6 +32,7 @@ def test_load_default_settings():
     if os.path.exists("fileio\\settings.json.bak"):
         os.remove("fileio\\settings.json")
         os.rename("fileio\\settings.json.bak", "fileio\\settings.json")
+
 
 def test_import_setting():
     #Untestable
@@ -64,7 +65,7 @@ def test_save_settings():
     settingIO.load_default_settings()
     settingIO.save_settings()
     assert settingIO.Player_Name == "PLAYER"
-    
+
     # Restore backup of settings.json
     if os.path.exists("fileio\\settings.json.bak"):
         os.remove("fileio\\settings.json")

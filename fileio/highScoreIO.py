@@ -59,6 +59,7 @@ def check_for_high_score(score):
         if score[1] > high_score_board.iloc[9, 1]:
             add_new_high_score(score)
 
+
 def add_new_high_score(score):
     values.newHighScore = True
     global high_score_board

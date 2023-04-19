@@ -11,6 +11,8 @@ from assets import values
 from assets import soundHandler
 
 scenario('../test/features/homeScreen.feature', 'Start game')
+
+
 @given('Game is loaded')
 def test_home_Screen():
     pygame.init()
@@ -33,9 +35,12 @@ def test_click_StartGame():
 def test_game_start():
     assert menuS.get_game_menu() == menuS.menu.GAME
 
+
 ########################################################################################
 
 scenario('../test/features/homeScreen.feature', 'Access Settings screen')
+
+
 @given('Game is loaded')
 def test_home_Screen():
     pygame.init()
@@ -50,16 +55,20 @@ def test_home_Screen():
 def test_click_Setting():
     # move mouse to setting button
     pygame.mouse.set_pos(values.screenX * .55, values.screenY * .875)
-    homeScreen.check_click(.532, .707, .868, .925, soundHandler.SFXHandler(), menuS.menu.SETTING)
+    homeScreen.check_click(.532, .707, .868, .925, soundHandler.SFXHandler(),
+                           menuS.menu.SETTING)
 
 
 @then('the view switches to the settings screen')
 def test_setting_start():
     assert menuS.get_game_menu() == menuS.menu.SETTING
 
+
 ########################################################################################
 
 scenario('../test/features/homeScreen.feature', 'Access High Scores screen')
+
+
 @given('Game is loaded')
 def test_home_Screen():
     pygame.init()
@@ -75,16 +84,19 @@ def test_click_highscore():
     # move mouse to start game button
     pygame.mouse.set_pos(values.screenX * .300, values.screenY * .895)
     homeScreen.check_click(.253, .498, .878, .925, soundHandler.SFXHandler(),
-                            menuS.menu.HIGH_SCORE)
+                           menuS.menu.HIGH_SCORE)
 
 
 @then('the view switches to the high score screen')
 def test_high_score():
     assert menuS.get_game_menu() == menuS.menu.HIGH_SCORE
 
+
 ########################################################################################
 
 scenario('../test/features/homeScreen.feature', 'Access Customize screen')
+
+
 @given('Game is loaded')
 def test_home_Screen():
     pygame.init()
@@ -107,9 +119,12 @@ def test_click_customize():
 def test_customize():
     assert menuS.get_game_menu() == menuS.menu.CUSTOMIZE
 
+
 ########################################################################################
 
 scenario('../test/features/homeScreen.feature', 'Access Stats screen')
+
+
 @given('Game is loaded')
 def test_home_Screen():
     pygame.init()
@@ -132,9 +147,12 @@ def test_click_stat():
 def test_stat():
     assert menuS.get_game_menu() == menuS.menu.STAT
 
+
 ########################################################################################
 
 scenario('../test/features/homeScreen.feature', 'Quit game')
+
+
 @given('Game is loaded')
 def test_home_Screen():
     pygame.init()
