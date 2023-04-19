@@ -167,7 +167,7 @@ def start_screen(noises):
                     noises.playSound("quack")
                     shareScoreGraphic(values.game_score, values.gameTime)
                 elif button4.collidepoint(pygame.mouse.get_pos()):
-                    # share recording
+                    # switch to high score screen
                     noises.playSound("quack")
                     menuS.set_game_menu(menuS.menu.HIGH_SCORE)
 
