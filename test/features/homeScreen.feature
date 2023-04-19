@@ -28,7 +28,7 @@ Scenario: Access Stats screen
 
 Scenario: Quit game
     Given Game is loaded
-    When the player clicks the 'Quit' button
+    When the player clicks the Quit button
     Then the application is closed
 
 #more scenarios = check if text is highlighted on screen when mouse is over it
