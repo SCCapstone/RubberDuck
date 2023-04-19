@@ -60,3 +60,8 @@ Scenario: Setting Screen - Import Button
     Given the player is on the settings screen
     When the player clicks the import button
     Then the settings are imported from a file
+
+Scenario: Setting Screen - Help Button
+    Given the player is on the settings screen
+    When the player clicks the help button
+    Then the help popup is displayed

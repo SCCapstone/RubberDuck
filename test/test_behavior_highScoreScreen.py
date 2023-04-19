@@ -13,7 +13,7 @@ from assets import values
 global value_passer
 
 scenario('../test/features/highScoreScreen.feature',
-         'High Score Screen - Play Button')
+         'High Score Screen - Play Again Button')
 
 
 @given('I am on the High Score screen')
@@ -28,7 +28,7 @@ def test_highScore_Screen():
     menuS.set_game_menu(menuS.menu.HIGH_SCORE)
 
 
-@when('I press the Play button')
+@when('I press the Play Again button')
 def test_click_StartGame():
     global value_passer
     # Calculate the position of the button

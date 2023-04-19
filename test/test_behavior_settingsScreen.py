@@ -333,7 +333,7 @@ def test_input_wasd_changed():
 
 
 @scenario('../test/features/settingsScreen.feature',
-          'Setting Screen - Change Input Arrows')
+          'Setting Screen - Change Input Arrow Keys')
 @given('the player is on the settings screen')
 def test_settings_Screen():
     pygame.init()
