@@ -4,12 +4,14 @@ sys.path.append('..')
 
 from assets import values
 
+global store
 
 def test_set_screen_size():
     values.set_screen_size(500, 600)
     assert values.screenX == 500
     assert values.screenX == 500
     assert values.SCREEN_SIZE == (500, 600)
+
 
 
 def test_sessionRunTime():
@@ -30,6 +32,7 @@ def test_setGameScore():
 def test_resetGameScore():
     values.resetGameScore()
     assert values.game_score == 0
+    
 
 
 def test_getBG():
@@ -44,7 +47,9 @@ def test_updateCoins():
     assert values.coins_in_game == 10
 
 
+
 def test_setBackground():
+    
     values.setBackground("bg1")
     assert values.current_background == "bg1"
 
@@ -57,6 +62,8 @@ def test_setSkin():
 def test_resetCoinsinGame():
     values.resetCoinsinGame()
     assert values.coins_in_game == 0
+    
+
 
 
 def test_setCoinsinGame():

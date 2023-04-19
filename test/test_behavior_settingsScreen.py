@@ -2,6 +2,9 @@ import sys
 
 sys.path.append('..')
 #import pytest_bdd methods and feature file for this test
+from pytest_bdd import *
+import pygame
 
-#scenario('../test/features/settingsScreen.feature', '<scenario name>')
-#Use given when then structure for tests
+import menuStructure as menuS
+
+

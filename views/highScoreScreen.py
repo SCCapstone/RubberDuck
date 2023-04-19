@@ -77,6 +77,7 @@ def high_score_screen(noises, gameOver=False, scoreId=-1):
         if event.type == pygame.MOUSEBUTTONDOWN:
             menuS.double_click_preventer()
             if event.button == 1:
+                print(event)
                 # check if mouse is in rect
                 if checkCords(playAgainCords, widthButton):
                     menuS.set_game_menu(menuS.menu.GAME)
@@ -262,3 +263,4 @@ def checkCords(cords, width):
     """
     return cords[0] < pygame.mouse.get_pos()[0] < cords[0] + width and cords[
         1] < pygame.mouse.get_pos()[1] < cords[1] + 50
+

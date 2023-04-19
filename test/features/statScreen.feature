@@ -1,20 +1,17 @@
 Feature: Stats screen
-    Tests whether player can share high score, access home screen, and quit game from stat screen
+    Tests button control on stats screen
 
-Scenario: User can view stats screen, quit or return to home menu
-    Given Stats screen loaded
-    When the user starts the stat screen
-    Then the screen background should be set to main.jpg
-    And three buttons should be displayed with the text "Share", "Home", and "Quit"
-    And the user should be able to click the "Share" button to share their stats
-    And the user should be able to click the "Home" button to go back to the home screen
-    And the user should be able to click the "Quit" button to quit the game
+Scenario: Stat Screen Share Button
+    Given I am on the stats screen
+    When I press the share button
+    Then I should get a share dialog
 
-Scenario: User can shares stats
-    Given Stats screen loaded
-    When the user clicks to share their stats
-    Then a file with a filename formatted as "stat-YYYYMMDD-HHMMSS.png" should be created
-    And a file dialog should appear
-    And the user should be able to choose a directory to save the file in
-    And the file should be saved to the chosen directory
-    And a message should be displayed telling the user that their stats have been saved
+Scenario: Stat Screen Home Button
+    Given I am on the stats screen
+    When I press the home button
+    Then I should see the home screen
+
+Scenario: Stat Screen Quit Button
+    Given I am on the stats screen
+    When I press the quit button
+    Then I should see the quit dialog
