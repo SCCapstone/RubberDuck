@@ -4,6 +4,7 @@ import os
 import pandas as pd
 import menuStructure as menuS
 from assets import values
+import warnings
 
 global high_score_board
 
@@ -58,11 +59,12 @@ def check_for_high_score(score):
         if score[1] > high_score_board.iloc[9, 1]:
             add_new_high_score(score)
 
-
 def add_new_high_score(score):
     values.newHighScore = True
     global high_score_board
     #use concat to add new score
+
+    warnings.filterwarnings("ignore", category=FutureWarning)
     high_score_board = high_score_board.append(
         pd.DataFrame([score], columns=["Player_Name", "Score", "Date"]))
     high_score_board = high_score_board.sort_values(by=["Score"],
