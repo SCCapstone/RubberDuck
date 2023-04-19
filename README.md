@@ -99,7 +99,7 @@ pip install pyinstaller
 ````
 
 
-# Testing
+# Testing/Running Tests
 
 In order to run tests you must have `pytest` and `pytest-bdd` installed
 
@@ -107,9 +107,21 @@ To Install:
 * pytest `pip install pytest`
 * pytest bdd `pip install pytest-bdd`
 
-To run tests, simply run
+To run all tests, simply run
 ```
 $ pytest
+``` 
+To run one files tests, simply run
+```
+$ pytest tes\{filepath}
+ex. $pytest test\test_SettingIO.py
+``` 
+which will output the test results
+
+To run a single methods test, simply run
+```
+$ pytest tes\{filepath}::{defName}
+ex. $pytest test\test_SettingIO.py::test_get_username
 ``` 
 which will output the test results
 
@@ -121,14 +133,6 @@ This uses PyTest, which can be installed using
 ```
 $ pip install pytest
 ```
-
-## Running Tests
-
-To run tests, simply run
-```
-$ pytest
-``` 
-which will output the test results
 
 # Authors
 
