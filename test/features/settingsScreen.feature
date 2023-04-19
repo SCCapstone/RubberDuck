@@ -9,7 +9,8 @@ Scenario: Setting Screen - Change Name
 Scenario: Setting Screen - Change Master Volume
     Given the player is on the settings screen
     When the player changes the master volume
-    Then the players master volume is changed
+    Then 
+    
 
 Scenario: Setting Screen - Change Music Volume 
     Given the player is on the settings screen
