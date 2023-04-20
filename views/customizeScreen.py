@@ -474,8 +474,13 @@ def customize_screen(noises, duckIndex, arrayIndex):
                         # We own the item, figure out what it is
                         if "background" in usedArray[startingDuck]:
                             values.setBackground(usedArray[startingDuck])
+                            customizationIO.current_background = startingDuck
                         else:
                             values.setSkin(usedArray[startingDuck])
+                            customizationIO.current_skin = arrayIndex
+                            customizationIO.current_hat = startingDuck
+                        customizationIO.save_customization()
+                        customizationIO.load_customization()
                     else:
                         if coins_imported >= 100:
                             # Can purchase
