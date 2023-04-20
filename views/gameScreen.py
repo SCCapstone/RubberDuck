@@ -218,7 +218,7 @@ class RocketCD(pygame.sprite.Sprite):
 class Duck(Entity):
 
     def __init__(self, images):
-        super().__init__(0, HEIGHT / 2 - 20, images[0])
+        super().__init__(GRID_SIZE, HEIGHT / 2 - 20, images[0])
         self.images = images
 
         self.health = 3
@@ -341,6 +341,8 @@ class Duck(Entity):
             self.rect.y = 0
         if self.rect.y >= HEIGHT - self.rect.height:
             self.rect.y = HEIGHT - self.rect.height
+        if self.rect.right >= WIDTH:
+            self.rect.x = WIDTH - self.rect.width
 
     def update(self, level):
         self.processEnemies(level.enemies)
@@ -464,6 +466,7 @@ class Tile():
         self.powerups = pygame.sprite.Group()
 
         self.offset = WIDTH * offset
+        self.stackLimit = (HEIGHT // (2 * GRID_SIZE)) - 1
 
         blocks = []
         blockXs = []
@@ -478,7 +481,7 @@ class Tile():
                     x -= BLOCK_IMG.get_width() * 2
             blockXs.append(x)
             y = random.randint(0, 1)
-            stack = random.randint(4, 8)
+            stack = random.randint(4, self.stackLimit)
             if y:
                 y = 0
                 bimg = BLOCK_IMG2
@@ -852,11 +855,12 @@ class Game():
 
             self.duck.rect.x -= self.gameSpeed / 2
 
+            self.distanceTraveled += self.gameSpeed
+            self.totalDistanceTraveled += self.gameSpeed
+
         if self.duck.health <= 0 or self.duck.rect.right < 0:
             self.stage = Game.GAME_OVER
 
-        self.distanceTraveled += self.gameSpeed
-        self.totalDistanceTraveled += self.gameSpeed
 
         if self.distanceTraveled > WIDTH:
             self.level.deleteTile()
