@@ -130,7 +130,7 @@ def test_click_Share():
     value_passer = highScoreScreen.checkCords(shareCords, widthButton)
 
 
-@then('I should be on the Share popup')
+@then('I should see the Share Score graphic')
 def test_go_to_share():
     global value_passer
     assert value_passer == True
