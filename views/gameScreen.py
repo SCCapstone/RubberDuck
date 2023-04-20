@@ -157,6 +157,7 @@ class Rocket(Entity):
         hit_list = pygame.sprite.spritecollide(self, level.enemies, True)
         bit_list = pygame.sprite.spritecollide(self, level.blocks, False)
         if hit_list or bit_list:
+            #SWIG BOOM SOUND
             level.addBoom(self.rect.x, self.rect.y)
             self.kill()
             duck.enemiesKilled += 1
@@ -312,10 +313,16 @@ class Duck(Entity):
                 self.rect.top = block.rect.bottom
                 self.vy = 0
 
-    def processEnemies(self, enemies):
-        hit_list = pygame.sprite.spritecollide(self, enemies, True)
+    def processEnemies(self, level):
+        hit_list = []
+        for e in level.enemies:
+            if e.rect.collidepoint(self.rect.center):
+                hit_list.append(e)
         for enemy in hit_list:
+            #SWIG OOF SOUND
+            level.addBoom(self.rect.centerx, self.rect.centery)
             self.takeDamage(enemy.power)
+            enemy.kill()
 
     def processCoins(self, coins):
         hit_list = pygame.sprite.spritecollide(self, coins, True)
@@ -345,7 +352,7 @@ class Duck(Entity):
             self.rect.x = WIDTH - self.rect.width
 
     def update(self, level):
-        self.processEnemies(level.enemies)
+        self.processEnemies(level)
         self.processCoins(level.coins)
         self.processPowerups(level.powerups)
         self.move(level.blocks)
