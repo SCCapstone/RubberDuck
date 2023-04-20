@@ -62,21 +62,15 @@ def start_screen(noises):
             menuS.double_click_preventer()
             if event.button == 1:
                 # check if mouse is in rect
-                if shareCords[0] < pygame.mouse.get_pos(
-                )[0] < shareCords[0] + widthButton and shareCords[
-                        1] < pygame.mouse.get_pos()[1] < shareCords[1] + 50:
+                if check_click(shareCords, widthButton):
                     # share stats
                     shareStats(screen)
                     noises.playSound("quack")
-                elif homeCords[0] < pygame.mouse.get_pos(
-                )[0] < homeCords[0] + widthButton and homeCords[
-                        1] < pygame.mouse.get_pos()[1] < homeCords[1] + 50:
+                elif check_click(homeCords, widthButton):
                     # go to home screeni
                     noises.playSound("quack")
                     menuS.set_game_menu(menuS.menu.HOME)
-                elif quitCoords[0] < pygame.mouse.get_pos(
-                )[0] < quitCoords[0] + widthButton and quitCoords[
-                        1] < pygame.mouse.get_pos()[1] < quitCoords[1] + 50:
+                elif check_click(quitCoords, widthButton):
                     # quit game
                     noises.playSound("quack")
                     menuS.set_game_menu(menuS.menu.QUIT)
@@ -242,3 +236,8 @@ def screen_no_button(screen):
                 (right - 10 - ValAveragePoints_text_image.get_width(),
                  screen.get_height() / 16 * 10))
     return left, right, subtitleFont
+
+def check_click(cords, widthButton):
+    return cords[0] < pygame.mouse.get_pos(
+                )[0] < cords[0] + widthButton and cords[
+                        1] < pygame.mouse.get_pos()[1] < cords[1] + 50
