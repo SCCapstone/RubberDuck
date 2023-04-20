@@ -29,7 +29,7 @@ Coins can be used to purchase skins and customizables from the show.
     
 ### Controls 
 - To move around there are two options (WASD or Arrow Keys)
-- To shoot, use the space bar
+- To shoot, point and left click with your mouse
 - To pause the game, click the escape key
 - To navigate the screens, use your mouse
 - When on the Pause Screen
