@@ -146,6 +146,7 @@ def loadAssets(purchaseSize):
 def customize_screen(noises, duckIndex, arrayIndex):
     ownedSkins = customizationIO.skins
     ownedBackgrounds = customizationIO.backgrounds
+    equipped_base_skin = customizationIO.current_skin
     startingDuck = duckIndex
     startingArray = arrayIndex
 
@@ -427,6 +428,7 @@ def customize_screen(noises, duckIndex, arrayIndex):
                     noises.playSound("quack")
                     # Base skins box
                     startingArray = 0
+                    startingDuck = equipped_base_skin
                     #TODO make text red or highlight box, then switch screen to customize different asset
                 elif xCord < pygame.mouse.get_pos(
                 )[0] < xCord + width and yCord + (
@@ -434,7 +436,9 @@ def customize_screen(noises, duckIndex, arrayIndex):
                         )[1] < yCord + height + (height + separation) * 1:
                     noises.playSound("quack")
                     # Accessories box
-                    startingArray = startingDuck + 1
+                    # Make the array the one corresponding to the currently equipped skin
+                    startingArray = equipped_base_skin + 1
+                    startingDuck = 0
                     #TODO make text red or highlight box, then switch screen to customize different asset
                 elif xCord < pygame.mouse.get_pos(
                 )[0] < xCord + width and yCord + (
@@ -475,9 +479,11 @@ def customize_screen(noises, duckIndex, arrayIndex):
                         if "background" in usedArray[startingDuck]:
                             values.setBackground(usedArray[startingDuck])
                             customizationIO.current_background = startingDuck
+                        # See if it is a base skin
+                        if "Duck" in usedArray[startingDuck]:
+                            customizationIO.current_skin = startingDuck
                         else:
                             values.setSkin(usedArray[startingDuck])
-                            customizationIO.current_skin = arrayIndex
                             customizationIO.current_hat = startingDuck
                         customizationIO.save_customization()
                         customizationIO.load_customization()
