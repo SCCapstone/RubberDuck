@@ -2,7 +2,15 @@ import pygame
 from fileio import settingIO
 
 # Dictionary of all sounds
-soundBook = {"quack": "assets/sfx/quack.ogg"}
+soundBook = {
+    "quack": "assets/sfx/quack.ogg",
+    "boost": "assets/sfx/boost.ogg",
+    "coin": "assets/sfx/coin.ogg",
+    "boom": "assets/sfx/boom.ogg",
+    "rocket": "assets/sfx/rocket.ogg",
+    "oof": "assets/sfx/oof.ogg",
+    "heal": "assets/sfx/heal.ogg"
+}
 
 # Dictionary of all music tracks
 musicBook = {
@@ -48,7 +56,6 @@ class SFXHandler:
         if sound in soundBook:
             playedSound = pygame.mixer.Sound(soundBook[sound])
             playedSound.set_volume(self.Sound_volume_var)
-            #change sound volume
             pygame.mixer.Sound.play(playedSound)
             return True
         return False

@@ -12,9 +12,11 @@ from fileio import statsIO
 from fileio import highScoreIO
 from fileio import customizationIO
 from views import gameScreen
+from assets import soundHandler
 
 global BACKGROUND_IMG
 global DUCK_IMG
+global noiseMaker
 
 #import menuStructure as menuS
 
@@ -121,6 +123,7 @@ class Entity(pygame.sprite.Sprite):
 class Rocket(Entity):
 
     def __init__(self, x, y, image):
+        noiseMaker.playSound("rocket")
         super().__init__(x - 30, y + 15, image)
 
         pos = pygame.mouse.get_pos()
@@ -161,7 +164,7 @@ class Rocket(Entity):
         hit_list = pygame.sprite.spritecollide(self, level.enemies, True)
         bit_list = pygame.sprite.spritecollide(self, level.blocks, False)
         if hit_list or bit_list:
-            #SWIG BOOM SOUND
+            noiseMaker.playSound("boom")
             level.addBoom(self.rect.x, self.rect.y)
             self.kill()
             duck.enemiesKilled += 1
@@ -275,6 +278,7 @@ class Duck(Entity):
 
     def takeDamage(self, amount):
         if self.invincibility == 0:
+            noiseMaker.playSound("oof")
             self.health -= amount
             self.invincibility = 20
         if self.health <= 0:
@@ -323,7 +327,6 @@ class Duck(Entity):
             if e.rect.collidepoint(self.rect.center):
                 hit_list.append(e)
         for enemy in hit_list:
-            #SWIG OOF SOUND
             level.addBoom(self.rect.centerx, self.rect.centery)
             self.takeDamage(enemy.power)
             enemy.kill()
@@ -335,6 +338,7 @@ class Duck(Entity):
             values.game_score += coin.value
             self.coins += 1
             values.coins_in_game += 1
+            noiseMaker.playSound("coin")
             coin.kill()
 
     def processPowerups(self, powerups):
@@ -411,8 +415,10 @@ class Powerup(Entity):
 
     def apply(self, duck):
         if self.effect == "Health":
+            noiseMaker.playSound("heal")
             duck.health += 1
         if self.effect == "Speed":
+            noiseMaker.playSound("boost")
             if random.randint(0, 9) == 0:
                 duck.speed -= 3
             duck.speed += 3
@@ -977,8 +983,10 @@ class Game():
         highScoreIO.check_for_high_score(score)
 
 
-def gameScreen():
+def gameScreen(noises):
     global UP, DOWN, LEFT, RIGHT
+    global noiseMaker
+    noiseMaker = noises
     game = Game()
     game.reset()
     game.loop()

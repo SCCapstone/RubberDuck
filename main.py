@@ -92,7 +92,7 @@ def main():
             if not ran:
                 noises.playMusic("gameplay")
             ran = True
-            gameScreen.gameScreen()
+            gameScreen.gameScreen(noises)
         elif menuS.get_game_menu() == menuS.menu.CUSTOMIZE:
             startingDuck, startingTab = customizeScreen.customize_screen(
                 noises, startingDuck, startingTab)
