@@ -12,6 +12,8 @@ customizationIO.load_customization()
 ownedSkins = customizationIO.skins
 ownedBackgrounds = customizationIO.backgrounds
 
+# Load all the assets
+
 normalSkins = [
     "assets/sprites/ducks/baseDuck.png", "assets/sprites/ducks/blueDuck.png",
     "assets/sprites/ducks/brownDuck.png", "assets/sprites/ducks/grayDuck.png",
@@ -79,6 +81,7 @@ current_hat_index = customizationIO.current_hat
 current_background_index = customizationIO.current_background
 tempArray = []
 
+# Set the current skin
 if current_skin_index == 0:
     tempArray = normalSkins
 elif current_skin_index == 1:
@@ -97,6 +100,8 @@ elif current_skin_index == 6:
 values.setSkin(tempArray[current_hat_index])
 
 
+# Load all the assets for the customize screen
+# Returns a list of all the assets
 def loadAssets(purchaseSize):
     allSkins = []
     baseAccessories = []
@@ -201,8 +206,6 @@ def customize_screen(noises, duckIndex, arrayIndex):
     screen.blit(coins,
                 (coinsCords[0] - screen.get_width() * .05, coinsCords[1]))
 
-    #TODO add coin asset plus amount of coins available
-
     #load duck base skins
     purchaseSize = int(values.screenX * .1504)
     allSkins, baseAccessories, blueAccessories, brownAccessories, grayAccessories, greenAccessories, richAccessories, backgrounds = loadAssets(
@@ -232,9 +235,6 @@ def customize_screen(noises, duckIndex, arrayIndex):
     if arrayIndex == 7:
         previewSize = previewSize * 2 / 3
 
-    #TODO Purchase / Equip Skin
-
-    #TODO Left/Right arrows to browse skins to purchase / equip
     xArr1 = math.floor(screen.get_width() * .3183)
     yArr = math.floor(screen.get_height() * .6267)
     wArr = math.floor(screen.get_width() * .0579)
@@ -308,7 +308,6 @@ def customize_screen(noises, duckIndex, arrayIndex):
     currentPreview = pygame.transform.scale(currentArray[startingDuck],
                                             (previewSize, previewSize))
 
-    #TODO Preview of Duck in Current State
     if arrayIndex < 7:
         screen.blit(currentPreview,
                     (screen.get_width() / 3, screen.get_height() / 4))
@@ -429,7 +428,6 @@ def customize_screen(noises, duckIndex, arrayIndex):
                     # Base skins box
                     startingArray = 0
                     startingDuck = equipped_base_skin
-                    #TODO make text red or highlight box, then switch screen to customize different asset
                 elif xCord < pygame.mouse.get_pos(
                 )[0] < xCord + width and yCord + (
                         height + separation) * 1 < pygame.mouse.get_pos(
@@ -439,7 +437,6 @@ def customize_screen(noises, duckIndex, arrayIndex):
                     # Make the array the one corresponding to the currently equipped skin
                     startingArray = equipped_base_skin + 1
                     startingDuck = 0
-                    #TODO make text red or highlight box, then switch screen to customize different asset
                 elif xCord < pygame.mouse.get_pos(
                 )[0] < xCord + width and yCord + (
                         height + separation) * 2 < pygame.mouse.get_pos(
@@ -448,7 +445,6 @@ def customize_screen(noises, duckIndex, arrayIndex):
                     # Backgrounds box
                     startingArray = 7
                     startingDuck = 0
-                    #TODO make text red or highlight box, then switch screen to customize different asset
 
                     #click on left arrow, move boxes to the left
                 elif xArr1 < pygame.mouse.get_pos(
