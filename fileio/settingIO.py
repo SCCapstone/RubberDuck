@@ -34,6 +34,7 @@ def load_settings(path):
     global Player_Name, Master_Volume, Music_Volume
     global SFX_Volume, DifficultyLevel, keys
     try:
+        print("Loading Settings")
         data = json.load(open(path))
 
         Player_Name = data["Player_Name"]
@@ -115,11 +116,9 @@ def import_settings():
     root.update()
     print(filename)
     if (filename != ""):
-        try:
-            check_valid_setting_file(filename)
-            load_settings(filename)
-        except:
-            easygui.msgbox("Invalid File", "Error")
+        check_valid_setting_file(filename)
+        load_settings(filename)
+       
 
 
 def export_settings():
@@ -147,30 +146,29 @@ def export_settings():
 
 def check_valid_setting_file(path):
 
-    try:
-        if (path == ""):
-            easygui.msgbox("Invalid File", "Error")
-        if (path[-5:] != ".json"):
-            easygui.msgbox("Invalid File Type", "Error")
-
-        #check valid json file
-        data = json.load(open(path))
-        if (data["Player_Name"] == "" or data["Player_Name"].length() > 10):
-            easygui.msgbox("Invalid Player Name", "Error")
-        if (data["Master_Volume"] < 0 or data["Master_Volume"] > 100):
-            easygui.msgbox("Invalid Master Volume", "Error")
-        if (data["Music_Volume"] < 0 or data["Music_Volume"] > 100):
-            easygui.msgbox("Invalid Music Volume", "Error")
-        if (data["SFX_Volume"] < 0 or data["SFX_Volume"] > 100):
-            easygui.msgbox("Invalid SFX Volume", "Error")
-        if (data["Difficulty"] != "Easy" and data["Difficulty"] != "Medium"
-                and data["Difficulty"] != "Hard"):
-            easygui.msgbox("Invalid Difficulty", "Error")
-        if (data["keys"] != "wasd" and data["keys"] != "arrows"):
-            easygui.msgbox("Invalid Key Setting", "Error")
-
-    except:
+    
+    if (path == ""):
         easygui.msgbox("Invalid File", "Error")
+    if (path[-5:] != ".json"):
+        easygui.msgbox("Invalid File Type", "Error")
+
+    #check valid json file
+    data = json.load(open(path))
+    if (data["Player_Name"] == "" or len(data["Player_Name"]) > 10):
+        easygui.msgbox("Invalid Player Name", "Error")
+    if (data["Master_Volume"] < 0 or data["Master_Volume"] > 100):
+        easygui.msgbox("Invalid Master Volume", "Error")
+    if (data["Music_Volume"] < 0 or data["Music_Volume"] > 100):
+        easygui.msgbox("Invalid Music Volume", "Error")
+    if (data["SFX_Volume"] < 0 or data["SFX_Volume"] > 100):
+         easygui.msgbox("Invalid SFX Volume", "Error")
+    if (data["Difficulty"] != "Easy" and data["Difficulty"] != "Medium"
+            and data["Difficulty"] != "Hard"):
+        easygui.msgbox("Invalid Difficulty", "Error")
+    if (data["keys"] != "wasd" and data["keys"] != "arrows"):
+        easygui.msgbox("Invalid Key Setting", "Error")
+
+    
 
 
 def get_username():
