@@ -12,7 +12,6 @@ from fileio import statsIO
 from fileio import highScoreIO
 from fileio import customizationIO
 from views import gameScreen
-from assets import soundHandler
 
 global BACKGROUND_IMG
 global DUCK_IMG
@@ -90,7 +89,8 @@ PLAYER_LASER = loadImage(os.path.join("assets", "sprites",
                          scale=False)
 SPEED_IMG = loadImage(os.path.join("assets", "sprites", "Speed_Symbol.png"),
                       scale=True)
-BACKGROUND_IMG = loadImage(values.getBG(customizationIO.current_background), False)
+BACKGROUND_IMG = loadImage(values.getBG(customizationIO.current_background),
+                           False)
 HEART_IMG = loadImage(os.path.join("assets", "sprites", "Heart.png"), True)
 
 COIN_IMG_SM = pygame.transform.scale(COIN_IMG, (32, 32))
@@ -552,7 +552,8 @@ class Boom(Entity):
 class Level():
 
     def __init__(self, difficulty):
-        BACKGROUND_IMG = loadImage(values.getBG(customizationIO.current_background), False)
+        BACKGROUND_IMG = loadImage(
+            values.getBG(customizationIO.current_background), False)
 
         self.x = 0
 
@@ -685,7 +686,8 @@ class Game():
 
     def reset(self):
         DUCK_IMG = loadImage(values.current_skin, scale=True)
-        BACKGROUND_IMG = loadImage(values.getBG(customizationIO.current_background), False)
+        BACKGROUND_IMG = loadImage(
+            values.getBG(customizationIO.current_background), False)
         # print(values.getBG(customizationIO.current_background)) prints the correct image location???
         self.elapsedTime = 0
         self.duck = Duck([DUCK_IMG])
@@ -880,7 +882,6 @@ class Game():
 
         if self.duck.health <= 0 or self.duck.rect.right < 0:
             self.stage = Game.GAME_OVER
-
 
         if self.distanceTraveled > WIDTH:
             self.level.deleteTile()

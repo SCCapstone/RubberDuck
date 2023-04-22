@@ -237,7 +237,8 @@ def screen_no_button(screen):
                  screen.get_height() / 16 * 10))
     return left, right, subtitleFont
 
+
 def check_click(cords, widthButton):
     return cords[0] < pygame.mouse.get_pos(
-                )[0] < cords[0] + widthButton and cords[
-                        1] < pygame.mouse.get_pos()[1] < cords[1] + 50
+    )[0] < cords[0] + widthButton and cords[1] < pygame.mouse.get_pos(
+    )[1] < cords[1] + 50

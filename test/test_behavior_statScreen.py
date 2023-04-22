@@ -13,8 +13,8 @@ from assets import values
 
 global value_passer
 
-scenario('../test/features/statScreen.feature',
-         'Stat Screen Share Button')
+scenario('../test/features/statScreen.feature', 'Stat Screen Share Button')
+
 
 @given('I am on the stats screen')
 def test_stat_Screen():
@@ -26,7 +26,8 @@ def test_stat_Screen():
     pygame.display.set_caption("Ducks In Space")
     pygame.display.update()  #print screenX, screenY
     menuS.set_game_menu(menuS.menu.STAT)
-    
+
+
 @when('I press the share button')
 def test_click_Share():
     global value_passer
@@ -40,17 +41,18 @@ def test_click_Share():
     pygame.event.post(mouse_event)
     value_passer = statScreen.check_click(shareCords, widthButton)
 
-    
+
 @then('the share stats graphic should be displayed')
 def test_shareStats_graphic():
     global value_passer
     assert value_passer == True
     value_passer = None
-    
+
+
 ########################################################################################
 
-scenario('../test/features/statScreen.feature',
-         'Stat Screen Home Button')
+scenario('../test/features/statScreen.feature', 'Stat Screen Home Button')
+
 
 @given('I am on the stats screen')
 def test_stat_Screen():
@@ -62,7 +64,8 @@ def test_stat_Screen():
     pygame.display.set_caption("Ducks In Space")
     pygame.display.update()  #print screenX, screenY
     menuS.set_game_menu(menuS.menu.STAT)
-    
+
+
 @when('I press the home button')
 def test_click_Home():
     global value_passer
@@ -77,17 +80,19 @@ def test_click_Home():
     mouse_event = pygame.event.Event(pygame.MOUSEBUTTONDOWN, pos=mouse_pos)
     pygame.event.post(mouse_event)
     value_passer = statScreen.check_click(homeCords, widthButton)
-    
+
+
 @then('the home screen should be displayed')
 def test_return_home():
     global value_passer
     assert value_passer == True
     value_passer = None
-    
+
+
 ########################################################################################
 
-scenario('../test/features/statScreen.feature',
-         'Stat Screen Quit Button')
+scenario('../test/features/statScreen.feature', 'Stat Screen Quit Button')
+
 
 @given('I am on the stats screen')
 def test_stat_Screen():
@@ -99,7 +104,8 @@ def test_stat_Screen():
     pygame.display.set_caption("Ducks In Space")
     pygame.display.update()  #print screenX, screenY
     menuS.set_game_menu(menuS.menu.STAT)
-    
+
+
 @when('I press the quit button')
 def test_click_quit():
     global value_passer
@@ -116,7 +122,8 @@ def test_click_quit():
     mouse_event = pygame.event.Event(pygame.MOUSEBUTTONDOWN, pos=mouse_pos)
     pygame.event.post(mouse_event)
     value_passer = statScreen.check_click(quitCoords, widthButton)
-    
+
+
 @then('the application should close')
 def test_stat_quit():
     global value_passer
