@@ -476,9 +476,11 @@ def customize_screen(noises, duckIndex, arrayIndex):
                             values.setBackground(usedArray[startingDuck])
                             customizationIO.current_background = startingDuck
                         # See if it is a base skin
-                        if "Duck" in usedArray[startingDuck]:
+                        elif "Duck" in usedArray[startingDuck]:
                             customizationIO.current_skin = startingDuck
-                        else:
+                            customizationIO.current_hat = 0
+                            values.setSkin(usedArray[startingDuck])
+                        elif "ducks" in usedArray[startingDuck]:
                             values.setSkin(usedArray[startingDuck])
                             customizationIO.current_hat = startingDuck
                         customizationIO.save_customization()

@@ -109,7 +109,6 @@ def getBG(index):
     else:
         return "assets/backgrounds/pixelSpace.png"
 
-
 newHighScore = False
 newHighScoreId = -1
 
