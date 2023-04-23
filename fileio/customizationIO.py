@@ -35,9 +35,9 @@ def load_new_customization():
     global coins, current_skin, current_hat
     global current_background
 
-    skins = []
+    skins = ["assets/sprites/ducks/baseDuck.png"]
     hats = []
-    backgrounds = []
+    backgrounds = ["assets/backgrounds/base_bg.jpg"]
     coins = 0
     current_skin = 0
     current_hat = 0
