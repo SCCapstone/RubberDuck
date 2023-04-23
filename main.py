@@ -19,12 +19,13 @@ from fileio import highScoreIO
 from fileio import statsIO
 from fileio import customizationIO
 
+# Initialize pygame
 pygame.init()
-# Make game full screen
 pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Ducks In Space")
 pygame.display.update()
 
+# Load the values
 statsIO.load_stats()
 settingIO.load_settings(values.SETTING_PATH)
 highScoreIO.load_high_scores()
@@ -38,6 +39,7 @@ values.current_background = values.getBG(customizationIO.current_background)
 # Initialize the mixer
 noises = soundHandler.SFXHandler()
 
+# Set the menu structure
 menuS.set_game_menu(menuS.menu.HOME)
 values.set_screen_size(pygame.display.get_surface().get_size()[0],
                        pygame.display.get_surface().get_size()[1])
@@ -63,17 +65,13 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DELETE:
                     menuS.set_game_menu(menuS.menu.QUIT)
-            # if event.type == pygame.MOUSEBUTTONDOWN:
-            #    x, y = pygame.mouse.get_pos()
-            #   print(
-            #       x / pygame.display.get_surface().get_size()[0],
-            #       y / pygame.display.get_surface().get_size()[1])
-
         if menuS.get_game_menu() == menuS.menu.HOME:
             if visitedHighScore:
                 noises.playMusic("menus")
                 visitedHighScore = False
             homeScreen.home_screen(noises)
+
+            # Shows the Welcome Message on the first run
             if firstRun:
                 firstRun = False
                 if not statsIO.dontShow:
@@ -105,6 +103,8 @@ def main():
             settingScreen.settings_screen(noises)
         elif menuS.get_game_menu() == menuS.menu.GAMEOVER:
             gameOverScreen.start_screen(noises)
+
+        # Quits the game and saves the values
         elif menuS.get_game_menu() == menuS.menu.QUIT:
             statsIO.save_stats()
             settingIO.save_settings()
@@ -117,6 +117,7 @@ if __name__ == "__main__":
     main()
 
 
+# Quits the game and saves the values
 def quit_game():
     """summary: quits the game
     """

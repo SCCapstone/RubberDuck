@@ -82,6 +82,14 @@ def start_screen(noises):
 
 
 def shareStats(screen):
+    """summary: Shares the stats screen to an image file
+
+    Args:
+        screen (pygame.Surface): The screen to share
+        
+    Returns:
+        file to computer location specified by user
+    """
     #Clear screen
     filestring = "stat-" + time.strftime("%Y%m%d-%H%M%S") + ".png"
     # Get Path to save file
@@ -119,6 +127,16 @@ def shareStats(screen):
 
 
 def screen_no_button(screen):
+    """summary: Draws the screen without the buttons for sharing
+
+    Args:
+        screen (pygame.Surface): The screen to draw on
+        
+    Returns:
+        left (int): left side of box
+        right (int): right side of box
+        subtitleFont (pygame.font.Font): font for subtitle
+    """
     background = pygame.image.load(
         os.path.join("assets", "backgrounds", "tertiary.jpg"))
 
@@ -239,6 +257,7 @@ def screen_no_button(screen):
 
 
 def check_click(cords, widthButton):
+    """Checks if the mouse is within the bounds of a button"""
     return cords[0] < pygame.mouse.get_pos(
     )[0] < cords[0] + widthButton and cords[1] < pygame.mouse.get_pos(
     )[1] < cords[1] + 50

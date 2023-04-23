@@ -1,3 +1,5 @@
+"""summary: Runs the Menu Structure for full application
+"""
 from enum import Enum
 import time
 
