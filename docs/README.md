@@ -1,5 +1,5 @@
 # Ducks In Space
-[<img src="https://cdn.pixabay.com/photo/2016/12/18/13/45/download-1915753_960_720.png" width="25"/>](https://github.com/SCCapstone/RubberDuck/releases/tag/v0.9) Download the Newest Release Here!
+[<img src="https://cdn.pixabay.com/photo/2016/12/18/13/45/download-1915753_960_720.png" width="25"/>](https://github.com/SCCapstone/RubberDuck/releases/tag/v1.0) Download the Newest Release Here!
 
 
 ## About The Game
