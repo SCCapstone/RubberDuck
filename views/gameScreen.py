@@ -168,6 +168,8 @@ class Rocket(Entity):
             level.addBoom(self.rect.x, self.rect.y)
             self.kill()
             duck.enemiesKilled += 1
+            duck.score += 75
+            values.game_score += 75
 
 
 class Block(Entity):
@@ -231,6 +233,7 @@ class Duck(Entity):
 
         self.health = 3
         self.maxHealth = 3
+        self.point_decimals = 0
 
         self.image_index = 0
         self.steps = 0
@@ -312,6 +315,14 @@ class Duck(Entity):
 
         self.rect.y += self.vy
         hit_list = pygame.sprite.spritecollide(self, blocks, False)
+        
+        # Add points for moving forward
+        if self.vx > 0:
+            self.point_decimals += .1 * self.speed / 10
+            if self.point_decimals >= 1:
+                self.score += int(self.point_decimals)
+                values.game_score += int(self.point_decimals)
+                self.point_decimals -= int(self.point_decimals)
 
         for block in hit_list:
             if self.vy > 0:
@@ -373,6 +384,7 @@ class Duck(Entity):
 
         if self.health > self.maxHealth:
             self.health = self.maxHealth
+            self.score += 30
 
         if self.invincibility > 0:
             self.invincibility -= 1
