@@ -40,8 +40,13 @@ Other Packages used (most likely already installed with Python 3.6.5):
 * math `pip install math`
 * time `pip install time`
 * pygame_menu `pip install pygame_menu`
+* pandas `pip install pandas`
 * datetime `pip install datetime`
 * json `pip install json`
+* shutil `pip install shutil`
+* easygui `pip install easygui`
+* enum `pip install enum`
+* tkinter `pip install tk`
 * (TESTING ONLY) pytest `pip install pytest`
 * (TESTING ONLY) pytest bdd `pip install pytest-bdd`
 
