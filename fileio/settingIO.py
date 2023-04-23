@@ -118,7 +118,6 @@ def import_settings():
     if (filename != ""):
         check_valid_setting_file(filename)
         load_settings(filename)
-       
 
 
 def export_settings():
@@ -146,7 +145,6 @@ def export_settings():
 
 def check_valid_setting_file(path):
 
-    
     if (path == ""):
         easygui.msgbox("Invalid File", "Error")
     if (path[-5:] != ".json"):
@@ -161,14 +159,12 @@ def check_valid_setting_file(path):
     if (data["Music_Volume"] < 0 or data["Music_Volume"] > 100):
         easygui.msgbox("Invalid Music Volume", "Error")
     if (data["SFX_Volume"] < 0 or data["SFX_Volume"] > 100):
-         easygui.msgbox("Invalid SFX Volume", "Error")
+        easygui.msgbox("Invalid SFX Volume", "Error")
     if (data["Difficulty"] != "Easy" and data["Difficulty"] != "Medium"
             and data["Difficulty"] != "Hard"):
         easygui.msgbox("Invalid Difficulty", "Error")
     if (data["keys"] != "wasd" and data["keys"] != "arrows"):
         easygui.msgbox("Invalid Key Setting", "Error")
-
-    
 
 
 def get_username():
