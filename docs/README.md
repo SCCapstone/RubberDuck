@@ -9,8 +9,6 @@ Ducks in Space is an arcade style video game featuring a mighty duck fighting sp
 ## How Its Played
 
 <iframe width="967" height="544" src="https://www.youtube.com/embed/S2V2HkFfNGk" title="Ducks In Space Demo Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-  
-</details> 
     
 Ducks in Space can be played on an Windows device using Windows 10+ operating system. In order to play it, download the release, unzip the folder, and run the Ducks In Space Executable file, simple as that! The controls of the game are quiet simple. Options can be changed for some and will be outlined below.
     
